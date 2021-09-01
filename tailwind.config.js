@@ -1,8 +1,7 @@
-const colors = require('tailwindcss/colors')
+// const colors = require('tailwindcss/colors')
 
 module.exports = {
   mode: 'jit',
-  prefix: 'fj-',
   purge: [
     './components/**/*.{vue,js}',
     './layouts/**/*.vue',
@@ -12,9 +11,9 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      gray: colors.gray
-    },
+    // colors: {
+    //   gray: colors.gray
+    // },
     fontFamily: {},
 
     extend: {},
