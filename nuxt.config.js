@@ -32,6 +32,8 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // 
+    '@nuxtjs/svg'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -59,11 +61,22 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
 
+  // tailwindcss module configuration: https://tailwindcss.com/docs
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
     configPath: 'tailwind.config.js',
     exposeConfig: false,
     config: {}
+  },
+
+  // svg module configuration: https://github.com/nuxt-community/svg-module
+  svg: {
+    vueSvgLoader: {
+        // vue-svg-loader options
+    },
+    svgSpriteLoader: {
+        // svg-sprite-loader options
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
