@@ -83,5 +83,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // debugger 调试
+    extend(config, { isClient }) {
+      // Run ESLint on save
+      if (isClient) {
+        config.devtool = 'eval-source-map'
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 export interface Breadcrumb {
   title: string;
-  href: string;
+  icon?: string;
+  href?: string;
 }
 
 export interface BreadcrumbState {
