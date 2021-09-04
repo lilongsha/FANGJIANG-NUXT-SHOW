@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="block">
     <div>Footer.vue</div>
   </div>
 </template>

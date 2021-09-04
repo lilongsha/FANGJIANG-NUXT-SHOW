@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-blue-600 h-full">
-    <div>Left.vue</div>
+  <div class="flex flex-row justify-center items-center bg-blue-600 h-full">
+    <span class="text-white">登录/注册</span>
   </div>
 </template>
 

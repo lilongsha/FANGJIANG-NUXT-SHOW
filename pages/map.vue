@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>关于-加入我们</span>
+    <span>地图</span>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'JoinUs',
+  name: 'Map',
   data () {
     return {
     }

@@ -2,6 +2,9 @@
   <div>
     <span>首页</span>
     <span>获取数据</span>
+    <span>{{ isHome }}</span>
+    <span>{{ params }}</span>
+    <span>{{ path }}</span>
   </div>
 </template>
 
@@ -10,6 +13,13 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'Home',
+  asyncData({ params, route }) {
+    return {
+      isHome: true,
+      params,
+      path: route.path,
+    }
+  },
   data () {
     return {
       areas: [], // 区域

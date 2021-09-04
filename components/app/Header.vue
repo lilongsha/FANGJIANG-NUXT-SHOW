@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div class="">
     <div>Header.vue</div>
+    <div>{{item}}</div>
+    <div @click="remove"></div>
   </div>
 </template>
 
@@ -13,8 +15,15 @@ export default Vue.extend({
     return {
     }
   },
+  computed: {
+    item () {
+      return this.$store.state.breadcrumbItems
+    }
+  },
   methods: {
-
-  }
+    remove() {
+      this.$store.commit('removeBreadcrumb', '/info/list')
+    }
+  },
 })
 </script>
