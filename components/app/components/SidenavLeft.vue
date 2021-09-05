@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row h-full justify-center items-center bg-blue-600">
+  <div class="flex flex-row items-center justify-center h-full ">
     <img class="h-4/5" src="~/assets/svg/logo.svg" />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-row w-full h-full">
+  <div class="relative flex flex-row justify-center w-full h-full">
     <!-- 位置信息 -->
-    <div class="flex flex-row items-center justify-center h-full">
+    <div class="absolute left-0 flex flex-row items-center justify-center h-full">
       <span class="text-lg text-white">
         {{ getLocation }}
       </span>
@@ -24,17 +24,13 @@
       </svg>
     </div>
     <div class="flex flex-row items-center pl-4 space-x-6 text-xl text-white">
-      <a href="/" target="_blank">首页</a>
-      <a href="/house/list" target="_blank">新房</a>
-      <a href="/info/list" target="_blank">资讯</a>
-      <a href="/map" target="_blank">地图</a>
-      <div class="text-center group">
-        <a class="w-auto group" href="/about/company" target="_blank">关于</a>
-        <div class="absolute hidden p-2 bg-blue-600 group-hover:block">
-          <a href="/about/joinUs" target="_blank" class="text-sm text-white">加入我们</a>
-        </div>
-      </div>
+      <a class="fj-href" href="/" target="_blank">首页</a>
+      <a class="fj-href" href="/house/list" target="_blank">新房</a>
+      <a class="fj-href" href="/info/list" target="_blank">资讯</a>
+      <a class="fj-href" href="/map" target="_blank">地图</a>
+      <a class="fj-href" href="/about/company" target="_blank">关于</a>
     </div>
+    <div class="absolute right-0 flex flex-row items-center justify-center h-full text-lg text-white">搜索</div>
   </div>
 </template>
 
@@ -55,3 +51,12 @@ export default Vue.extend({
   methods: {},
 })
 </script>
+<style scoped>
+a {
+  @apply text-white hover:text-white;
+};
+
+.fj-href {
+  @apply flex flex-row items-center h-full border-white hover:border-b-2;
+}
+</style>

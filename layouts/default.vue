@@ -1,11 +1,11 @@
 <template>
-  <div class="wrapper">
-    <div class="content">
-      <div class="columns">
+  <div>
+    <div>
+      <div>
         <AppSidenav />
-        <main class="pt-16">
+        <main>
           <AppHeader />
-          <nuxt class="container" />
+          <nuxt />
           <AppFooter />
         </main>
       </div>

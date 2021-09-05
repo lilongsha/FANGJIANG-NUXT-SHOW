@@ -1,8 +1,8 @@
-// import { BreadcrumbState } from "./type";
+import { BreadcrumbState } from "./type";
 
-// // breadcrumb
-// const breadcrumbS:BreadcrumbState = {
-//   breadcrumbItems: [{title: '首页', href: '/', icon: 'home'}]
-// };
+// breadcrumb
+const breadcrumbS:BreadcrumbState = {
+  breadcrumbItems: []
+};
 
-// export default breadcrumbS;
+export default breadcrumbS;

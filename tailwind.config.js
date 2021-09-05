@@ -16,7 +16,11 @@ module.exports = {
     // },
     fontFamily: {},
 
-    extend: {},
+    extend: {
+      backgroundImage: _theme => ({
+        'index-menu': "url('~/assets/img/index-menu.png')",
+       })
+    },
   },
   variants: {
     extend: {},

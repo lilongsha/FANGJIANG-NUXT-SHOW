@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-center items-center bg-blue-600 h-full">
+  <div class="flex flex-row items-center justify-center h-full">
     <span class="text-white">登录/注册</span>
   </div>
 </template>
