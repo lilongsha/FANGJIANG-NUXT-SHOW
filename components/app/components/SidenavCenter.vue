@@ -45,7 +45,7 @@ export default Vue.extend({
   },
   computed: {
     getLocation() {
-      return '石家庄'
+      return this.$store.state.app.city;
     },
   },
   methods: {},

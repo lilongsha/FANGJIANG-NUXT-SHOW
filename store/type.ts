@@ -5,6 +5,13 @@ export interface Breadcrumb {
   href?: string;
 }
 
-export interface BreadcrumbState {
+export interface Location {
+  province?: string;
+  city?: string;
+}
+
+export interface AppState {
+  province?: string;
+  city?: string;
   breadcrumbItems: Breadcrumb[]
 }

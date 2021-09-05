@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Breadcrumb } from '~/store/app/type';
+import { Breadcrumb } from '@/store/modules/app/type';
 
 export default Vue.extend({
   name: 'AppHeader',
@@ -24,12 +24,11 @@ export default Vue.extend({
   },
   computed: {
     breadcrumbItems () {
-      return this.$store.state.breadcrumbItems;
+      return this.$store.state.app.breadcrumbItems;
     }
   },
   methods: {
     go(item: Breadcrumb) {
-      debugger;
       const param = item.param;
       this.$router.push({ path: item.href, query: { ...param } })
     }

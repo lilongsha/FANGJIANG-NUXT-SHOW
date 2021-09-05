@@ -1,13 +1,14 @@
-import breadcrumbS from './app/state'
-import breadcrumbM from './app/mutations'
-export const state = () => ({
-  counter: 0,
-  ...breadcrumbS,
+import Vue from 'vue'
+import Vuex from 'vuex'
+import app from './modules/app'
+
+
+Vue.use(Vuex)
+
+const store = ()=>new Vuex.Store({
+	modules:{
+		app,
+	},
 })
 
-export const mutations = {
-  increment(state: any) {
-    state.counter++
-  },
-  ...breadcrumbM,
-}
+export default store

@@ -122,6 +122,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapMutations } from 'vuex';
 import { BannerModel } from '@/api/banner/model/bannerModel'
 
 export default Vue.extend({
@@ -158,7 +159,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.$store.commit('reset')
+    this.BREADCRUMB_RE_SET();
   },
   methods: {
     openMenu(flag: number) {
@@ -169,6 +170,7 @@ export default Vue.extend({
       this.menuShow.isShow = false;
       this.menuShow.flag = 0;
     },
+    ...mapMutations('app', ['BREADCRUMB_RE_SET']),
   },
 })
 </script>
