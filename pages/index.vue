@@ -6,11 +6,11 @@
       <!-- 轮播图功能区域 -->
       <div class="container h-full mx-auto">
         <!-- 菜单 -->
-        <div class="menu-box">
+        <div class="menu-box"  @mouseleave="closeMenu()">
           <!-- 菜单左侧 -->
           <div class="menu-box-left">
             <!-- 菜单区域 -->
-            <div class="menu-item group" @mouseover="openMenu(1)" @mouseleave="closeMenu()">
+            <div class="menu-item group" @mouseover="openMenu(1)">
               <div class="menu-item-left">
                 <div class="menu-item-left-content">
                   <span class="">
@@ -39,7 +39,7 @@
               </div>
             </div>
             <!-- 菜单商圈 -->
-            <div class="menu-item group" @mouseover="openMenu(2)" @mouseleave="closeMenu()">
+            <div class="menu-item group" @mouseover="openMenu(2)">
               <div class="menu-item-left">
                 <div class="flex flex-row items-center transition-all group-hover:pl-4">
                   <span class="">
@@ -68,7 +68,7 @@
               </div>
             </div>
             <!-- 菜单地铁 -->
-            <div class="menu-item group" @mouseover="openMenu(3)" @mouseleave="closeMenu()">
+            <div class="menu-item group" @mouseover="openMenu(3)">
               <div class="menu-item-left">
                 <div class="flex flex-row items-center transition-all group-hover:pl-4">
                   <span class="">
@@ -99,9 +99,74 @@
           </div>
           <!-- 菜单右侧menu-right -->
           <div v-show="menuShow.isShow" class="w-3/5 h-full ml-4 transition-all bg-black bg-opacity-80 rounded-2xl">
-            <span v-show="menuShow.flag === 1" class="text-lg text-white">A</span>
-            <span v-show="menuShow.flag === 2" class="text-lg text-white">B</span>
-            <span v-show="menuShow.flag === 3" class="text-lg text-white">C</span>
+            <!-- 区域 -->
+            <div v-show="menuShow.flag === 1" class="grid grid-flow-row grid-cols-5 gap-4 m-8 text-center text-white">
+              <a v-for="area in areas" :key="area.id" class="overflow-hidden text-base border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?areaId=${area.id}`" target="_blank">{{ area.name }}</a>
+            </div>
+            <!-- 商圈 -->
+            <div v-show="menuShow.flag === 2" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
+              <div class="flex flex-col w-1/5 h-full space-y-2 overflow-auto">
+                <div v-for="area in areas" :key="area.id" @click="getTradings(area.id)" class="flex flex-row justify-between w-full text-sm opacity-60 hover:opacity-100">
+                  <span>{{ area.name }}</span>
+                  <svg
+                  class="w-3 h-3 opacity-50"
+                  t="1630750146834"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2040"
+                  width="128"
+                  height="128"
+                >
+                  <path
+                    d="M671.5392 512L332.1344 172.544a32 32 0 0 1 45.2608-45.2096l358.4 358.4a37.12 37.12 0 0 1 0 52.5312l-358.4 358.4a32 32 0 0 1-45.2608-45.2608L671.5904 512z"
+                    fill="#ffffff"
+                    p-id="2041"
+                    data-spm-anchor-id="a313x.7781069.0.i0"
+                    class="selected"
+                  ></path>
+                </svg>
+                </div>
+              </div>
+              <div v-show="!showTrading" class="w-2/3 h-full ml-2">
+                <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center text-white">
+                  <a v-for="trading in tradings" :key="trading.id" class="h-6 overflow-hidden text-xs border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?tradingId=${trading.id}`" target="_blank">{{ trading.name }}</a>
+                </div>
+                <AppLoading ref="loadingTrading" :box-class="'w-1/4 h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
+              </div>
+            </div>
+            <!-- 地铁 -->
+            <div v-show="menuShow.flag === 3" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
+              <div class="flex flex-col w-1/5 h-full space-y-2 overflow-auto">
+                <div v-for="metroLine in metroLines" :key="metroLine.id" class="flex flex-row justify-between w-full text-sm opacity-60 hover:opacity-100" @click="getMetroStations(metroLine.id)">
+                  <span>{{ metroLine.name }}</span>
+                  <svg
+                  class="w-3 h-3 opacity-50"
+                  t="1630750146834"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2040"
+                  width="128"
+                  height="128"
+                >
+                  <path
+                    d="M671.5392 512L332.1344 172.544a32 32 0 0 1 45.2608-45.2096l358.4 358.4a37.12 37.12 0 0 1 0 52.5312l-358.4 358.4a32 32 0 0 1-45.2608-45.2608L671.5904 512z"
+                    fill="#ffffff"
+                    p-id="2041"
+                    data-spm-anchor-id="a313x.7781069.0.i0"
+                    class="selected"
+                  ></path>
+                </svg>
+                </div>
+              </div>
+              <div v-show="!showMetroStation" class="w-2/3 h-full ml-2">
+                <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center text-white">
+                  <a v-for="metroStation in metroStations" :key="metroStation.id" class="overflow-hidden text-xs border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?metroStationId=${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
+                </div>
+                <AppLoading ref="loadingMetroStation" :box-class="'w-1/4 h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -123,23 +188,60 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapMutations } from 'vuex';
-import { BannerModel } from '@/api/banner/model/bannerModel'
+import { Api as AreaApi, AreaByCondition, AreaModel } from '@/api/model/areaModel'
+import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '@/api/model/tradingAreaModel';
+import { Api as BannerApi, BannerByCondition, BannerModel } from '@/api/model/bannerModel';
+import { Api as MetroLineApi, MetroLineByCondition, MetroStationByCondition, MetroStationModel, MetroLineModel } from '@/api/model/metroLineModel';
+import { BaseListResult } from '@/api/model/baseModel';
+import { getListResult } from '@/utils/response/util';
 
 export default Vue.extend({
   name: 'Home',
-  asyncData() {
-    const imgUrl =
-      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201504%2F20%2F124615c17nv1nzix0ft1nv.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1633334166&t=65e7c2147b9d88247ee46ab3cb3ad7a0'
-    const imgUrl1 =
-      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170331%2F2b0152b7ce7f4fc28b6f89a10167a66e_th.jpg&refer=http%3A%2F%2Fimg.mp.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1633339467&t=8ecfc535d03840ae4ff1c9175633bcd9'
-    const banners: BannerModel[] = [
-      { address: imgUrl1, title: '标题1', description: '描述一' },
-      { address: imgUrl1, title: '标题1', description: '描述一' },
-      { address: imgUrl, title: '标题1', description: '描述一' },
-      { address: imgUrl, title: '标题1', description: '描述一' },
-    ]
+  async asyncData({ $axios, store }) {
+    // banner
+    const bannerData: BannerByCondition = {
+      cityId: store.state.app.cityId,
+    };
+    const bannerParam: any = {
+      data: bannerData
+    };
+    const bannerResult:BaseListResult<BannerModel> = await $axios.$post(BannerApi.GetBanners, bannerParam)
+    let banners: BannerModel[] = [];
+    if (bannerResult.code === 200) {
+      banners = getListResult(bannerResult);
+    }
+
+    // 区域参数
+    const areaData: AreaByCondition = {
+      id: store.state.app.cityId,
+      state: '1',
+    };
+    const areaParam: any = {
+      data: areaData
+    };
+    const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
+    let areas: any[] = [];
+    if (areaResult.code === 200) {
+      areas = getListResult(areaResult);
+    }
+
+    // metro line
+    const metroLineData: MetroLineByCondition = {
+      cityId: store.state.app.cityId,
+    };
+    const metroLineParam: any = {
+      data: metroLineData
+    };
+    const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
+    let metroLines: MetroLineModel[] = [];
+    if (metroLineResult.code === 200) {
+      metroLines = getListResult(metroLineResult);
+    }
+
     return {
       banners,
+      areas,
+      metroLines,
     }
   },
   data() {
@@ -148,20 +250,63 @@ export default Vue.extend({
         isShow: false,
         flag: 0,
       },
-      areas: [], // 区域
-      metro: [], // 地铁
-      trading: [], // 商圈
-      banners: [], // banner
-      hotHouses: [], // 热销楼盘
-      recommendHouses: [], // 推荐楼盘
-      newsList: [], // 资讯
+      showTrading: false,
+      showMetroStation: false,
+      tradings: [],
+      metroStations: [],
       newsType: 0, // 资讯分类 0 1 2 3
+    }
+  },
+  computed: {
+    getTest() {
+      return this.$store.state.app.test;
     }
   },
   mounted() {
     this.BREADCRUMB_RE_SET();
   },
   methods: {
+    async getTradings(areaId: string) {
+      (this.$refs.loadingTrading as any).start();
+      try {
+        const data: TradingAreaByCondition = {
+          provinceId: this.$store.state.app.provinceId,
+          cityId: this.$store.state.app.cityId,
+          areaId,
+          state: '1',
+        };
+
+        const param: any = {
+          data
+        };
+        const result:BaseListResult<TradingAreaModel>  = await this.$axios.$post(TradingAreaApi.GetAllTradingAreas, param);
+        if (result.code === 200) {
+          this.tradings = getListResult(result);
+        }
+      } catch(e) {}
+      finally {
+        (this.$refs.loadingTrading as any).finish();
+      }
+    },
+    async getMetroStations(metroLineId: string) {
+      (this.$refs.loadingMetroStation as any).start();
+      try {
+        const data: MetroStationByCondition = {
+          lineId: metroLineId,
+          state: '1',
+        };
+        const param: any = {
+          data
+        };
+        const result:BaseListResult<MetroStationModel>  = await this.$axios.$post(MetroLineApi.GetStations, param);
+        if (result.code === 200) {
+          this.metroStations = getListResult(result);
+        }
+      } catch(e) {}
+      finally {
+        (this.$refs.loadingMetroStation as any).finish();
+      }
+    },
     openMenu(flag: number) {
       this.menuShow.isShow = true;
       this.menuShow.flag = flag;
@@ -175,6 +320,10 @@ export default Vue.extend({
 })
 </script>
 <style scoped>
+a {
+  @apply text-white hover:text-white;
+}
+
 /* For demo */
 .ant-carousel >>> .slick-slide {
   text-align: center;

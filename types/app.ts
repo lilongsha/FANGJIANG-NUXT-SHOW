@@ -12,6 +12,9 @@ export interface Location {
 
 export interface AppState {
   province?: string;
+  provinceId?: string;
   city?: string;
-  breadcrumbItems: Breadcrumb[]
+  cityId?: string;
+  breadcrumbItems: Breadcrumb[];
+  test?: any;
 }

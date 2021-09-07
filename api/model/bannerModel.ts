@@ -12,3 +12,11 @@ export interface BannerModel {
   updateBy?: string;
   updateTime?: string;
 }
+
+export interface BannerByCondition {
+  cityId: string; // cityId
+}
+
+export enum Api {
+  GetBanners = '/nhouse-server/banner/getBanners',
+}

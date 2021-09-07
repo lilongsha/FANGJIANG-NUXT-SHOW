@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Breadcrumb } from '@/store/modules/app/type';
+import { Breadcrumb } from '@/types/app';
 
 export default Vue.extend({
   name: 'AppHeader',

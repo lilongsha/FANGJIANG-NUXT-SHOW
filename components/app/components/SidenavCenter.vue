@@ -40,6 +40,8 @@ import Vue from 'vue'
 export default Vue.extend({
   name: 'SidenavCenter',
   components: {},
+  asyncData() {
+  },
   data() {
     return {}
   },
@@ -48,7 +50,7 @@ export default Vue.extend({
       return this.$store.state.app.city;
     },
   },
-  methods: {},
+  methods: {}
 })
 </script>
 <style scoped>
@@ -57,6 +59,6 @@ a {
 };
 
 .fj-href {
-  @apply flex flex-row items-center h-full border-white hover:border-b-2;
+  @apply flex flex-row items-center h-full hover:border-b-2;
 }
 </style>
