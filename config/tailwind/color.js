@@ -286,4 +286,13 @@ module.exports = {
     800: '#1e293b',
     900: '#0f172a',
   },
+  fjRed: {
+    100: '#da1111'
+  },
+  fjYellow: {
+    100: '#eb670c'
+  },
+  fjBlue: {
+    100: '#015eea'
+  }
 }

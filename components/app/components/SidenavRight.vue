@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-row items-center justify-center h-full">
-    <span class="text-white">登录/注册</span>
+  <div class="flex flex-row items-center justify-center w-full h-full">
+    <span :class="getIsHome? 'text-white': 'text-black'">登录/注册</span>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default Vue.extend({
   name: 'AppHeader',
   data () {
     return {
+    }
+  },
+  computed: {
+    getIsHome() {
+      return this.$route.path === '/'
     }
   },
   methods: {

@@ -1,12 +1,12 @@
 <template>
-  <div class="fixed z-10 flex flex-row w-full h-20 bg-index-menu">
-    <div class="w-1/3">
+  <div :class="getIsHome? 'bg-index-menu': ''" class="fixed z-50 flex flex-row w-full h-20">
+    <div class="">
       <sidenav-left />
     </div>
-    <div class="container text-center">
+    <div class="container mx-auto text-center">
       <sidenav-center />
     </div>
-    <div class="w-1/3">
+    <div class="">
       <sidenav-right />
     </div>
   </div>
@@ -23,6 +23,11 @@ export default Vue.extend({
   components: { SidenavRight, SidenavLeft, SidenavCenter },
   data () {
     return {
+    }
+  },
+  computed: {
+    getIsHome() {
+      return this.$route.path === '/'
     }
   },
   methods: {

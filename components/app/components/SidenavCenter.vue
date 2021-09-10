@@ -2,11 +2,12 @@
   <div class="relative flex flex-row justify-center w-full h-full">
     <!-- 位置信息 -->
     <div class="absolute left-0 flex flex-row items-center justify-center h-full">
-      <span class="text-lg text-white">
+      <span class="text-lg " :class="getIsHome? 'text-white': 'text-black'">
         {{ getLocation }}
       </span>
       <svg
-        class="w-5 text-white"
+        class="w-5 "
+         :class="getIsHome? 'text-white': 'text-black'"
         fill="currentColor"
         viewBox="0 0 1024 1024"
         version="1.1"
@@ -23,14 +24,14 @@
         ></path>
       </svg>
     </div>
-    <div class="flex flex-row items-center pl-4 space-x-6 text-xl text-white">
-      <a class="fj-href" href="/" target="_blank">首页</a>
-      <a class="fj-href" href="/house/list" target="_blank">新房</a>
-      <a class="fj-href" href="/info/list" target="_blank">资讯</a>
-      <a class="fj-href" href="/map" target="_blank">地图</a>
-      <a class="fj-href" href="/about/company" target="_blank">关于</a>
+    <div class="flex flex-row items-center pl-4 space-x-6 text-xl" :class="getIsHome? 'text-white': 'text-black'">
+      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/" target="_blank">首页</a>
+      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/house/list" target="_blank">新房</a>
+      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/info/list" target="_blank">资讯</a>
+      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/map" target="_blank">地图</a>
+      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/about/company" target="_blank">关于</a>
     </div>
-    <div class="absolute right-0 flex flex-row items-center justify-center h-full text-lg text-white">搜索</div>
+    <div class="absolute right-0 flex flex-row items-center justify-center h-full text-lg" :class="getIsHome? 'text-white': 'text-black'">搜索</div>
   </div>
 </template>
 
@@ -49,6 +50,9 @@ export default Vue.extend({
     getLocation() {
       return this.$store.state.app.city;
     },
+    getIsHome() {
+      return this.$route.path === '/'
+    }
   },
   methods: {}
 })
@@ -57,6 +61,10 @@ export default Vue.extend({
 a {
   @apply text-white hover:text-white;
 };
+
+.fj-href- {
+  @apply text-black hover:text-black;
+}
 
 .fj-href {
   @apply flex flex-row items-center h-full hover:border-b-2;

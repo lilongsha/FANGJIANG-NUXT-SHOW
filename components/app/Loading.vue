@@ -24,11 +24,11 @@ export default Vue.extend({
     },
     width: {
       type: String,
-      default: '6px'
+      default: '16px'
     },
     height: {
       type: String,
-      default: '16px'
+      default: '200px'
     }
   },
   data: () => ({

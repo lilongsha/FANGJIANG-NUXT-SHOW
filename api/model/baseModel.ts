@@ -19,6 +19,8 @@ export enum PageSizeEnum {
 
 export const PageSizeList: string[] = ['2', '10', '20', '30', '50', '80', '100'];
 export interface BasePageResult<T extends any> {
+  code: number;
+  message: string;
   page: {
     size: number;
     number: number;
@@ -36,6 +38,8 @@ export interface BaseListResult<T extends any> {
 }
 
 export interface BaseResult<T extends any> {
+  code: number;
+  message: string;
   content: T;
 }
 export interface PageParam {
