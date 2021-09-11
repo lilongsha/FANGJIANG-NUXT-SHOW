@@ -2,11 +2,15 @@
   <div class="relative flex flex-row justify-center w-full h-full">
     <!-- 位置信息 -->
     <div class="absolute left-0 flex flex-row items-center justify-center h-full">
-      <span class="text-lg " :class="getIsHome? 'text-white': 'text-black'">
+      <div class="flex items-center h-full">
+        <img v-show="getIsHome" class="object-cover w-16 h-16" src="~/assets/svg/logo.png" />
+        <img v-show="!getIsHome" class="object-cover w-16 h-16" src="~/assets/svg/logo_blue.png" />
+      </div>
+      <span class="text-lg ml-11" :class="getIsHome? 'text-white': 'text-black'">
         {{ getLocation }}
       </span>
       <svg
-        class="w-5 "
+        class="w-5 h-5"
          :class="getIsHome? 'text-white': 'text-black'"
         fill="currentColor"
         viewBox="0 0 1024 1024"
@@ -31,7 +35,13 @@
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/map" target="_blank">地图</a>
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/about/company" target="_blank">关于</a>
     </div>
-    <div class="absolute right-0 flex flex-row items-center justify-center h-full text-lg" :class="getIsHome? 'text-white': 'text-black'">搜索</div>
+    <!-- 搜索 -->
+    <div :class="getIsHome? 'text-white': 'text-black'" class="flex items-center ml-8 text-lg">
+      <span>搜索</span>
+    </div>
+    <div class="absolute right-0 flex flex-row items-center justify-center h-full text-lg" :class="getIsHome? 'text-white': 'text-black'">
+      <span class="text-base">登录/注册</span>
+    </div>
   </div>
 </template>
 

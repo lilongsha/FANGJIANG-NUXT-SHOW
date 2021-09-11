@@ -198,8 +198,8 @@
           <div v-show="selectRecommendKey === item.id" class="absolute bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
             <div>
-              <span class="text-fjRed-100">{{ item.price }}</span>
-              <span>元/㎡</span>
+              <span class="text-fjRed-100 ">{{ item.price }}</span>
+              <span class="text-sm">元/㎡</span>
             </div>
           </div>
         </a>
@@ -218,7 +218,7 @@
       </div>
       <!-- 图片盒子 -->
       <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 h-112 overflow-hidden">
-        <a v-for="item in hotProjects" :key="item.id" href="" class="block w-[96%] h-[96%] mx-[2%] my-[2%] bg-white shadow-md">
+        <a v-for="item in hotProjects" :key="item.id" href="" class="block w-[96%] h-[96%] mx-[2%] my-[2%] bg-white shadow-lg">
             <div class="w-full h-7/10">
               <img :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
             </div>
@@ -270,12 +270,15 @@
                 <span class="overflow-hidden text-gray-400" :title="getRooms(item.hLayoutsById)">{{ getRooms(item.hLayoutsById) }}</span>
                 <span class="ml-2 overflow-hidden text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
               </div>
-              <div class="flex flex-row items-end justify-between bg-black h-9">
+              <div class="flex flex-row items-end justify-between px-2 h-9">
                 <div class="flex flex-row items-end space-x-2 ">
                   <span v-for="label in getRoomLabels(item.labels)" :key="label.id" class="px-1 text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm" :title="label.value">{{ label.value }}</span>
                 </div>
                 <div>
-                  <span class="text-white align-text-bottom">AAAAA</span>
+                  <div>
+                    <span class="text-lg text-fjRed-100">{{ item.price }}</span>
+                    <span class="text-xs text-gray-400">元/㎡</span>
+                  </div>
                 </div>
               </div>
             </div>

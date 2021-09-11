@@ -43,6 +43,9 @@ module.exports = {
         '3/10': '30%',
         '7/10': '70%',
         '112': '28rem',
+      },
+      boxShadow: {
+        around: '-2px -3px 0 0 rgba(0,0,0,0.5), 0 0 -3px -2px rgba(0,0,0,0.5)'
       }
     },
   },
