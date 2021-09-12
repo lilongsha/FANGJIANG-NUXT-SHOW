@@ -15,6 +15,10 @@ export interface AppState {
   provinceId?: string;
   city?: string;
   cityId?: string;
+  area?: string;
+  areaId?: string;
   breadcrumbItems: Breadcrumb[];
+  hotProject: any[];
+  link: any[];
   test?: any;
 }

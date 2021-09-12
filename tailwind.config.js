@@ -36,6 +36,7 @@ module.exports = {
       backgroundImage: _theme => ({
         'index-menu': "url('~/assets/img/index-menu.png')",
         'index-process': "url('~/assets/img/index-process.png')",
+        'bottom-lou': "url('~/assets/img/bottom-lou.jpeg')",
       }),
       width: {
         '1/10': '10%',

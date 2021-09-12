@@ -5,7 +5,11 @@ const state = ():AppState =>({
   provinceId: '',
   city: '',
   cityId: '',
+  area: '',
+  areaId: '',
   breadcrumbItems: [],
+  hotProject: [],
+  link: [],
   test: [],
 })
 
@@ -49,6 +53,24 @@ const mutations = {
   },
   CITY_ID_CLEAR(state: AppState):void {
     state.cityId = '';
+  },
+  AREA_SET(state: AppState, area: string):void {
+    state.area = area;
+  },
+  AREA_CLEAR(state: AppState):void {
+    state.area = '';
+  },
+  AREA_ID_SET(state: AppState, areaId: string):void {
+    state.areaId = areaId;
+  },
+  AREA_ID_CLEAR(state: AppState):void {
+    state.areaId = '';
+  },
+  HOT_PROJECT_SET(state: AppState, hotProject: any[]):void {
+    state.hotProject = hotProject;
+  } ,
+  LINK_SET(state: AppState, link: any[]): void {
+    state.link = link;
   },
   TEST_SET(state: AppState, test: string):void {
     state.test.push(test);
