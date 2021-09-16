@@ -664,6 +664,19 @@ export default Vue.extend({
       processType: '0',
     }
   },
+  head() {
+    return {
+      title: '房匠 - 做您买房路上的自己人',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'My custom description'
+        }
+      ]
+    }
+  },
   computed: {
     getTest() {
       return this.$store.state.app.test;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="font-sans">
     <div>
       <div>
         <AppSidenav />
@@ -10,7 +10,7 @@
         </main>
       </div>
     </div>
-    <div class="fixed right-0 top-auto flex flex-col w-10 bg-black h-60">工具条</div>
+    <!-- <div class="fixed right-0 top-auto flex flex-col w-10 bg-black h-60">工具条</div> -->
   </div>
 </template>
 

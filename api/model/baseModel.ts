@@ -21,26 +21,32 @@ export const PageSizeList: string[] = ['2', '10', '20', '30', '50', '80', '100']
 export interface BasePageResult<T extends any> {
   code: number;
   message: string;
-  page: {
-    size: number;
-    number: number;
-    numberOfElements: number;
-    totalPages: number;
-    totalElements: number;
-  };
-  content: T[];
+  data: {
+    page: {
+      size: number;
+      number: number;
+      numberOfElements: number;
+      totalPages: number;
+      totalElements: number;
+    };
+    content: T[];
+  }
 }
 
 export interface BaseListResult<T extends any> {
   code: number;
   message: string;
-  content: T[];
+  data: {
+    content: T[];
+  }
 }
 
 export interface BaseResult<T extends any> {
   code: number;
   message: string;
-  content: T;
+  data: {
+    content: T;
+  }
 }
 export interface PageParam {
   pageNum: number;
