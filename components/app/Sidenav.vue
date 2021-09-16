@@ -1,5 +1,5 @@
 <template>
-  <div :class="getIsHome? 'bg-index-menu': ''" class="fixed z-50 flex flex-row w-full h-20">
+  <div :class="getIsHome? 'bg-index-menu': 'bg-white'" class="fixed z-50 flex flex-row w-full h-20">
     <!-- <div class="">
       <sidenav-left />
     </div> -->

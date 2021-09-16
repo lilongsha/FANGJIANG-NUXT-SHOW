@@ -3,8 +3,8 @@
     <!-- 位置信息 -->
     <div class="absolute left-0 flex flex-row items-center justify-center h-full">
       <div class="flex items-center h-full">
-        <img v-show="getIsHome" class="object-cover w-16 h-16" src="~/assets/svg/logo.png" />
-        <img v-show="!getIsHome" class="object-cover w-16 h-16" src="~/assets/svg/logo_blue.png" />
+        <img v-show="getIsHome" class="object-cover w-16 h-16" src="~/assets/img/white-logo.png" />
+        <img v-show="!getIsHome" class="object-cover w-16 h-16" src="~/assets/img/blue-logo.png" />
       </div>
       <span class="text-lg ml-11" :class="getIsHome? 'text-white': 'text-black'">
         {{ getLocation }}

@@ -249,7 +249,7 @@
       </div>
     </div>
     <!-- list -->
-    <div class="w-full mt-14">
+    <div id="list" class="w-full mt-14">
       <!-- 标题 -->
       <div class="flex flex-row w-full border-b-2 border-fjBlue-100">
         <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center">
@@ -360,74 +360,97 @@
       </div>
       <!-- 主体 -->
       <div class="flex flex-col w-full mt-6">
-        <a v-for="item in projectList" :key="item.id" :href="`/house/${item.id}.html`" class="w-full h-[250px] mb-12 flex flex-row">
-          <!-- 左边图片 -->
-          <div class="h-full w-[360px] static">
-            <img :src="getImg(item)" class="object-cover w-full h-full" height="100%" width="100%" :alt="item.name">
-          </div>
-          <!-- 右边内容 -->
-          <div class="h-full w-[920px] pl-6">
-            <div class="flex flex-row items-end h-11">
-              <!-- title -->
-              <h1 class="h-full mb-0 text-[28px] font-bold text-black">{{ item.name }}</h1>
-              <div class="h-full pt-3 text-[14px]">
-              <h1 v-if="item.saleState === '1'" class="ml-1 font-normal text-white rounded-sm bg-fjYellow-100">在售</h1>
-              <h3 v-if="item.saleState === '2'" class="ml-1 font-normal text-white rounded-sm bg-fjBlue-100">待售</h3>
-              <h3 v-if="item.saleState === '3'" class="ml-1 font-normal text-white rounded-sm bg-fjRed-100">售罄</h3>
-              </div>
+        <div v-for="item in projectList" :key="item.id" class="px-4 py-4 mb-12 hover:bg-gray-100">
+          <a :href="`/house/${item.id}.html`" class="w-full h-[250px] flex flex-row">
+            <!-- 左边图片 -->
+            <div class="h-full w-[360px] static">
+              <img :src="getImg(item)" class="object-cover w-full h-full" height="100%" width="100%" :alt="item.name">
             </div>
-            <div class="text-[16px]">
-              <!-- 类型 -->
-              <span v-if="item.type === '1'" class="text-gray-400">住宅</span>
-              <span v-if="item.type === '2'" class="text-gray-400">公寓</span>
-              <span v-if="item.type === '3'" class="text-gray-400">商铺</span>
-              <span v-if="item.type === '4'" class="text-gray-400">写字楼</span>
-              <span v-if="item.type === '5'" class="text-gray-400">仓库</span>
-              <span v-if="item.type === '6'" class="text-gray-400">其它</span>
-              <!-- 面积 -->
-              <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
-              <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
-              <!-- 开盘时间 -->
-              <span v-if="item.openTime" class="text-gray-400">|</span>
-              <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
-            </div>
-            <!-- 右中内容 -->
-            <div class="flex flex-row w-full mt-7 h-[168px] text-[#999999]">
-              <div class="w-4/5 h-full text-[18px]">
-                <div class="flex flex-row">
-                  <span class="mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
-                  <span v-if="item.address" class="" :title="item.address">{{ item.address }}</span>
-                  <span v-else>{{ item.address }}</span>
-                </div>
-                <div class="flex flex-row mt-2">
-                  <span>户型：</span>
-                  <span>{{getRoomList(item)}}</span>
-                </div>
-                <div class="mt-16">
-                  <span v-for="item1 in getLabel(item.labels)" :key="item1.id" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
+            <!-- 右边内容 -->
+            <div class="h-full w-[920px] pl-6">
+              <div class="flex flex-row items-end h-11">
+                <!-- title -->
+                <h1 class="h-full mb-0 text-[28px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
+                <div class="h-full pt-3 text-[14px] ml-4">
+                <h1 v-if="item.saleState === '1'" class="font-normal text-white rounded-sm bg-fjYellow-100">在售</h1>
+                <h3 v-if="item.saleState === '2'" class="font-normal text-white rounded-sm bg-fjBlue-100">待售</h3>
+                <h3 v-if="item.saleState === '3'" class="font-normal text-white rounded-sm bg-fjRed-100">售罄</h3>
                 </div>
               </div>
-              <div class="w-1/5 text-[14px] text-right">
-                <div class="w-full">
-                  <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
-                  <span v-if="item.price">元/㎡起</span>
-                  <span v-if="!item.price">暂无数据</span>
+              <div class="text-[16px]">
+                <!-- 类型 -->
+                <span v-if="item.type === '1'" class="text-gray-400">住宅</span>
+                <span v-if="item.type === '2'" class="text-gray-400">公寓</span>
+                <span v-if="item.type === '3'" class="text-gray-400">商铺</span>
+                <span v-if="item.type === '4'" class="text-gray-400">写字楼</span>
+                <span v-if="item.type === '5'" class="text-gray-400">仓库</span>
+                <span v-if="item.type === '6'" class="text-gray-400">其它</span>
+                <!-- 面积 -->
+                <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
+                <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
+                <!-- 开盘时间 -->
+                <span v-if="item.openTime" class="text-gray-400">|</span>
+                <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
+              </div>
+              <!-- 右中内容 -->
+              <div class="flex flex-row w-full mt-7 h-[168px] text-[#999999]">
+                <div class="w-4/5 h-full text-[18px]">
+                  <div class="flex flex-row">
+                    <span class="mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
+                    <span v-if="item.address" class="" :title="item.address">{{ item.address }}</span>
+                    <span v-else>{{ item.address }}</span>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                    <span>户型：</span>
+                    <span>{{getRoomList(item)}}</span>
+                  </div>
+                  <div class="mt-16">
+                    <span v-for="item1 in getLabel(item.labels)" :key="item1.id" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
+                  </div>
                 </div>
-                <div class="w-full">
-                  <span v-if="item.updatePriceTime" class="text-xs">价格更新日期：</span>
-                  <span v-if="item.updatePriceTime" class="text-xs">{{ getPriceDate(item.updatePriceTime) }}</span>
-                  <span v-else class="text-xs">暂无数据</span>
-                </div>
-                <div class="w-full">
-                  <span v-if="item.priceDays" class="text-xs">价格有效期：{{ item.priceDays }}天</span>
-                  <span v-else class="text-xs">暂无数据</span>
+                <div class="w-1/5 text-[14px] text-right">
+                  <div class="w-full">
+                    <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
+                    <span v-if="item.price">元/㎡起</span>
+                    <span v-if="!item.price">暂无数据</span>
+                  </div>
+                  <div class="w-full">
+                    <span v-if="item.updatePriceTime" class="text-xs">价格更新日期：</span>
+                    <span v-if="item.updatePriceTime" class="text-xs">{{ getPriceDate(item.updatePriceTime) }}</span>
+                    <span v-else class="text-xs">暂无数据</span>
+                  </div>
+                  <div class="w-full">
+                    <span v-if="item.priceDays" class="text-xs">价格有效期：{{ item.priceDays }}天</span>
+                    <span v-else class="text-xs">暂无数据</span>
+                  </div>
+                  <div class="w-full mt-4">
+                    <span></span>
+                    <span class="text-base text-fjRed-100">400-960-9889 {{ item.number }}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
+    <!-- pagination -->
+    <div class="w-full text-right">
+      <a-pagination
+        :total="total"
+        :show-total="total => `共计 ${total} 条`"
+        :page-size="10"
+        :current="pageNum"
+        @change="pageChange"
+      />
+    </div>
+    <!--  -->
+    <div class="w-full mt-12 text-[#999999] text-xs">
+      郑重提示广大用户：本页面内容，旨在为满足广大用户的信息需求而免费提供，并非广告服务性信息。页面所载内容，仅供用户参考和借鉴，最终以开发商实际公示为准。商品房预售须取得《商品房预售许可证》，
+用户在购房时请务必慎重查验开发商的证件信息。（注：本页面所提到房屋面积如无特别标示，均指建筑面积）
+    </div>
+    <!-- 广告位1 -->
+    <!-- 广告位2 -->
   </div>
 </template>
 
@@ -446,7 +469,7 @@ export default Vue.extend({
   name: 'Home',
   components: {
   },
-  async asyncData({ $axios, store }) {
+  async asyncData({ $axios, store, route }) {
     // 获取区域
     const areaData: AreaByCondition = {
       id: store.state.app.cityId,
@@ -488,6 +511,109 @@ export default Vue.extend({
       metroLines = getListResult(metroLineResult);
     }
 
+    const query = route.query
+    const fields: string[] = [
+      'areaId', 
+      'tradingId', 
+      'stationId', 
+      'price', 
+      'totalPrice', 
+      'acreage',
+      'houseType'
+    ]
+    const fields2: string[] = [
+      'lowPrice',
+      'heightPrice',
+      'lowTotalPrice',
+      'heightTotalPrice',
+      'lowAcreage',
+      'heightAcreage',
+    ]
+    const select: any = {};
+    fields.forEach((item) => {
+      if (query[item]) {
+        select[item] = (query[item] as string).split(',')
+      }
+    });
+    fields2.forEach((item) => {
+      if (query?.item) {
+        select[item] = query?.item as string
+      }
+    });
+
+    let projectList: any;
+    let labels: any;
+    let total: number = 0;
+
+    const getList = async () => {
+      const condition: any = {};
+      condition.city = { id: store.state.app.cityId }
+      const areaIds: any[] = [];
+      if (select.areaId) {
+        select.areaId.forEach((item: any) => {
+          areaIds.push({id: item});
+        })
+      }
+      if (areaIds.length > 0) {
+        condition.area = areaIds;
+      }
+      
+      condition.trading = select.tradingId;
+      condition.station = select.stationId;
+      condition.type = select.projectType;
+      condition.saleState = select.saleState;
+      condition.rooms = select.houseType;
+      const sort: any = {};
+      if (select.sortType === '1') {
+        sort.desc = ['price']
+      }
+      if (select.sortType === '2') {
+        sort.asc = ['price']
+      }
+      if (select.sortType === '3') {
+        sort.desc = ['openTime']
+      }
+      if (select.sortType === '4') {
+        sort.asc = ['openTime']
+      }
+      const param: any = {
+        data: condition,
+        page: {
+          pageNum: 0,
+          pageSize: 10
+        },
+        sort,
+      };
+      const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
+      if (result.code === 200) {
+        projectList = getListResult(result)
+        const labelObj: any = {};
+        projectList.forEach((item: any) => {
+          if (item.labels) {
+            item.labels.split(',').forEach((l:string) => {
+              labelObj[l] = 0;
+            })
+          }
+        })
+        total = result.data.page.totalElements;
+        const ids = Object.keys(labelObj);
+        const param: any = {
+        data: {
+            ids,
+          }
+        }
+        if (ids.length > 0) {
+          const dictResult: BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, param)
+          if (dictResult.code === 200) {
+            labels = getListResult(dictResult);
+          }
+        }
+        
+      }
+    }
+
+    await getList();
+
     return {
       areas,
       metroLines,
@@ -497,7 +623,10 @@ export default Vue.extend({
       acreageList,
       houseType,
       projectType,
-      saleState
+      saleState,
+      projectList,
+      labels,
+      total
     }
   },
   data () {
@@ -543,17 +672,18 @@ export default Vue.extend({
       labels,
       pageNum: 1,
       pageSize: 10,
+      total: 0,
     }
   },
   watch: {
     select: {
       handler(_val, _oldVal) {
-        
+        this.getList();
       },
       deep: true,
     }
   },
-  async mounted() {
+  mounted() {
     // route 获取参数设置到data中
     const query = this.$route.query
     const fields: string[] = [
@@ -584,9 +714,15 @@ export default Vue.extend({
         (that.select as any)[item] = query?.item as string
       }
     });
-    await this.getList();
+    // await this.getList();
   },
   methods: {
+    async pageChange(page: number) {
+      this.pageNum = page;
+      await this.getList();
+      const anchor:any = this.$el.querySelector('#list')
+      anchor.scrollIntoView({ behavior: 'smooth' })
+    },
     getPriceDate(time: string) {
       const date = new Date(time);
       const result = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
@@ -765,9 +901,11 @@ export default Vue.extend({
             ids,
           }
         }
-        const dictResult: BaseListResult<any> = await this.$axios.$post(DictApi.GetLabelsByArray, param)
-        if (dictResult.code === 200) {
-          this.labels = getListResult(dictResult);
+        if (ids.length > 0) {
+          const dictResult: BaseListResult<any> = await this.$axios.$post(DictApi.GetLabelsByArray, param)
+          if (dictResult.code === 200) {
+            this.labels = getListResult(dictResult);
+          }
         }
         this.pageNum = result.data.page.number + 1;
       }
@@ -958,3 +1096,12 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.ant-pagination >>> .ant-pagination-item-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+</style>

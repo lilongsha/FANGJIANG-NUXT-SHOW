@@ -334,7 +334,7 @@
       <!-- 内容0 -->
       <div v-show="processType === '0'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
         <div class="flex flex-row items-center justify-center">
-          <div class="object-cover w-10 h-10 mr-4 bg-index-process"></div>
+          <div class="object-cover w-10 h-10 mr-4"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">搜房源0</span>
             <span>超多楼盘，任您选择</span>
