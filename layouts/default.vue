@@ -6,7 +6,7 @@
         <main>
           <AppHeader />
           <nuxt />
-          <AppFooter />
+          <AppFooter class="sticky"/>
         </main>
       </div>
     </div>

@@ -884,30 +884,36 @@ export default Vue.extend({
         },
         sort,
       };
-      const result: BasePageResult<any> = await this.$axios.$post(HouseApi.GetByCityIdAndOrder, param);
-      if (result.code === 200) {
-        this.projectList = getListResult(result)
-        const labelObj: any = {};
-        this.projectList.forEach((item) => {
-          if (item.labels) {
-            item.labels.split(',').forEach((l:string) => {
-              labelObj[l] = 0;
-            })
+      this.$nuxt.$loading.start();
+      try {
+        const result: BasePageResult<any> = await this.$axios.$post(HouseApi.GetByCityIdAndOrder, param);
+        if (result.code === 200) {
+          this.projectList = getListResult(result)
+          const labelObj: any = {};
+          this.projectList.forEach((item) => {
+            if (item.labels) {
+              item.labels.split(',').forEach((l:string) => {
+                labelObj[l] = 0;
+              })
+            }
+          })
+          const ids = Object.keys(labelObj);
+          const param: any = {
+          data: {
+              ids,
+            }
           }
-        })
-        const ids = Object.keys(labelObj);
-        const param: any = {
-        data: {
-            ids,
+          if (ids.length > 0) {
+            const dictResult: BaseListResult<any> = await this.$axios.$post(DictApi.GetLabelsByArray, param)
+            if (dictResult.code === 200) {
+              this.labels = getListResult(dictResult);
+            }
           }
+          this.pageNum = result.data.page.number + 1;
         }
-        if (ids.length > 0) {
-          const dictResult: BaseListResult<any> = await this.$axios.$post(DictApi.GetLabelsByArray, param)
-          if (dictResult.code === 200) {
-            this.labels = getListResult(dictResult);
-          }
-        }
-        this.pageNum = result.data.page.number + 1;
+      } catch (e) {}
+      finally {
+        this.$nuxt.$loading.finish();
       }
     },
     getImg(item: any) {
