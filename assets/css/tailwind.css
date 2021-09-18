@@ -18,3 +18,10 @@ a:hover {
 a:active {
   text-decoration: none;
 }
+
+input {
+  outline: none;
+}
+input:focus {
+  outline: none;
+}
