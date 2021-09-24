@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-fulln">
     <!-- 轮播图功能区域定位 -->
     <div class="absolute z-10 flex flex-row w-full h-64 top-28">
       <div class="w-1/3"></div>
@@ -555,7 +555,7 @@ export default Vue.extend({
     const labelIdsObj: any = {};
     if (hotProjects && hotProjects.length > 0) {
       hotProjects.forEach((item) => {
-        if (item.labels) {
+        if (item.labels && item.labels !== '') {
           item.labels.split(',').forEach((label: string) => {
             labelIdsObj[label] = label;
           })
@@ -568,10 +568,12 @@ export default Vue.extend({
         ids: labelIds
       }
     }
-    const labelsResult:BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, labelParam);
     let labels: any[] = [];
-    if (labelsResult.code === 200) {
-      labels = getListResult(labelsResult);
+    if (labelIds && labelIds.length > 0) {
+      const labelsResult:BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, labelParam);
+      if (labelsResult.code === 200) {
+        labels = getListResult(labelsResult);
+      }
     }
     // 获取资讯 7: 实探楼盘 4: 房贷利率 3: 楼市政策
     const getNews7 = async () => {
@@ -739,13 +741,15 @@ export default Vue.extend({
     },
     getRoomLabels(roomLabelsStr: string) {
       const result: any[] = [];
-      const labelArray: string[] = roomLabelsStr.split(',');
-      if (this.labels && this.labels.length > 0) {
-        this.labels.forEach((item: any) => {
-          if (labelArray.includes(item.id)) {
-            result.push(item)
-          }
-        })
+      if (roomLabelsStr) {
+        const labelArray: string[] = roomLabelsStr.split(',');
+        if (this.labels && this.labels.length > 0) {
+          this.labels.forEach((item: any) => {
+            if (labelArray.includes(item.id)) {
+              result.push(item)
+            }
+          })
+        } 
       }
       return result;
     },
