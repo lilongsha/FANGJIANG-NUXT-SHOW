@@ -550,7 +550,6 @@ export default Vue.extend({
       condition.city = { id: store.state.app.cityId }
       const areaIds: any[] = [];
       if (select.areaId) {
-        console.log("AAAA:::::::::::: 3")
         select.areaId.forEach((item: any) => {
           areaIds.push({id: item});
         })
@@ -590,10 +589,8 @@ export default Vue.extend({
         projectList = getListResult(result)
         const labelObj: any = {};
         if (projectList && projectList.length > 0) {
-          console.log("AAAA:::::::::::: 4")
           projectList.forEach((item: any) => {
           if (item.labels) {
-            console.log("AAAA:::::::::::: 5")
             item.labels.split(',').forEach((l:string) => {
               labelObj[l] = 0;
             })
@@ -745,9 +742,7 @@ export default Vue.extend({
     getLabel(ids: string) {
       const result: string[] = [];
       if (ids) {
-        console.log("AAAA:::::::::::: 8")
         ids.split(',').forEach((l: string) => {
-          console.log("AAAA:::::::::::: 9")
           if (this.labels && this.labels.length > 0)
           this.labels.forEach((l1: any) => {
             if (l1.id === l) {
@@ -768,7 +763,6 @@ export default Vue.extend({
         5: 0,
       }
       if (room?.hLayoutsById) {
-        console.log("AAAA:::::::::::: 10")
         room.hLayoutsById.forEach((item: any) => {
           if (item.room) {
             switch(item.room) {
@@ -838,7 +832,6 @@ export default Vue.extend({
     getRoomArea(rooms: any[]) {
       // 是否放到asyncData
       const areaObj: any = {};
-      console.log("AAAA:::::::::::: 11")
       rooms.forEach((item) => {
         const area = item.area;
         areaObj[area] = area;
@@ -863,7 +856,6 @@ export default Vue.extend({
       const condition: any = {};
       condition.city = { id: this.$store.state.app.cityId }
       const areaIds: any[] = [];
-      console.log("AAAA:::::::::::: 13")
       this.select.areaId.forEach((item: any) => {
         areaIds.push({id: item});
       })
@@ -904,7 +896,6 @@ export default Vue.extend({
           this.projectList = getListResult(result)
           const labelObj: any = {};
           if (this.projectList && this.projectList.length > 0) {
-            console.log("AAAA:::::::::::: 14")
             this.projectList.forEach((item) => {
             if (item.labels) {
               item.labels.split(',').forEach((l:string) => {
