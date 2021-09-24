@@ -125,15 +125,15 @@
         <!-- 位置主体 -->
         <div class="w-full flex flex-row py-4 justify-end border-gray-300 border-b-[1px] text-xs text-gray-700">
           <!-- 区域 -->
-          <div :class="locationType === '1' ? '' : 'h-0 w-0'" class="grid w-11/12 grid-flow-row grid-cols-12 gap-4 overflow-hidden transition-all auto-rows-auto">
+          <div :class="locationType === '1' ? 'w-11/12' : 'h-0 w-0'" class="grid grid-flow-row grid-cols-12 gap-4 overflow-hidden transition-all auto-rows-auto">
             <span v-for="item in areas" :key="item.id" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('areaId', item.id)">{{ item.name }}</span>
           </div>
           <!-- 商圈 -->
-          <div :class="locationType === '2' ? '' : 'h-0 w-0'" class="grid w-11/12 grid-flow-row grid-cols-8 gap-4 overflow-hidden transition-all auto-rows-auto">
+          <div :class="locationType === '2' ? 'w-11/12' : 'h-0 w-0'" class="grid grid-flow-row grid-cols-8 gap-4 overflow-hidden transition-all auto-rows-auto">
             <span v-for="item in tradings" :key="item.id" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('tradingId', item.id)">{{ item.name }}</span>
           </div>
           <!-- 地铁 -->
-          <div :class="locationType === '3' ? '' : 'h-0 w-0'" class="w-11/12 overflow-hidden transition-all">
+          <div :class="locationType === '3' ? 'w-11/12' : 'h-0 w-0'" class="overflow-hidden transition-all ">
             <div v-for="line in metroLines" :key="line.id" class="flex flex-row">
               <span class="w-1/12 mr-4 text-gray-600">{{ line.name }}</span>
               <div class="w-11/12 space-x-4">
@@ -550,6 +550,7 @@ export default Vue.extend({
       condition.city = { id: store.state.app.cityId }
       const areaIds: any[] = [];
       if (select.areaId) {
+        console.log("AAAA:::::::::::: 3")
         select.areaId.forEach((item: any) => {
           areaIds.push({id: item});
         })
@@ -588,13 +589,18 @@ export default Vue.extend({
       if (result.code === 200) {
         projectList = getListResult(result)
         const labelObj: any = {};
-        projectList.forEach((item: any) => {
+        if (projectList && projectList.length > 0) {
+          console.log("AAAA:::::::::::: 4")
+          projectList.forEach((item: any) => {
           if (item.labels) {
+            console.log("AAAA:::::::::::: 5")
             item.labels.split(',').forEach((l:string) => {
               labelObj[l] = 0;
             })
           }
         })
+        }
+
         total = result.data.page.totalElements;
         const ids = Object.keys(labelObj);
         const param: any = {
@@ -604,6 +610,7 @@ export default Vue.extend({
         }
         if (ids.length > 0) {
           const dictResult: BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, param)
+          console.log('dictResult::::', dictResult);
           if (dictResult.code === 200) {
             labels = getListResult(dictResult);
           }
@@ -738,7 +745,10 @@ export default Vue.extend({
     getLabel(ids: string) {
       const result: string[] = [];
       if (ids) {
+        console.log("AAAA:::::::::::: 8")
         ids.split(',').forEach((l: string) => {
+          console.log("AAAA:::::::::::: 9")
+          if (this.labels && this.labels.length > 0)
           this.labels.forEach((l1: any) => {
             if (l1.id === l) {
               result.push(l1);
@@ -758,6 +768,7 @@ export default Vue.extend({
         5: 0,
       }
       if (room?.hLayoutsById) {
+        console.log("AAAA:::::::::::: 10")
         room.hLayoutsById.forEach((item: any) => {
           if (item.room) {
             switch(item.room) {
@@ -827,6 +838,7 @@ export default Vue.extend({
     getRoomArea(rooms: any[]) {
       // 是否放到asyncData
       const areaObj: any = {};
+      console.log("AAAA:::::::::::: 11")
       rooms.forEach((item) => {
         const area = item.area;
         areaObj[area] = area;
@@ -851,6 +863,7 @@ export default Vue.extend({
       const condition: any = {};
       condition.city = { id: this.$store.state.app.cityId }
       const areaIds: any[] = [];
+      console.log("AAAA:::::::::::: 13")
       this.select.areaId.forEach((item: any) => {
         areaIds.push({id: item});
       })
@@ -890,13 +903,17 @@ export default Vue.extend({
         if (result.code === 200) {
           this.projectList = getListResult(result)
           const labelObj: any = {};
-          this.projectList.forEach((item) => {
+          if (this.projectList && this.projectList.length > 0) {
+            console.log("AAAA:::::::::::: 14")
+            this.projectList.forEach((item) => {
             if (item.labels) {
               item.labels.split(',').forEach((l:string) => {
                 labelObj[l] = 0;
               })
             }
           })
+          }
+          
           const ids = Object.keys(labelObj);
           const param: any = {
           data: {
