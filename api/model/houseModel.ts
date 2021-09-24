@@ -87,6 +87,7 @@ export enum Api {
   GetRecommendByCityId = '/nhouse-server/recommendProject/getByCityId',
   Search = '/nhouse-server/project/search',
   GetByCityIdAndOrder = '/nhouse-server/project/searchByCondition',
+  GetProject = '/nhouse-server/project/getProject',
 }
 
 // 单价
