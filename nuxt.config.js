@@ -19,9 +19,16 @@ export default {
     '~/assets/css/ant/antd.css'
   ],
 
+  script: [
+    {
+      type: 'text/javascript',
+      src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar'
+    }
+  ],
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/antd-ui'
+    '@/plugins/antd-ui',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
