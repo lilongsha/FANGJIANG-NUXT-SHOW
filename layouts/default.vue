@@ -21,7 +21,7 @@ export default Vue.extend({
   name: 'Layout',
   components: {
   },
-    asyncData() {
+  asyncData() {
     return {
       isHome: false,
     }

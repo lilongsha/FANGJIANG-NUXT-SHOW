@@ -1,5 +1,5 @@
 <template>
-  <div class="block mt-20">
+  <div v-if="!getIsMap" class="block mt-20">
     <div class="flex flex-col items-center justify-center w-full mx-auto">
       <div class="object-contain w-full bg-black h-[282px]">
         <div class="container h-full mx-auto">
@@ -57,6 +57,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    getIsMap() {
+      return this.$route.path === '/map'
+    },
     getHotProject() {
       return this.$store.state.app.hotProject;
     },

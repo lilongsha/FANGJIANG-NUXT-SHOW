@@ -469,6 +469,16 @@ import { getListResult } from '@/utils/response/util';
 export default Vue.extend({
   name: 'Home',
   async asyncData({ $axios, store }) {
+    // ld-json
+    const ldJSON = {
+        "@context": "https://zhanzhang.baidu.com/contexts/cambrian.jsonld",
+        "@id": "http://sjz.jiwu.com/loupan/1290152.html",
+        "appid": "1575153492583878",
+        "title": "石家庄润江云玺房价价格,新房售楼处电话,楼盘怎么样 - 吉屋网",
+        "images": ['http://img1-build.jiwu.com/album/manual/2020/11/07/145807820623.jpg,http://img4-build.jiwu.com/album/manual/2020/11/07/151240046364.jpg/750x560,http://img6-build.jiwu.com/album/manual/2020/11/07/151300673270.jpg/750x560'],
+        "description": "石家庄裕华众美商圈润江云玺售楼处电话号码:4007508888转64846,吉屋网为您提供该房产楼盘信息、房价走势等，全面了解润江云玺买房怎么样，是您选购新楼盘一手房的理想网站。",
+        "upDate":"2021-09-11T10:51:22"
+    };
     // banner
     const bannerData: BannerByCondition = {
       cityId: store.state.app.cityId,
@@ -543,13 +553,15 @@ export default Vue.extend({
     }
     // 获取所有用到的标签
     const labelIdsObj: any = {};
-    hotProjects.forEach((item) => {
-      if (item.labels) {
-        item.labels.split(',').forEach((label: string) => {
-          labelIdsObj[label] = label;
-        })
-      }
-    });
+    if (hotProjects && hotProjects.length > 0) {
+      hotProjects.forEach((item) => {
+        if (item.labels) {
+          item.labels.split(',').forEach((label: string) => {
+            labelIdsObj[label] = label;
+          })
+        }
+      });
+    }
     const labelIds = Object.keys(labelIdsObj);
     const labelParam: any = {
       data: {
@@ -639,6 +651,7 @@ export default Vue.extend({
     
 
     return {
+      ldJSON,
       banners,
       areas,
       metroLines,
@@ -674,7 +687,14 @@ export default Vue.extend({
           name: 'description',
           content: 'My custom description'
         }
-      ]
+      ],
+      script: [
+        {
+          innerHTML: '{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"http://sjz.jiwu.com/loupan/1290152.html","appid":"1575153492583878","title":"石家庄润江云玺房价价格,新房售楼处电话,楼盘怎么样 - 吉屋网","images":["http://img1-build.jiwu.com/album/manual/2020/11/07/145807820623.jpg","http://img4-build.jiwu.com/album/manual/2020/11/07/151240046364.jpg/750x560", "http://img6-build.jiwu.com/album/manual/2020/11/07/151300673270.jpg/750x560"],"description": "石家庄裕华众美商圈润江云玺售楼处电话号码:4007508888转64846,吉屋网为您提供该房产楼盘信息、房价走势等，全面了解润江云玺买房怎么样，是您选购新楼盘一手房的理想网站。","upDate":"2021-09-11T10:51:22"}',
+          type: 'application/ld+json',
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script']
     }
   },
   computed: {
@@ -689,10 +709,12 @@ export default Vue.extend({
     getRooms(rooms: any[]) {
       // 是否放到asyncData
       const roomObj: any = {};
-      rooms.forEach((item) => {
-        const room = item.room;
-        roomObj[room] = room;
-      })
+      if (rooms && rooms.length > 0) {
+        rooms.forEach((item) => {
+          const room = item.room;
+          roomObj[room] = room;
+        })
+      }
       const roomArray = Object.keys(roomObj)
       const result: string = roomArray.toString().replaceAll(',', '室/')
       if (result) {
@@ -703,10 +725,12 @@ export default Vue.extend({
     getRoomArea(rooms: any[]) {
       // 是否放到asyncData
       const areaObj: any = {};
-      rooms.forEach((item) => {
-        const area = item.area;
-        areaObj[area] = area;
-      })
+      if (rooms && rooms.length > 0) {
+        rooms.forEach((item) => {
+          const area = item.area;
+          areaObj[area] = area;
+        })
+      }
       const areaArray = Object.keys(areaObj)
       if (areaArray.length > 0) {
         return '建面约' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
@@ -716,11 +740,13 @@ export default Vue.extend({
     getRoomLabels(roomLabelsStr: string) {
       const result: any[] = [];
       const labelArray: string[] = roomLabelsStr.split(',');
-      this.labels.forEach((item: any) => {
-        if (labelArray.includes(item.id)) {
-          result.push(item)
-        }
-      })
+      if (this.labels && this.labels.length > 0) {
+        this.labels.forEach((item: any) => {
+          if (labelArray.includes(item.id)) {
+            result.push(item)
+          }
+        })
+      }
       return result;
     },
     goNews() {
@@ -781,8 +807,8 @@ export default Vue.extend({
   },
 })
 </script>
-<style scoped>
 
+<style scoped>
 /* For demo */
 .ant-carousel >>> .slick-slide {
   text-align: center;
