@@ -107,13 +107,11 @@
         <!-- house layout -->
         <div id="layout" ref="layout" class="w-full h-[450px] mt-8">
           <!-- h-36px -->
-          <div class="flex flex-row items-center w-full h-[36px]">
-            <!-- 竖线 -->
-            <div class="w-4 h-full bg-black"></div>
+          <div class="flex flex-row items-center w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="ml-2 text-xl font-bold">户型</div>
+            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}户型</div>
           </div>
-          <!--  -->
+          <!-- content -->
           <div class="w-full h-[414px] mt-8">
             <div class="w-full h-12">
               <span v-for="item in layouts" :key="item.value" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white text-lg' : ''" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
@@ -128,7 +126,62 @@
               <div class="w-full h-full overflow-hidden relactive">
                 <div ref="layoutScroll" class="relative flex flex-row h-full text-white transition-all" :style="layoutRightString">
                   <div v-for="item in house.hLayoutsById" v-show="item.room == showDefaultLayout" :key="item.id" class="relative flex-shrink-0 h-full mr-8 overflow-hidden transition-all w-72 bg-fjBlue-100">
-                    <div class="absolute bottom-0 z-20 flex flex-col w-full h-24 px-4">
+                    <div class="absolute bottom-0 z-10 flex flex-col w-full h-24 px-4">
+                      <div class="flex flex-row text-xl font-bold text-black">
+                        <div class="-space-x-1 ">
+                          <span v-if="item.room">{{ item.room }}</span>
+                          <span v-if="item.room">室</span>
+                          <span v-if="item.hall">{{ item.hall }}</span>
+                          <span v-if="item.hall">厅</span>
+                          <span v-if="item.toilet">{{ item.toilet }}</span>
+                          <span v-if="item.toilet">卫</span>
+                        </div>
+                        <div class="">
+                          <span v-if="item.state === '1'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
+                          <span v-if="item.state === '2'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
+                          <span v-if="item.state === '3'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+                        </div>
+                      </div>
+                      <div class="w-full text-gray-700">
+                        <span>建面约{{ item.area }}㎡</span>
+                        <span class="ml-4">{{ item.description }}</span>
+                      </div>
+                      <div v-if="item.labels" class="w-full space-x-2">
+                        <span v-for="(label, index) in item.labels.split(',')" :key="index" class="px-2 py-0.5 rounded text-center text-gray-600 bg-gray-400">
+                          {{ label }}
+                        </span>
+                      </div>
+                    </div>
+                    <img :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full transition-all duration-700 hover:scale-125">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- house layout -->
+        <div id="dynamic" ref="dynamic" class="w-full h-[450px] mt-8">
+          <!-- h-36px -->
+          <div class="flex flex-row items-center w-full h-[36px] border-b-[1px] border-fjBlue-100">
+            <!-- 标题内容 -->
+            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态</div>
+          </div>
+          <!-- content -->
+          <div class="w-full h-[414px] mt-8">
+            <div class="w-full h-12">
+              <span v-for="item in layouts" :key="item.value" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white text-lg' : ''" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
+            </div>
+            <div class="relative w-full overflow-hidden h-80">
+              <div class="absolute top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
+                <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
+              </div>
+              <div class="absolute top-[120px] right-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutRight">
+                <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
+              </div>
+              <div class="w-full h-full overflow-hidden relactive">
+                <div ref="layoutScroll" class="relative flex flex-row h-full text-white transition-all" :style="layoutRightString">
+                  <div v-for="item in house.hLayoutsById" v-show="item.room == showDefaultLayout" :key="item.id" class="relative flex-shrink-0 h-full mr-8 overflow-hidden transition-all w-72 bg-fjBlue-100">
+                    <div class="absolute bottom-0 z-10 flex flex-col w-full h-24 px-4">
                       <div class="flex flex-row text-xl font-bold text-black">
                         <div class="-space-x-1 ">
                           <span v-if="item.room">{{ item.room }}</span>
@@ -393,11 +446,15 @@ export default Vue.extend({
     },
     handleScroll() {
       const layoutTop = this.$refs.layout.getBoundingClientRect().top
+      const dynamicTop = this.$refs.dynamic.getBoundingClientRect().top
       const newsTop = this.$refs.news.getBoundingClientRect().top;
       const questionTop = this.$refs.question.getBoundingClientRect().top;
       const aoroundTop = this.$refs.around.getBoundingClientRect().top;
       if (layoutTop < 0 ) {
         this.topFlag = 'layout'
+      }
+      if (dynamicTop < 0 ) {
+        this.topFlag = 'dynamic'
       }
       if (newsTop < 0 ) {
         this.topFlag = 'news'
