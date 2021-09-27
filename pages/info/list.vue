@@ -118,7 +118,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Api as NewsApi, NEWS_SORT } from '~/api/model/newsModel'
-import { getListResult } from '~/utils/response/util'
+import { getDataResult } from '~/utils/response/util'
 
 export default Vue.extend({
   name: 'InfoList',
@@ -165,10 +165,10 @@ export default Vue.extend({
         getNewsList()
       ])
       if (newsTopResult.code === 200) {
-        newsTop = getListResult(newsTopResult);
+        newsTop = getDataResult(newsTopResult);
       }
       if (newsListResult.code === 200) {
-        newsList = getListResult(newsListResult);
+        newsList = getDataResult(newsListResult);
         total = newsTopResult.data.page.totalElements;
       }
     }
@@ -233,7 +233,7 @@ export default Vue.extend({
         const result = await this.$axios.$post(NewsApi.GetNewsByCity, newsParam);
         if (result.code === 200) {
           this.newsList.splice(0);
-          this.newsList = getListResult(result);
+          this.newsList = getDataResult(result);
           this.total = result.data.page.totalElements;
         }
       } catch (e) {}

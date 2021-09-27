@@ -106,7 +106,7 @@ import { AreaByCondition, AreaModel, Api as AreaApi } from '~/api/model/areaMode
 import { projectType } from '~/api/model/houseModel';
 import { BaseListResult } from '~/api/model/baseModel';
 import MapLoader from '~/plugins/loadMap'
-import { getListResult } from '~/utils/response/util';
+import { getDataResult } from '~/utils/response/util';
 
 export default Vue.extend({
   name: 'Map',
@@ -122,7 +122,7 @@ export default Vue.extend({
     const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
     let areas: any[] = [];
     if (areaResult.code === 200) {
-      areas = getListResult(areaResult);
+      areas = getDataResult(areaResult);
     }
 
     return {

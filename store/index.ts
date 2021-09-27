@@ -1,5 +1,5 @@
 import { BaseListResult, BasePageResult } from '~/api/model/baseModel';
-import { getListResult } from '~/utils/response/util';
+import { getDataResult } from '~/utils/response/util';
 import { Api as ProjectApi } from '@/api/model/houseModel';
 import { Api as LinkApi } from '@/api/model/linkModel';
 
@@ -24,7 +24,7 @@ export const actions = {
     const hotProjectResult:BasePageResult<any> = await context.app.$axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);
     let hotProjects: any[] = [];
     if (hotProjectResult.code === 200) {
-      hotProjects = getListResult(hotProjectResult);
+      hotProjects = getDataResult(hotProjectResult);
     }
     await store.commit('app/HOT_PROJECT_SET', hotProjects)
     const linkParam: any = {
@@ -38,10 +38,8 @@ export const actions = {
     const link:BaseListResult<any> = await context.app.$axios.$post(LinkApi.GetLinks, linkParam);
     let links: any[] = [];
     if (link.code === 200) {
-      links = getListResult(link);
+      links = getDataResult(link);
     }
     await store.commit('app/LINK_SET', links)
-    console.log("page:::::", context.route.path);
-    console.log(context.req.headers.host);
   }
 }

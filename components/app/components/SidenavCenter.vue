@@ -87,7 +87,7 @@
 import Vue from 'vue'
 import { BasePageResult } from '~/api/model/baseModel';
 import { Api as HouseApi } from '~/api/model/houseModel';
-import { getListResult } from '~/utils/response/util';
+import { getDataResult } from '~/utils/response/util';
 
 export default Vue.extend({
   name: 'SidenavCenter',
@@ -144,7 +144,7 @@ export default Vue.extend({
       try {
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.Search, param);
         if (result.code === 200) {
-          this.list = getListResult(result)
+          this.list = getDataResult(result)
         }
       } catch (e) {}
       finally {

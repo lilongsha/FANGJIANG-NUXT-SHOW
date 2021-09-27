@@ -464,7 +464,7 @@ import { Api as MetroLineApi, MetroLineByCondition, MetroStationByCondition, Met
 import { Api as ProjectApi, RecommendProjectByCondition } from '@/api/model/houseModel';
 import { Api as NewsApi } from '@/api/model/newsModel';
 import { BaseListResult, BasePageResult } from '@/api/model/baseModel';
-import { getListResult } from '@/utils/response/util';
+import { getDataResult } from '@/utils/response/util';
 
 export default Vue.extend({
   name: 'Home',
@@ -489,7 +489,7 @@ export default Vue.extend({
     const bannerResult:BaseListResult<BannerModel> = await $axios.$post(BannerApi.GetBanners, bannerParam)
     let banners: BannerModel[] = [];
     if (bannerResult.code === 200) {
-      banners = getListResult(bannerResult);
+      banners = getDataResult(bannerResult);
     }
 
     // 区域参数
@@ -503,7 +503,7 @@ export default Vue.extend({
     const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
     let areas: any[] = [];
     if (areaResult.code === 200) {
-      areas = getListResult(areaResult);
+      areas = getDataResult(areaResult);
     }
 
     // metro line
@@ -516,7 +516,7 @@ export default Vue.extend({
     const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
     let metroLines: MetroLineModel[] = [];
     if (metroLineResult.code === 200) {
-      metroLines = getListResult(metroLineResult);
+      metroLines = getDataResult(metroLineResult);
     }
 
     // 获取推荐楼盘
@@ -529,7 +529,7 @@ export default Vue.extend({
     const recommendProjectResult:BaseListResult<any> = await $axios.$post(ProjectApi.GetRecommendByCityId, recommendProjectParam);
     let recommendProjects: any[] = []
     if (recommendProjectResult.code === 200) {
-      recommendProjects = getListResult(recommendProjectResult);
+      recommendProjects = getDataResult(recommendProjectResult);
     }
     const selectRecommendKey = recommendProjects[0].id;
 
@@ -549,7 +549,7 @@ export default Vue.extend({
     const hotProjectResult:BasePageResult<any> = await $axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);
     let hotProjects: any[] = []
     if (hotProjectResult.code === 200) {
-      hotProjects = getListResult(hotProjectResult);
+      hotProjects = getDataResult(hotProjectResult);
     }
     // 获取所有用到的标签
     const labelIdsObj: any = {};
@@ -572,7 +572,7 @@ export default Vue.extend({
     if (labelIds && labelIds.length > 0) {
       const labelsResult:BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, labelParam);
       if (labelsResult.code === 200) {
-        labels = getListResult(labelsResult);
+        labels = getDataResult(labelsResult);
       }
     }
     // 获取资讯 7: 实探楼盘 4: 房贷利率 3: 楼市政策
@@ -639,13 +639,13 @@ export default Vue.extend({
         getNews3()
       ])
       if (news7.code === 200) {
-        newsObj[1] = getListResult(news7);
+        newsObj[1] = getDataResult(news7);
       }
       if (news4.code === 200) {
-        newsObj[2] = getListResult(news4);
+        newsObj[2] = getDataResult(news4);
       }
       if (news3.code === 200) {
-        newsObj[3] = getListResult(news3);
+        newsObj[3] = getDataResult(news3);
       }
     }
     await getNews();
@@ -772,7 +772,7 @@ export default Vue.extend({
         };
         const result:BaseListResult<TradingAreaModel>  = await this.$axios.$post(TradingAreaApi.GetAllTradingAreas, param);
         if (result.code === 200) {
-          this.tradings = getListResult(result);
+          this.tradings = getDataResult(result);
         }
       } catch(e) {}
       finally {
@@ -792,7 +792,7 @@ export default Vue.extend({
         };
         const result:BaseListResult<MetroStationModel>  = await this.$axios.$post(MetroLineApi.GetStations, param);
         if (result.code === 200) {
-          this.metroStations = getListResult(result);
+          this.metroStations = getDataResult(result);
         }
       } catch(e) {}
       finally {

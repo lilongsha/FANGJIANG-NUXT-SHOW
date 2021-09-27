@@ -462,7 +462,7 @@ import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '~/api/model/tradingAreaModel';
 import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState } from '~/api/model/houseModel';
 import { Api as DictApi } from '~/api/model/dictModel';
-import { getListResult } from '~/utils/response/util';
+import { getDataResult } from '~/utils/response/util';
 
 
 export default Vue.extend({
@@ -481,7 +481,7 @@ export default Vue.extend({
     const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
     let areas: any[] = [];
     if (areaResult.code === 200) {
-      areas = getListResult(areaResult);
+      areas = getDataResult(areaResult);
     }
     // 获取商圈
     const data: TradingAreaByCondition = {
@@ -496,7 +496,7 @@ export default Vue.extend({
     const result:BaseListResult<TradingAreaModel>  = await $axios.$post(TradingAreaApi.GetAllTradingAreas, param);
     let tradings: any[] = [];
     if (result.code === 200) {
-      tradings = getListResult(result);
+      tradings = getDataResult(result);
     }
     // 获取地铁
     const metroLineData: MetroLineByCondition = {
@@ -508,7 +508,7 @@ export default Vue.extend({
     const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
     let metroLines: MetroLineModel[] = [];
     if (metroLineResult.code === 200) {
-      metroLines = getListResult(metroLineResult);
+      metroLines = getDataResult(metroLineResult);
     }
 
     const query = route.query
@@ -586,7 +586,7 @@ export default Vue.extend({
       };
       const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
       if (result.code === 200) {
-        projectList = getListResult(result)
+        projectList = getDataResult(result)
         const labelObj: any = {};
         if (projectList && projectList.length > 0) {
           projectList.forEach((item: any) => {
@@ -607,9 +607,8 @@ export default Vue.extend({
         }
         if (ids.length > 0) {
           const dictResult: BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, param)
-          console.log('dictResult::::', dictResult);
           if (dictResult.code === 200) {
-            labels = getListResult(dictResult);
+            labels = getDataResult(dictResult);
           }
         }
         
@@ -893,7 +892,7 @@ export default Vue.extend({
       try {
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.GetByCityIdAndOrder, param);
         if (result.code === 200) {
-          this.projectList = getListResult(result)
+          this.projectList = getDataResult(result)
           const labelObj: any = {};
           if (this.projectList && this.projectList.length > 0) {
             this.projectList.forEach((item) => {
@@ -914,7 +913,7 @@ export default Vue.extend({
           if (ids.length > 0) {
             const dictResult: BaseListResult<any> = await this.$axios.$post(DictApi.GetLabelsByArray, param)
             if (dictResult.code === 200) {
-              this.labels = getListResult(dictResult);
+              this.labels = getDataResult(dictResult);
             }
           }
           this.pageNum = result.data.page.number + 1;
