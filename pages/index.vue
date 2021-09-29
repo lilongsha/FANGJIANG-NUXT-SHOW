@@ -106,7 +106,7 @@
             <!-- 商圈 -->
             <div v-show="menuShow.flag === 2" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
               <div class="flex flex-col w-1/5 h-full space-y-2 overflow-auto">
-                <div v-for="area in areas" :key="area.id" @click="getTradings(area.id)" class="flex flex-row justify-between w-full text-sm opacity-60 hover:opacity-100">
+                <div v-for="area in areas" :key="area.id" class="flex flex-row justify-between w-full text-sm opacity-60 hover:opacity-100" @click="getTradings(area.id)">
                   <span>{{ area.name }}</span>
                   <svg
                   class="w-3 h-3 opacity-50"
@@ -271,8 +271,8 @@
               <span class="ml-2 overflow-hidden text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
             </div>
             <div class="flex flex-row items-end justify-between px-2 h-9">
-              <div class="flex flex-row items-end space-x-2 ">
-                <span v-for="label in getRoomLabels(item.labels)" :key="label.id" class="px-1 text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm" :title="label.value">{{ label.value }}</span>
+              <div v-if="item.labels" class="flex flex-row items-end space-x-2">
+                <span v-for="(label, index) in (item.labels.split(','))" :key="index" class="px-1 text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm" :title="label">{{ label }}</span>
               </div>
               <div>
                 <div>
@@ -458,7 +458,6 @@ import Vue from 'vue'
 import { mapMutations } from 'vuex';
 import { Api as AreaApi, AreaByCondition, AreaModel } from '@/api/model/areaModel'
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '@/api/model/tradingAreaModel';
-import { Api as DictApi } from '@/api/model/dictModel';
 import { Api as BannerApi, BannerByCondition, BannerModel } from '@/api/model/bannerModel';
 import { Api as MetroLineApi, MetroLineByCondition, MetroStationByCondition, MetroStationModel, MetroLineModel } from '@/api/model/metroLineModel';
 import { Api as ProjectApi, RecommendProjectByCondition } from '@/api/model/houseModel';
@@ -551,30 +550,6 @@ export default Vue.extend({
     if (hotProjectResult.code === 200) {
       hotProjects = getDataResult(hotProjectResult);
     }
-    // 获取所有用到的标签
-    const labelIdsObj: any = {};
-    if (hotProjects && hotProjects.length > 0) {
-      hotProjects.forEach((item) => {
-        if (item.labels && item.labels !== '') {
-          item.labels.split(',').forEach((label: string) => {
-            labelIdsObj[label] = label;
-          })
-        }
-      });
-    }
-    const labelIds = Object.keys(labelIdsObj);
-    const labelParam: any = {
-      data: {
-        ids: labelIds
-      }
-    }
-    let labels: any[] = [];
-    if (labelIds && labelIds.length > 0) {
-      const labelsResult:BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, labelParam);
-      if (labelsResult.code === 200) {
-        labels = getDataResult(labelsResult);
-      }
-    }
     // 获取资讯 7: 实探楼盘 4: 房贷利率 3: 楼市政策
     const getNews7 = async () => {
       const newsParam: any = {
@@ -660,7 +635,6 @@ export default Vue.extend({
       recommendProjects,
       selectRecommendKey,
       hotProjects,
-      labels,
       newsObj,
     }
   },
@@ -738,20 +712,6 @@ export default Vue.extend({
         return '建面约' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
       }
       return '暂无数据'
-    },
-    getRoomLabels(roomLabelsStr: string) {
-      const result: any[] = [];
-      if (roomLabelsStr) {
-        const labelArray: string[] = roomLabelsStr.split(',');
-        if (this.labels && this.labels.length > 0) {
-          this.labels.forEach((item: any) => {
-            if (labelArray.includes(item.id)) {
-              result.push(item)
-            }
-          })
-        } 
-      }
-      return result;
     },
     goNews() {
       this.$router.push('/info/list');
