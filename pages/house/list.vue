@@ -404,8 +404,8 @@
                     <span>户型：</span>
                     <span>{{getRoomList(item)}}</span>
                   </div>
-                  <div class="mt-16">
-                    <span v-for="item1 in getLabel(item.labels)" :key="item1.id" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
+                  <div v-if="item.labels" class="mt-16">
+                    <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
                   </div>
                 </div>
                 <div class="w-1/5 text-[14px] text-right">
@@ -461,7 +461,6 @@ import { BaseListResult, BasePageResult } from '~/api/model/baseModel';
 import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api/model/metroLineModel';
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '~/api/model/tradingAreaModel';
 import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState } from '~/api/model/houseModel';
-import { Api as DictApi } from '~/api/model/dictModel';
 import { getDataResult } from '~/utils/response/util';
 
 
@@ -542,7 +541,6 @@ export default Vue.extend({
     });
 
     let projectList: any;
-    let labels: any;
     let total: number = 0;
 
     const getList = async () => {
@@ -587,31 +585,7 @@ export default Vue.extend({
       const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
       if (result.code === 200) {
         projectList = getDataResult(result)
-        const labelObj: any = {};
-        if (projectList && projectList.length > 0) {
-          projectList.forEach((item: any) => {
-          if (item.labels) {
-            item.labels.split(',').forEach((l:string) => {
-              labelObj[l] = 0;
-            })
-          }
-        })
-        }
-
         total = result.data.page.totalElements;
-        const ids = Object.keys(labelObj);
-        const param: any = {
-        data: {
-            ids,
-          }
-        }
-        if (ids.length > 0) {
-          const dictResult: BaseListResult<any> = await $axios.$post(DictApi.GetLabelsByArray, param)
-          if (dictResult.code === 200) {
-            labels = getDataResult(dictResult);
-          }
-        }
-        
       }
     }
 
@@ -628,7 +602,6 @@ export default Vue.extend({
       projectType,
       saleState,
       projectList,
-      labels,
       total
     }
   },
@@ -650,7 +623,6 @@ export default Vue.extend({
     const saleState: number[] = [];
     const projectList: any[] = [];
     const sortType: string = '';
-    const labels: any[] = [];
     return {
       projectList,
       locationType: '1', // 1: 区域 2:商圈 3: 地铁
@@ -672,7 +644,6 @@ export default Vue.extend({
         saleState,
         sortType,
       },
-      labels,
       pageNum: 1,
       pageSize: 10,
       total: 0,
@@ -738,20 +709,6 @@ export default Vue.extend({
       return ''
 
     },
-    getLabel(ids: string) {
-      const result: string[] = [];
-      if (ids) {
-        ids.split(',').forEach((l: string) => {
-          if (this.labels && this.labels.length > 0)
-          this.labels.forEach((l1: any) => {
-            if (l1.id === l) {
-              result.push(l1);
-            }
-          })
-        })
-      }
-      return result;
-    },
     getRoomList(room: any) {
       const flagObj = {
         0: 0,
@@ -816,7 +773,7 @@ export default Vue.extend({
       if (item?.sysAreaByAreaId?.name) {
         result = result + item?.sysAreaByAreaId?.name;
       }
-      if (item?.sysTradingAreasById[0].name) {
+      if (item?.sysTradingAreasById[0] && item?.sysTradingAreasById[0].name) {
         result = result + ' - ' + item?.sysTradingAreasById[0].name;
       }
       return result;
@@ -893,29 +850,6 @@ export default Vue.extend({
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.GetByCityIdAndOrder, param);
         if (result.code === 200) {
           this.projectList = getDataResult(result)
-          const labelObj: any = {};
-          if (this.projectList && this.projectList.length > 0) {
-            this.projectList.forEach((item) => {
-            if (item.labels) {
-              item.labels.split(',').forEach((l:string) => {
-                labelObj[l] = 0;
-              })
-            }
-          })
-          }
-          
-          const ids = Object.keys(labelObj);
-          const param: any = {
-          data: {
-              ids,
-            }
-          }
-          if (ids.length > 0) {
-            const dictResult: BaseListResult<any> = await this.$axios.$post(DictApi.GetLabelsByArray, param)
-            if (dictResult.code === 200) {
-              this.labels = getDataResult(dictResult);
-            }
-          }
           this.pageNum = result.data.page.number + 1;
         }
       } catch (e) {}
