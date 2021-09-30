@@ -73,6 +73,7 @@ export interface ProjectModel {
   sysTradingAreasById?: string;
   sysMetroStationsById?: string;
   projectPriceLogEntities?: string;
+  sysDictDetailBeans?: any[];
 }
 
 export interface RecommendProjectByCondition {
@@ -156,7 +157,6 @@ export const saleState: any[] = [
 export const houseMenu: any[] = [
   {title: '楼盘户型', value: 'layout'},
   {title: '楼盘动态', value: 'dynamic'},
-  {title: '楼盘资讯', value: 'news'},
   {title: '热门问题', value: 'question'},
   {title: '楼盘周边', value: 'around'},
   {title: '价格走势', value: 'price'},

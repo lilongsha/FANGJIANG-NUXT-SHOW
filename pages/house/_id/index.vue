@@ -159,14 +159,26 @@
             </div>
           </div>
         </div>
+        <!-- house news -->
+        <div id="news" class="sticky float-right w-1/4 mt-8 top-36">
+          <!-- title -->
+          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+            <span class="text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
+          </div>
+          <!-- content -->
+          <div class="w-full pt-1 space-y-2">
+            <div v-for="item in newsList" :key="item.id">
+              <a :href="`/info/${item.id}.html`" target="_blank" class="text-black hover:text-fjBlue-100">{{ item.title }}</a></div>
+          </div>
+        </div>
         <!-- house layout -->
-        <div id="dynamic" ref="dynamic" class="w-full mt-8">
+        <div id="dynamic" ref="dynamic" class="w-3/4 pr-4 mt-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
             <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态</div>
             <!-- 全部 -->
-            <a :href="`/dynamic/list/${house.id}.html`" target="_blank">
+            <a :href="`/house/dynamic/list/${house.id}.html`" target="_blank">
               <div class="text-sm text-gray-500">更多({{ totalDynamic }})></div>
             </a>
           </div>
@@ -174,28 +186,79 @@
           <div class="w-full mt-8">
             <div v-for="item in dynamicList" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
               <!-- dynamic Title -->
-              <div class="w-full mb-4 hover:border-b border-fjBlue-100">
-                <a :href="`/dynamic/${item.id}.html`" target="_blank">
-                  <span class="text-lg text-black">{{ item.title }}</span>
+              <div class="w-full mb-4">
+                <a :href="`/house/dynamic/${item.id}.html`" target="_blank">
+                  <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
                 </a>
                 <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs">{{ DynamicSort[item.sort].title }}</span>
               </div>
               <!-- dynamic Content -->
-              <div class="w-full mb-8 whitespace-pre-wrap max-h-16 overflow-ellipsis first-letter:ml-4">{{ item.description }}</div>
+              <p class="w-full mb-8 truncate whitespace-pre-wrap max-h-16 first-letter:ml-4">{{ item.description }}</p>
               <!-- dynamic Time -->
               <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
               <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
             </div>
           </div>
         </div>
-        <!-- house news -->
-        <div id="news" ref="news" class="w-full bg-red-300 h-112"></div>
         <!-- house question -->
-        <div id="question" ref="question" class="w-full bg-black h-112"></div>
+        <div id="question" ref="question" class="w-3/4 pr-4 mt-8">
+          <!-- h-36px -->
+          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+            <!-- 标题内容 -->
+            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</div>
+            <!-- 全部 -->
+            <a :href="`/house/discuss/list/${house.id}.html`" target="_blank">
+              <div class="text-sm text-gray-500">更多({{ questionTotal }})></div>
+            </a>
+          </div>
+          <!-- content -->
+          <div class="w-full mt-8">
+            <div v-for="item in questionList" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
+              <!-- question Title -->
+              <div class="w-full mb-4">
+                <a :href="`/house/discuss/${item.id}.html`" target="_blank">
+                  <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.content }}</span>
+                </a>
+              </div>
+              <!-- question Content -->
+              <div v-if="item.answerEntities && item.answerEntities.length > 0">
+                <div v-for="(answer, index) in item.answerEntities" v-show="index < 2 || item.id === showMoreId" :key="index" class="flex flex-row w-full mb-2 transition-all">
+                  <div class="w-3/4 overflow-hidden">
+                    <span>{{ answer.content }}</span>
+                  </div>
+                  <div class="flex flex-row items-center justify-end w-1/4">
+                    <svg t="1632970194001" class="w-3 h-3" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3415" width="128" height="128"><path d="M598.354747 67.542626c-48.148687 0-90.130101 32.905051-98.960808 79.437576 0 0-14.312727 72.882424-21.798787 99.090101-12.308687 43.196768-55.363232 90.944646-86.522829 106.188283-23.531313 11.636364-110.99798 11.765657-116.350707 11.765656H155.707475c-32.762828 0-59.384242 26.479192-59.384243 59.384243v475.022222c0 32.762828 26.479192 59.384242 59.384243 59.384242h548.033939c88.126061 0 163.025455-64.452525 176.135758-151.647676l45.873131-305.713132c10.834747-71.809293-44.8-136.274747-117.423838-136.274747H673.254141s20.066263-66.469495 30.228687-178.669899c5.081212-56.837172-35.167677-110.99798-94.280404-117.152323-3.620202-0.54303-7.227475-0.814545-10.847677-0.814546zM333.705051 898.288485V421.533737c38.917172-2.534141 66.999596-8.016162 83.574949-16.316767 43.726869-21.669495 99.633131-81.040808 117.281616-143.088485 7.899798-27.681616 21.39798-96.155152 23.001212-104.184243 3.47798-17.92 20.596364-31.159596 40.649697-31.159596 1.603232 0 3.206465 0.129293 4.822627 0.271516 28.211717 2.947879 43.326061 29.698586 41.32202 52.686868-9.360808 103.912727-27.823838 166.503434-28.082425 166.904243l-23.130505 76.489697h215.182223c17.519192 0 33.564444 7.356768 45.071515 20.596363 11.507071 13.239596 16.316768 30.228687 13.640404 47.618586L821.294545 797.052121c-8.830707 58.569697-58.181818 101.094141-117.423838 101.094142h-370.165656v0.142222z m-177.997576 0v-475.022222h118.626262v475.022222H155.707475z m0 0" p-id="3416"></path></svg>
+                    <span class="mr-6">{{ answer.likeNum }}</span>
+                    <span>{{ answer.createTime.split('T')[0] }}</span>
+                  </div>
+                </div>
+                <div v-if="item.answerEntities.length > 2 && showMoreId === ''" class="w-full text-center" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
+                <div v-else class="w-full text-center" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
+              </div>
+              <!-- question Time -->
+              <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
+              <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
+            </div>
+          </div>
+        </div>
         <!-- house around -->
-        <div id="around" ref="around"></div>
+        <div id="around" ref="around" class="sticky w-full">
+          <!-- h-36px -->
+          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+            <!-- 标题内容 -->
+            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}周边</div>
+          </div>
+          <div id="aroundMap" class="w-full mt-4 h-112"></div>
+        </div>
         <!-- house price -->
-        <div id="price" ref="price"></div>
+        <div id="price" ref="price" class="sticky w-full">
+          <!-- h-36px -->
+          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+            <!-- 标题内容 -->
+            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</div>
+          </div>
+          <div class="w-full h-80 bg-fjBlue-100"></div>
+        </div>
         <!-- house 推荐 -->
         <div></div>
       </div>
@@ -208,7 +271,10 @@ import Vue from 'vue'
 import { Api as HouseApi, houseMenu } from '~/api/model/houseModel';
 import { Api as ResourceApi, resourceSort } from '~/api/model/resourceModel';
 import { Api as DynamicApi, sort as DynamicSort } from '~/api/model/dynamicModel';
+import { Api as NewsApi } from '~/api/model/newsModel';
+import { getQuestions } from '~/api/model/questionModel';
 import { getDataResult, getPageResult } from '~/utils/response/util';
+import MapLoader from '~/plugins/loadMap';
 
 export default Vue.extend({
   name: 'HouseInfo',
@@ -224,7 +290,38 @@ export default Vue.extend({
       await Promise.all([
         getResourcesList(),
         getDynamicList(),
+        getNewsList(),
+        getQuestList()
       ])
+    }
+
+    // 获取楼盘资讯
+    let newsList: any[] = [];
+    let totalNews: number = 0;
+    const getNewsList = async () => {
+      const param: any = {
+        data: {
+          projectId: id
+        },
+      }
+      const result = await $axios.$post(NewsApi.GetNewsByProject, param)
+      if (result.code === 200) {
+        const { content, page } = getPageResult(result);
+        newsList = content;
+        totalNews = page.totalElements;
+      }
+    }
+
+    // 获取问答列表
+    let questionList: any[] = [];
+    let questionTotal: number = 0;
+    const getQuestList = async () => {
+      const result = await getQuestions($axios, id);
+      if (result.code === 200) {
+        const { content, page } = getPageResult(result);
+        questionList = content;
+        questionTotal = page.totalElements;
+      }
     }
 
     // 获取资源信息
@@ -296,7 +393,8 @@ export default Vue.extend({
       await getHouseInfo();
     }
     
-    return { id, house, resourceSortList, dynamicList, totalDynamic, resourceList, showSort }
+    return { id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
+questionTotal }
   },
   data () {
     const id: string = '';
@@ -315,6 +413,10 @@ export default Vue.extend({
     const layoutRightString: string = '';
     const dynamicList: any[] = [];
     const totalDynamic: number = 0;
+    const newsList: any[] = [];
+    const totalNews: number = 0;
+    const showMoreId: string = '';
+    const map: any = undefined;
     return {
       id,
       resourceSort,
@@ -335,6 +437,10 @@ export default Vue.extend({
       layoutRightString,
       dynamicList,
       totalDynamic,
+      newsList,
+      totalNews,
+      showMoreId,
+      map,
     }
   },
   head() {
@@ -360,9 +466,44 @@ export default Vue.extend({
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    MapLoader().then(AMap => {
+      this.map = new AMap.Map("aroundMap", {
+        zoom: 11,
+        center: [this.house.longitude, this.house.latitude],
+        scrollWheel:false,
+      })
+      const that = this;
+      AMap.plugin(['AMap.Scale', 'AMap.HawkEye', 'AMap.ToolBar', 'AMap.ControlBar'], function () {// 异步同时加载多个插件
+        const scale = new AMap.Scale();
+        that.map.addControl(scale);
+        const toolbar = new AMap.ToolBar();
+        that.map.addControl(toolbar);
+        const controlBar = new AMap.ControlBar({
+          position: {
+            top: '10px',
+            right: '10px',
+          }
+        });
+        const marker = new AMap.Marker({
+            icon: "https://fangjiang-saas-dev.oss-cn-beijing.aliyuncs.com/app/around/blue-logo.png",
+            position: [that.house.longitude, that.house.latitude]
+        });
+        const content = '<span>' + that.house.name + '</span>'
+        marker.setLabel({
+            offset: new AMap.Pixel(0, 0),
+            content,
+            direction: 'bottom'
+        });
+        that.map.add(marker);
+        that.map.addControl(controlBar);
+      });
+    })
     this.getHouseType();
   },
   methods: {
+    showMore(id: string) {
+      this.showMoreId = id;
+    },
     scrollRight() {
       if (this.$refs.sortScroll.offsetWidth - 713 < this.sortRight) {
         return;
@@ -449,22 +590,19 @@ export default Vue.extend({
     handleScroll() {
       const layoutTop = this.$refs.layout.getBoundingClientRect().top
       const dynamicTop = this.$refs.dynamic.getBoundingClientRect().top
-      const newsTop = this.$refs.news.getBoundingClientRect().top;
       const questionTop = this.$refs.question.getBoundingClientRect().top;
       const aoroundTop = this.$refs.around.getBoundingClientRect().top;
-      if (layoutTop < 0 ) {
+      // 150 距离顶部的距离
+      if (layoutTop < 150 ) {
         this.topFlag = 'layout'
       }
-      if (dynamicTop < 0 ) {
+      if (dynamicTop < 150 ) {
         this.topFlag = 'dynamic'
       }
-      if (newsTop < 0 ) {
-        this.topFlag = 'news'
-      }
-      if (questionTop < 0 ) {
+      if (questionTop < 150 ) {
         this.topFlag = 'question'
       }
-      if (aoroundTop < 0 ) {
+      if (aoroundTop < 150 ) {
         this.topFlag = 'around'
       }
     },
