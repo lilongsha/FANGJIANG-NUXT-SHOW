@@ -242,7 +242,7 @@
           </div>
         </div>
         <!-- house around -->
-        <div id="around" ref="around" class="sticky w-full">
+        <div id="around" ref="around" class="sticky w-full mt-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -251,16 +251,19 @@
           <div id="aroundMap" class="w-full mt-4 h-112"></div>
         </div>
         <!-- house price -->
-        <div id="price" ref="price" class="sticky w-full">
+        <div id="price" ref="price" class="sticky w-full mt-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
             <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</div>
           </div>
-          <div class="w-full h-80 bg-fjBlue-100"></div>
+          <div class="w-full h-80">
+            <line-echart :option="option" />
+          </div>
         </div>
         <!-- house 推荐 -->
-        <div></div>
+        <div class="w-full h-80">
+        </div>
       </div>
     </div>
   </div>
@@ -275,10 +278,12 @@ import { Api as NewsApi } from '~/api/model/newsModel';
 import { getQuestions } from '~/api/model/questionModel';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 import MapLoader from '~/plugins/loadMap';
+import LineEchart from '~/components/echart/LineEchart.vue'
 
 export default Vue.extend({
   name: 'HouseInfo',
   components: {
+    LineEchart,
   },
   async asyncData ({ $axios, params }) {
     let id = params.id;
@@ -379,7 +384,61 @@ export default Vue.extend({
         resourceList = getDataResult(result);
       }
     }
+    // 获取项目价格走势
+    const option: any = {
+      title: {
+        text: '',
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {},
+      toolbox: {
+        show: true,
+        feature: {
+          dataZoom: {
+            yAxisIndex: 'none'
+          },
+          dataView: { readOnly: false },
+          magicType: { type: ['line', 'bar'] },
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: []
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: '{value} 元/㎡'
+        }
+      },
+      series: [
+        {
+          data: [],
+          type: 'line',
+          markPoint: {
+            data: [
+              { type: 'max', name: 'Max' },
+              { type: 'min', name: 'Min' }
+            ]
+          },
+        }
+      ]
+    };
+    const getPrice = (house: any) => {
 
+      if (house.projectPriceLogEntities && house.projectPriceLogEntities.length > 0) {
+        house.projectPriceLogEntities.forEach((item: any) => {
+          if (item.price) {
+            option.xAxis.data.push(item.createTime.split('T')[0]);
+            option.series[0].data.push(item.price);
+          }
+        })
+      }
+    }
     // 获取项目信息
     const param: any = {
       data: {
@@ -390,11 +449,12 @@ export default Vue.extend({
     let house: any;
     if (result.code === 200) {
       house = getDataResult(result);
+      getPrice(house);
       await getHouseInfo();
     }
     
     return { id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
-questionTotal }
+questionTotal, option }
   },
   data () {
     const id: string = '';
@@ -505,7 +565,7 @@ questionTotal }
       this.showMoreId = id;
     },
     scrollRight() {
-      if (this.$refs.sortScroll.offsetWidth - 713 < this.sortRight) {
+      if ((this as any).$refs.sortScroll.offsetWidth - 713 < this.sortRight) {
         return;
       }
       this.sortRight = this.sortRight + 100;
@@ -573,10 +633,10 @@ questionTotal }
       this.layoutLabel = result;
     },
     next() {
-      this.$refs.carousel.next();
+      (this as any).$refs.carousel.next();
     },
     prev() {
-      this.$refs.carousel.prev();
+      (this as any).$refs.carousel.prev();
     },
     getPriceDate(time: string) {
       const date = new Date(time);
@@ -588,10 +648,10 @@ questionTotal }
       anchor.scrollIntoView({ behavior: 'smooth' })
     },
     handleScroll() {
-      const layoutTop = this.$refs.layout.getBoundingClientRect().top
-      const dynamicTop = this.$refs.dynamic.getBoundingClientRect().top
-      const questionTop = this.$refs.question.getBoundingClientRect().top;
-      const aoroundTop = this.$refs.around.getBoundingClientRect().top;
+      const layoutTop = (this as any).$refs.layout.getBoundingClientRect().top
+      const dynamicTop = (this as any).$refs.dynamic.getBoundingClientRect().top
+      const questionTop = (this as any).$refs.question.getBoundingClientRect().top;
+      const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
       // 150 距离顶部的距离
       if (layoutTop < 150 ) {
         this.topFlag = 'layout'
