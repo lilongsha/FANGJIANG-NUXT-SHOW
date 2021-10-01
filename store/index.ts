@@ -3,6 +3,38 @@ import { getDataResult } from '~/utils/response/util';
 import { Api as ProjectApi } from '@/api/model/houseModel';
 import { Api as LinkApi } from '@/api/model/linkModel';
 
+const getRooms = (rooms: any[]) => {
+  // 是否放到asyncData
+  const roomObj: any = {};
+  if (rooms && rooms.length > 0) {
+    rooms.forEach((item) => {
+      const room = item.room;
+      roomObj[room] = room;
+    })
+  }
+  const roomArray = Object.keys(roomObj)
+  const result: string = roomArray.toString().replaceAll(',', '室/')
+  if (result) {
+    return result + '室'
+  }
+  return '暂无数据'
+}
+const getRoomArea = (rooms: any[]) => {
+  // 是否放到asyncData
+  const areaObj: any = {};
+  if (rooms && rooms.length > 0) {
+    rooms.forEach((item) => {
+      const area = item.area;
+      areaObj[area] = area;
+    })
+  }
+  const areaArray = Object.keys(areaObj)
+  if (areaArray.length > 0) {
+    return '建面约' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
+  }
+  return '暂无数据'
+}
+
 export const actions = {
   async nuxtServerInit (store: any, context: any) {
     await store.commit('app/PROVINCE_SET', '河北省')
@@ -25,6 +57,12 @@ export const actions = {
     let hotProjects: any[] = [];
     if (hotProjectResult.code === 200) {
       hotProjects = getDataResult(hotProjectResult);
+      hotProjects.forEach((item) => {
+        const rooms = getRooms(item.hLayoutsById);
+        item.rooms = rooms;
+        const roomAreas = getRoomArea(item.hLayoutsById);
+        item.roomAreas = roomAreas;
+      });
     }
     await store.commit('app/HOT_PROJECT_SET', hotProjects)
     const linkParam: any = {
