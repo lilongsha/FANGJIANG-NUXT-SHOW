@@ -163,3 +163,35 @@ export const houseMenu: any[] = [
   {title: '楼盘周边', value: 'around'},
   {title: '价格走势', value: 'price'},
 ]
+
+export function getHouseType(house: any) {
+  const layouts: any[] = house.hLayoutsById;
+  // 获取主力户型
+  if (!layouts || layouts.length < 1) {
+    return '暂无数据';
+  }
+  const flagObj: any = {};
+  layouts.forEach((item) => {
+    if (item.saleState !== '1' || !item.room || !item.area) {
+      return;
+    }
+    if (flagObj[item.room + '-' + item.area]) {
+      flagObj[item.room + '-' + item.area] = flagObj[item.room + '-' + item.area] + 1;
+    } else {
+      flagObj[item.room + '-' + item.area] = 1;
+    }
+  })
+  const keys = Object.keys(flagObj);
+  if (keys.length < 1) {
+    return '暂无数据';
+  }
+  let result: string = '';
+  for(let i = 0; i < keys.length; i++) {
+    layouts.push({ rooms: keys[i].split('-')[0], value: flagObj[keys[i]] });
+    if (Object.keys(flagObj).length > 2) {
+      continue;
+    }
+    result = result + keys[i].split('-')[0] + '室(' + keys[i].split('-')[1] + '㎡)        '
+  }
+  return result;
+}

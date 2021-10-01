@@ -1,6 +1,7 @@
 export enum Api {
   GetNewsByCity = '/nhouse-server/news/getNewsByCity',
   GetNewsByProject = '/nhouse-server/news/getNewsByProject',
+  GetNews = '/nhouse-server/news/getNews',
 }
 
 export const NEWS_SORT = [

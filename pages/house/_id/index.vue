@@ -589,6 +589,8 @@ questionTotal, option, phoneNum }
   head() {
     const houseName: string = this.house.name;
     const houseCityName: string = this.house.sysCityByCityId.name;
+    const houseProvinceName: string = this.house.sysProvinceByProvinceId.name;
+    const latLng: string = this.house.latitude + '' + this.house.longitude;
     const title: string = `${this.house.name} - 房匠`;
     const description: string = `${this.house.description}`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
@@ -598,6 +600,7 @@ questionTotal, option, phoneNum }
     const upTime: string = this.house.updateTime || this.house.createTime;
     const keyword: string = `${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1575153492583878","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    const location: string = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
     return {
       title,
       meta: [
@@ -611,7 +614,12 @@ questionTotal, option, phoneNum }
           hid: 'keywords',
           name: 'keywords',
           content: keyword
-        }
+        },
+        {
+          hid: 'location',
+          name: 'location',
+          content: location
+        },
       ],
       script: [
         {
