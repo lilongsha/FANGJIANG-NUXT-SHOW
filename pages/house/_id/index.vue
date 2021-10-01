@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="w-full h-20"></div>
+    <div class="w-full h-24"></div>
     <!-- house content -->
     <div class="w-full pb-7 bg-[#f6f9fe]">
       <div class="container mx-auto">
@@ -71,7 +71,7 @@
               </div>
               <!-- 价格更新日期 -->
               <div class="flex flex-row justify-between w-full mt-4 text-sm">
-                <span v-if="house.updatePriceTime" class="">价格更新日期：{{ priceDate }}</span>
+                <span v-if="house.updatePriceTime" class="">价格更新日期：{{ house.updatePriceTime.split('T')[0] }}</span>
                 <span v-if="house.priceDays" class="">价格有效期：{{ house.priceDays }}天</span>
               </div>
               <!-- 说明 收藏 -->
@@ -95,14 +95,14 @@
               </a>
               <div class="w-full mt-14 h-0.5 bg-[#DDDDDD]"></div>
               <!-- phone -->
-              <div class="w-full mt-6 text-xl text-black">400 960 9880 转 {{ house.number }}</div>
+              <div class="w-full mt-6 text-xl text-black">{{ phoneNum }} 转 {{ house.number }}</div>
             </div>
           </div>
         </div>
         <!-- house menu -->
         <div ref="menu" class="sticky z-20 flex flex-row w-full h-16 bg-gray-200 mt-14 top-20">
           <div v-for="item in houseMenu" :key="item.value" :class="topFlag === item.value ? 'bg-fjBlue-100 text-white' : 'text-[#333333]'" class="w-32 h-full leading-[64px] text-center align-middle text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
-          <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">400 960 9889 转 {{ house.number }}</div>
+          <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
         </div>
         <!-- house layout -->
         <div id="layout" ref="layout" class="w-full h-[450px] mt-8">
@@ -160,7 +160,7 @@
           </div>
         </div>
         <!-- house news -->
-        <div id="news" class="sticky float-right w-1/4 mt-8 top-36">
+        <div v-if="showNews" id="news" class="sticky float-right w-1/4 mt-8 transition-all top-36">
           <!-- title -->
           <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <span class="text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
@@ -242,7 +242,7 @@
           </div>
         </div>
         <!-- house around -->
-        <div id="around" ref="around" class="sticky w-full mt-8">
+        <div id="around" ref="around" class="w-full mt-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -251,7 +251,7 @@
           <div id="aroundMap" class="w-full mt-4 h-112"></div>
         </div>
         <!-- house price -->
-        <div id="price" ref="price" class="sticky w-full mt-8">
+        <div id="price" ref="price" class="w-full mt-8 bg-white">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -262,7 +262,82 @@
           </div>
         </div>
         <!-- house 推荐 -->
-        <div class="w-full h-80">
+        <div class="container mx-auto mt-12">
+          <!-- 标题 -->
+          <div class="flex flex-row items-center w-full ml-4 h-9">
+            <!-- 竖线 -->
+            <div class="w-4 h-full bg-black"></div>
+            <!-- 标题内容 -->
+            <div class="ml-2 text-xl font-bold">推荐楼盘</div>
+          </div>
+          <!-- 图片盒子 -->
+          <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
+            <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+              <div class="w-full h-7/10">
+                <img v-if="item.firstImg.address" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+              </div>
+              <div class="w-full px-4 mt-2 bg-white h-3/10">
+                <div class="font-bold">
+                  <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
+                  <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
+                  <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
+                  <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+                  <span v-if="item.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
+                  <span v-if="item.type === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
+                  <span v-if="item.type === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
+                  <span v-if="item.type === '4'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
+                  <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
+                  <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
+                </div>
+                <div class="flex flex-row items-center">
+                  <svg
+                    class="w-4 h-4 text-gray-400 icon"
+                    fill="currentColor"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="2536"
+                    width="128"
+                    height="128">
+                    <path d="M512 128a307.2 307.2 0 0 1 307.2 307.2c0 122.24-57.6 201.152-126.976 271.36l-21.12 20.8-46.336 43.776C583.488 809.984 543.04 849.472 512 896c-26.624-39.872-60.16-74.624-95.104-108.16l-53.248-50.24-21.376-20.608C268.288 644.16 204.8 563.52 204.8 435.2A307.2 307.2 0 0 1 512 128z m0 64a243.2 243.2 0 0 0-243.2 243.2c0 96.896 34.88 155.904 135.36 252.544l53.248 50.304 25.6 24.96c7.936 7.936 15.36 15.488 22.208 22.784l6.784 7.296 6.784-7.296c10.368-11.008 21.76-22.528 34.56-34.944l27.584-26.432 24.768-23.232 27.392-26.368C723.456 585.664 755.2 527.68 755.2 435.2A243.2 243.2 0 0 0 512 192z m0 128a128 128 0 1 1 0 256 128 128 0 0 1 0-256z m0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"
+                      p-id="2537"
+                      data-spm-anchor-id="a313x.7781069.0.i2"
+                      class="selected"></path>
+                  </svg>
+                  <span v-if="item.address" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
+                </div>
+                <div class="flex flex-row items-center">
+                  <svg
+                    class="w-4 h-4 text-gray-400 icon"
+                    fill="currentColor"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="2536"
+                    width="128"
+                    height="128">
+                    <path d="M512 128a307.2 307.2 0 0 1 307.2 307.2c0 122.24-57.6 201.152-126.976 271.36l-21.12 20.8-46.336 43.776C583.488 809.984 543.04 849.472 512 896c-26.624-39.872-60.16-74.624-95.104-108.16l-53.248-50.24-21.376-20.608C268.288 644.16 204.8 563.52 204.8 435.2A307.2 307.2 0 0 1 512 128z m0 64a243.2 243.2 0 0 0-243.2 243.2c0 96.896 34.88 155.904 135.36 252.544l53.248 50.304 25.6 24.96c7.936 7.936 15.36 15.488 22.208 22.784l6.784 7.296 6.784-7.296c10.368-11.008 21.76-22.528 34.56-34.944l27.584-26.432 24.768-23.232 27.392-26.368C723.456 585.664 755.2 527.68 755.2 435.2A243.2 243.2 0 0 0 512 192z m0 128a128 128 0 1 1 0 256 128 128 0 0 1 0-256z m0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"
+                      p-id="2537"
+                      data-spm-anchor-id="a313x.7781069.0.i2"
+                      class="selected"></path>
+                  </svg>
+                  <span class="overflow-hidden text-gray-400" :title="item.rooms">{{ item.rooms }}</span>
+                  <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
+                </div>
+                <div class="flex flex-row items-end justify-between px-2 h-9">
+                  <div v-if="item.labels" class="flex flex-row items-end space-x-2">
+                    <span v-for="(label, index) in (item.labels.split(','))" :key="index" class="px-1 text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm" :title="label">{{ label }}</span>
+                  </div>
+                  <div>
+                    <div>
+                      <span class="text-lg text-fjRed-100">{{ item.price }}</span>
+                      <span class="text-xs text-gray-400">元/㎡</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -271,7 +346,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Api as HouseApi, houseMenu } from '~/api/model/houseModel';
+import { Api as HouseApi, houseMenu, phoneNum } from '~/api/model/houseModel';
 import { Api as ResourceApi, resourceSort } from '~/api/model/resourceModel';
 import { Api as DynamicApi, sort as DynamicSort } from '~/api/model/dynamicModel';
 import { Api as NewsApi } from '~/api/model/newsModel';
@@ -279,13 +354,14 @@ import { getQuestions } from '~/api/model/questionModel';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 import MapLoader from '~/plugins/loadMap';
 import LineEchart from '~/components/echart/LineEchart.vue'
+import { Breadcrumb } from '~/types/app';
 
 export default Vue.extend({
   name: 'HouseInfo',
   components: {
     LineEchart,
   },
-  async asyncData ({ $axios, params }) {
+  async asyncData ({ $axios, params, store }) {
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
@@ -394,7 +470,7 @@ export default Vue.extend({
       },
       legend: {},
       toolbox: {
-        show: true,
+        show: false,
         feature: {
           dataZoom: {
             yAxisIndex: 'none'
@@ -449,12 +525,17 @@ export default Vue.extend({
     let house: any;
     if (result.code === 200) {
       house = getDataResult(result);
+      const breadcrumb: Breadcrumb[] = [];
+      breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+      breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
+      breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id, icon: 'area' })
+      store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
       getPrice(house);
       await getHouseInfo();
     }
     
     return { id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
-questionTotal, option }
+questionTotal, option, phoneNum }
   },
   data () {
     const id: string = '';
@@ -477,6 +558,7 @@ questionTotal, option }
     const totalNews: number = 0;
     const showMoreId: string = '';
     const map: any = undefined;
+    const showNews: boolean = true;
     return {
       id,
       resourceSort,
@@ -501,10 +583,21 @@ questionTotal, option }
       totalNews,
       showMoreId,
       map,
+      showNews,
     }
   },
   head() {
+    const houseName: string = this.house.name;
+    const houseCityName: string = this.house.sysCityByCityId.name;
     const title: string = `${this.house.name} - 房匠`;
+    const description: string = `${this.house.description}`;
+    const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
+    const firstImgAddress: string = this.house.firstImg.address;
+    const sandImgAddress: string = this.house.sandImg.address;
+    const pubTime: string = this.house.updateTime;
+    const upTime: string = this.house.updateTime || this.house.createTime;
+    const keyword: string = `${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1575153492583878","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     return {
       title,
       meta: [
@@ -512,16 +605,29 @@ questionTotal, option }
         {
           hid: 'description',
           name: 'description',
-          content: 'My custom description'
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keyword
         }
       ],
       script: [
         {
-          innerHTML: '{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"http://sjz.jiwu.com/loupan/1290152.html","appid":"1575153492583878","title":"石家庄润江云玺房价价格,新房售楼处电话,楼盘怎么样 - 吉屋网","images":["http://img1-build.jiwu.com/album/manual/2020/11/07/145807820623.jpg","http://img4-build.jiwu.com/album/manual/2020/11/07/151240046364.jpg/750x560", "http://img6-build.jiwu.com/album/manual/2020/11/07/151300673270.jpg/750x560"],"description": "石家庄裕华众美商圈润江云玺售楼处电话号码:4007508888转64846,吉屋网为您提供该房产楼盘信息、房价走势等，全面了解润江云玺买房怎么样，是您选购新楼盘一手房的理想网站。","upDate":"2021-09-11T10:51:22"}',
+          innerHTML: ldJson,
           type: 'application/ld+json',
         }
       ],
       __dangerouslyDisableSanitizers: ['script']
+    }
+  },
+  computed: {
+    getHotProject(): any {
+      const that = this;
+      const store = that.$store;
+      const hotProject: [] = store.state.app.hotProject;
+      return hotProject.slice(0, 4);
     }
   },
   mounted() {
@@ -638,11 +744,6 @@ questionTotal, option }
     prev() {
       (this as any).$refs.carousel.prev();
     },
-    getPriceDate(time: string) {
-      const date = new Date(time);
-      const result = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-      this.priceDate =  result;
-    },
     go(el: string) {
       const anchor:any = this.$el.querySelector('#' + el)
       anchor.scrollIntoView({ behavior: 'smooth' })
@@ -652,6 +753,7 @@ questionTotal, option }
       const dynamicTop = (this as any).$refs.dynamic.getBoundingClientRect().top
       const questionTop = (this as any).$refs.question.getBoundingClientRect().top;
       const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
+      const priceTop = (this as any).$refs.price.getBoundingClientRect().top;
       // 150 距离顶部的距离
       if (layoutTop < 150 ) {
         this.topFlag = 'layout'
@@ -661,9 +763,14 @@ questionTotal, option }
       }
       if (questionTop < 150 ) {
         this.topFlag = 'question'
+        this.showNews = true;
       }
       if (aoroundTop < 150 ) {
         this.topFlag = 'around'
+        this.showNews = false;
+      }
+      if (priceTop < 150 ) {
+        this.topFlag = 'price'
       }
     },
     scrollLayoutRight() {

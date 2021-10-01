@@ -267,8 +267,8 @@
                   data-spm-anchor-id="a313x.7781069.0.i2"
                   class="selected"></path>
               </svg>
-              <span class="overflow-hidden text-gray-400" :title="getRooms(item.hLayoutsById)">{{ getRooms(item.hLayoutsById) }}</span>
-              <span class="ml-2 overflow-hidden text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
+              <span class="overflow-hidden text-gray-400" :title="item.rooms">{{ item.rooms }}</span>
+              <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
             </div>
             <div class="flex flex-row items-end justify-between px-2 h-9">
               <div v-if="item.labels" class="flex flex-row items-end space-x-2">
@@ -532,6 +532,39 @@ export default Vue.extend({
     }
     const selectRecommendKey = recommendProjects[0].id;
 
+    // 处理数据
+    const getRooms = (rooms: any[]) => {
+      // 是否放到asyncData
+      const roomObj: any = {};
+      if (rooms && rooms.length > 0) {
+        rooms.forEach((item) => {
+          const room = item.room;
+          roomObj[room] = room;
+        })
+      }
+      const roomArray = Object.keys(roomObj)
+      const result: string = roomArray.toString().replaceAll(',', '室/')
+      if (result) {
+        return result + '室'
+      }
+      return '暂无数据'
+    }
+    const getRoomArea = (rooms: any[]) => {
+      // 是否放到asyncData
+      const areaObj: any = {};
+      if (rooms && rooms.length > 0) {
+        rooms.forEach((item) => {
+          const area = item.area;
+          areaObj[area] = area;
+        })
+      }
+      const areaArray = Object.keys(areaObj)
+      if (areaArray.length > 0) {
+        return '建面约' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
+      }
+      return '暂无数据'
+    }
+
     // 获取热销楼盘
     const hotProjectParam: any = {
       data: {
@@ -549,7 +582,14 @@ export default Vue.extend({
     let hotProjects: any[] = []
     if (hotProjectResult.code === 200) {
       hotProjects = getDataResult(hotProjectResult);
+      hotProjects.forEach((item) => {
+        const rooms = getRooms(item.hLayoutsById);
+        item.rooms = rooms;
+        const roomAreas = getRoomArea(item.hLayoutsById);
+        item.roomAreas = roomAreas;
+      })
     }
+
     // 获取资讯 7: 实探楼盘 4: 房贷利率 3: 楼市政策
     const getNews7 = async () => {
       const newsParam: any = {
@@ -624,8 +664,6 @@ export default Vue.extend({
       }
     }
     await getNews();
-    
-    
 
     return {
       ldJSON,
@@ -682,37 +720,6 @@ export default Vue.extend({
     this.BREADCRUMB_RE_SET();
   },
   methods: {
-    getRooms(rooms: any[]) {
-      // 是否放到asyncData
-      const roomObj: any = {};
-      if (rooms && rooms.length > 0) {
-        rooms.forEach((item) => {
-          const room = item.room;
-          roomObj[room] = room;
-        })
-      }
-      const roomArray = Object.keys(roomObj)
-      const result: string = roomArray.toString().replaceAll(',', '室/')
-      if (result) {
-        return result + '室'
-      }
-      return '暂无数据'
-    },
-    getRoomArea(rooms: any[]) {
-      // 是否放到asyncData
-      const areaObj: any = {};
-      if (rooms && rooms.length > 0) {
-        rooms.forEach((item) => {
-          const area = item.area;
-          areaObj[area] = area;
-        })
-      }
-      const areaArray = Object.keys(areaObj)
-      if (areaArray.length > 0) {
-        return '建面约' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
-      }
-      return '暂无数据'
-    },
     goNews() {
       this.$router.push('/info/list');
     },

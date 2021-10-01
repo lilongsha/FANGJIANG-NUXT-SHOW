@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <div class="w-full h-20"></div>
+    <div class="w-full h-24"></div>
     <!-- condition -->
     <div class="w-full px-8 py-10 mt-16 bg-gray-100">
       <!-- 位置 -->

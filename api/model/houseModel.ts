@@ -91,6 +91,8 @@ export enum Api {
   GetProject = '/nhouse-server/project/getProject',
 }
 
+export const phoneNum: string = '400 750 8888'
+
 // 单价
 export const priceList: any[] = [
   {title: '不限', lowPrice: null, heightPrice: null},
