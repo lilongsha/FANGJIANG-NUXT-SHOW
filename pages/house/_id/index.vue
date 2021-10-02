@@ -100,7 +100,7 @@
           </div>
         </div>
         <!-- house menu -->
-        <div ref="menu" class="sticky z-20 flex flex-row w-full h-16 bg-gray-200 mt-14 top-20">
+        <div ref="menu" class="sticky z-20 flex flex-row w-full h-16 bg-gray-200 mt-14 top-28">
           <div v-for="item in houseMenu" :key="item.value" :class="topFlag === item.value ? 'bg-fjBlue-100 text-white' : 'text-[#333333]'" class="w-32 h-full leading-[64px] text-center align-middle text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
           <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
         </div>
