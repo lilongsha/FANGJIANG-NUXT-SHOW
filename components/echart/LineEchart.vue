@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <div id="myChart" class="w-full h-full"></div>
+    <div :id="chartId" class="w-full h-full"></div>
   </div>
 </template>
 
@@ -14,6 +14,11 @@ export default Vue.extend({
       type: Object,
       require: true,
       default: () => {}
+    },
+    chartId: {
+      type: String,
+      require: true,
+      default: 'myChart'
     }
   },
   data () {
@@ -28,7 +33,7 @@ export default Vue.extend({
         return;
       }
       // 找到容器
-      const myChart = this.$echarts.init(document.getElementById('myChart'))
+      const myChart = this.$echarts.init(document.getElementById(this.chartId))
       // 开始渲染
       myChart.setOption(this.option)
     },
