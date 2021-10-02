@@ -164,6 +164,24 @@ export const houseMenu: any[] = [
   {title: '价格走势', value: 'price'},
 ]
 
+// 1毛坯；2简装；3精装；4毛坯与简装；5毛坯与精装
+export const decorationType: any = {
+  1: {title: '毛坯', value: '1'},
+  2: {title: '简装', value: '2'},
+  3: {title: '精装', value: '3'},
+  4: {title: '毛坯与简装', value: '4'},
+  5: {title: '毛坯与精装', value: '5'}
+}
+
+// 被动式，装配式，浇筑式，部分装配式，部分浇筑式
+export const buildType: any = {
+  1: {title: '被动式', value: '1'},
+  2: {title: '装配式', value: '2'},
+  3: {title: '浇筑式', value: '3'},
+  4: {title: '部分装配式', value: '4'},
+  5: {title: '部分浇筑式', value: '5'}
+}
+
 export function getHouseType(house: any) {
   const layouts: any[] = house.hLayoutsById;
   // 获取主力户型

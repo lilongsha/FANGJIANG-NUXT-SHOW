@@ -62,7 +62,7 @@
                 <div>
                   <span class="text-sm">参数单价：</span>
                   <span class="text-[22px]">{{ house.price }}</span>
-                  <span class="text-sm">元/㎡</span>
+                  <span class="text-sm">元/㎡起</span>
                 </div>
                 <div>
                   <span class="text-[22px]">{{ house.lowTotalPrice }}-{{ house.highTotalPrice }}</span>
@@ -90,7 +90,7 @@
               <div v-if="house.openTime" class="w-full py-4">最新开盘：{{ house.openTime.split('T')[0] }}</div>
               <div v-else class="w-full py-4">最新开盘：暂未开盘</div>
               <!-- 查看更多楼盘详情 -->
-              <a class="w-full border-b-[1px] border-fjBlue-100">
+              <a class="w-full border-b-[1px] border-fjBlue-100" :href="`/house/infomation/${house.id}.html`" :title="`${house.name}详情信息`" target="_blank">
                 查看更多楼盘详情
               </a>
               <div class="w-full mt-14 h-0.5 bg-[#DDDDDD]"></div>
