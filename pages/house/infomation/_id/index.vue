@@ -105,7 +105,7 @@
                   <td class="w-1/12 border">{{ item.floors }}</td>
                   <td class="w-4/12 border">{{ item.description }}</td>
                   <!-- {{ item.licenseId }} -->
-                  <td class="w-1/12 border"><a>预售证</a></td>
+                  <td class="w-1/12 border"><a target="_blank">预售证</a></td>
                 </tr>
               </tbody>
             </table>
@@ -133,7 +133,7 @@
               <div>建筑面积：<span v-if="house.buildArea" class="">{{ house.buildArea }}</span><span v-else>暂无数据</span></div>
               <div>绿&nbsp;&nbsp;化&nbsp;&nbsp;率：<span v-if="house.greenRate" class="">{{ house.greenRate }}%</span><span v-else>暂无数据</span></div>
               <div>楼栋总数：<span v-if="house.buildingTotal" class="">{{ house.buildingTotal }}栋</span><span v-else>暂无数据</span></div>
-              <div>物业公司：<span v-if="house.estateCompanyById" class=""><a :href="house.estateCompanyById.link">{{ house.estateCompanyById.name }}</a></span><span v-else>暂无数据</span></div>
+              <div>物业公司：<span v-if="house.estateCompanyById" class=""><a target="_blank" :href="house.estateCompanyById.link">{{ house.estateCompanyById.name }}</a></span><span v-else>暂无数据</span></div>
               <div>物业费说明：<span v-if="house.estateDescription" class="">{{ house.estateDescription }}</span><span v-else>暂无数据</span></div>
             </div>
           </div>
@@ -164,7 +164,7 @@
       </div>
       <!-- 图片盒子 -->
       <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
-        <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+        <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="w-full h-7/10">
             <img v-if="item.firstImg.address" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>

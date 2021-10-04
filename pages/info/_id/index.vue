@@ -12,7 +12,7 @@
         </div>
         <div class="w-2/3 h-28">
           <div class="w-full">
-            <span class="text-lg font-bold text-black py-0.5"><a :href="`/house/${item.id}.html`">{{ item.name }}</a></span>
+            <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a></span>
             <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
             <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
             <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
@@ -81,7 +81,7 @@
         <span class="border-b-8 border-fjBlue-100">热门资讯</span>
       </div>
     <div class="flex flex-row w-2/3 mt-4">
-      <div v-for="item in newsTop" :key="item.id" class="mr-10 font-medium"><a :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
+      <div v-for="item in newsTop" :key="item.id" class="mr-10 font-medium"><a target="_blank" :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
     </div>
   </div>
 </template>

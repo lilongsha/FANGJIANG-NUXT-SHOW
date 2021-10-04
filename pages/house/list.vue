@@ -361,7 +361,7 @@
       <!-- 主体 -->
       <div class="flex flex-col w-full mt-6">
         <div v-for="item in projectList" :key="item.id" class="px-4 py-4 mb-12 hover:bg-gray-100">
-          <a :href="`/house/${item.id}.html`" class="w-full h-[250px] flex flex-row">
+          <a :href="`/house/${item.id}.html`" target="_blank" class="w-full h-[250px] flex flex-row">
             <!-- 左边图片 -->
             <div class="h-full w-[360px] static">
               <img :src="getImg(item)" class="object-cover w-full h-full" height="100%" width="100%" :alt="item.name">

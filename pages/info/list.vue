@@ -7,7 +7,7 @@
       <div class="flex flex-row w-2/3">
         <!-- big photo -->
         <div v-if="newsTop.length > 0" class="w-1/2 pr-1">
-          <a v-if="newsTop[0]" :href="`/info/${newsTop[0].id}.html`" class="relative block w-full h-full">
+          <a v-if="newsTop[0]" :href="`/info/${newsTop[0].id}.html`" target="_blank" class="relative block w-full h-full">
             <img :src="newsTop[0].img" :title="newsTop[0].title" :alt="newsTop[0].title" class="object-cover w-full h-full">
             <div class="absolute bottom-0 z-10 w-full h-10 bg-black bg-opacity-50">
               <span class="text-white text-[18px] h-full flex flex-row items-center ml-6">{{ newsTop[0].title }}</span>
@@ -17,7 +17,7 @@
         <!-- two photo -->
         <div class="flex flex-col w-1/2 h-full pl-1">
           <div v-if="newsTop.length > 1" class="w-full h-1/2 pb-[2px]">
-            <a v-if="newsTop[1]" :href="`/info/${newsTop[1].id}.html`"  class="relative block w-full h-full">
+            <a v-if="newsTop[1]" :href="`/info/${newsTop[1].id}.html`" target="_blank" class="relative block w-full h-full">
               <img :src="newsTop[1].img" :title="newsTop[1].title" :alt="newsTop[1].title" class="object-cover w-full h-full">
               <div class="absolute bottom-0 z-10 w-full h-10 bg-black bg-opacity-50">
                 <span class="text-white text-[18px] h-full flex flex-row items-center ml-6">{{ newsTop[1].title }}</span>
@@ -25,7 +25,7 @@
             </a>
           </div>
           <div v-if="newsTop.length > 2" class="w-full h-1/2 pt-[2px]">
-            <a v-if="newsTop[2]" :href="`/info/${newsTop[2].id}.html`"  class="relative block w-full h-full">
+            <a v-if="newsTop[2]" :href="`/info/${newsTop[2].id}.html`" target="_blank" class="relative block w-full h-full">
               <img :src="newsTop[2].img" :title="newsTop[2].title" :alt="newsTop[2].title" class="object-cover w-full h-full">
               <div class="absolute bottom-0 z-10 w-full h-10 bg-black bg-opacity-50">
                 <span class="text-white text-[18px] h-full flex flex-row items-center ml-6">{{ newsTop[2].title }}</span>

@@ -193,7 +193,7 @@
       </div>
       <!-- 图片盒子 -->
       <div class="flex flex-row w-[full-8] mx-4 mt-8 h-96 overflow-hidden">
-        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="relative block h-full transition-all duration-500 ease-in-out w-1/10">
+        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="relative block h-full transition-all duration-500 ease-in-out w-1/10">
           <img :src="item.firstImg.address" :alt="item.name" width="10%" class="object-cover w-full h-full" height="100%" @mouseover="selectRecommendKey = item.id">
           <div v-show="selectRecommendKey === item.id" class="absolute bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
@@ -218,7 +218,7 @@
       </div>
       <!-- 图片盒子 -->
       <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
-        <a v-for="item in hotProjects" :key="item.id" :href="`/house/${item.id}.html`" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+        <a v-for="item in hotProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="w-full h-7/10">
             <img :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>

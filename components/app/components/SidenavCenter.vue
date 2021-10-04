@@ -55,7 +55,7 @@
           <input v-model="searchText" type="text" class="w-0 transition-all group-hover:w-96 group-hover:px-4 group-hover:mx-2 h-7 text-sm rounded-2xl bg-[#ededed] focus:outline-none outline-none " placeholder="请输入搜索项目">
           <div class="flex flex-col w-0 mb-2 space-y-2 overflow-hidden text-black transition-all group-hover:w-full">
             <div v-for="item in list" :key="item.id" class="flex flex-row overflow-hidden">
-              <a :href="`/house/${item.id}.html`" :title="item.name" class="flex flex-row w-full h-6 px-5 overflow-hidden justify-items-center search-a">
+              <a :href="`/house/${item.id}.html`" target="_blank" :title="item.name" class="flex flex-row w-full h-6 px-5 overflow-hidden justify-items-center search-a">
                 <!-- 项目名称 区域 -->
                 <div class="flex flex-row justify-start w-1/2 h-full justify-items-center">
                   <span class="mt-1 text-sm">{{ item.name }}</span>
