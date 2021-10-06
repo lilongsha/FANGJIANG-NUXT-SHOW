@@ -16,3 +16,25 @@ export const sort = [
   { value: '8', title: '楼栋售罄', color: 'bg-fjBlue-100' },
   { value: '9', title: '特价信息', color: 'bg-fjBlue-100' },
 ]
+
+export async function getDynamicNews($axios: any, projectId: string, pageSize = 2, pageNum = 0) {
+  const param: any = {
+    data: {
+      projectId,
+    },
+    page: {
+      pageSize,
+      pageNum,
+    }
+  }
+  return await $axios.$post(Api.GetDynamicNews, param)
+}
+
+export async function getDynamicNew($axios: any, id: string) {
+  const param: any = {
+    data: {
+      id,
+    },
+  }
+  return await $axios.$post(Api.GetDynamicNew, param)
+}

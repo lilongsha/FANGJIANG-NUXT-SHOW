@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <div class="w-full h-24"></div>
-    <div id="list" class="container flex flex-row mx-auto">
+    <div id="list" class="w-full h-24"></div>
+    <div class="container flex flex-row mx-auto">
       <div class="w-3/4 pr-4 mt-8">
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
