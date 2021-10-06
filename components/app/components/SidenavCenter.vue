@@ -32,8 +32,8 @@
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/" target="_blank">首页</a>
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/house/list" target="_blank">新房</a>
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/info/list" target="_blank">资讯</a>
-      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/map" target="_blank">地图</a>
-      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/about/company" target="_blank">关于</a>
+      <!-- <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/map" target="_blank">地图</a> -->
+      <!-- <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/about/company" target="_blank">关于</a> -->
     </div>
     <!-- 右侧 -->
     <div class="absolute right-0 flex flex-row items-center justify-center h-full max-w-lg">
