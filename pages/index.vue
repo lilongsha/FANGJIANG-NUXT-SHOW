@@ -468,16 +468,6 @@ import { getDataResult } from '@/utils/response/util';
 export default Vue.extend({
   name: 'Home',
   async asyncData({ $axios, store }) {
-    // ld-json
-    const ldJSON = {
-        "@context": "https://zhanzhang.baidu.com/contexts/cambrian.jsonld",
-        "@id": "http://sjz.jiwu.com/loupan/1290152.html",
-        "appid": "1575153492583878",
-        "title": "石家庄润江云玺房价价格,新房售楼处电话,楼盘怎么样 - 吉屋网",
-        "images": ['http://img1-build.jiwu.com/album/manual/2020/11/07/145807820623.jpg,http://img4-build.jiwu.com/album/manual/2020/11/07/151240046364.jpg/750x560,http://img6-build.jiwu.com/album/manual/2020/11/07/151300673270.jpg/750x560'],
-        "description": "石家庄裕华众美商圈润江云玺售楼处电话号码:4007508888转64846,吉屋网为您提供该房产楼盘信息、房价走势等，全面了解润江云玺买房怎么样，是您选购新楼盘一手房的理想网站。",
-        "upDate":"2021-09-11T10:51:22"
-    };
     // banner
     const bannerData: BannerByCondition = {
       cityId: store.state.app.cityId,
@@ -485,10 +475,13 @@ export default Vue.extend({
     const bannerParam: any = {
       data: bannerData
     };
-    const bannerResult:BaseListResult<BannerModel> = await $axios.$post(BannerApi.GetBanners, bannerParam)
     let banners: BannerModel[] = [];
-    if (bannerResult.code === 200) {
-      banners = getDataResult(bannerResult);
+    // 获取banner
+    const getBannerResult = async () => {  
+      const bannerResult:BaseListResult<BannerModel> = await $axios.$post(BannerApi.GetBanners, bannerParam)
+      if (bannerResult.code === 200) {
+        banners = getDataResult(bannerResult);
+      }
     }
 
     // 区域参数
@@ -499,10 +492,13 @@ export default Vue.extend({
     const areaParam: any = {
       data: areaData
     };
-    const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
     let areas: any[] = [];
-    if (areaResult.code === 200) {
-      areas = getDataResult(areaResult);
+    // 获取区域
+    const getAreasResult = async () => {
+      const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
+      if (areaResult.code === 200) {
+        areas = getDataResult(areaResult);
+      }
     }
 
     // metro line
@@ -512,11 +508,15 @@ export default Vue.extend({
     const metroLineParam: any = {
       data: metroLineData
     };
-    const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
     let metroLines: MetroLineModel[] = [];
-    if (metroLineResult.code === 200) {
-      metroLines = getDataResult(metroLineResult);
+    // 获取地铁线路
+    const getMetroLinesResult = async () => {
+      const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
+      if (metroLineResult.code === 200) {
+        metroLines = getDataResult(metroLineResult);
+      }
     }
+    
 
     // 获取推荐楼盘
     const recommendProject: RecommendProjectByCondition = {
@@ -525,12 +525,18 @@ export default Vue.extend({
     const recommendProjectParam: any = {
       data: recommendProject
     }
-    const recommendProjectResult:BaseListResult<any> = await $axios.$post(ProjectApi.GetRecommendByCityId, recommendProjectParam);
     let recommendProjects: any[] = []
-    if (recommendProjectResult.code === 200) {
-      recommendProjects = getDataResult(recommendProjectResult);
+    let selectRecommendKey;
+    // 获取推荐楼盘
+    const getRecommendProjectResult = async () => {
+      const recommendProjectResult:BaseListResult<any> = await $axios.$post(ProjectApi.GetRecommendByCityId, recommendProjectParam);
+      if (recommendProjectResult.code === 200) {
+        recommendProjects = getDataResult(recommendProjectResult);
+        selectRecommendKey = recommendProjects[0].id;
+      }
     }
-    const selectRecommendKey = recommendProjects[0].id;
+    
+     
 
     // 处理数据
     const getRooms = (rooms: any[]) => {
@@ -578,17 +584,29 @@ export default Vue.extend({
         desc: ['orderNum'],
       },
     }
-    const hotProjectResult:BasePageResult<any> = await $axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);
     let hotProjects: any[] = []
-    if (hotProjectResult.code === 200) {
-      hotProjects = getDataResult(hotProjectResult);
-      hotProjects.forEach((item) => {
-        const rooms = getRooms(item.hLayoutsById);
-        item.rooms = rooms;
-        const roomAreas = getRoomArea(item.hLayoutsById);
-        item.roomAreas = roomAreas;
-      })
+    // 获取热销楼盘
+    const getHotProject = async () => {
+      const hotProjectResult:BasePageResult<any> = await $axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);
+    
+      if (hotProjectResult.code === 200) {
+        hotProjects = getDataResult(hotProjectResult);
+        hotProjects.forEach((item) => {
+          const rooms = getRooms(item.hLayoutsById);
+          item.rooms = rooms;
+          const roomAreas = getRoomArea(item.hLayoutsById);
+          item.roomAreas = roomAreas;
+        })
+      }
     }
+
+    await Promise.all([
+      getHotProject(),
+      getRecommendProjectResult(),
+      getMetroLinesResult(),
+      getAreasResult(),
+      getBannerResult(),
+    ])
 
     // 获取资讯 7: 实探楼盘 4: 房贷利率 3: 楼市政策
     const getNews7 = async () => {
@@ -666,7 +684,6 @@ export default Vue.extend({
     await getNews();
 
     return {
-      ldJSON,
       banners,
       areas,
       metroLines,
