@@ -88,8 +88,8 @@
     </div>
     <!-- 其它资讯 -->
     <div class="w-2/3 mt-2 pb-[6px] border-b border-fjBlue-100 pr-2">
-        <span class="border-b-8 border-fjBlue-100">热门问答</span>
-      </div>
+      <span class="border-b-8 border-fjBlue-100">热门问答</span>
+    </div>
     <div class="flex flex-row w-2/3 mt-4">
       <div v-for="item in questions" :key="item.id" class="mr-10 font-medium"><a target="_blank" :href="`/house/discuss/${item.id}.html`">{{ item.content }}</a></div>
     </div>
@@ -103,7 +103,7 @@ import { Breadcrumb } from '~/types/app';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 
 export default Vue.extend({
-  name: 'Home',
+  name: 'DiscussDetail',
   components: {},
   async asyncData({ $axios, route, store }) {
     

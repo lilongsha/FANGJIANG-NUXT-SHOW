@@ -81,7 +81,7 @@
           <div class="space-y-8 mt-11">
             <!-- news item -->
             <div v-for="item in newsList" :key="item.id" class="h-[188px] bg-[#f5f5f5] flex flex-row">
-              <img :src="item.img" :title="item.title" :alt="item.title" >
+              <img :src="item.img" :title="item.title" :alt="item.title" width="50%" >
               <!-- news item info -->
               <div class="relative w-full pl-[27px]">
                 <!-- look times -->

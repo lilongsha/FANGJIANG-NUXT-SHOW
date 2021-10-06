@@ -213,3 +213,12 @@ export function getHouseType(house: any) {
   }
   return result;
 }
+
+export async function getProject($axios: any, projectId: string) {
+  const param: any = {
+    data: {
+      id: projectId,
+    },
+  }
+  return await $axios.$post(Api.GetProject, param)
+}
