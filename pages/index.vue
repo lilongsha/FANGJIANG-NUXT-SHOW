@@ -175,7 +175,7 @@
     <!-- banner 轮播图 -->
     <a-carousel class="w-full" dot-position="right" effect="fade" autoplay>
       <img
-        v-for="item in banners"
+        v-for="item in banners" 
         :key="item.id"
         :src="item.address"
         :title="item.title"
@@ -194,7 +194,7 @@
       <!-- 图片盒子 -->
       <div class="flex flex-row w-[full-8] mx-4 mt-8 h-96 overflow-hidden">
         <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="relative block h-full transition-all duration-500 ease-in-out w-1/10">
-          <img :src="item.firstImg.address" :alt="item.name" width="10%" class="object-cover w-full h-full" height="100%" @mouseover="selectRecommendKey = item.id">
+          <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="10%" class="object-cover w-full h-full" height="100%" @mouseover="selectRecommendKey = item.id">
           <div v-show="selectRecommendKey === item.id" class="absolute bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
             <div>
@@ -220,7 +220,7 @@
       <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
         <a v-for="item in hotProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="w-full h-7/10">
-            <img :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+            <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>
           <div class="w-full px-4 mt-2 bg-white h-3/10">
             <div class="font-bold">
@@ -250,7 +250,7 @@
                   data-spm-anchor-id="a313x.7781069.0.i2"
                   class="selected"></path>
               </svg>
-              <span class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
+              <span v-if="item.address" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
               <svg

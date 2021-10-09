@@ -28,7 +28,7 @@
                 <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <a-carousel ref="carousel" arrows>
-                <div v-for="item in resourceList" :key="item.id" class="w-full h-full">
+                <div v-for="item in resourceList" :key="item.id" class="w-full h-[450px]">
                   <img :src="item.address" :alt="item.title" class="object-cover w-full h-full" height="100%" width="100%">
                 </div>
               </a-carousel>
@@ -152,7 +152,7 @@
                         </span>
                       </div>
                     </div>
-                    <img :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full transition-all duration-700 hover:scale-125">
+                    <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full transition-all duration-700 hover:scale-125">
                   </div>
                 </div>
               </div>
@@ -274,7 +274,7 @@
           <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
             <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
               <div class="w-full h-7/10">
-                <img v-if="item.firstImg.address" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+                <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
               </div>
               <div class="w-full px-4 mt-2 bg-white h-3/10">
                 <div class="font-bold">
@@ -594,8 +594,8 @@ questionTotal, option, phoneNum }
     const title: string = `${this.house.name} - 房匠`;
     const description: string = `${this.house.description}`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
-    const firstImgAddress: string = this.house.firstImg.address;
-    const sandImgAddress: string = this.house.sandImg.address;
+    const firstImgAddress: string = this.house.firstImg?.address;
+    const sandImgAddress: string = this.house.sandImg?.address;
     const pubTime: string = this.house.updateTime;
     const upTime: string = this.house.updateTime || this.house.createTime;
     const keyword: string = `${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型`;

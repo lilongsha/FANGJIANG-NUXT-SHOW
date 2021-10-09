@@ -42,8 +42,8 @@
               </div>
               <div>建筑类型：<span v-if="house.buildType">{{ buildType[house.buildType].title }}</span><span v-else>暂无数据</span></div>
               <div>产权年限：<span v-if="house.property">{{ house.property }}年</span><span v-else>暂无数据</span></div>
-              <div>开&nbsp;&nbsp;发&nbsp;&nbsp;商：<span v-if="house.hDeveloperByDeveloperId.name"><a :href="house.hDeveloperByDeveloperId.link" target="_blank">{{ house.hDeveloperByDeveloperId.name }}</a></span><span v-else>暂无数据</span></div>
-              <div>品&nbsp;&nbsp;牌&nbsp;&nbsp;商：<span v-if="house.brandId.name"><a :href="house.brandId.link" target="_blank">{{ house.brandId.name }}</a></span><span v-else>暂无数据</span></div>
+              <div>开&nbsp;&nbsp;发&nbsp;&nbsp;商：<span v-if="house.hDeveloperByDeveloperId"><a :href="house.hDeveloperByDeveloperId.link" target="_blank">{{ house.hDeveloperByDeveloperId.name }}</a></span><span v-else>暂无数据</span></div>
+              <div>品&nbsp;&nbsp;牌&nbsp;&nbsp;商：<span v-if="house.brandId"><a :href="house.brandId.link" target="_blank">{{ house.brandId.name }}</a></span><span v-else>暂无数据</span></div>
               <div>装修类型：<span v-if="house.decorationType">{{ decorationType[house.decorationType].title }}</span><span v-else>暂无数据</span></div>
               <div>装修标准：<span v-if="house.decorationStandard">{{ house.decorationStandard }}元/㎡</span><span v-else>暂无数据</span></div>
               <div>项目地址：<span v-if="house.address">{{ house.address }}</span><span v-else>暂无数据</span></div>
@@ -130,7 +130,7 @@
               <div>物&nbsp;&nbsp;业&nbsp;&nbsp;费：<span v-if="house.estatePrice" class="">{{ house.estatePrice }}元/㎡</span><span v-else>暂无数据</span></div>
             </div>
             <div class="w-1/2 pt-2 space-y-2">
-              <div>建筑面积：<span v-if="house.buildArea" class="">{{ house.buildArea }}</span><span v-else>暂无数据</span></div>
+              <div>建筑面积：<span v-if="house.buildArea" class="">{{ house.buildArea }}㎡</span><span v-else>暂无数据</span></div>
               <div>绿&nbsp;&nbsp;化&nbsp;&nbsp;率：<span v-if="house.greenRate" class="">{{ house.greenRate }}%</span><span v-else>暂无数据</span></div>
               <div>楼栋总数：<span v-if="house.buildingTotal" class="">{{ house.buildingTotal }}栋</span><span v-else>暂无数据</span></div>
               <div>物业公司：<span v-if="house.estateCompanyById" class=""><a target="_blank" :href="house.estateCompanyById.link">{{ house.estateCompanyById.name }}</a></span><span v-else>暂无数据</span></div>
@@ -163,12 +163,12 @@
         <div class="ml-2 text-xl font-bold">推荐楼盘</div>
       </div>
       <!-- 图片盒子 -->
-      <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
+      <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-96 overflow-hidden">
         <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
-          <div class="w-full h-7/10">
-            <img v-if="item.firstImg.address" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+          <div class="w-full h-3/5">
+            <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>
-          <div class="w-full px-4 mt-2 bg-white h-3/10">
+          <div class="w-full px-4 mt-2 bg-white h-2/5">
             <div class="font-bold">
               <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
               <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
@@ -181,7 +181,7 @@
               <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
               <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
             </div>
-            <div class="flex flex-row items-center">
+            <div class="flex flex-row items-center mt-2">
               <svg
                 class="w-4 h-4 text-gray-400 icon"
                 fill="currentColor"
@@ -222,7 +222,7 @@
               </div>
               <div>
                 <div>
-                  <span class="text-lg text-fjRed-100">{{ item.price }}</span>
+                  <span class="text-2xl font-bold text-fjRed-100">{{ item.price }}</span>
                   <span class="text-xs text-gray-400">元/㎡</span>
                 </div>
               </div>

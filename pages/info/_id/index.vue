@@ -8,7 +8,7 @@
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
         <div class="w-1/3 mr-2 h-28">
-          <img v-if="item.firstImg.address" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+          <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
         </div>
         <div class="w-2/3 h-28">
           <div class="w-full">
@@ -74,7 +74,7 @@
     </div>
     <div class="w-2/3" v-html="news.content"></div>
     <div class="w-2/3">
-      <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" />
+      <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" />
     </div>
     <!-- 其它资讯 -->
     <div class="w-2/3 pb-[6px] border-b border-fjBlue-100 pr-2">
