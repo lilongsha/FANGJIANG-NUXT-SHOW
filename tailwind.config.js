@@ -44,7 +44,7 @@ module.exports = {
     extend: {
       backgroundImage: _theme => ({
         'index-menu': "url('~/assets/img/index-menu.png')",
-        'bottom-lou': "url('~/assets/img/bottom-lou.jpeg')",
+        'bottom-lou': "url('~/assets/img/bottom/index_02.jpg')",
       }),
       width: {
         '1/10': '10%',

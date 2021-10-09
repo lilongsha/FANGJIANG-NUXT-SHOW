@@ -1,5 +1,5 @@
 <template>
-  <div class="w-fulln">
+  <div class="w-full">
     <!-- 轮播图功能区域定位 -->
     <div class="absolute z-10 flex flex-row w-full h-64 top-28">
       <div class="w-1/3"></div>

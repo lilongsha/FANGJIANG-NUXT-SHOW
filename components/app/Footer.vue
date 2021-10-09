@@ -1,7 +1,7 @@
 <template>
   <div v-if="!getIsMap" class="block mt-20">
     <div class="flex flex-col items-center justify-center w-full mx-auto">
-      <div class="object-contain w-full bg-black h-[282px]">
+      <div class="object-cover w-full h-[282px] bg-bottom-lou">
         <div class="container h-full mx-auto">
           <!-- 底部菜单 -->
           <div class="flex flex-row w-full text-base text-white mt-14">
