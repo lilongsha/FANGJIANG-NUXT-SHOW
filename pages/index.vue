@@ -173,10 +173,13 @@
       <div class="w-1/3"></div>
     </div>
     <!-- banner 轮播图 -->
-    <a-carousel class="w-full" dot-position="right" effect="fade" autoplay>
+    <a-carousel class="w-full h-[450px]" dot-position="right" effect="fade" autoplay>
       <img
-        v-for="item in banners" 
-        :key="item.id"
+        v-for="item in banners"
+        :key="item.id" 
+        class="object-cover w-full h-full"
+        height="100%"
+        width="100%"
         :src="item.address"
         :title="item.title"
         :alt="item.description"
