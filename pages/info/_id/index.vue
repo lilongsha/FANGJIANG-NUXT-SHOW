@@ -184,7 +184,7 @@ export default Vue.extend({
     const pubTime: string = this.news.updateTime;
     const upTime: string = this.news.updateTime || this.news.createTime;
     const keyword: string = this.news.keywords;
-    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1575153492583878","title":"","images":["${imgUrl}","${imgUrl}", "${imgUrl}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${imgUrl}","${imgUrl}", "${imgUrl}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     const location: string = `province=${newsProvinceName};city=${newsCityName};coord=${latLng}`;
     return {
       title,

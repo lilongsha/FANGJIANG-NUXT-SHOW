@@ -716,12 +716,12 @@ export default Vue.extend({
         {
           hid: 'description',
           name: 'description',
-          content: 'My custom description'
+          content: '房匠 - 做您买房路上的自己人'
         }
       ],
       script: [
         {
-          innerHTML: '{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"http://sjz.jiwu.com/loupan/1290152.html","appid":"1575153492583878","title":"石家庄润江云玺房价价格,新房售楼处电话,楼盘怎么样 - 吉屋网","images":["http://img1-build.jiwu.com/album/manual/2020/11/07/145807820623.jpg","http://img4-build.jiwu.com/album/manual/2020/11/07/151240046364.jpg/750x560", "http://img6-build.jiwu.com/album/manual/2020/11/07/151300673270.jpg/750x560"],"description": "石家庄裕华众美商圈润江云玺售楼处电话号码:4007508888转64846,吉屋网为您提供该房产楼盘信息、房价走势等，全面了解润江云玺买房怎么样，是您选购新楼盘一手房的理想网站。","upDate":"2021-09-11T10:51:22"}',
+          innerHTML: '{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"房匠网","images":[""],"description": "","upDate":"2021-10-9T18:51:22"}',
           type: 'application/ld+json',
         }
       ],

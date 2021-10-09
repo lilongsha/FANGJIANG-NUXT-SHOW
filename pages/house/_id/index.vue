@@ -187,9 +187,7 @@
             <div v-for="item in dynamicList" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
               <!-- dynamic Title -->
               <div class="w-full mb-4">
-                <a :href="`/house/dynamic/${item.id}.html`" target="_blank">
-                  <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
-                </a>
+                <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
                 <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs">{{ DynamicSort[item.sort].title }}</span>
               </div>
               <!-- dynamic Content -->
@@ -599,7 +597,7 @@ questionTotal, option, phoneNum }
     const pubTime: string = this.house.updateTime;
     const upTime: string = this.house.updateTime || this.house.createTime;
     const keyword: string = `${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型`;
-    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1575153492583878","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     const location: string = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
     return {
       title,

@@ -13,9 +13,7 @@
           <div v-for="item in dynamics" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
             <!-- dynamic Title -->
             <div class="w-full mb-4">
-              <a :href="`/house/discuss/${item.id}.html`" target="_blank">
-                <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
-              </a>
+              <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
             </div>
             <!-- dynamic Content -->
             <div v-if="item.content">

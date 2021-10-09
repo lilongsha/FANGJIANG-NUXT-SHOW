@@ -199,7 +199,7 @@ export default Vue.extend({
         {
           hid: 'description',
           name: 'description',
-          content: 'My custom description'
+          content: '房匠 - 做您买房路上的自己人'
         }
       ]
     }
