@@ -33,8 +33,8 @@
             <a href="/" class="text-white" target="_blank">诚聘英才</a>
           </div>
           <div class="flex flex-row items-center justify-center pt-4 space-x-4 text-white">
-            <a href="https://beian.miit.gov.cn/" class="text-white" target="_blank">冀ICP备000000001号</a>
-            <a href="http://www.beian.gov.cn/" class="text-white" target="_blank">冀公网安备000000001号</a>
+            <a href="https://beian.miit.gov.cn/" class="text-white" target="_blank">冀ICP备19024434号</a>
+            <!-- <a href="http://www.beian.gov.cn/" class="text-white" target="_blank">冀公网安备000000001号</a> -->
           </div>
           <div class="flex flex-row items-center justify-center pt-4 space-x-4 text-white">
             <span>房匠房产、产品用户服务、产品咨询购买、技术支持客服服务热线：新房、二手房：400-960-9889</span>
