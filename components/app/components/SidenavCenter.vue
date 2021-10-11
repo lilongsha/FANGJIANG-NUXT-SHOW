@@ -51,7 +51,7 @@
           height="128">
           <path d="M716.799825 213.997948c-139.189966-139.189966-364.224911-139.189966-503.415877 0-139.189966 139.189966-139.189966 364.224911 0 503.414877s364.225911 139.189966 503.415877 0 139.189966-364.837911 0-503.414877zM136.124967 794.059806c-181.499956-181.499956-181.499956-476.435884 0-657.934839 181.498956-181.499956 476.434884-181.499956 657.934839 0 181.499956 181.498956 181.499956 476.434884 0 657.934839-181.499956 182.111956-475.822884 182.111956-657.934839 0z m869.479787 211.544948c-25.139994 24.526994-64.996984 24.526994-90.136978 0l-90.135977-90.136978c-24.526994-24.526994-24.526994-64.995984 0-90.135977 24.526994-24.526994 64.995984-24.526994 90.135977 0l90.136978 90.135977c25.139994 25.139994 25.139994 65.609984 0 90.136978z" p-id="7415" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#999999"></path>
         </svg>
-        <div class="absolute flex flex-col pt-1 bg-[#f5f5f5] rounded-md right-20 top-5">
+        <div class="absolute flex flex-col pt-1 bg-[#f5f5f5] rounded-md right-5 top-5">
           <input v-model="searchText" type="text" class="w-0 transition-all group-hover:w-96 group-hover:px-4 group-hover:mx-2 h-7 text-sm rounded-2xl bg-[#ededed] focus:outline-none outline-none " placeholder="请输入搜索项目">
           <div class="flex flex-col w-0 mb-2 space-y-2 overflow-hidden text-black transition-all group-hover:w-full">
             <div v-for="item in list" :key="item.id" class="flex flex-row overflow-hidden">
