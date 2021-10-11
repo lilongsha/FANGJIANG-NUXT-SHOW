@@ -6,7 +6,7 @@
       <!-- 轮播图功能区域 -->
       <div class="container h-full mx-auto">
         <!-- 菜单 -->
-        <div class="menu-box"  @mouseleave="closeMenu()">
+        <div class="menu-box" @mouseleave="closeMenu()">
           <!-- 菜单左侧 -->
           <div class="menu-box-left">
             <!-- 菜单区域 -->
@@ -14,7 +14,37 @@
               <div class="menu-item-left">
                 <div class="menu-item-left-content">
                   <span class="">
-                    <svg t="1630750851703" class="w-6 h-6 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17555" width="128" height="128"><path d="M738.304 852.8896H309.1968a134.1952 134.1952 0 0 1-134.0928-134.0928V218.2144a134.1952 134.1952 0 0 1 134.0928-134.0928h429.1072a134.1952 134.1952 0 0 1 134.0928 134.0928v500.5824a134.1952 134.1952 0 0 1-134.0928 134.0928zM309.1968 137.728a80.5376 80.5376 0 0 0-80.4352 80.4864v500.5824a80.5376 80.5376 0 0 0 80.4352 80.4864h429.1072a80.5888 80.5888 0 0 0 80.4864-80.4864V218.2144A80.5888 80.5888 0 0 0 738.304 137.728z" fill="#ffffff" p-id="17556" data-spm-anchor-id="a313x.7781069.0.i12" class="selected"></path><path d="M200.2432 546.6112h647.0656v53.6576H200.2432zM316.0064 938.496a26.8288 26.8288 0 0 1-19.0464-45.7728l75.8784-75.8784a26.8288 26.8288 0 0 1 37.9904 38.1952l-75.8784 75.5712a26.5728 26.5728 0 0 1-18.944 7.8848zM731.5456 938.496a26.5728 26.5728 0 0 1-18.944-7.8848L636.7232 855.04a26.8288 26.8288 0 0 1 37.9392-37.9392l75.8784 75.8784a26.8288 26.8288 0 0 1-18.9952 45.7728z" fill="#ffffff" p-id="17557" data-spm-anchor-id="a313x.7781069.0.i11" class="selected"></path><path d="M398.592 703.8976m-35.7376 0a35.7376 35.7376 0 1 0 71.4752 0 35.7376 35.7376 0 1 0-71.4752 0Z" fill="#ffffff" p-id="17558" data-spm-anchor-id="a313x.7781069.0.i10" class="selected"></path><path d="M648.9088 703.8976m-35.7376 0a35.7376 35.7376 0 1 0 71.4752 0 35.7376 35.7376 0 1 0-71.4752 0Z" fill="#ffffff" p-id="17559" data-spm-anchor-id="a313x.7781069.0.i9" class="selected"></path></svg>
+                    <svg version="1.1" class="w-6 h-6 pr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                    AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+                    RQflCgoAIhwc48I7AAADzElEQVRYw9WYb2jVZRTHP3e7a7lK3EihSRAsjUAqnZhvQiyhP5iKBhMz
+                    hkStvyssQySExBeVvchqaQghvQhbLAqN2guVQqRaI1Lof5ZLnU6yzVpLx/bpxf3d6+937+/e+9ua
+                    LzoPjPuc8z3n+zzPPec8z11KLq5UXOT4pBPi7uJObqCOSaQYop/D7Gc3Qwk8LT9W+r1x0usj5b3L
+                    Aa53fyRonyci80Pe8l8IljocBPrOrd7uTKtN2+BCN/lVjuSh8RI0BwGGfTDWfp9nA8TG8RCsDpw/
+                    dmZRzHTfDVCtYyWYFDi+XvZrXB8gp42NYLuqexPkGO4ohY13qVd10FQiAvxF1cbkBC+oujZPu8Cd
+                    /uAR2707z7JE1Y6kBBWeVv/KW/9rkfx/z5qI9SdV65IRLFL1lYhubxD4V3/MVUZVyL5O1YcLo8U1
+                    u3kAfBjSrOBWANZwDTNo4jxwHU+FEF0AzE7WTa8CoC+keRSAZ9kJQDvNACwLIf4BYHoygqkA/BHS
+                    XAtAW26+izNAbQjxNwCXJSPoL9BUAnA+VpuRkdDfsgRHQ6vOyCEANufmT1IH9IYQUwA4FRMtJovm
+                    q9oW0swNMmeHs53ly8GsKYR4QtWWpIXWr/ZbUdAOwhJtDd+OpQ5wi6rrShZaOmRbqur7yVvFZFWH
+                    rE3YKk6q2pCcAJ9W9WCiVteu6rZ4a3G3HlU/Kht+m6rHitmLO94cnHZbyfBrA9SSsRNccN5QFJG9
+                    Vp8vHiXJ9nVRrLUxsH5QKka+otIqK63K1cA7QZA7ClznOxBJhJSXWGlVJH3zCG6y02P2etxef/NN
+                    q0V8LqDYFHF8PFfbmflGezzpcXs94T4XxBGk/TOvVqdEUlY7cqvL1vVLOe+RPN/6QoLlqp7ygF12
+                    +7mrQ+vN7uIbJ4ufBrPtIcQyD9ptlwfsVfXFQoLdqi4s8mWtCYIe9XDwaUsRZIOqPfkENY6qZ0rk
+                    w232h47g/hLIL1S9MUrwgKpbSyZtvZ2qdju3JO4ZVV+NEmQ2PqekI+KGokdzYcxTdTCTEuFzOxd5
+                    iIx/pDyt6mIx+AmVeSXsYzjmyruCOkZDd6+hn10VnI08DrKX5C4eA5rZk70yj6h6b8xqmv1dHSky
+                    dMD1MV5zVB22OnNEs1QdzXsMZsbPlpe4Y8o0+xWZ7bYC8HbwtonKKlqYWvBgyUoVA7wVa3mDzUAr
+                    HZh2ULVM6o11TAt2d3UFy6kBvuZLJlL62ANAU5p7APiMWi6fQIJzfMJioDEdPFtbaJnQHeQk5Qw6
+                    uZJLqZrgyKMMMsTK1P/+vy3/Ao9ouJ5JGHj8AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTEwLTA5
+                    VDE2OjM0OjI4KzA4OjAwujWujwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMS0xMC0wOVQxNjozNDoy
+                    OCswODowMMtoFjMAAAAgdEVYdHNvZnR3YXJlAGh0dHBzOi8vaW1hZ2VtYWdpY2sub3JnvM8dnQAA
+                    ABh0RVh0VGh1bWI6OkRvY3VtZW50OjpQYWdlcwAxp/+7LwAAABd0RVh0VGh1bWI6OkltYWdlOjpI
+                    ZWlnaHQANDiHYIctAAAAFnRFWHRUaHVtYjo6SW1hZ2U6OldpZHRoADQ4f89HoAAAABl0RVh0VGh1
+                    bWI6Ok1pbWV0eXBlAGltYWdlL3BuZz+yVk4AAAAXdEVYdFRodW1iOjpNVGltZQAxNjMzNzY4NDY4
+                    tREIggAAABJ0RVh0VGh1bWI6OlNpemUAMjA5MUJCK3SeXgAAAEZ0RVh0VGh1bWI6OlVSSQBmaWxl
+                    Oi8vL2FwcC90bXAvaW1hZ2VsYy9pbWd2aWV3Ml85XzE2MzE3NTc1MjUzMzIxNDQ5XzYzX1swXcGG
+                    154AAAAASUVORK5CYII=" ></image>
+                    </svg>
+                    <!-- <svg t="1630750851703" class="w-6 h-6 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17555" width="128" height="128"><path d="M738.304 852.8896H309.1968a134.1952 134.1952 0 0 1-134.0928-134.0928V218.2144a134.1952 134.1952 0 0 1 134.0928-134.0928h429.1072a134.1952 134.1952 0 0 1 134.0928 134.0928v500.5824a134.1952 134.1952 0 0 1-134.0928 134.0928zM309.1968 137.728a80.5376 80.5376 0 0 0-80.4352 80.4864v500.5824a80.5376 80.5376 0 0 0 80.4352 80.4864h429.1072a80.5888 80.5888 0 0 0 80.4864-80.4864V218.2144A80.5888 80.5888 0 0 0 738.304 137.728z" fill="#ffffff" p-id="17556" data-spm-anchor-id="a313x.7781069.0.i12" class="selected"></path><path d="M200.2432 546.6112h647.0656v53.6576H200.2432zM316.0064 938.496a26.8288 26.8288 0 0 1-19.0464-45.7728l75.8784-75.8784a26.8288 26.8288 0 0 1 37.9904 38.1952l-75.8784 75.5712a26.5728 26.5728 0 0 1-18.944 7.8848zM731.5456 938.496a26.5728 26.5728 0 0 1-18.944-7.8848L636.7232 855.04a26.8288 26.8288 0 0 1 37.9392-37.9392l75.8784 75.8784a26.8288 26.8288 0 0 1-18.9952 45.7728z" fill="#ffffff" p-id="17557" data-spm-anchor-id="a313x.7781069.0.i11" class="selected"></path><path d="M398.592 703.8976m-35.7376 0a35.7376 35.7376 0 1 0 71.4752 0 35.7376 35.7376 0 1 0-71.4752 0Z" fill="#ffffff" p-id="17558" data-spm-anchor-id="a313x.7781069.0.i10" class="selected"></path><path d="M648.9088 703.8976m-35.7376 0a35.7376 35.7376 0 1 0 71.4752 0 35.7376 35.7376 0 1 0-71.4752 0Z" fill="#ffffff" p-id="17559" data-spm-anchor-id="a313x.7781069.0.i9" class="selected"></path></svg> -->
                   </span>
                   <span class="text-lg text-white">区域</span>
                 </div>
@@ -43,7 +73,29 @@
               <div class="menu-item-left">
                 <div class="flex flex-row items-center transition-all group-hover:pl-4">
                   <span class="">
-                    <svg t="1630750851703" class="w-6 h-6 pr-1" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17555" width="128" height="128"><path d="M738.304 852.8896H309.1968a134.1952 134.1952 0 0 1-134.0928-134.0928V218.2144a134.1952 134.1952 0 0 1 134.0928-134.0928h429.1072a134.1952 134.1952 0 0 1 134.0928 134.0928v500.5824a134.1952 134.1952 0 0 1-134.0928 134.0928zM309.1968 137.728a80.5376 80.5376 0 0 0-80.4352 80.4864v500.5824a80.5376 80.5376 0 0 0 80.4352 80.4864h429.1072a80.5888 80.5888 0 0 0 80.4864-80.4864V218.2144A80.5888 80.5888 0 0 0 738.304 137.728z" fill="#ffffff" p-id="17556" data-spm-anchor-id="a313x.7781069.0.i12" class="selected"></path><path d="M200.2432 546.6112h647.0656v53.6576H200.2432zM316.0064 938.496a26.8288 26.8288 0 0 1-19.0464-45.7728l75.8784-75.8784a26.8288 26.8288 0 0 1 37.9904 38.1952l-75.8784 75.5712a26.5728 26.5728 0 0 1-18.944 7.8848zM731.5456 938.496a26.5728 26.5728 0 0 1-18.944-7.8848L636.7232 855.04a26.8288 26.8288 0 0 1 37.9392-37.9392l75.8784 75.8784a26.8288 26.8288 0 0 1-18.9952 45.7728z" fill="#ffffff" p-id="17557" data-spm-anchor-id="a313x.7781069.0.i11" class="selected"></path><path d="M398.592 703.8976m-35.7376 0a35.7376 35.7376 0 1 0 71.4752 0 35.7376 35.7376 0 1 0-71.4752 0Z" fill="#ffffff" p-id="17558" data-spm-anchor-id="a313x.7781069.0.i10" class="selected"></path><path d="M648.9088 703.8976m-35.7376 0a35.7376 35.7376 0 1 0 71.4752 0 35.7376 35.7376 0 1 0-71.4752 0Z" fill="#ffffff" p-id="17559" data-spm-anchor-id="a313x.7781069.0.i9" class="selected"></path></svg>
+                    <svg version="1.1" class="w-6 h-6 pr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                    AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+                    RQflCgoAJBE0CBkAAAACYklEQVRYw+2Xz0sUYRjHP7ON2aIYBaVu9NNVg6BMMrek6C/oVFBESRBU
+                    eJAg6B508VIni7oEnqrt0kZ1KawOSZgZhBFYB40tC4RAibZtHg877cy2+84748wSgd8XXuZ953mf
+                    zzzPMM/7jiG4VM9ZttFMLd76zjcmuc4seonT2uSjBNFnaRN0zXBFMM4OALLUaJ7qF40sA16xy38E
+                    +0VE5Im0S1waNC0urTIsIiIpXQTOZa+IiJzRB223oyIi0quzixVDWQOgTY6jFQBYOjMHYABg+gaY
+                    QQFa08UpFt7FPwaocr6OjeQrzNcwzVR4wB4eE1esyNPDy+Lo5+JSlFC6B5O12vXaCO5ykFRFSI5R
+                    7rvGl5jhaXAAZMjong2AJMOc40rQFAXTZe6oC3xYwD2ywCHesr06gIt08wZIMsKpagC28olObgJx
+                    bnCt3F8U78DiJH3kgdM8pyV6AMAg3bwD9jJm74sRA2CMDm4BDTyizplWfQebaK1Yi0zeK2tRjiPk
+                    OE4TA/R5Azp4Ye9Y5ZpjH+PKOE7QwxaOcZ4fXilKKN1DPc2eqUoDK+nyjuABh9lZOBSUyMBggoee
+                    gKyd4mdeAEiTJoya/lxEv6MVPFqlw+hVTO7/v+kvAbRSfQerSCnuvOZLeEAXGRoVK+Y5wKh/QOUU
+                    bVa6hzr7oB8qgtvU0km+rBbBckY0tcgXAIYYCuImaIoi1BIgAMBy9X7029W79ZcfBzDv6v2oYDmn
+                    mC/6MWQ3F1iNsIEWYJJp+4fWW0KCdmCCmRJ7YT1J4ANTGMwyYEhWc0oIp68mV+knVpW/5BgWgwt8
+                    9yeCUUe6zwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0xMC0wOVQxNjozNjoxNyswODowMMYHCbgA
+                    AAAldEVYdGRhdGU6bW9kaWZ5ADIwMjEtMTAtMDlUMTY6MzY6MTcrMDg6MDC3WrEEAAAAIHRFWHRz
+                    b2Z0d2FyZQBodHRwczovL2ltYWdlbWFnaWNrLm9yZ7zPHZ0AAAAYdEVYdFRodW1iOjpEb2N1bWVu
+                    dDo6UGFnZXMAMaf/uy8AAAAXdEVYdFRodW1iOjpJbWFnZTo6SGVpZ2h0ADQ4h2CHLQAAABZ0RVh0
+                    VGh1bWI6OkltYWdlOjpXaWR0aAA0OH/PR6AAAAAZdEVYdFRodW1iOjpNaW1ldHlwZQBpbWFnZS9w
+                    bmc/slZOAAAAF3RFWHRUaHVtYjo6TVRpbWUAMTYzMzc2ODU3Nz13TmUAAAASdEVYdFRodW1iOjpT
+                    aXplADE2OTZCQifvD9UAAABGdEVYdFRodW1iOjpVUkkAZmlsZTovLy9hcHAvdG1wL2ltYWdlbGMv
+                    aW1ndmlldzJfOV8xNjMxNzU3NTI5NTY4OTc4NF83M19bMF1sMAGYAAAAAElFTkSuQmCC" ></image>
+                    </svg>
                   </span>
                   <span class="text-lg text-white">商圈</span>
                 </div>
@@ -177,8 +229,8 @@
       <img
         v-for="item in banners"
         :key="item.id" 
-        class="object-cover w-full h-full"
-        height="100%"
+        class="object-cover w-full h-[450px]"
+        height="450px"
         width="100%"
         :src="item.address"
         :title="item.title"
@@ -239,47 +291,73 @@
               <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
             </div>
             <div class="flex flex-row items-center">
-              <svg
-                class="w-4 h-4 text-gray-400 icon"
-                fill="currentColor"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="2536"
-                width="128"
-                height="128">
-                <path d="M512 128a307.2 307.2 0 0 1 307.2 307.2c0 122.24-57.6 201.152-126.976 271.36l-21.12 20.8-46.336 43.776C583.488 809.984 543.04 849.472 512 896c-26.624-39.872-60.16-74.624-95.104-108.16l-53.248-50.24-21.376-20.608C268.288 644.16 204.8 563.52 204.8 435.2A307.2 307.2 0 0 1 512 128z m0 64a243.2 243.2 0 0 0-243.2 243.2c0 96.896 34.88 155.904 135.36 252.544l53.248 50.304 25.6 24.96c7.936 7.936 15.36 15.488 22.208 22.784l6.784 7.296 6.784-7.296c10.368-11.008 21.76-22.528 34.56-34.944l27.584-26.432 24.768-23.232 27.392-26.368C723.456 585.664 755.2 527.68 755.2 435.2A243.2 243.2 0 0 0 512 192z m0 128a128 128 0 1 1 0 256 128 128 0 0 1 0-256z m0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"
-                  p-id="2537"
-                  data-spm-anchor-id="a313x.7781069.0.i2"
-                  class="selected"></path>
+              <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+              AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+              RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
+              grUxRUEfDKXUHrKhTBCKdj4YmlRgRmMoAwqSQk0OSKRmgrcHE4McJQLv9fAdx/Od73y3XC/nnL3W
+              //9fe+191j6n279qsdDNGKM1GoCrTvvVsVgTtFv1qDDZayYblhm+4JDP46EHFAgzrPFshYAftMR9
+              /1Mg9BQt7nq85aRj/kFfYzTp2eXZLsRbdQuEEb41InlotcOP8Y+Ud6hmi8xOHk95KZ6qSyBMdFgP
+              8I318USZJEbZ6GVw2zPxp5oFwuPO6wXeiNtUtPC6z8BNw+OlUn/3XFRbQj+9Gj1xm+mgl7Y8f45A
+              2GI0mBbb1GCxzTQwOmypoUShyYnaipNbqFHxZLUZbAUH6qEnbnMghS4vEBpNAYvqoU8hpoTG4uEe
+              mbBlYHfefgijzDUOHXaXbtx4Kew2F8usrFSieeDTHPotjttgppk2OJ63nAlqXvFg0SKHkU7iSny0
+              hP67rrf2nrXGF0ui/tKApvhbuRlMBO0lwHtN4ah11jkKZofSdWpPseSuQaH3dJQAW8BXcQF4L3xp
+              PlrsyMR1eKGLJXcGhZ5/NpN/syG4mNAjLnARQ0JzRuBsiiVX4GFwJwMbBY4UjR1Jee7bnRRLrkAh
+              4G4Gdhv0KRrrk/Lct7ulCRYLXAGDMrDCok4OfbuK1tfklOe+DUqx5Ar8AjKVjSecQn+toR+Eflr1
+              x6mS1605xZJY8S4qHBmTZG2VfXjO6dCGaQYno1mblGLJncExlzE0TMjMYb9NYLBFFiX0m+L+4qgw
+              wVBcdqysQLyV9MSF2dTiWitTtb1iZVxbkn8BdaD4AyBzHoRZWnEtDiiBC/3N8RR+tydey/Ff1R+z
+              495KAg/p9AgWxi/UZeFVO/G3gbHCNhXv2AXero++C7ErZl7T0hPtQ9AYZtSV/wyNKXQlgXjGQfBB
+              XfkXog/GM1UFsAI0hTk15z9HUwpZZPkfXnvNxBWD421VLfRwWQO+j7NKvfkfXoVTtSE5B6pZi4YU
+              qpYZED72JngynlXRwhMKdf8kLsvzdy+DW+0G+Lpq/oWIG1bnu8sIxOuWgnFhecX8lxsHlsbr+RGV
+              fkDaFZre8HihTMQw58HP8elyLOVKBPOT656yEXsykfUJxHNJmcaGzbn5bzY2Kc+58izVfgIPJN+q
+              Jc0vaW4cjM9XYqhUIpihE+wM44voxyf0nar0rCoC8aapye3hMLKLfqTDye3UePOBBIgdloDe2sMY
+              CGO06w2WxI5q+Br+9AkbrE9u38G7yf3GuKE6tiYBwvvWZIZa4lu1IGsUIKyS3qyr40e14WoWILxi
+              q8fwpxWxeo+qX4Aw0GJsj521Y/4DSPcta79rLVoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAt
+              MDlUMTY6Mzg6NDIrMDg6MDDCFhjIAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4
+              OjQyKzA4OjAws0ugdAAAACB0RVh0c29mdHdhcmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2d
+              AAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6
+              OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRU
+              aHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3
+              MjIz7prBAAAAEnRFWHRUaHVtYjo6U2l6ZQAyMTI1QkLGHJgzAAAARnRFWHRUaHVtYjo6VVJJAGZp
+              bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
+              eTPfkgAAAABJRU5ErkJggg==" ></image>
               </svg>
               <span v-if="item.address" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
-              <svg
-                class="w-4 h-4 text-gray-400 icon"
-                fill="currentColor"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="2536"
-                width="128"
-                height="128">
-                <path d="M512 128a307.2 307.2 0 0 1 307.2 307.2c0 122.24-57.6 201.152-126.976 271.36l-21.12 20.8-46.336 43.776C583.488 809.984 543.04 849.472 512 896c-26.624-39.872-60.16-74.624-95.104-108.16l-53.248-50.24-21.376-20.608C268.288 644.16 204.8 563.52 204.8 435.2A307.2 307.2 0 0 1 512 128z m0 64a243.2 243.2 0 0 0-243.2 243.2c0 96.896 34.88 155.904 135.36 252.544l53.248 50.304 25.6 24.96c7.936 7.936 15.36 15.488 22.208 22.784l6.784 7.296 6.784-7.296c10.368-11.008 21.76-22.528 34.56-34.944l27.584-26.432 24.768-23.232 27.392-26.368C723.456 585.664 755.2 527.68 755.2 435.2A243.2 243.2 0 0 0 512 192z m0 128a128 128 0 1 1 0 256 128 128 0 0 1 0-256z m0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"
-                  p-id="2537"
-                  data-spm-anchor-id="a313x.7781069.0.i2"
-                  class="selected"></path>
+              <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+              AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+              RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
+              6WA6SOMm6qYubvIG6SZUEBSDCCqCgw4i0kF0EkQipCiI2l6b9HIO6TPX3CX33l0iGfwv9967777f
+              9733cu/LWR5KYo7j5HGJVhqHRbmgYYnVBAiLMjM6D/h0V57WB8xxC4Dn/GCDVJcnXGwmmQTglLwf
+              BbA3rxeANWbkC73gRYnrQJFIgIq1ANzRdQ/yBq+BXdGWCrAOPNZ1D8ACMCJyugAb+GoE+Azkuq7W
+              FkA8NfCiTBTAM4ZpWifLwBBgDR7Ak6smgBjhBbepaAvT9rXNMxhiSbhtQaZFnadck9+CAHNZ7A0d
+              38dJMSFXkgNqSNZ8PhrYjDIL7OEyl5JN0TKwIovBG+IED4AzQYCmxEF24jAFZMUxHPJ8kJXWfflQ
+              3GSeHc1enAwkU5utPM8AuMqVLRZPmKfebMbZpsOBkXxb/yeQjp9BiVFqvn6Ol20W9VYzBkA+ijRJ
+              t5r/9GXn9BuQ7QdArUENuCe+d4BYwKz8mATgAmOMdbEcSZZBGnhPlW0dM6gmA2SAs/JdPCc6AAXR
+              lsiyHYffMqKu8FcVRgCO8ImlDlMaAjBXhiHG+1l4bQC/9AsvGMiyxRDQF/3PYLAyiNzT2mqEA3qX
+              jW+y47+Lumm4lYUCpIDpngGOtjwrwDJwUUwYOKkAjbA/IOIAJf4eUOo8KFMkxxsh+YKlsRrr7Ady
+              osSq70xxSTHOObJAuTmkvlXs5i2Fnk0RVDgkqz4AiAK3OUzGYLN6hP04LWq84ryqt/8AjaKFO12a
+              KAsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAtMDlUMTY6Mzg6MzYrMDg6MDA8nDXCAAAAJXRF
+              WHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4OjM2KzA4OjAwTcGNfgAAACB0RVh0c29mdHdh
+              cmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2dAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBh
+              Z2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1i
+              OjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JW
+              TgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3MTYfrg0bAAAAEnRFWHRUaHVtYjo6U2l6ZQAx
+              NjgyQkKYWsBsAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3Zp
+              ZXcyXzlfMTYzMTU5MjMzNzY3ODc4MzRfNzlfWzBdjI0y0QAAAABJRU5ErkJggg==" ></image>
               </svg>
               <span class="overflow-hidden text-gray-400" :title="item.rooms">{{ item.rooms }}</span>
               <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
             </div>
             <div class="flex flex-row items-end justify-between px-2 h-9">
               <div v-if="item.labels" class="flex flex-row items-end space-x-2">
-                <span v-for="(label, index) in (item.labels.split(','))" :key="index" class="px-1 text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm" :title="label">{{ label }}</span>
+                <span v-for="(label, index) in (item.labels.split(','))" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
               </div>
               <div>
                 <div>
-                  <span class="text-lg text-fjRed-100">{{ item.price }}</span>
+                  <span class="text-2xl font-bold text-fjRed-100">{{ item.price }}</span>
                   <span class="text-xs text-gray-400">元/㎡</span>
                 </div>
               </div>
@@ -337,21 +415,21 @@
       <!-- 内容0 -->
       <div v-show="processType === '0'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
         <div class="flex flex-row items-center justify-center">
-          <div class="object-cover w-10 h-10 mr-4"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源0</span>
+            <span class="text-xl font-bold text-black">搜房源</span>
             <span>超多楼盘，任您选择</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">帮我找房</span>
             <span>平时太忙，房匠满足您的个性化需求</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">在线咨询</span>
             <span>看的太多不好选择，联系我们</span>
@@ -361,21 +439,21 @@
       <!-- 内容1 -->
       <div v-show="processType === '1'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源1</span>
+            <span class="text-xl font-bold text-black">搜房源</span>
             <span>超多楼盘，任您选择</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">帮我找房</span>
             <span>平时太忙，房匠满足您的个性化需求</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">在线咨询</span>
             <span>看的太多不好选择，联系我们</span>
@@ -385,21 +463,21 @@
       <!-- 内容2 -->
       <div v-show="processType === '2'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源2</span>
+            <span class="text-xl font-bold text-black">搜房源</span>
             <span>超多楼盘，任您选择</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">帮我找房</span>
             <span>平时太忙，房匠满足您的个性化需求</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">在线咨询</span>
             <span>看的太多不好选择，联系我们</span>
@@ -409,21 +487,21 @@
       <!-- 内容3 -->
       <div v-show="processType === '3'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源3</span>
+            <span class="text-xl font-bold text-black">搜房源</span>
             <span>超多楼盘，任您选择</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">帮我找房</span>
             <span>平时太忙，房匠满足您的个性化需求</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-black"></div>
+          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
           <div class="flex flex-col">
             <span class="text-xl font-bold text-black">在线咨询</span>
             <span>看的太多不好选择，联系我们</span>
@@ -552,7 +630,7 @@ export default Vue.extend({
         })
       }
       const roomArray = Object.keys(roomObj)
-      const result: string = roomArray.toString().replaceAll(',', '室/')
+      const result: string = roomArray.toString().replace(',', '室/')
       if (result) {
         return result + '室'
       }

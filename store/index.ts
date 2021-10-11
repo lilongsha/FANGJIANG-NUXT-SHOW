@@ -12,8 +12,11 @@ const getRooms = (rooms: any[]) => {
       roomObj[room] = room;
     })
   }
-  const roomArray = Object.keys(roomObj)
-  const result: string = roomArray.toString().replaceAll(',', '室/')
+  const roomArray: any[] = Object.keys(roomObj)
+  if (!roomArray) {
+    return '暂无数据'
+  }
+  const result: string = roomArray.toString().replace(',', '室/')
   if (result) {
     return result + '室'
   }

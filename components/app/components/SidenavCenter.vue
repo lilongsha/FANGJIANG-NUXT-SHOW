@@ -77,7 +77,8 @@
         </div>
       </div>
       <div class="flex flex-row items-center justify-center h-full text-lg" :class="getIsHome? 'text-white': 'text-black'">
-        <span class="text-base">登录/注册</span>
+        <span class="text-base"></span>
+        <!-- 登录/注册 -->
       </div>
     </div>
   </div>
