@@ -49,6 +49,7 @@ module.exports = {
         'index-2': "url('~/assets/img/index/2.png')",
         'index-3': "url('~/assets/img/index/3.png')",
         'looks': "url('~/assets/img/looks.png')",
+        'looks-gray': "url('~/assets/img/looks-gray.png')",
       }),
       width: {
         '1/10': '10%',

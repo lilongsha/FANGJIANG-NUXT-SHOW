@@ -83,9 +83,10 @@
             <div v-for="item in newsList" :key="item.id" class="h-[188px] bg-[#f5f5f5] flex flex-row">
               <img :src="item.img" :title="item.title" :alt="item.title" width="50%" >
               <!-- news item info -->
-              <div class="relative w-full pl-[27px]">
+              <div class="relative w-full pl-[27px] py-2">
                 <!-- look times -->
-                <div class="text-right">
+                <div class="flex flex-row items-center justify-end w-full text-right">
+                  <div class="w-4 h-4 mr-2 bg-cover bg-looks-gray"></div>
                   <span class="mr-2 text-[#999999] text-[12px]">{{ item.lookTimes }}</span>
                 </div>
                 <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" class="text-[#333333] text-[20px] font-bold hover:text-fjBlue-100">{{ item.title }}</a>
@@ -93,7 +94,7 @@
                   {{ item.description }}
                 </div>
                 <!-- tiem -->
-                <div v-if="item.createTime" class="absolute bottom-0 text-right right-2 text-[#999999]">{{ item.createTime.split('T')[0] + '  ' + item.createTime.split('T')[1].split('.')[0] }}</div>
+                <div v-if="item.createTime" class="absolute bottom-0 text-right right-2 text-[#999999]">{{ item.createTime.split('T')[0] }}</div>
               </div>
             </div>
           </div>

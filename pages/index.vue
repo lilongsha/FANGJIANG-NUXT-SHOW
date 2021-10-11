@@ -290,7 +290,7 @@
               <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
               <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
             </div>
-            <div class="flex flex-row items-center">
+            <div class="flex flex-row items-center mt-2">
               <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                   href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
               AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
@@ -322,7 +322,7 @@
               bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
               eTPfkgAAAABJRU5ErkJggg==" ></image>
               </svg>
-              <span v-if="item.address" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
+              <span v-if="item.address" class="overflow-hidden text-gray-400 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
               <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -388,10 +388,10 @@
               <div class="w-full text-xl font-bold text-black">
                 {{ item.title }}
               </div>
-              <div class="w-full h-16 overflow-hidden text-base text-gray-400 mt-7">
+              <p class="w-full h-[70px] overflow-hidden text-base text-justify overflow-ellipsis ... text-gray-400 mt-5">
                 {{ item.description}}
-              </div>
-              <div class="w-full text-right text-gray-400 mt-7">
+              </p>
+              <div class="w-full mt-5 text-right text-gray-400">
                 {{ item.createTime.split('T')[0] }}
               </div>
             </div>
