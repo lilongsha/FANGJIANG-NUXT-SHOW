@@ -96,7 +96,7 @@
               </a>
               <div class="w-full mt-14 h-0.5 bg-[#DDDDDD]"></div>
               <!-- phone -->
-              <div class="w-full mt-6 text-xl text-black">{{ phoneNum }} 转 {{ house.number }}</div>
+              <div class="w-full mt-6 text-2xl font-bold text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</div>
             </div>
           </div>
         </div>
