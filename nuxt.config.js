@@ -59,7 +59,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://www.fangjiang.com/api/', // Used as fallback if no runtime config is provided
+    baseURL: 'https://www.fangjiang.com/api/', // Used as fallback if no runtime config is provided
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

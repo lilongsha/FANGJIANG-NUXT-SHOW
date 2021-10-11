@@ -1,9 +1,16 @@
 <template>
   <div class="container mx-auto">
     <div class="w-full h-32"></div>
-    <div class="text-4xl">{{ news.title }}</div>
+    <div class="mb-4 text-4xl font-bold">{{ news.title }}</div>
+    <!-- 副标题 -->
+    <div class="w-2/3 text-[#999999]">
+      <span>来源：</span>
+      <span v-if="news.source">{{ news.source }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span>发布时间：</span>
+      <span v-if="news.createTime">{{ news.createTime.split('T')[0] }}</span>
+    </div>
     <!-- 左侧推荐楼盘 -->
-    <div class="sticky flex flex-col float-right w-1/3 top-28">
+    <div class="sticky flex flex-col float-right w-1/3 top-32">
       <div class="w-full mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -12,7 +19,7 @@
         </div>
         <div class="w-2/3 h-28">
           <div class="w-full">
-            <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a></span>
+            <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`" class="text-black hover:text-fjBlue-100">{{ item.name }}</a></span>
             <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
             <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
             <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
@@ -60,11 +67,11 @@
           </div>
           <div class="flex flex-row items-end justify-between px-2 h-9">
             <div v-if="item.labels" class="flex flex-row items-end space-x-2">
-              <span v-for="(label, index) in (item.labels.split(','))" :key="index" class="px-1 text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm" :title="label">{{ label }}</span>
+              <span v-for="(label, index) in (item.labels.split(','))" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
             </div>
             <div>
               <div>
-                <span class="text-lg text-fjRed-100">{{ item.price }}</span>
+                <span class="text-2xl font-bold text-fjRed-100">{{ item.price }}</span>
                 <span class="text-xs text-gray-400">元/㎡</span>
               </div>
             </div>
@@ -72,15 +79,16 @@
         </div>
       </div>
     </div>
-    <div class="w-2/3" v-html="news.content"></div>
-    <div class="w-2/3">
+    <div class="w-2/3 pr-8 mt-8" v-html="news.content"></div>
+    <div class="w-[821px] pr-8">
       <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" />
     </div>
+    <div class="w-[821px] h-[1px] bg-[#dddddd] my-8"></div>
     <!-- 其它资讯 -->
-    <div class="w-2/3 pb-[6px] border-b border-fjBlue-100 pr-2">
-        <span class="border-b-8 border-fjBlue-100">热门资讯</span>
-      </div>
-    <div class="flex flex-row w-2/3 mt-4">
+    <div class="w-[821px] pb-[6px] border-b border-fjBlue-100">
+      <span class="border-b-8 border-fjBlue-100">热门资讯</span>
+    </div>
+    <div class="flex flex-row w-[821px] mt-4">
       <div v-for="item in newsTop" :key="item.id" class="mr-10 font-medium"><a target="_blank" :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
     </div>
   </div>

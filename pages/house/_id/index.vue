@@ -54,8 +54,9 @@
             <!-- price -->
             <div class="px-6 w-full h-[155px] flex flex-col bg-fjBlue-100 text-white">
               <!-- lookTimes -->
-              <div class="w-full mt-2 text-right">
-                {{ house.lookTime }}
+              <div class="flex flex-row items-center justify-end w-full mt-2">
+                <div class="w-4 h-4 mr-2 bg-cover bg-looks"></div>
+                <span class="pb-[1px]">{{ house.lookTime }}</span>
               </div>
               <!-- price and totalPrice -->
               <div class="flex flex-row justify-between w-full">
