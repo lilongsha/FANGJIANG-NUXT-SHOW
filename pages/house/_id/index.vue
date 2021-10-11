@@ -106,18 +106,18 @@
           <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
         </div>
         <!-- house layout -->
-        <div id="layout" ref="layout" class="w-full h-[450px] mt-8">
+        <div id="layout" ref="layout" class="w-full h-[532px] mt-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center w-full h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
             <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}户型</div>
           </div>
           <!-- content -->
-          <div class="w-full h-[414px] mt-8">
+          <div class="w-full h-[496px] mt-8">
             <div class="w-full h-12">
               <span v-for="item in layouts" :key="item.value" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white text-lg' : ''" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
             </div>
-            <div class="relative w-full overflow-hidden h-80">
+            <div class="relative w-full overflow-hidden h-112">
               <div class="absolute top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
@@ -126,8 +126,11 @@
               </div>
               <div class="w-full h-full overflow-hidden relactive">
                 <div ref="layoutScroll" class="relative flex flex-row h-full text-white transition-all" :style="layoutRightString">
-                  <div v-for="item in house.hLayoutsById" v-show="item.room == showDefaultLayout" :key="item.id" class="relative flex-shrink-0 h-full mr-8 overflow-hidden transition-all w-72 bg-fjBlue-100">
-                    <div class="absolute bottom-0 z-10 flex flex-col w-full h-24 px-4">
+                  <div v-for="item in house.hLayoutsById" v-show="item.room == showDefaultLayout" :key="item.id" class="flex-shrink-0 h-full mr-8 overflow-hidden transition-all w-72 ">
+                    <div class="overflow-hidden h-80">
+                    <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full overflow-hidden transition-all duration-700 h-80 hover:scale-125">
+                    </div>
+                    <div class="flex flex-col w-full h-24 px-4 pt-2 shadow-md">
                       <div class="flex flex-row text-xl font-bold text-black">
                         <div class="-space-x-1 ">
                           <span v-if="item.room">{{ item.room }}</span>
@@ -143,17 +146,16 @@
                           <span v-if="item.state === '3'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
                         </div>
                       </div>
-                      <div class="flex flex-row w-full text-gray-700">
+                      <div class="flex flex-row flex-shrink-0 w-full text-gray-700">
                         <span class="w-32">建面约{{ item.area }}㎡</span>
                         <span class="ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
                       </div>
-                      <div v-if="item.labels" class="w-full space-x-2">
-                        <span v-for="(label, index) in item.labels.split(',')" :key="index" class="px-2 py-0.5 rounded text-center text-gray-600 bg-gray-400">
+                      <div v-if="item.labels" class="flex flex-row w-full mt-2 space-x-2">
+                        <span v-for="(label, index) in item.labels.split(',')" v-show="index < 3" :key="index" class="px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
                           {{ label }}
                         </span>
                       </div>
                     </div>
-                    <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full transition-all duration-700 hover:scale-125">
                   </div>
                 </div>
               </div>
