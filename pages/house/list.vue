@@ -469,8 +469,8 @@
                     <span v-if="!item.price">暂无数据</span>
                   </div>
                   <div class="w-full">
-                    <span v-if="item.updatePriceTime" class="text-xs">价格更新日期：</span>
-                    <span v-if="item.updatePriceTime" class="text-xs">{{ getPriceDate(item.updatePriceTime) }}</span>
+                    <span class="text-xs">价格更新日期：</span>
+                    <span v-if="item.updatePriceTime" class="text-xs">{{ item.updatePriceTime.split('T')[0] }}</span>
                     <span v-else class="text-xs">暂无数据</span>
                   </div>
                   <div class="w-full">
@@ -479,7 +479,7 @@
                   </div>
                   <div class="w-full mt-4">
                     <span></span>
-                    <span class="text-base text-fjRed-100">400-960-9889 {{ item.number }}</span>
+                    <span class="text-base text-fjRed-100">{{ phoneNum }}&nbsp;&nbsp;转&nbsp;&nbsp;{{ item.number }}</span>
                   </div>
                 </div>
               </div>
@@ -514,7 +514,7 @@ import { Api as AreaApi, AreaByCondition, AreaModel } from '~/api/model/areaMode
 import { BaseListResult, BasePageResult } from '~/api/model/baseModel';
 import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api/model/metroLineModel';
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '~/api/model/tradingAreaModel';
-import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState } from '~/api/model/houseModel';
+import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
 
 
@@ -697,6 +697,7 @@ export default Vue.extend({
         projectType,
         saleState,
         sortType,
+        phoneNum,
       },
       pageNum: 1,
       pageSize: 10,
