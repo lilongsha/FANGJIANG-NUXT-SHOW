@@ -165,7 +165,7 @@ a {
 }
 
 .fj-href- {
-  @apply text-black hover:text-black;
+  @apply flex flex-row items-center h-full text-black border-fjBlue-100 hover:text-fjBlue-100 hover:border-b-2;
 }
 
 .fj-href {

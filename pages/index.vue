@@ -322,7 +322,7 @@
               bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
               eTPfkgAAAABJRU5ErkJggg==" ></image>
               </svg>
-              <span v-if="item.address" class="overflow-hidden text-gray-400 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
+              <span v-if="item.address" class="text-gray-400" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
               <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -375,7 +375,7 @@
       </div>
       <!-- 内容 -->
       <div class="container mx-auto mt-8 overflow-hidden h-112">
-        <div class="flex flex-row justify-center space-x-6 text-gray-500">
+        <div class="flex flex-row justify-center pb-4 space-x-6 text-gray-500">
           <span :class="newsType === '1' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '1'">实探楼盘</span>
           <span :class="newsType === '2' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '2'">房贷利率</span>
           <span :class="newsType === '3' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '3'">楼市政策</span>
@@ -388,9 +388,10 @@
               <div class="w-full text-xl font-bold text-black">
                 {{ item.title }}
               </div>
-              <p class="w-full h-[70px] overflow-hidden text-base text-justify overflow-ellipsis ... text-gray-400 mt-5">
+              <!--  overflow-hidden text-justify overflow-ellipsis  -->
+              <span class="w-full h-[70px] text-base text-gray-400 mt-5" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
                 {{ item.description}}
-              </p>
+              </span>
               <div class="w-full mt-5 text-right text-gray-400">
                 {{ item.createTime.split('T')[0] }}
               </div>
@@ -790,15 +791,24 @@ export default Vue.extend({
     }
   },
   head() {
+    let city:string = this.$store.app.city || '石家庄';
+    if (city.endsWith('市')) {
+      city = city.substring(city.length - 1);
+    }
+    
     return {
-      title: '房匠 - 做您买房路上的自己人',
+      title: `${city}新房_${city}楼盘_${city}买房-房匠网`,
       meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网`
+        },
         {
           hid: 'description',
           name: 'description',
-          content: '房匠 - 做您买房路上的自己人'
-        }
+          content: `房匠网提供${city}新房,${city}楼盘,${city}买房,${city}楼市等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.`
+        },
       ],
       script: [
         {
