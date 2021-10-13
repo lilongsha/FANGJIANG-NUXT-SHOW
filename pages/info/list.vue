@@ -42,7 +42,7 @@
         </div>
         <div class="w-full h-[270px]">
           <div v-if="newsTop.length > 3" class="w-full h-1/2 pb-[2px]">
-            <a v-if="newsTop[3]" :href="`/info/${newsTop[4].id}.html`" class="block w-full h-full">
+            <a v-if="newsTop[3]" :href="`/info/${newsTop[3].id}.html`" class="block w-full h-full">
               <div class="flex flex-col w-full h-full overflow-hidden border-b-2 border-[#DDDDDD]">
                 <span class="text-black text-[18px] mt-5 inline-block">{{ newsTop[3].title }}</span>
                 <div class="text-[#999999] text-[12px] mt-2">{{ newsTop[3].description }}</div>
@@ -128,7 +128,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
-          inMobile: "0",
         },
         page: {
           pageNum: 0,
@@ -144,7 +143,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
-          inMobile: "0",
         },
         page: {
           pageNum: 0,

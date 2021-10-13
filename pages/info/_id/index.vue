@@ -113,7 +113,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
-          inMobile: "0",
         },
         page: {
           pageNum: 0,
