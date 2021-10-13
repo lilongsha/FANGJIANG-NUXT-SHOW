@@ -374,11 +374,11 @@
         <div class="h-3 bg-black w-9"></div>
       </div>
       <!-- 内容 -->
-      <div class="container mx-auto mt-8 overflow-hidden h-112">
+      <div class="container mx-auto mt-8 overflow-hidden h-[450px]">
         <div class="flex flex-row justify-center pb-4 space-x-6 text-gray-500">
+          <span :class="newsType === '3' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '3'">楼市政策</span>
           <span :class="newsType === '1' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '1'">实探楼盘</span>
           <span :class="newsType === '2' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '2'">房贷利率</span>
-          <span :class="newsType === '3' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '3'">楼市政策</span>
           <a class="text-gray-500 hover:text-fjBlue-100" @click="goNews">查看更多</a>
         </div>
         <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full h-full grid-cols-2 grid-rows-2 gap-4 px-4 mt-2">
@@ -695,7 +695,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
-          inMobile: "0",
           sort: "7",
         },
         page: {
@@ -712,7 +711,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
-          inMobile: "0",
           sort: "4",
         },
         page: {
@@ -729,7 +727,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
-          inMobile: "0",
           sort: "3",
         },
         page: {
@@ -785,7 +782,7 @@ export default Vue.extend({
       showMetroStation: false,
       tradings: [],
       metroStations: [],
-      newsType: '1', // 资讯分类 7 4 3
+      newsType: '3', // 资讯分类 7 4 3
       labels: [],
       processType: '0',
     }
