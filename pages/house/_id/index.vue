@@ -8,7 +8,7 @@
         <div class="w-full pt-10">
           <!-- name and saleState -->
           <div class="flex flex-row items-end w-full">
-            <span class="text-[#333333] text-[34px] font-bold font-medium">{{ house.name }}</span>
+            <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
             <span v-if="house.saleState === '1'" class="px-1 my-auto text-sm font-normal text-white rounded-sm ml-7 bg-fjYellow-100">在售</span>
             <span v-if="house.saleState === '2'" class="px-1 my-auto font-normal text-white rounded-sm ml-7 bg-fjBlue-100">待售</span>
             <span v-if="house.saleState === '3'" class="px-1 my-auto font-normal text-white rounded-sm ml-7 bg-fjRed-100">售罄</span>
