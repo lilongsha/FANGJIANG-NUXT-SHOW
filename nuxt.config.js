@@ -9,7 +9,9 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'static/favicon.ico' },
+      { rel: 'shortcut icon', href: 'static/favicon.ico' },
+      { rel: 'apple-touch-icon', href: 'static/favicon.ico' }
     ]
   },
 
@@ -65,7 +67,15 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'zh-CN',
+      name: '房匠网',
+      short_name: '房匠',
+      theme_color: '#015eea',
+      description: '房匠网房源多,信息全,价透明,做您买房路上的自己人',
+    },
+    icon: {
+      source: 'static/icon.png',
+      fileName: 'icon.png',
     }
   },
 
