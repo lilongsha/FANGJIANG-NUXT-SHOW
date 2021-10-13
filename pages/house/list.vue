@@ -394,7 +394,7 @@
               </div>
               <!-- 右中内容 -->
               <div class="flex flex-row w-full mt-7 h-[168px] text-[#999999]">
-                <div class="w-4/5 h-full text-[18px]">
+                <div class="w-3/5 h-full text-[18px]">
                   <div class="flex flex-row items-center">
                     <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -462,7 +462,7 @@
                     <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
                   </div>
                 </div>
-                <div class="w-1/5 text-[14px] text-right">
+                <div class="w-2/5 text-[14px] text-right">
                   <div class="w-full">
                     <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
                     <span v-if="item.price">元/㎡起</span>
@@ -479,7 +479,7 @@
                   </div>
                   <div class="w-full mt-4">
                     <span></span>
-                    <span class="text-base text-fjRed-100">{{ phoneNum }}&nbsp;&nbsp;转&nbsp;&nbsp;{{ item.number }}</span>
+                    <span class="text-2xl font-bold text-fjRed-100">{{ phoneNum }}&nbsp;&nbsp;转&nbsp;&nbsp;{{ item.number }}</span>
                   </div>
                 </div>
               </div>
@@ -697,11 +697,11 @@ export default Vue.extend({
         projectType,
         saleState,
         sortType,
-        phoneNum,
       },
       pageNum: 1,
       pageSize: 10,
       total: 0,
+      phoneNum,
     }
   },
   watch: {
@@ -938,21 +938,21 @@ export default Vue.extend({
           this.select.price.splice(this.select.price.indexOf(0), 1);
       }
     },
-    checkPrice(index: string | number) {
+    checkPrice(index: number) {
       this.select.lowPrice = '';
       this.select.heightPrice = '';
       if (index === 0) {
         this.select.price = [0]
+      } else if (this.select.price.includes(index)) {
+        this.select.price = [0]
       } else {
-        if (this.select.price.includes(0)) {
-          this.select.price.splice(this.select.price.indexOf(0), 1);
-        }
-        if (this.select.price.includes((index as number))) {
-          this.select.price.splice(this.select.price.indexOf((index as number)), 1);
-        } else {
-          this.select.price.push((index as number));
-        }
+        this.select.price = [index]
       }
+      // if (this.select.price.includes((index as number))) {
+      //   this.select.price.splice(this.select.price.indexOf((index as number)), 1);
+      // } else {
+      //   this.select.price.push((index as number));
+      // }
     },
     inputTotalPrice() {
       this.select.totalPrice = [];
