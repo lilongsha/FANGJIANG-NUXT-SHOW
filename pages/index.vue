@@ -374,7 +374,7 @@
         <div class="h-3 bg-black w-9"></div>
       </div>
       <!-- 内容 -->
-      <div class="container mx-auto mt-8 overflow-hidden h-[450px]">
+      <div class="container mx-auto mt-8 h-[456px]">
         <div class="flex flex-row justify-center pb-4 space-x-6 text-gray-500">
           <span :class="newsType === '3' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '3'">楼市政策</span>
           <span :class="newsType === '1' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '1'">实探楼盘</span>
@@ -382,7 +382,7 @@
           <a class="text-gray-500 hover:text-fjBlue-100" @click="goNews">查看更多</a>
         </div>
         <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full h-full grid-cols-2 grid-rows-2 gap-4 px-4 mt-2">
-          <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full h-full bg-black shadow-lg" :title="item.title">
+          <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full h-[220px] shadow-lg" :title="item.title">
             <img :src="item.img" :alt="item.title" height="100%" width="100%" class="object-cover w-64 h-full">
             <div class="w-full h-full px-4 py-4 bg-white">
               <div class="w-full text-xl font-bold text-black">
