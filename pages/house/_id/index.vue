@@ -769,8 +769,9 @@ questionTotal, option, phoneNum }
         if (Object.keys(flagObj).length > 2) {
           continue;
         }
-        result = result + keys[i] + '室'
+        result = result + keys[i] + '室 ｜ '
       }
+      result = result.substring(0, result.length - 3);
       this.showDefaultLayout = this.layouts[0].rooms
       this.layoutLabel = result;
     },
