@@ -676,7 +676,9 @@ export default Vue.extend({
     const saleState: number[] = [];
     const projectList: any[] = [];
     const sortType: string = '';
+    const areas: any[] = [];
     return {
+      areas,
       projectList,
       locationType: '1', // 1: 区域 2:商圈 3: 地铁
       select: {
@@ -701,6 +703,47 @@ export default Vue.extend({
       pageSize: 10,
       total: 0,
       phoneNum,
+    }
+  },
+  head() {
+    let city:string = this.$store.app.city || '石家庄';
+    if (city.endsWith('市')) {
+      city = city.substring(city.length - 1);
+    }
+    let area:string = '';
+    if (this.select.areaId) {
+      this.areas.forEach((item) => {
+        if (item.id === this.select.areaId[0]) {
+          area = item.name;
+        }
+      })
+    }
+    if (!area) {
+      area = city;
+    }
+    
+    
+    return {
+      title: `${area}新房_${area}楼盘_${area}买房-房匠网`,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网`
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `房匠网为您提供;${city}新房,${city}楼盘,${city}买房相关信息,房匠网-让买房变得简单!`
+        },
+      ],
+      script: [
+        {
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${area}新房_${area}楼盘_${area}买房-房匠网","images":[""],"description": "房匠网为您提供;${city}新房,${city}楼盘,${city}买房相关信息,房匠网-让买房变得简单!","upDate":"2021-10-14T18:00:00"}`,
+          type: 'application/ld+json',
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script']
     }
   },
   watch: {
