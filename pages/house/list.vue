@@ -149,15 +149,15 @@
           <div class="w-1/12 text-xs font-semibold">单价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in priceList" :key="index" class="flex flex-row mr-4">
-              <div class="flex flex-row whitespace-nowrap">
-                <input v-if="item.title !== null" v-model="select.price" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectPrice(index)" />
-                <label v-if="item.title !== null" class="inline-block whitespace-nowrap" @click="checkPrice(index)">{{ item.title }}</label >
+              <div v-if="item.title !== null" class="flex flex-row whitespace-nowrap">
+                <input v-model="select.price" :title="item.title" type="radio" name="price" :value="index" class="w-3 h-4 mr-1" @change="selectPrice(index)" />
+                <label class="inline-block whitespace-nowrap" @click="checkPrice(index)">{{ item.title }}</label >
               </div>
-              <div class="flex flex-row whitespace-nowrap">
-                <input v-if="item.title === null" v-model="select.lowPrice" type="number" min="0" class="w-16" @change="inputPrice">
-                <label v-if="item.title === null" class="inline-block whitespace-nowrap">-</label>
-                <input v-if="item.title === null" v-model="select.heightPrice" type="number" min="0" class="w-16" @change="inputPrice">
-                <label v-if="item.title === null" class="inline-block whitespace-nowrap">元/㎡</label>
+              <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
+                <input v-model="select.lowPrice" type="number" min="0" class="w-16" @change="inputPrice">
+                <label class="inline-block whitespace-nowrap">-</label>
+                <input v-model="select.highPrice" type="number" min="0" class="w-16" @change="inputPrice">
+                <label class="inline-block whitespace-nowrap">元/㎡</label>
               </div>
             </div>
           </div>
@@ -170,13 +170,13 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in totalPriceList" :key="index" class="flex flex-row mr-4">
               <div v-if="item.title !== null"  class="flex flex-row whitespace-nowrap">
-                <input v-model="select.totalPrice" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectTotalPrice(index)" />
+                <input v-model="select.totalPrice" :title="item.title" type="radio" name="totalPrice" :value="index" class="w-3 h-4 mr-1" @change="selectTotalPrice(index)" />
                 <label class="inline-block whitespace-nowrap" @click="checkTotalPrice(index)">{{ item.title }}</label >
               </div>
               <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
                 <label class="inline-block whitespace-nowrap">-</label>
-                <input v-model="select.heightTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
+                <input v-model="select.highTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
                 <label class="inline-block whitespace-nowrap">万元</label>
               </div>
             </div>
@@ -190,7 +190,7 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in acreageList" :key="index" class="flex flex-row mr-4">
               <div v-if="item.title !== null"  class="flex flex-row whitespace-nowrap">
-                <input v-model="select.acreage" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectAcreage(index)" />
+                <input v-model="select.acreage" :title="item.title" type="radio" name="area" :value="index" class="w-3 h-4 mr-1" @change="selectAcreage(index)" />
                 <label class="inline-block whitespace-nowrap" @click="checkAcreage(index)">{{ item.title }}</label >
               </div>
 
@@ -516,7 +516,23 @@ import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '~/api/model/tradingAreaModel';
 import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
-
+const fields: string[] = [
+  'areaId', 
+  'tradingId', 
+  'stationId', 
+  'acreage',
+  'houseType'
+]
+const fields2: string[] = [
+  'price', 
+  'totalPrice', 
+  'lowPrice',
+  'highPrice',
+  'lowTotalPrice',
+  'highTotalPrice',
+  'lowAcreage',
+  'heightAcreage',
+]
 
 export default Vue.extend({
   name: 'Home',
@@ -565,23 +581,6 @@ export default Vue.extend({
     }
 
     const query = route.query
-    const fields: string[] = [
-      'areaId', 
-      'tradingId', 
-      'stationId', 
-      'price', 
-      'totalPrice', 
-      'acreage',
-      'houseType'
-    ]
-    const fields2: string[] = [
-      'lowPrice',
-      'heightPrice',
-      'lowTotalPrice',
-      'heightTotalPrice',
-      'lowAcreage',
-      'heightAcreage',
-    ]
     const select: any = {};
     fields.forEach((item) => {
       if (query[item]) {
@@ -663,16 +662,16 @@ export default Vue.extend({
     const areaId: string[] = [];
     const tradingId: string[] = [];
     const stationId: string[] = [];
-    const price: number[] = [];
+    const price: number = 0;
     const lowPrice: string | number = '';
-    const heightPrice: string | number = '';
-    const totalPrice: number[] = [];
+    const highPrice: string | number = '';
+    const totalPrice: number = 0;
     const lowTotalPrice: string | number = '';
-    const heightTotalPrice: string | number = '';
-    const acreage: number[] = [];
+    const highTotalPrice: string | number = '';
+    const acreage: number = 0;
     const lowAcreage: string | number = '';
     const heightAcreage: string | number = '';
-    const houseType: number[] = [];
+    const houseType: number[] = [0];
     const projectType: number[] = [];
     const saleState: number[] = [];
     const projectList: any[] = [];
@@ -686,10 +685,10 @@ export default Vue.extend({
         stationId,
         price,
         lowPrice,
-        heightPrice,
+        highPrice,
         totalPrice,
         lowTotalPrice,
-        heightTotalPrice,
+        highTotalPrice,
         acreage,
         lowAcreage,
         heightAcreage,
@@ -715,23 +714,6 @@ export default Vue.extend({
   mounted() {
     // route 获取参数设置到data中
     const query = this.$route.query
-    const fields: string[] = [
-      'areaId', 
-      'tradingId', 
-      'stationId', 
-      'price', 
-      'totalPrice', 
-      'acreage',
-      'houseType'
-    ]
-    const fields2: string[] = [
-      'lowPrice',
-      'heightPrice',
-      'lowTotalPrice',
-      'heightTotalPrice',
-      'lowAcreage',
-      'heightAcreage',
-    ]
     const that = this;
     fields.forEach((item) => {
       if (query[item]) {
@@ -878,7 +860,15 @@ export default Vue.extend({
       condition.station = this.select.stationId;
       condition.type = this.select.projectType;
       condition.saleState = this.select.saleState;
-      condition.rooms = this.select.houseType;
+      if (!this.select.houseType.includes(0)) {
+        condition.rooms = this.select.houseType;
+      }
+      condition.lowPrice = this.select.lowPrice;
+      condition.highPrice = this.select.highPrice;
+      condition.lowTotalPrice = this.select.lowTotalPrice;
+      condition.highTotalPrice = this.select.highTotalPrice;
+      condition.lowArea = this.select.lowAcreage;
+      condition.highArea = this.select.heightAcreage;
       const sort: any = {};
       if (this.select.sortType === '1') {
         sort.desc = ['price']
@@ -927,87 +917,72 @@ export default Vue.extend({
       }
     },
     inputPrice() {
-      this.select.price = [];
+      this.select.price = 0;
     },
-    selectPrice(index: string | number) {
+    selectPrice(index: number) {
       this.select.lowPrice = '';
-      this.select.heightPrice = '';
+      this.select.highPrice = '';
       if (index === 0) {
-        this.select.price = [0]
-      } else if (this.select.price.includes(0)) {
-          this.select.price.splice(this.select.price.indexOf(0), 1);
+        this.select.lowPrice = '';
+        this.select.highPrice = '';
+      } else {
+        this.select.lowPrice = priceList[index].lowPrice || '';
+        this.select.highPrice = priceList[index].highPrice || '';
       }
     },
     checkPrice(index: number) {
-      this.select.lowPrice = '';
-      this.select.heightPrice = '';
+      this.select.price = index;
       if (index === 0) {
-        this.select.price = [0]
-      } else if (this.select.price.includes(index)) {
-        this.select.price = [0]
+        this.select.lowPrice = '';
+        this.select.highPrice = '';
       } else {
-        this.select.price = [index]
+        this.select.lowPrice = priceList[index].lowPrice || '';
+        this.select.highPrice = priceList[index].highPrice || '';
       }
-      // if (this.select.price.includes((index as number))) {
-      //   this.select.price.splice(this.select.price.indexOf((index as number)), 1);
-      // } else {
-      //   this.select.price.push((index as number));
-      // }
     },
     inputTotalPrice() {
-      this.select.totalPrice = [];
+      this.select.totalPrice = 0;
     },
-    selectTotalPrice(index: string | number) {
-      this.select.lowTotalPrice = '';
-      this.select.heightTotalPrice = '';
+    selectTotalPrice(index: number) {
       if (index === 0) {
-        this.select.totalPrice = [0]
-      } else if (this.select.totalPrice.includes(0)) {
-          this.select.totalPrice.splice(this.select.totalPrice.indexOf(0), 1);
-      }
-    },
-    checkTotalPrice(index: string | number) {
-      this.select.lowPrice = '';
-      this.select.heightPrice = '';
-      if (index === 0) {
-        this.select.totalPrice = [0]
+        this.select.lowTotalPrice = '';
+        this.select.highTotalPrice = '';
       } else {
-        if (this.select.totalPrice.includes(0)) {
-          this.select.totalPrice.splice(this.select.totalPrice.indexOf(0), 1);
-        }
-        if (this.select.totalPrice.includes((index as number))) {
-          this.select.totalPrice.splice(this.select.totalPrice.indexOf((index as number)), 1);
-        } else {
-          this.select.totalPrice.push((index as number));
-        }
+        this.select.lowTotalPrice = totalPriceList[index].lowTotalPrice || '';
+        this.select.highTotalPrice = totalPriceList[index].highTotalPrice || '';
+      }
+      
+    },
+    checkTotalPrice(index: number) {
+      this.select.totalPrice = index;
+      if (index === 0) {
+        this.select.lowTotalPrice = '';
+        this.select.highTotalPrice = '';
+      } else {
+        this.select.lowTotalPrice = totalPriceList[index].lowTotalPrice || '';
+        this.select.highTotalPrice = totalPriceList[index].highTotalPrice || '';
       }
     },
     inputAcreage() {
-      this.select.acreage = [];
+      this.select.acreage = 0;
     },
-    selectAcreage(index: string | number) {
-      this.select.lowAcreage = '';
-      this.select.heightAcreage = '';
+    selectAcreage(index: number) {
       if (index === 0) {
-        this.select.acreage = [0]
-      } else if (this.select.acreage.includes(0)) {
-          this.select.acreage.splice(this.select.acreage.indexOf(0), 1);
+        this.select.lowAcreage = '';
+        this.select.heightAcreage = '';
+      } else {
+        this.select.lowAcreage = acreageList[index].lowAcreage || '';
+        this.select.heightAcreage = acreageList[index].highAcreage || '';
       }
     },
-    checkAcreage(index: string | number) {
-      this.select.lowAcreage = '';
-      this.select.heightAcreage = '';
+    checkAcreage(index: number) {
+      this.select.acreage = index;
       if (index === 0) {
-        this.select.acreage = [0]
+        this.select.lowAcreage = '';
+        this.select.heightAcreage = '';
       } else {
-        if (this.select.acreage.includes(0)) {
-          this.select.acreage.splice(this.select.acreage.indexOf(0), 1);
-        }
-        if (this.select.acreage.includes((index as number))) {
-          this.select.acreage.splice(this.select.acreage.indexOf((index as number)), 1);
-        } else {
-          this.select.acreage.push((index as number));
-        }
+        this.select.lowAcreage = acreageList[index].lowAcreage || '';
+        this.select.heightAcreage = acreageList[index].highAcreage || '';
       }
     },
     selectHouseType(index: string | number) {
