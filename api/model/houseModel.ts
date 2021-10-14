@@ -95,13 +95,13 @@ export const phoneNum: string = '400 750 8888'
 
 // 单价
 export const priceList: any[] = [
-  {title: '不限', lowPrice: null, heightPrice: null},
-  {title: '1万元/㎡以下', lowPrice: null, heightPrice: 10000 },
-  {title: '1-1.5万元/㎡', lowPrice: 10000, heightPrice: 15000 },
-  {title: '1.5-2万元/㎡', lowPrice: 15000, heightPrice: 20000 },
-  {title: '2-2.5万元/㎡', lowPrice: 20000, heightPrice: 25000 },
-  {title: '2.5万元/㎡以上', lowPrice: 25000, heightPrice: null },
-  {title: null, lowPrice: null, heightPrice: null },
+  {title: '不限', lowPrice: null, highPrice: null},
+  {title: '1万元/㎡以下', lowPrice: null, highPrice: 10000 },
+  {title: '1-1.5万元/㎡', lowPrice: 10000, highPrice: 15000 },
+  {title: '1.5-2万元/㎡', lowPrice: 15000, highPrice: 20000 },
+  {title: '2-2.5万元/㎡', lowPrice: 20000, highPrice: 25000 },
+  {title: '2.5万元/㎡以上', lowPrice: 25000, highPrice: null },
+  {title: null, lowPrice: null, highPrice: null },
 ]
 // 总价
 export const totalPriceList: any[] = [
@@ -119,13 +119,13 @@ export const totalPriceList: any[] = [
 // 面积
 export const acreageList: any[] = [
   {title: '不限', lowAcreage: null, highAcreage: null },
-  {title: '50㎡以下', lowAcreage: null, highAcreage: 30 },
-  {title: '50-70㎡', lowAcreage: 30, highAcreage: 50 },
-  {title: '70-90㎡', lowAcreage: 50, highAcreage: 80 },
-  {title: '90-110㎡', lowAcreage: 80, highAcreage: 100 },
-  {title: '110-130㎡', lowAcreage: 100, highAcreage: 150 },
-  {title: '130-150㎡', lowAcreage: 150, highAcreage: 200 },
-  {title: '150-200㎡', lowAcreage: 200, highAcreage: 300 },
+  {title: '50㎡以下', lowAcreage: null, highAcreage: 50 },
+  {title: '50-70㎡', lowAcreage: 50, highAcreage: 70 },
+  {title: '70-90㎡', lowAcreage: 70, highAcreage: 90 },
+  {title: '90-110㎡', lowAcreage: 90, highAcreage: 110 },
+  {title: '110-130㎡', lowAcreage: 110, highAcreage: 130 },
+  {title: '130-150㎡', lowAcreage: 130, highAcreage: 150 },
+  {title: '150-200㎡', lowAcreage: 150, highAcreage: 200 },
   {title: '200㎡以上', lowAcreage: 200, highAcreage: null },
   {title: null, lowAcreage: null, highAcreage: null },
 ]
