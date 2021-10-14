@@ -8,7 +8,7 @@
             <span :class="type === '0' ? 'border-b-2 border-blue-500' : ''" class="mr-16 transition duration-500 ease-linear" @mouseover="type = '0'">热销楼盘</span>
             <span :class="type === '1' ? 'border-b-2 border-blue-500' : ''" class="mr-16 transition duration-500 ease-linear" @mouseover="type = '1'">友情链接</span>
             <a href="/map" target="_blank" class="mr-16 text-white">地图找房</a>
-            <a href="/info/list" target="_blank" class="mr-16 text-white">楼市咨询</a>
+            <a href="/info/list" target="_blank" class="mr-16 text-white">楼市资讯</a>
           </div>
           <!-- 菜单主体 -->
           <div class="flex flex-row w-full mt-11">
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full h-[300px] bg-black">
+      <div class="w-full pb-8 bg-black">
         <div class="container w-full h-full mx-auto">
           <div class="flex flex-row items-center justify-center pt-8 space-x-4 text-white">
             <a href="/about" class="text-white" target="_blank">关于房匠</a>
