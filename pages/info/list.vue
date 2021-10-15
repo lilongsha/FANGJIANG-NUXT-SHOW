@@ -74,7 +74,7 @@
           </div>
         </div>
         <!-- list content -->
-        <div id="list" class="w-3/4">
+        <div id="list" class="w-3/4 min-h-[512px]">
           <div class="border-b-2 border-[#999999]">
             <span class="text-[#999999] text-[20px]">最近</span>
           </div>
