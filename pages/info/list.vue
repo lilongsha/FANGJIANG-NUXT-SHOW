@@ -65,12 +65,12 @@
       <!-- list -->
       <div class="flex flex-row w-2/3">
         <!-- sort menu -->
-        <div class="sticky flex flex-col w-1/4 h-10 space-y-1 top-20">
-          <span class="text-[#666666] text-[20px]">资讯类别</span>
-          <div v-for="item in NEWS_SORT" :key="item.key" class="h-9" @click="changeSort(item.key);">
-            <div :class="item.key === sort ? 'bg-fjBlue-100' : ''" class="w-20 py-2 h-9 sort text-[#999999]">
+        <div class="sticky flex flex-col w-1/4 top-20">
+          <span class="text-[#666666] text-[20px] mb-4">资讯类别</span>
+          <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg" @click="changeSort(item.key);">
+            <span  :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">
               {{ item.value }}
-            </div>
+            </span>
           </div>
         </div>
         <!-- list content -->

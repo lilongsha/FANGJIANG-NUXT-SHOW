@@ -50,6 +50,7 @@ module.exports = {
         'index-3': "url('~/assets/img/index/3.png')",
         'looks': "url('~/assets/img/looks.png')",
         'looks-gray': "url('~/assets/img/looks-gray.png')",
+        'info-sort-bg': "url('~/assets/img/info/l_icon2.png')",
       }),
       width: {
         '1/10': '10%',
