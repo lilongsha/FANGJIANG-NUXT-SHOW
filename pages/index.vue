@@ -225,18 +225,22 @@
       <div class="w-1/3"></div>
     </div>
     <!-- banner 轮播图 -->
+    <div class="w-full h-[450px] overflow-hidden">
     <a-carousel class="w-full h-[450px]" dot-position="right" effect="fade" autoplay>
-      <img
-        v-for="item in banners"
-        :key="item.id" 
-        class="object-cover w-full h-[450px]"
-        height="450px"
-        width="100%"
-        :src="item.address"
-        :title="item.title"
-        :alt="item.description"
-      />
+      <div>
+        <img
+          v-for="item in banners"
+          :key="item.id" 
+          class="object-cover w-full h-[450px]"
+          height="450px"
+          width="100%"
+          :src="item.address"
+          :title="item.title"
+          :alt="item.description"
+        />
+      </div>
     </a-carousel>
+    </div>
     <!-- 推荐楼盘 -->
     <div class="container mx-auto mt-12">
       <!-- 标题 -->
@@ -244,7 +248,7 @@
         <!-- 竖线 -->
         <div class="w-4 h-full bg-black"></div>
         <!-- 标题内容 -->
-        <div class="ml-2 text-xl font-bold">推荐楼盘</div>
+        <div class="ml-2 text-xl font-bold text-black">推荐楼盘</div>
       </div>
       <!-- 图片盒子 -->
       <div class="flex flex-row w-[full-8] mx-4 mt-8 h-96 overflow-hidden">
@@ -265,11 +269,12 @@
     <!-- 热销楼盘 -->
     <div class="container mx-auto mt-12">
       <!-- 标题 -->
-      <div class="flex flex-row items-center w-full ml-4 h-9">
+      <div class="flex flex-row items-center w-full mx-4 h-9">
         <!-- 竖线 -->
         <div class="w-4 h-full bg-black"></div>
         <!-- 标题内容 -->
-        <div class="ml-2 text-xl font-bold">热销楼盘</div>
+        <div class="w-24 ml-2 text-xl font-bold"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
+        <div class="text-right w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
       <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
@@ -809,7 +814,7 @@ export default Vue.extend({
       ],
       script: [
         {
-          innerHTML: '{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"房匠网","images":[""],"description": "","upDate":"2021-10-9T18:51:22"}',
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${city}新房_${city}楼盘_${city}买房-房匠网","images":[""],"description": "房匠网提供${city}新房,${city}楼盘,${city}买房,${city}楼市等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.","upDate":"2021-10-14T18:00:00"}`,
           type: 'application/ld+json',
         }
       ],
@@ -888,8 +893,8 @@ export default Vue.extend({
 /* For demo */
 .ant-carousel >>> .slick-slide {
   text-align: center;
-  height: 420px;
-  line-height: 420px;
+  height: 450px;
+  line-height: 450px;
   overflow: hidden;
 }
 
