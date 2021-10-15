@@ -79,7 +79,10 @@
               <div class="flex flex-row w-full pt-4 text-sm group">
                 <span>价格说明</span>
                 <svg t="1632550637139" class="w-5 h-5 ml-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5311" width="128" height="128"><path d="M512 853.333333C323.4816 853.333333 170.666667 700.5184 170.666667 512S323.4816 170.666667 512 170.666667s341.333333 152.814933 341.333333 341.333333-152.814933 341.333333-341.333333 341.333333z m0-51.2a290.133333 290.133333 0 1 0 0-580.266666 290.133333 290.133333 0 0 0 0 580.266666z m25.6-197.051733a25.6 25.6 0 1 1-51.2 0c0-20.343467 9.4208-43.588267 27.409067-71.236267 8.465067-13.038933 17.7152-21.981867 33.8944-34.952533l4.983466-3.9936c21.2992-17.032533 26.794667-24.917333 26.794667-42.564267 0-38.741333-30.378667-69.870933-67.4816-69.870933-38.673067 0-67.4816 28.672-67.4816 69.870933a25.6 25.6 0 0 1-51.2 0c0-69.495467 51.780267-121.070933 118.6816-121.070933 65.706667 0 118.6816 54.340267 118.6816 121.070933 0 36.932267-13.755733 56.763733-46.045867 82.568534l-4.9152 3.925333c-12.219733 9.796267-18.261333 15.6672-22.971733 22.9376-13.073067 20.0704-19.1488 35.054933-19.1488 43.349333zM512 729.224533a31.061333 31.061333 0 1 1 0-62.088533 31.061333 31.061333 0 0 1 0 62.088533z" fill="#ffffff" p-id="5312" data-spm-anchor-id="a313x.7781069.0.i3" class="selected"></path></svg>
-                <span class="hidden ml-4 group-hover:block">价格仅供参考，不做为最终购房的价格</span>
+                <div class="hidden w-[400px] ml-4 group-hover:block">
+                  <span style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{house.priceDescription}}</span>
+                  <p class="font-bold">价格仅供参考，不做为最终购房的价格</p>
+                </div>
               </div>
             </div>
             <div class="px-6 w-full h-[392px] text-[#666666] text-base">
@@ -322,7 +325,7 @@
               bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
               eTPfkgAAAABJRU5ErkJggg==" ></image>
               </svg>
-                  <span v-if="item.address" class="overflow-hidden text-gray-400 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
+                  <span v-if="item.address" class="overflow-hidden text-gray-400 whitespace-nowrap" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
                 </div>
                 <div class="flex flex-row items-center">
                   <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -619,14 +622,14 @@ questionTotal, option, phoneNum }
     const houseCityName: string = this.house.sysCityByCityId.name;
     const houseProvinceName: string = this.house.sysProvinceByProvinceId.name;
     const latLng: string = this.house.latitude + '' + this.house.longitude;
-    const title: string = `${this.house.name} - 房匠`;
-    const description: string = `${this.house.description}`;
+    const title: string = `${this.house.name}项目价格,户型,开盘时间详情 - 房匠`;
+    const description: string = `房匠网为您提供${this.house.name}售楼处电话,开盘时间,地理位置,相册图片,楼盘房价,户型图等信息,了解更多${this.house.name}详细信息,请关注房匠网.`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.house.firstImg?.address;
     const sandImgAddress: string = this.house.sandImg?.address;
     const pubTime: string = this.house.updateTime;
     const upTime: string = this.house.updateTime || this.house.createTime;
-    const keyword: string = `${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型`;
+    const keyword: string = `${houseName},${houseName}怎么样,${houseName}价格,${houseName}售楼处电话,${houseName}户型,${houseName}开盘时间`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     const location: string = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
     return {
@@ -827,3 +830,12 @@ questionTotal, option, phoneNum }
   }
 })
 </script>
+
+<style scoped>
+.amap-container >>> .amap-logo {
+  z-index: 10 !important;
+}
+.amap-container >>> .amap-copyright {
+  z-index: 10 !important;
+}
+</style>
