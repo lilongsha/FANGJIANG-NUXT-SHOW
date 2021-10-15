@@ -672,8 +672,8 @@ export default Vue.extend({
     const lowAcreage: string | number = '';
     const heightAcreage: string | number = '';
     const houseType: number[] = [0];
-    const projectType: number[] = [];
-    const saleState: number[] = [];
+    const projectType: number[] = [0];
+    const saleState: number[] = [0];
     const projectList: any[] = [];
     const sortType: string = '';
     const areas: any[] = [];
@@ -901,8 +901,12 @@ export default Vue.extend({
       
       condition.trading = this.select.tradingId;
       condition.station = this.select.stationId;
-      condition.type = this.select.projectType;
-      condition.saleState = this.select.saleState;
+      if (!this.select.projectType.includes(0)) {
+        condition.type = this.select.projectType;
+      }
+      if (!this.select.saleState.includes(0)) {
+        condition.saleState = this.select.saleState;
+      }
       if (!this.select.houseType.includes(0)) {
         condition.rooms = this.select.houseType;
       }
@@ -939,6 +943,7 @@ export default Vue.extend({
         if (result.code === 200) {
           this.projectList = getDataResult(result)
           this.pageNum = result.data.page.number + 1;
+          this.total = result.data.page.totalElements;
         }
       } catch (e) {}
       finally {
@@ -1034,6 +1039,9 @@ export default Vue.extend({
       } else if (this.select.houseType.includes(0)) {
           this.select.houseType.splice(this.select.houseType.indexOf(0), 1);
       }
+      if (this.select.houseType.length < 1) {
+        this.select.houseType = [0]
+      }
     },
     checkHouseType(index: string | number) {
       if (index === 0) {
@@ -1048,12 +1056,18 @@ export default Vue.extend({
           this.select.houseType.push((index as number));
         }
       }
+      if (this.select.houseType.length < 1) {
+        this.select.houseType = [0]
+      }
     },
     selectProjectType(index: string | number) {
       if (index === 0) {
         this.select.projectType = [0]
       } else if (this.select.projectType.includes(0)) {
           this.select.projectType.splice(this.select.projectType.indexOf(0), 1);
+      }
+      if (this.select.projectType.length < 1) {
+        this.select.projectType = [0];
       }
     },
     checkProjectType(index: string | number) {
@@ -1069,12 +1083,18 @@ export default Vue.extend({
           this.select.projectType.push((index as number));
         }
       }
+      if (this.select.projectType.length < 1) {
+        this.select.projectType = [0];
+      }
     },
     selectSaleState(index: string | number) {
       if (index === 0) {
         this.select.saleState = [0]
       } else if (this.select.saleState.includes(0)) {
           this.select.saleState.splice(this.select.saleState.indexOf(0), 1);
+      }
+      if (this.select.saleState.length < 1) {
+        this.select.saleState = [0]
       }
     },
     checkSaleState(index: string | number) {
@@ -1089,6 +1109,9 @@ export default Vue.extend({
         } else {
           this.select.saleState.push((index as number));
         }
+      }
+      if (this.select.saleState.length < 1) {
+        this.select.saleState = [0]
       }
     },
     sortPrice() {
