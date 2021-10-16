@@ -6,7 +6,7 @@
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
           <!-- 标题内容 -->
-          <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ project.name }}问答</div>
+          <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ project.name }}动态</div>
         </div>
         <!-- content -->
         <div class="w-full mt-8">

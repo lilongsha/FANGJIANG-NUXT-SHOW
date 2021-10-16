@@ -67,9 +67,9 @@
         <!-- sort menu -->
         <div class="sticky flex flex-col w-1/4 top-20">
           <span class="text-[#666666] text-[20px] mb-4">资讯类别</span>
-          <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg" @click="changeSort(item.key);">
-            <span  :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">
-              {{ item.value }}
+          <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg">
+            <span>
+              <a :href="`/info/list?type=${item.key}`" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
             </span>
           </div>
         </div>
@@ -123,7 +123,10 @@ import { getDataResult } from '~/utils/response/util'
 
 export default Vue.extend({
   name: 'InfoList',
-  async asyncData({ $axios, store }) {
+  async asyncData({ $axios, route, store }) {
+    const query: any = route.query;
+    const sort: number = Number(query.type) || 0;
+
     const getNewsTop = async () => {
       const newsParam: any = {
         data: {
@@ -136,6 +139,9 @@ export default Vue.extend({
         sort: {
           desc: ['orderNum'],
         },
+      }
+      if (sort && sort !== 0) {
+        newsParam.data.sort = sort;
       }
       return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
     }
@@ -151,6 +157,9 @@ export default Vue.extend({
         sort: {
           desc: ['createTime'],
         },
+      }
+      if (sort && sort !== 0) {
+        newsParam.data.sort = sort;
       }
       return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
     }
@@ -177,12 +186,13 @@ export default Vue.extend({
       newsTop,
       newsList,
       total,
-      sort: '0',
+      sort,
     }
   },
   data () {
+    const sort: number = 0;
     return {
-      sort: '0',
+      sort,
       NEWS_SORT,
       pageNum: 1,
       newsTop: [],
@@ -191,14 +201,74 @@ export default Vue.extend({
     }
   },
   head() {
+    let city:string = this.$store.app.city || '石家庄';
+    if (city.endsWith('市')) {
+      city = city.substring(city.length - 1);
+    }
+
+    const year = new Date().getFullYear();
+    
+    const tdk = [
+      {
+        t: `${city}楼市资讯,${city}房价行情分析,${city}买房哪里好`,
+        d: `房匠网资讯中心为您提供全面真实实时的${city}房地产资讯信息,涵盖拿地政策、开盘信息、楼市政策、房贷利率、区域规划、区域房价、实探楼盘.`,
+        k: `${city}楼市资讯,${city}房价行情分析,${city}买房哪里好,${city}购房政策,${city}买房条件`,
+      },
+      {
+        t: `${city}拿地信息,${city}最新拍地信息,${city}拿地价`,
+        d: `房匠网拿地政策栏目为您提供${city}拿地信息、${city}土地规划、${city}土地价格等官方权威数据.`,
+        k: `${city}拿地信息,${city}最新拍地信息,${city}拿地价,${city}土地规划,${city}最新地块成交情况`,
+      },
+      {
+        t: `${city}最新楼盘信息,${city}楼盘最新房价,${city}最新楼盘开盘`,
+        d: `房匠网开盘资讯栏目为您提供大量真实有效的${city}最新楼盘信息、${city}最新楼盘、${city}最新楼盘价格,帮助您快速查询最新楼盘信息价格,为您创造最佳新房购买体验.`,
+        k: `${city}最新楼盘信息,${city}楼盘最新房价,${city}最新楼盘开盘,${city}新开楼盘,${city}最新楼盘价格`,
+        },
+        {
+        t: `${city}楼市政策,${city}购房政策,${city}购房政策解读`,
+        d: `房匠网楼市政策栏目为您提供最全面最及时的${city}房产政策、${city}楼市政策、${city}购房政策及解读,想了解${city}房地产最新政策资讯就上房匠网!`,
+        k: `${city}楼市政策,${city}购房政策,${city}购房政策解读,${city}限购政策,${city}二手房政策`,
+        },
+        {
+        t: `${year}${city}房贷利率,${city}房贷利率最新政策,${city}购房贷款利率`,
+        d: `房匠网房贷利率栏目为您汇总最新的${city}房贷政策及${city}购房贷款利率优惠政策等信息.`,
+        k: `${year}${city}房贷利率,${city}房贷利率最新政策,${city}购房贷款利率`,
+        },
+        {
+        t: `${city}区域规划,${city}城市规划,${city}最新区域规划`,
+        d: `房匠网区域规划栏目为您提供${city}未来10年重点区域规划方向及解读,为您在${city}购房置业提供专业的参考.`,
+        k: `${city}区域规划,${city}城市规划,${city}最新区域规划,${city}重点区域规划,${city}总体区域规划`,
+        },
+        {
+        t: `裕华区房价,长安区房价,新华区房价,桥西区房价`,
+        d: `房匠网区域房价栏目提供${city}${year}年各区域房价趋势、走势图、${city}二手房价格信息,让您清楚及时的了解房价信息,为您的购房置业提供专业的参考.`,
+        k: `裕华区房价,长安区房价,新华区房价,桥西区房价,正定房价,鹿泉房价,新区房价`,
+        },
+        {
+        t: `${city}实探热门楼盘,${city}实探爆款楼盘,${city}实探网红楼盘`,
+        d: `房匠网实探楼盘栏目帮您从专业的角度对${city}热门楼盘、爆款楼盘、网红楼盘、高品质楼盘进行实探分析,帮您解答买房路上的各种困难.`,
+        k: `${city}实探热门楼盘,${city}实探爆款楼盘,${city}实探网红楼盘,${city}实探高品质楼盘`,
+        }
+
+    ]
+    const type: number = this.sort;
+
+    const title = tdk[type].t;
+    const description = tdk[type].d;
+    const keywords = tdk[type].k;
     return {
-      title: '房匠 - 做您买房路上的自己人',
+      title,
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
           hid: 'description',
           name: 'description',
-          content: '房匠 - 做您买房路上的自己人'
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keywords
         }
       ]
     }
@@ -214,7 +284,6 @@ export default Vue.extend({
       const newsParam: any = {
         data: {
           cityId: this.$store.state.app.cityId,
-          inMobile: "0",
         },
         page: {
           pageNum: this.pageNum - 1,
@@ -224,7 +293,7 @@ export default Vue.extend({
           desc: ['createTime'],
         },
       }
-      if (this.sort && this.sort !== '0') {
+      if (this.sort && this.sort !== 0) {
         newsParam.data.sort = this.sort;
       }
       this.$nuxt.$loading.start();
@@ -240,13 +309,13 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       }
     },
-    async changeSort(flag: string) {
-      this.sort = flag;
-      this.pageNum = 1;
-      await this.getNewsList();
-      const anchor:any = this.$el.querySelector('#list')
-      anchor.scrollIntoView({ behavior: 'smooth' })
-    }
+    // async changeSort(flag: string) {
+    //   this.sort = flag;
+    //   this.pageNum = 1;
+    //   await this.getNewsList();
+    //   const anchor:any = this.$el.querySelector('#list')
+    //   anchor.scrollIntoView({ behavior: 'smooth' })
+    // }
   }
 })
 </script>
