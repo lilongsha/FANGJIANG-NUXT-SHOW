@@ -33,7 +33,7 @@
             <a href="/" class="text-white" target="_blank">诚聘英才</a>
           </div>
           <div class="flex flex-row items-center justify-center pt-4 space-x-4 text-white">
-            <a href="https://beian.miit.gov.cn/" class="text-white" target="_blank">冀ICP备19024434号</a>
+            <a href="https://beian.miit.gov.cn/" class="text-white" target="_blank" rel="nofollow">冀ICP备19024434号</a>
             <!-- <a href="http://www.beian.gov.cn/" class="text-white" target="_blank">冀公网安备000000001号</a> -->
           </div>
           <div class="flex flex-row items-center justify-center pt-4 space-x-4 text-white">
