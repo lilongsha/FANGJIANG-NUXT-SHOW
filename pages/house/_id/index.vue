@@ -194,7 +194,7 @@
               <!-- dynamic Title -->
               <div class="w-full mb-4">
                 <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
-                <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs">{{ DynamicSort[item.sort].title }}</span>
+                <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs text-white">{{ DynamicSort[item.sort].title }}</span>
               </div>
               <!-- dynamic Content -->
               <p class="w-full mb-8 truncate whitespace-pre-wrap max-h-16 first-letter:ml-4">{{ item.description }}</p>

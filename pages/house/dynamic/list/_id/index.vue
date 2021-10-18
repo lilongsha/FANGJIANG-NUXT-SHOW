@@ -14,11 +14,10 @@
             <!-- dynamic Title -->
             <div class="w-full mb-4">
               <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
+              <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs text-white">{{ DynamicSort[item.sort].title }}</span>
             </div>
             <!-- dynamic Content -->
-            <div v-if="item.content">
-              <span>{{ item.content }}</span>
-            </div>
+            <p class="w-full mb-8 truncate whitespace-pre-wrap first-letter:ml-4">{{ item.description }}</p>
             <!-- question Time -->
             <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
             <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
@@ -43,7 +42,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { getDynamicNews } from '~/api/model/dynamicModel'
+import { getDynamicNews, sort as DynamicSort } from '~/api/model/dynamicModel'
 import { getProject } from '~/api/model/houseModel'
 import { Breadcrumb } from '~/types/app';
 import { getDataResult, getPageResult } from '~/utils/response/util';
@@ -105,6 +104,7 @@ export default Vue.extend({
       id,
       pageParam,
       dynamics,
+      DynamicSort,
     }
   },
   methods: {
