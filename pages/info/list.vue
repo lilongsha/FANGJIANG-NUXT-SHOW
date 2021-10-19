@@ -80,10 +80,12 @@
           </div>
           <div class="space-y-8 mt-11">
             <!-- news item -->
-            <div v-for="item in newsList" :key="item.id" class="h-[188px] bg-[#f5f5f5] flex flex-row">
-              <img :src="item.img" :title="item.title" :alt="item.title" width="50%" >
+            <div v-for="item in newsList" :key="item.id" class="h-[188px] bg-[#f5f5f5] flex flex-row flex-shrink-0">
+              <div class="w-[320px] h-[188px]">
+                <img :src="item.img" :title="item.title" :alt="item.title" width="320px" height="188px" class="w-[320px] h-[188px] object-cover" />
+              </div>
               <!-- news item info -->
-              <div class="relative w-full pl-[27px] py-2">
+              <div class="relative w-[320px] pl-[27px] py-2">
                 <!-- look times -->
                 <div class="flex flex-row items-center justify-end w-full text-right">
                   <div class="w-4 h-4 mr-2 bg-cover bg-looks-gray"></div>
