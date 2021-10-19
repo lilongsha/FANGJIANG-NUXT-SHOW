@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <div class="w-full h-32"></div>
-    <div class="mb-4 text-4xl font-bold">{{ news.title }}</div>
+    <div class="mb-4 text-4xl font-bold text-[#333]">{{ news.title }}</div>
     <!-- 副标题 -->
     <div class="w-2/3 text-[#999999]">
       <span>来源：</span>
@@ -79,7 +79,7 @@
         </div>
       </div>
     </div>
-    <div class="w-2/3 pr-8 mt-8" v-html="news.content"></div>
+    <div class="w-2/3 pr-8 mt-8 content-css" v-html="news.content"></div>
     <div class="w-[821px] pr-8">
       <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" />
     </div>
@@ -232,3 +232,10 @@ export default Vue.extend({
   },
 })
 </script>
+<style scoped>
+div .content-css >>> * {
+  color: #333;
+  font-size: 16px;
+  font-family: "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", 微软雅黑, "Segoe UI", Tahoma, 宋体b8b体, SimSun, sans-serif;
+}
+</style>
