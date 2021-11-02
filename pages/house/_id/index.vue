@@ -150,8 +150,8 @@
                         </div>
                       </div>
                       <div class="flex flex-row flex-shrink-0 w-full text-gray-700">
-                        <span class="w-32">建面约{{ item.area }}㎡</span>
-                        <span class="ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
+                        <span class="w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
+                        <span class="w-[174px] ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
                       </div>
                       <div v-if="item.labels" class="flex flex-row w-full mt-2 space-x-2">
                         <span v-for="(label, index) in item.labels.split(',')" v-show="index < 3" :key="index" class="px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
