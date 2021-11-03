@@ -11,6 +11,8 @@ const state = ():AppState =>({
   hotProject: [],
   link: [],
   test: [],
+  title: '',
+  url: '',
 })
 
 const mutations = {
@@ -77,6 +79,12 @@ const mutations = {
   },
   TEST_SET_ALL(state: AppState, test: any):void {
     state.test = test;
+  },
+  TITLE_SET(state: AppState, title: string):void {
+    state.title = title;
+  },
+  URL_SET(state: AppState, url: string):void {
+    state.url = url;
   }
 }
 

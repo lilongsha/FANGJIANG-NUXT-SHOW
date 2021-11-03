@@ -21,4 +21,6 @@ export interface AppState {
   hotProject: any[];
   link: any[];
   test?: any;
+  title: string;
+  url: string;
 }
