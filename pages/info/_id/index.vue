@@ -15,7 +15,9 @@
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
         <div class="w-1/3 mr-2 h-28">
-          <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+          <a target="_blank" :href="`/house/${item.id}.html`">
+            <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+          </a>
         </div>
         <div class="w-2/3 h-28">
           <div class="w-full">
