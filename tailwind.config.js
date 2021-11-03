@@ -12,7 +12,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
-      // 'sm': '640px',
+      'sm': {'min': '300px', 'max': '1279px'},
+      
       // => @media (min-width: 640px) { ... }
 
       // 'md': '768px',
@@ -20,12 +21,6 @@ module.exports = {
 
       'lg': '1280px',
       // => @media (min-width: 1024px) { ... }
-
-      'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
-
-      '2xl': '1280px',
-      // => @media (min-width: 1536px) { ... }
     },
     colors: {
       fjRed: colors.fjRed,
