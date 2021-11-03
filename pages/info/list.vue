@@ -38,7 +38,7 @@
       <div class="w-1/3 h-full pl-5">
         <!-- title -->
         <div class="w-full border-b-2 border-fjBlue-100">
-          <span class="inline-block p-1 text-white bg-fjBlue-100">热门咨询</span>
+          <span class="inline-block p-1 text-white bg-fjBlue-100">热门资讯</span>
         </div>
         <div class="w-full h-[270px]">
           <div v-if="newsTop.length > 3" class="w-full h-1/2 pb-[2px]">
