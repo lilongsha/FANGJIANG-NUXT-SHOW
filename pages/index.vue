@@ -325,22 +325,22 @@
       </div>
     </div>
     <!-- 热销楼盘 -->
-    <div class="container mx-auto mt-12">
+    <div class="container mx-auto sm:mt-6 lg:mt-12">
       <!-- 标题 -->
-      <div class="flex flex-row items-center w-full mx-4 h-9">
+      <div class="flex flex-row items-center w-full sm:h-6 lg:ml-4 lg:h-9">
         <!-- 竖线 -->
-        <div class="w-4 h-full bg-black"></div>
+        <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 ml-2 text-xl font-bold"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
-        <div class="text-right w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
+        <div class="w-24 ml-2 font-bold sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
+        <div class="text-right sm:w-[208px] lg:w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
-      <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
+      <div class="grid lg:grid-cols-4 lg:grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 lg:h-112 overflow-hidden">
         <a v-for="item in hotProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
-          <div class="w-full h-7/10">
+          <div class="w-full sm:h-3/5 lg:h-7/10">
             <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>
-          <div class="w-full px-4 mt-2 bg-white h-3/10">
+          <div class="w-full px-4 mt-2 bg-white sm:h-2/5 lg:h-3/10">
             <div class="font-bold">
               <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
               <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
@@ -444,15 +444,15 @@
           <span :class="newsType === '2' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '2'">房贷利率</span>
           <a class="text-gray-500 hover:text-fjBlue-100" @click="goNews">查看更多</a>
         </div>
-        <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full grid-cols-2 grid-rows-2 gap-4 px-4 mt-2 h-[456px]">
-          <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full h-[220px] shadow-lg" :title="item.title">
-            <img :src="item.img" :alt="item.title" height="100%" width="100%" class="object-cover w-64 h-full">
+        <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full sm:grid-cols-1 sm:grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-4 px-4 mt-2 lg:h-[456px]">
+          <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full sm:h-[120px] lg:h-[220px] shadow-lg" :title="item.title">
+            <img :src="item.img" :alt="item.title" height="100%" width="100%" class="object-cover h-full sm:w-2/5 lg:w-64">
             <div class="w-full h-full px-4 py-4 bg-white">
-              <div class="w-full text-xl font-bold text-black">
+              <div class="w-full font-bold text-black sm:text-sm lg:text-xl">
                 {{ item.title }}
               </div>
               <!--  overflow-hidden text-justify overflow-ellipsis  -->
-              <span class="w-full h-[70px] text-base text-gray-400 mt-5" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
+              <span style="overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;" class="sm:hidden lg:block w-full h-[70px] text-base text-gray-400 mt-5">
                 {{ item.description}}
               </span>
               <div class="w-full mt-5 text-right text-gray-400">
