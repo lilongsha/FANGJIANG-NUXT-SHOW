@@ -14,7 +14,7 @@
   <div class="w-full h-14 lg:hidden"></div>
   <div class="fixed top-0 z-50 flex flex-row flex-shrink-0 w-full px-4 bg-white shadow-sm h-14 lg:hidden">
     <div class="flex flex-row w-1/4 h-full">
-      <a href="https://www.fangjiang.com" target="_blank" rel="nofollow">
+      <a href="/" rel="nofollow">
         <img class="object-cover w-14 h-14" src="~/assets/img/blue-logo.png" />
       </a>
     </div>

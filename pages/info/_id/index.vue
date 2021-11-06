@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
-    <div class="w-full h-32"></div>
-    <div class="mb-4 text-4xl font-bold text-[#333]">{{ news.title }}</div>
+    <div class="w-full sm:h-16 lg:h-32"></div>
+    <div class="mb-4 sm:text-base lg:text-4xl font-bold text-[#333]">{{ news.title }}</div>
     <!-- 副标题 -->
     <div class="w-2/3 text-[#999999]">
       <span>来源：</span>
@@ -9,8 +9,8 @@
       <span>发布时间：</span>
       <span v-if="news.createTime">{{ news.createTime.split('T')[0] }}</span>
     </div>
-    <!-- 左侧推荐楼盘 -->
-    <div class="sticky flex flex-col float-right w-1/3 top-32">
+    <!-- 右侧推荐楼盘 -->
+    <div class="sticky flex flex-col float-right w-1/3 sm:hidden top-32">
       <div class="w-full mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -83,23 +83,98 @@
         </div>
       </div>
     </div>
-    <div class="w-2/3 pr-8 mt-8 content-css" v-html="news.content"></div>
-    <div class="w-[821px] pr-8">
+    <div class="mt-8 lg:pr-8 sm:w-full lg:w-2/3 content-css" v-html="news.content"></div>
+    <div class="lg:w-[821px] pr-8">
       <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" />
     </div>
-    <div class="w-[821px] h-[1px] bg-[#dddddd] my-8"></div>
+    <div class="lg:w-[821px] h-[1px] bg-[#dddddd] my-8"></div>
     <!-- 其它资讯 -->
-    <div class="w-[821px] pb-[6px] border-b border-fjBlue-100">
+    <div class="lg:w-[821px] pb-[6px] border-b border-fjBlue-100">
       <span class="border-b-8 border-fjBlue-100">热门资讯</span>
     </div>
-    <div class="flex flex-row w-[821px] mt-4">
+    <div class="flex sm:flex-col lg:flex-row lg:w-[821px] mt-4">
       <div v-for="item in newsTop" :key="item.id" class="mr-10 font-medium"><a target="_blank" :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
+    </div>
+    <!-- 底部推荐楼盘 -->
+    <div class="flex flex-col lg:hidden">
+      <div class="w-full mt-6 mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
+      <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
+        <!-- 图片 -->
+        <div class="w-1/3 h-24 mr-2">
+          <a target="_blank" :href="`/house/${item.id}.html`">
+            <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
+          </a>
+        </div>
+        <div class="w-2/3 h-28">
+          <a target="_blank" :href="`/house/${item.id}.html`">
+            <div class="w-full">
+              <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`" class="text-black hover:text-fjBlue-100">{{ item.name }}</a></span>
+              <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
+              <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
+              <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+              <span v-if="item.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
+              <span v-if="item.type === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
+              <span v-if="item.type === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
+              <span v-if="item.type === '4'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
+              <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
+              <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
+            </div>
+            <div class="flex flex-row items-center">
+              <svg
+                class="w-4 h-4 text-gray-400 icon"
+                fill="currentColor"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="2536"
+                width="128"
+                height="128">
+                <path d="M512 128a307.2 307.2 0 0 1 307.2 307.2c0 122.24-57.6 201.152-126.976 271.36l-21.12 20.8-46.336 43.776C583.488 809.984 543.04 849.472 512 896c-26.624-39.872-60.16-74.624-95.104-108.16l-53.248-50.24-21.376-20.608C268.288 644.16 204.8 563.52 204.8 435.2A307.2 307.2 0 0 1 512 128z m0 64a243.2 243.2 0 0 0-243.2 243.2c0 96.896 34.88 155.904 135.36 252.544l53.248 50.304 25.6 24.96c7.936 7.936 15.36 15.488 22.208 22.784l6.784 7.296 6.784-7.296c10.368-11.008 21.76-22.528 34.56-34.944l27.584-26.432 24.768-23.232 27.392-26.368C723.456 585.664 755.2 527.68 755.2 435.2A243.2 243.2 0 0 0 512 192z m0 128a128 128 0 1 1 0 256 128 128 0 0 1 0-256z m0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"
+                  p-id="2537"
+                  data-spm-anchor-id="a313x.7781069.0.i2"
+                  class="selected"></path>
+              </svg>
+              <span v-if="item.address" class="overflow-hidden text-gray-400 "  style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
+            </div>
+            <div class="flex flex-row items-center">
+              <svg
+                class="w-4 h-4 text-gray-400 icon"
+                fill="currentColor"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="2536"
+                width="128"
+                height="128">
+                <path d="M512 128a307.2 307.2 0 0 1 307.2 307.2c0 122.24-57.6 201.152-126.976 271.36l-21.12 20.8-46.336 43.776C583.488 809.984 543.04 849.472 512 896c-26.624-39.872-60.16-74.624-95.104-108.16l-53.248-50.24-21.376-20.608C268.288 644.16 204.8 563.52 204.8 435.2A307.2 307.2 0 0 1 512 128z m0 64a243.2 243.2 0 0 0-243.2 243.2c0 96.896 34.88 155.904 135.36 252.544l53.248 50.304 25.6 24.96c7.936 7.936 15.36 15.488 22.208 22.784l6.784 7.296 6.784-7.296c10.368-11.008 21.76-22.528 34.56-34.944l27.584-26.432 24.768-23.232 27.392-26.368C723.456 585.664 755.2 527.68 755.2 435.2A243.2 243.2 0 0 0 512 192z m0 128a128 128 0 1 1 0 256 128 128 0 0 1 0-256z m0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"
+                  p-id="2537"
+                  data-spm-anchor-id="a313x.7781069.0.i2"
+                  class="selected"></path>
+              </svg>
+              <span class="overflow-hidden text-gray-400" :title="item.rooms">{{ item.rooms }}</span>
+              <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
+            </div>
+            <div class="flex flex-row items-end justify-between h-9">
+              <div v-if="item.labels" class="flex flex-row items-center">
+                <span v-for="(label, index) in (item.labels.split(','))" v-show="index < 2" :key="index" class="px-0.5 mr-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
+              </div>
+              <div>
+                <div>
+                  <span class="text-lg font-bold text-fjRed-100">{{ item.price }}</span>
+                  <span class="text-xs text-gray-400">元/㎡</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapMutations } from 'vuex';
 import { Api as NewsApi } from '~/api/model/newsModel';
 import { getHouseType } from '~/api/model/houseModel';
 import { Breadcrumb } from '~/types/app';
@@ -234,6 +309,13 @@ export default Vue.extend({
       return hotProject.slice(0, 4);
     }
   },
+  beforeMount() {
+    this.TITLE_SET('资讯');
+    this.URL_SET('');
+  },
+  methods: {
+    ...mapMutations('app', ['TITLE_SET', 'URL_SET']),
+  }
 })
 </script>
 <style scoped>
