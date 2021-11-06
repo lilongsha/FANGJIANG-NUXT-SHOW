@@ -244,13 +244,13 @@
     <!-- 移动端功能栏 -->
     <div class="w-full h-24 p-4 mt-4 lg:hidden">
       <div class="flex flex-row justify-around w-full h-full shadow">
-        <a href="">
+        <a href="/house/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">新房</span>
           </div>
         </a>
-        <a href="">
+        <a href="/info/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">资讯</span>
@@ -430,11 +430,11 @@
       </div>
     </div>
     <!-- 资讯 -->
-    <div class="container mx-auto mt-12">
+    <div class="container mx-auto sm:mt-6 lg:mt-12">
       <!-- 标题 -->
       <div class="flex flex-col items-center justify-center">
-        <div class="ml-2 text-xl font-bold">楼盘资讯</div>
-        <div class="h-3 bg-black w-9"></div>
+        <div class="ml-2 font-bold sm:text-lg lg:text-xl">楼盘资讯</div>
+        <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
       </div>
       <!-- 内容 -->
       <div class="container mx-auto mt-8">
@@ -468,40 +468,40 @@
     <!-- 大数据 -->
     <div></div>
     <!-- 购房流程 -->
-    <div class="container mx-auto mt-12">
+    <div class="container mx-auto sm:mt-6 lg:mt-12">
       <!-- 标题 -->
       <div class="flex flex-col items-center justify-center">
-        <div class="ml-2 text-xl font-bold">在线服务流程</div>
-        <div class="h-3 bg-black w-9"></div>
+        <div class="ml-2 font-bold sm:text-lg lg:text-xl">在线服务流程</div>
+        <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
         <!-- 副标题 -->
-        <div class="text-base text-gray-500 mt-7">一站式看房服务</div>
+        <div class="text-base text-gray-500 mt-7 sm:hidden">一站式看房服务</div>
       </div>
       <!-- 内容0 -->
-      <div v-show="processType === '0'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
+      <div v-show="processType === '0'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
+          <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-1"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源</span>
-            <span>超多楼盘，任您选择</span>
+            <span class="font-bold text-black sm:text-sm lg:text-xl">搜房源</span>
+            <span class="sm:text-xs">超多楼盘，任您选择</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
+          <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-2"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">帮我找房</span>
-            <span>平时太忙，房匠满足您的个性化需求</span>
+            <span class="font-bold text-black sm:text-sm lg:text-xl">帮我找房</span>
+            <span class="sm:text-xs">满足您的个性化需求</span>
           </div>
         </div>
         <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
+          <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-3"></div>
           <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">在线咨询</span>
-            <span>看的太多不好选择，联系我们</span>
+            <span class="font-bold text-black sm:text-sm lg:text-xl">在线咨询</span>
+            <span class="sm:text-xs">联系我们，为您解惑</span>
           </div>
         </div>
       </div>
       <!-- 内容1 -->
-      <div v-show="processType === '1'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
+      <div v-show="processType === '1'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
@@ -525,7 +525,7 @@
         </div>
       </div>
       <!-- 内容2 -->
-      <div v-show="processType === '2'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
+      <div v-show="processType === '2'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
@@ -549,7 +549,7 @@
         </div>
       </div>
       <!-- 内容3 -->
-      <div v-show="processType === '3'" class="grid w-full grid-cols-3 grid-rows-1 gap-4 shadow-lg h-36">
+      <div v-show="processType === '3'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
           <div class="flex flex-col">
@@ -572,25 +572,25 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-row items-center justify-between w-full h-20 pl-20 mt-12 pr-28">
+      <div class="flex flex-row items-center justify-between w-full h-20 mt-12 lg:pl-20 lg:pr-28">
         <div :class="processType === '0' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '0'">
-          <div class="z-10 text-xl">选房</div>
-          <div class="absolute bottom-0 z-0 text-5xl italic font-bold -right-10 opacity-30 process-child">01</div>
+          <div class="z-10 sm:text-sm lg:text-xl sm:w-10">选房</div>
+          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">01</div>
         </div>
-        <img src="~/assets/img/index-right.png" />
+        <img class="sm:w-4" src="~/assets/img/index-right.png" />
         <div :class="processType === '1' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '1'">
-          <div class="z-10 text-xl">预约看房</div>
-          <div class="absolute bottom-0 z-0 text-5xl italic font-bold opacity-30 -right-10">02</div>
+          <div class="z-10 sm:text-sm lg:text-xl sm:w-20">预约看房</div>
+          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">02</div>
         </div>
-        <img src="~/assets/img/index-right.png" />
+        <img class="sm:w-4" src="~/assets/img/index-right.png" />
         <div :class="processType === '2' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '2'">
-          <div class="z-10 text-xl">实地看房</div>
-          <div class="absolute bottom-0 z-0 text-5xl italic font-bold opacity-30 -right-10">03</div>
+          <div class="z-10 sm:text-sm lg:text-xl sm:w-20">实地看房</div>
+          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">03</div>
         </div>
-        <img src="~/assets/img/index-right.png" />
+        <img class="sm:w-4" src="~/assets/img/index-right.png" />
         <div :class="processType === '3' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '3'">
-          <div class="z-10 text-xl ">认筹认购</div>
-          <div class="absolute bottom-0 z-0 text-5xl italic font-bold opacity-30 -right-10">04</div>
+          <div class="z-10 sm:text-sm lg:text-xl sm:w-20">认筹认购</div>
+          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">04</div>
         </div>
       </div>
     </div>
