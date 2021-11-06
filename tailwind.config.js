@@ -12,7 +12,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
-      'sm': {'min': '300px', 'max': '1279px'},
+      'sm': {'min': '320px', 'max': '1279px'},
       
       // => @media (min-width: 640px) { ... }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!-- 轮播图功能区域定位 -->
-    <div class="absolute z-10 flex flex-row w-full h-64 top-28">
+    <div class="absolute z-10 flex flex-row w-full h-64 top-28 sm:hidden">
       <div class="w-1/3"></div>
       <!-- 轮播图功能区域 -->
       <div class="container h-full mx-auto">
@@ -225,7 +225,7 @@
       <div class="w-1/3"></div>
     </div>
     <!-- banner 轮播图 -->
-    <div class="w-full h-[450px] overflow-hidden">
+    <div class="w-full h-[450px] overflow-hidden sm:hidden">
     <a-carousel class="w-full h-[450px]" dot-position="right" effect="fade" autoplay>
       <div>
         <img
@@ -241,29 +241,87 @@
       </div>
     </a-carousel>
     </div>
+    <!-- 移动端功能栏 -->
+    <div class="w-full h-24 p-4 mt-4 lg:hidden">
+      <div class="flex flex-row justify-around w-full h-full shadow">
+        <a href="">
+          <div class="flex flex-col items-center justify-center h-full text-center">
+            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <span class="text-sm text-black">新房</span>
+          </div>
+        </a>
+        <a href="">
+          <div class="flex flex-col items-center justify-center h-full text-center">
+            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <span class="text-sm text-black">资讯</span>
+          </div>
+        </a>
+        <a href="">
+          <div class="flex flex-col items-center justify-center h-full text-center">
+            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <span class="text-sm text-black">找房</span>
+          </div>
+        </a>
+        <a href="">
+          <div class="flex flex-col items-center justify-center h-full text-center">
+            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <span class="text-sm text-black">计算器</span>
+          </div>
+        </a>
+      </div>
+    </div>
     <!-- 推荐楼盘 -->
-    <div class="container mx-auto mt-12">
+    <div class="container mx-auto sm:mt-6 lg:mt-12">
       <!-- 标题 -->
-      <div class="flex flex-row items-center w-full ml-4 h-9">
+      <div class="flex flex-row items-center w-full sm:h-6 lg:ml-4 lg:h-9">
         <!-- 竖线 -->
-        <div class="w-4 h-full bg-black"></div>
+        <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="ml-2 text-xl font-bold text-black">推荐楼盘</div>
+        <div class="ml-2 font-bold text-black sm:text-lg lg:text-xl">推荐楼盘</div>
       </div>
       <!-- 图片盒子 -->
-      <div class="flex flex-row w-[full-8] mx-4 mt-8 h-96 overflow-hidden">
-        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="relative block h-full transition-all duration-500 ease-in-out w-1/10">
-          <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="10%" class="object-cover w-full h-full" height="100%" @mouseover="selectRecommendKey = item.id">
-          <div v-show="selectRecommendKey === item.id" class="absolute bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black whitespace-nowrap bg-opacity-30">
+      <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden">
+        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
+          <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full" @mouseover="selectRecommendKey = item.id">
+          <div v-show="selectRecommendKey === item.id" class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
             <div>
               <span class="text-fjRed-100 ">{{ item.price }}</span>
               <span class="text-sm">元/㎡</span>
             </div>
           </div>
+          <div class="w-full h-full p-2 lg:hidden">
+            <!-- 标题 -->
+            <div class="flex flex-row w-full h-6">
+              <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
+              <div v-if="item.saleState === '1'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjYellow-100">在售</div>
+              <div v-if="item.saleState === '2'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">待售</div>
+              <div v-if="item.saleState === '3'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjRed-100">售罄</div>
+              <div v-if="item.type === '1'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">住宅</div>
+              <div v-if="item.type === '2'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">公寓</div>
+              <div v-if="item.type === '3'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">商铺</div>
+              <div v-if="item.type === '4'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">写字楼</div>
+              <div v-if="item.type === '5'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">仓库</div>
+              <div v-if="item.type === '6'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">其它</div>
+            </div>
+            <!-- 信息 -->
+            <div class="w-full h-6 text-sm">
+              <h1 v-if="item.sysAreaByAreaId">[{{ item.sysAreaByAreaId.name }}]</h1>
+              <h1 class="w-full" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.address }}</h1>
+            </div>
+            <div class="flex flex-row justify-between w-full h-4 mb-1">
+              <!-- 价格 -->
+              <span v-if="item.price" class="text-fjRed-100">{{ item.price }}元/平</span>
+              <span v-else>暂无价格</span>
+              <!-- 建面 -->
+              <span class="text-gray-400">{{ item.tempBuildArea }}</span>
+            </div>
+            <!-- 标签 -->
+            <div class="flex flex-row w-full h-6 space-x-2 flex-nowrap">
+              <h1 v-for="(label, index) in item.sysDictDetailBeans" v-show="index < 3" :key="index" class="px-1 pt-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap">{{ label.value }}</h1>
+            </div>
+          </div>
         </a>
-          <!-- <img v-for="item in recommendProjects" :key="item.id" :src="item.firstImg.address" :alt="item.name" width="10%" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="object-cover h-full transition-all duration-500 ease-in-out w-1/10" height="100%" @mouseover="selectRecommendKey = item.id">
-          <div v-for="item in recommendProjects" v-show="selectRecommendKey === item.id" :key="item.id"  class="">{{ item.name }}</div> -->
       </div>
     </div>
     <!-- 热销楼盘 -->
@@ -619,6 +677,28 @@ export default Vue.extend({
       const recommendProjectResult:BaseListResult<any> = await $axios.$post(ProjectApi.GetRecommendByCityId, recommendProjectParam);
       if (recommendProjectResult.code === 200) {
         recommendProjects = getDataResult(recommendProjectResult);
+        recommendProjects.forEach(item => {
+          if (item.hLayoutsById.length > 0) {
+            let area1 = 9999999;
+            let area2 = 0;
+            item.hLayoutsById.forEach((layout: any) => {
+              if (layout.area > area2) {
+                area2 = layout.area;
+              }
+              if (layout.area < area1) {
+                area1 = layout.area;
+              }
+            })
+            if ( area1 !== 9999999 && area2 !== 0) {
+              item.tempBuildArea = `建面:${area1}-${area2}㎡`
+            } else {
+              item.tempBuildArea = '暂无数据';
+            }
+          } else {
+            item.tempBuildArea = '暂无数据';
+          }
+        })
+
         selectRecommendKey = recommendProjects[0].id;
       }
     }
@@ -826,8 +906,10 @@ export default Vue.extend({
       return this.$store.state.app.test;
     }
   },
-  mounted() {
+  beforeMount() {
     this.BREADCRUMB_RE_SET();
+    this.TITLE_SET('搜房源');
+    this.URL_SET('/search');
   },
   methods: {
     goNews() {
@@ -884,7 +966,7 @@ export default Vue.extend({
       this.menuShow.isShow = false;
       this.menuShow.flag = 0;
     },
-    ...mapMutations('app', ['BREADCRUMB_RE_SET']),
+    ...mapMutations('app', ['BREADCRUMB_RE_SET', 'TITLE_SET', 'URL_SET']),
   },
 })
 </script>
@@ -931,7 +1013,7 @@ export default Vue.extend({
 }
 
 .select-recommend {
-  @apply w-2/3;
+  @apply lg:w-2/3;
 }
 
 .process-select {

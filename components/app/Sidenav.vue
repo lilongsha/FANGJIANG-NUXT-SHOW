@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="">
   <div :class="getIsHome? 'bg-index-menu': 'bg-white'" class="fixed z-50 flex flex-row w-full h-20 sm:hidden">
     <!-- <div class="">
       <sidenav-left />
@@ -12,7 +12,7 @@
     </div> -->
   </div>
   <div class="w-full h-14 lg:hidden"></div>
-  <div class="fixed top-0 right-0 z-50 flex flex-row flex-shrink-0 w-full px-4 bg-white shadow-sm h-14 lg:hidden">
+  <div class="fixed top-0 z-50 flex flex-row flex-shrink-0 w-full px-4 bg-white shadow-sm h-14 lg:hidden">
     <div class="flex flex-row w-1/4 h-full">
       <a href="https://www.fangjiang.com" target="_blank" rel="nofollow">
         <img class="object-cover w-14 h-14" src="~/assets/img/blue-logo.png" />
