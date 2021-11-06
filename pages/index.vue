@@ -264,7 +264,7 @@
         </a>
         <a href="">
           <div class="flex flex-col items-center justify-center h-full text-center">
-            <img src="~/assets/img/index/101.png" alt="" class="w-8 h-8">
+            <img src="~/assets/img/index/01.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">计算器</span>
           </div>
         </a>
