@@ -448,11 +448,11 @@
           <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full sm:h-[120px] lg:h-[220px] shadow-lg" :title="item.title">
             <img :src="item.img" :alt="item.title" height="100%" width="100%" class="object-cover h-full sm:w-2/5 lg:w-64">
             <div class="w-full h-full px-4 py-4 bg-white">
-              <div class="w-full font-bold text-black sm:text-sm lg:text-xl">
+              <div class="w-full font-bold text-black sm:text-sm lg:text-xl"  style="overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
                 {{ item.title }}
               </div>
               <!--  overflow-hidden text-justify overflow-ellipsis  -->
-              <span style="overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;" class="sm:hidden lg:block w-full h-[70px] text-base text-gray-400 mt-5">
+              <span style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;" class="sm:h-0 sm:w-0 lg:w-full lg:h-[70px] text-base text-gray-400 mt-5">
                 {{ item.description}}
               </span>
               <div class="w-full mt-5 text-right text-gray-400">

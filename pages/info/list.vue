@@ -1,8 +1,8 @@
 <template>
-  <div class="container mx-auto">
-    <div class="w-full h-24"></div>
+  <div class="mx-auto sm:w-full lg:container">
+    <div class="w-full sm:h-1 lg:h-24"></div>
     <!-- top -->
-    <div class="flex flex-row w-full h-[300px]">
+    <div class="sm:hidden flex flex-row w-full h-[300px]">
       <!-- top photo -->
       <div class="flex flex-row w-2/3">
         <!-- big photo -->
@@ -60,13 +60,42 @@
         </div>
       </div>
     </div>
+    <!-- top -->
+    <div class="w-full pl-4 mt-2 lg:hidden">
+      <div class="flex flex-row items-center">
+        <div class="w-1 h-4 bg-black"></div>
+        <!-- 标题 -->
+        <div class="ml-2 text-lg font-bold">热门资讯</div>
+      </div>
+      <div v-for="item in newsTop" :key="item.id" class="flex flex-row flex-shrink-0 h-24 mt-2">
+        <!-- img -->
+        <div class="w-2/5 h-full">
+          <a v-if="item" :href="`/info/${item.id}.html`" target="_blank" class="block w-full h-full">
+            <img :src="item.img" :title="item.title" :alt="item.title" class="object-cover w-full h-full">
+          </a>
+        </div>
+        <!-- content -->
+        <div class="w-3/5 px-2">
+          <a v-if="item" :href="`/info/${item.id}.html`" target="_blank" class="block w-full h-full">
+            <div class="flex flex-col w-full h-full overflow-hidden">
+              <span class="inline-block mt-2 text-base font-bold text-black">{{ item.title }}</span>
+              <div class="h-14 overflow-hidden text-[#999999] text-[12px] mt-1">{{ item.description }}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div></div>
     <!-- content -->
     <div class="flex flex-row w-full mt-8">
       <!-- list -->
-      <div class="flex flex-row w-2/3">
+      <div class="flex flex-row sm:w-full lg:w-2/3">
         <!-- sort menu -->
-        <div class="sticky flex flex-col w-1/4 top-20">
-          <span class="text-[#666666] text-[20px] mb-4">资讯类别</span>
+        <div class="sticky flex flex-col w-1/4 h-112 top-20">
+          <div class="flex flex-row items-center">
+            <div class="w-1 h-4 ml-4 bg-black lg:hidden"></div>
+            <span class="text-[#666666] sm:text-lg sm:font-bold lg:text-[20px] sm:ml-2 lg:mb-4">资讯类别</span>
+          </div>
           <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg">
             <span>
               <a :href="`/info/list?type=${item.key}`" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
@@ -74,25 +103,25 @@
           </div>
         </div>
         <!-- list content -->
-        <div id="list" class="w-3/4 min-h-[512px]">
+        <div id="list" class="w-3/4 min-h-[512px] sm:pl-8 sm:pr-4">
           <div class="border-b-2 border-[#999999]">
-            <span class="text-[#999999] text-[20px]">最近</span>
+            <span class="text-[#999999] sm:text-base lg:text-[20px] ">最近</span>
           </div>
-          <div class="space-y-8 mt-11">
+          <div class="sm:space-y-4 lg:space-y-8 mt-11">
             <!-- news item -->
-            <div v-for="item in newsList" :key="item.id" class="h-[188px] bg-[#f5f5f5] flex flex-row flex-shrink-0">
-              <div class="w-[320px] h-[188px]">
-                <img :src="item.img" :title="item.title" :alt="item.title" width="320px" height="188px" class="w-[320px] h-[188px] object-cover" />
+            <div v-for="item in newsList" :key="item.id" class="sm:h-24 lg:h-[188px] bg-[#f5f5f5] flex flex-row flex-shrink-0">
+              <div class="sm:w-2/5 lg:w-[320px] h-full">
+                <img :src="item.img" :title="item.title" :alt="item.title" class="sm:w-full lg:w-[320px] h-full object-cover" />
               </div>
               <!-- news item info -->
-              <div class="relative w-[320px] pl-[27px] py-2">
+              <div class="relative sm:w-3/5 lg:w-[320px] sm:pl-4 lg:pl-[27px] py-2">
                 <!-- look times -->
                 <div class="flex flex-row items-center justify-end w-full text-right">
                   <div class="w-4 h-4 mr-2 bg-cover bg-looks-gray"></div>
                   <span class="mr-2 text-[#999999] text-[12px]">{{ item.lookTimes }}</span>
                 </div>
-                <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" class="text-[#333333] text-[20px] font-bold hover:text-fjBlue-100">{{ item.title }}</a>
-                <div class="mr-[37px] h-16" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
+                <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 2;word-break: break-all;-webkit-box-orient: vertical;" class="overflow-hidden text-[#333333] sm:text-sm lg:text-[20px] font-bold hover:text-fjBlue-100">{{ item.title }}</a>
+                <div class="sm:h-0 mr-[37px] lg:h-16" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
                   {{ item.description }}
                 </div>
                 <!-- tiem -->
@@ -113,13 +142,14 @@
         </div>
       </div>
       <!-- ad -->
-      <div class="sticky W-1/3"></div>
+      <!-- <div class="sticky w-1/3"></div> -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapMutations } from 'vuex';
 import { Api as NewsApi, NEWS_SORT } from '~/api/model/newsModel'
 import { getDataResult } from '~/utils/response/util'
 
@@ -275,6 +305,10 @@ export default Vue.extend({
       ]
     }
   },
+  beforeMount() {
+    this.TITLE_SET('资讯');
+    this.URL_SET('');
+  },
   methods: {
     async pageChange(page: number) {
       this.pageNum = page;
@@ -311,6 +345,7 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       }
     },
+    ...mapMutations('app', ['TITLE_SET', 'URL_SET']),
     // async changeSort(flag: string) {
     //   this.sort = flag;
     //   this.pageNum = 1;
