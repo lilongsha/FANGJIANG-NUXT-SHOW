@@ -246,25 +246,25 @@
       <div class="flex flex-row justify-around w-full h-full shadow">
         <a href="/house/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
-            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <img src="~/assets/img/index/02.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">新房</span>
           </div>
         </a>
         <a href="/info/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
-            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <img src="~/assets/img/index/03.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">资讯</span>
           </div>
         </a>
         <a href="">
           <div class="flex flex-col items-center justify-center h-full text-center">
-            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <img src="~/assets/img/index/04.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">找房</span>
           </div>
         </a>
         <a href="">
           <div class="flex flex-col items-center justify-center h-full text-center">
-            <img src="~/assets/img/index/1.png" alt="" class="w-8 h-8">
+            <img src="~/assets/img/index/101.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">计算器</span>
           </div>
         </a>
