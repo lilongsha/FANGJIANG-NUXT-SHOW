@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto sm:w-full lg:container">
-    <div class="w-full sm:h-1 lg:h-24"></div>
+    <div class="w-full sm:h-2 lg:h-24"></div>
     <!-- top -->
     <div class="sm:hidden flex flex-row w-full h-[300px]">
       <!-- top photo -->
