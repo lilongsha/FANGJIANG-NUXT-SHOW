@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" :class="boxClass" class="z-50 flex flex-row items-center justify-center space-x-4 bg-gray-400 spinner bg-opacity-20">
+  <div v-if="loading" :class="boxClass" class="z-[100] flex flex-row items-center justify-center space-x-4 bg-gray-400 spinner bg-opacity-20">
     <div :style="{background: color, width, height}" class="rounded-full rect1"></div>
     <div :style="{background: color, width, height}" class="rounded-full rect2"></div>
     <div :style="{background: color, width, height}" class="rounded-full rect3"></div>
