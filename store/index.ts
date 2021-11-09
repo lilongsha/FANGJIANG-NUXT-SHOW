@@ -83,7 +83,6 @@ export const actions = {
     }
     await store.commit('app/LINK_SET', links)
     // 当前页面路径
-    console.log('router:', context.app.router);
     const curPath = context.app.router.history.current.name;
     switch(curPath) {
       case 'index':
