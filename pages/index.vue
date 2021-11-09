@@ -906,11 +906,6 @@ export default Vue.extend({
       return this.$store.state.app.test;
     }
   },
-  beforeMount() {
-    this.BREADCRUMB_RE_SET();
-    this.TITLE_SET('搜房源');
-    this.URL_SET('/search');
-  },
   methods: {
     goNews() {
       this.$router.push('/info/list');

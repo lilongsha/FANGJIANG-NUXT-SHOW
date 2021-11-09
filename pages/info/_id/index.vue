@@ -174,7 +174,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapMutations } from 'vuex';
 import { Api as NewsApi } from '~/api/model/newsModel';
 import { getHouseType } from '~/api/model/houseModel';
 import { Breadcrumb } from '~/types/app';
@@ -309,12 +308,7 @@ export default Vue.extend({
       return hotProject.slice(0, 4);
     }
   },
-  beforeMount() {
-    this.TITLE_SET('资讯');
-    this.URL_SET('');
-  },
   methods: {
-    ...mapMutations('app', ['TITLE_SET', 'URL_SET']),
   }
 })
 </script>

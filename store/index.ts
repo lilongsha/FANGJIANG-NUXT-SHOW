@@ -82,5 +82,27 @@ export const actions = {
       links = getDataResult(link);
     }
     await store.commit('app/LINK_SET', links)
+    // 当前页面路径
+    console.log('router:', context.app.router);
+    const curPath = context.app.router.history.current.name;
+    switch(curPath) {
+      case 'index':
+        await store.commit('app/TITLE_SET', '搜房源')
+        await store.commit('app/URL_SET', '/search')
+        await store.commit('app/BREADCRUMB_RE_SET', '新房')
+        break;
+      case 'house-list':
+        await store.commit('app/TITLE_SET', '新房')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'info-list':
+        await store.commit('app/TITLE_SET', '资讯')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'info-id':
+        await store.commit('app/TITLE_SET', '资讯')
+        await store.commit('app/URL_SET', '')
+        break;
+    }
   }
 }

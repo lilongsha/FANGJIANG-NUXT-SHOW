@@ -149,7 +149,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapMutations } from 'vuex';
 import { Api as NewsApi, NEWS_SORT } from '~/api/model/newsModel'
 import { getDataResult } from '~/utils/response/util'
 
@@ -305,10 +304,6 @@ export default Vue.extend({
       ]
     }
   },
-  beforeMount() {
-    this.TITLE_SET('资讯');
-    this.URL_SET('');
-  },
   methods: {
     async pageChange(page: number) {
       this.pageNum = page;
@@ -345,7 +340,6 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       }
     },
-    ...mapMutations('app', ['TITLE_SET', 'URL_SET']),
     // async changeSort(flag: string) {
     //   this.sort = flag;
     //   this.pageNum = 1;
