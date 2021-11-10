@@ -749,6 +749,7 @@ questionTotal, option, phoneNum }
       const layouts: any[] = this.house.hLayoutsById;
       // 获取主力户型
       if (!layouts || layouts.length < 1) {
+        this.layoutLabel = '暂无数据'
         return '暂无数据';
       }
       const flagObj: any = {};
@@ -764,6 +765,7 @@ questionTotal, option, phoneNum }
       })
       const keys = Object.keys(flagObj);
       if (keys.length < 1) {
+        this.layoutLabel = '暂无数据'
         return '暂无数据';
       }
       let result: string = '';
