@@ -502,9 +502,9 @@
     <div :class="selectMenuM !== '' ? '' : 'hidden'" class="block fixed top-14 right-0 bottom-0 left-0 z-50" style="background: rgba(0,0,0,.5);" @click="selectMenuM = ''"></div>
     <div class="h-14"></div>
     <!-- list -->
-    <div id="list" class="hidden w-full mt-14">
+    <div id="list" class="overflow-hidden w-full sm:mt-1 lg:mt-14">
       <!-- 标题 -->
-      <div class="flex flex-row w-full border-b-2 border-fjBlue-100">
+      <div class="sm:hidden flex flex-row w-full border-b-2 border-fjBlue-100">
         <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center">
           <span class="">默认排序</span>
         </div>
@@ -612,25 +612,25 @@
         </div>
       </div>
       <!-- 主体 -->
-      <div class="flex flex-col w-full mt-6">
-        <div v-for="item in projectList" :key="item.id" class="px-4 py-4 mb-12 hover:bg-gray-100">
-          <a :href="`/house/${item.id}.html`" target="_blank" class="w-full h-[250px] flex flex-row">
+      <div class="w-full sm:mt-1 lg:mt-6">
+        <div v-for="item in projectList" :key="item.id" class="sm:mb-2 sm:px-2 lg:p-4 lg:mb-12 hover:bg-gray-100">
+          <a :href="`/house/${item.id}.html`" target="_blank" class="w-full sm:h-36 lg:h-[250px] flex flex-row">
             <!-- 左边图片 -->
-            <div class="h-full w-[360px] static">
-              <img :src="getImg(item)" class="object-cover w-full h-full" height="100%" width="100%" :alt="item.name">
+            <div class="sm:h-24 lg:h-full sm:w-1/3 lg:w-[360px] static">
+              <img :src="getImg(item)" class="object-cover w-full h-full" :alt="item.name">
             </div>
             <!-- 右边内容 -->
-            <div class="h-full w-[920px] pl-6">
-              <div class="flex flex-row items-end h-11">
+            <div class="h-full sm:w-2/3 lg:w-[920px] sm:pl-2 lg:pl-6">
+              <div class="flex flex-row items-center lg:h-11">
                 <!-- title -->
-                <h1 class="h-full mb-0 text-[28px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
-                <div class="h-full pt-3 text-[14px] ml-4">
-                <h1 v-if="item.saleState === '1'" class="font-normal text-white rounded-sm bg-fjYellow-100">在售</h1>
-                <h3 v-if="item.saleState === '2'" class="font-normal text-white rounded-sm bg-fjBlue-100">待售</h3>
-                <h3 v-if="item.saleState === '3'" class="font-normal text-white rounded-sm bg-fjRed-100">售罄</h3>
+                <h1 class="h-full mb-0 sm:pb-0 sm:text-[16px] lg:text-[28px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
+                <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
+                  <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
+                  <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
+                  <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
                 </div>
               </div>
-              <div class="text-[16px]">
+              <div class="sm:mt-1 sm:text-[12px] lg:text-[16px]">
                 <!-- 类型 -->
                 <span v-if="item.type === '1'" class="text-gray-400">住宅</span>
                 <span v-if="item.type === '2'" class="text-gray-400">公寓</span>
@@ -646,10 +646,10 @@
                 <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
               </div>
               <!-- 右中内容 -->
-              <div class="flex flex-row w-full mt-7 h-[168px] text-[#999999]">
-                <div class="w-3/5 h-full text-[18px]">
-                  <div class="flex flex-row items-center">
-                    <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+              <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
+                <div class="sm:w-full lg:w-3/5 h-full sm:text-[12px] lg:text-[18px]">
+                  <div class="flex flex-row sm:flex-shrink-0 items-center">
+                    <svg version="1.1" class="sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                     AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                     RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
@@ -680,12 +680,11 @@
                     bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                     eTPfkgAAAABJRU5ErkJggg==" ></image>
                     </svg>
-                    <span class="mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
-                    <span v-if="item.address" class="" :title="item.address">{{ item.address }}</span>
-                    <span v-else>{{ item.address }}</span>
+                    <span class="sm:w-2/5 whitespace-nowrap overflow-hidden sm:mr-1 lg:mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
+                    <span class="sm:w-3/5 whitespace-nowrap overflow-hidden" :title="item.address">{{ item.address }}</span>
                   </div>
-                  <div class="flex flex-row items-center mt-2">
-                    <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                  <div class="flex flex-row items-center lg:mt-2">
+                    <svg version="1.1" class="sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                     AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                     RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
@@ -708,14 +707,26 @@
                     NjgyQkKYWsBsAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3Zp
                     ZXcyXzlfMTYzMTU5MjMzNzY3ODc4MzRfNzlfWzBdjI0y0QAAAABJRU5ErkJggg==" ></image>
                     </svg>
-                    <span>户型：</span>
+                    <span class="whitespace-nowrap">户型：</span>
                     <span>{{getRoomList(item)}}</span>
                   </div>
-                  <div v-if="item.labels" class="mt-16">
-                    <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
+                  <div class="flex flex-row items-center lg:hidden">
+                    <div class="w-2/5">
+                      <span v-if="item.price" class="text-[#DA1111] text-[16px] font-bold">{{ item.price }}</span>
+                      <span v-if="item.price" class="text-[12px]">元/㎡</span>
+                      <span v-if="!item.price">暂无数据</span>
+                    </div>
+                    <div class="w-3/5">
+                      <span class="text-xs">更新日期：</span>
+                      <span v-if="item.updatePriceTime" class="text-xs">{{ item.updatePriceTime.split('T')[0] }}</span>
+                      <span v-else class="text-xs">暂无数据</span>
+                    </div>
+                  </div>
+                  <div v-if="item.labels" class="lg:mt-16">
+                    <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="sm:text-[12px] lg:text-[14px] rounded sm:px-1 lg:px-2 lg:py-1 sm:mr-1 lg:mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
                   </div>
                 </div>
-                <div class="w-2/5 text-[14px] text-right">
+                <div class="sm:w-0 sm:overflow-hidden sm:hidden lg:w-2/5 text-[14px] text-right">
                   <div class="w-full">
                     <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
                     <span v-if="item.price">元/㎡起</span>
