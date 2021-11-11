@@ -262,7 +262,7 @@
             <span class="text-sm text-black">找房</span>
           </div>
         </a>
-        <a href="">
+        <a href="/calculator/home">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/01.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">计算器</span>
