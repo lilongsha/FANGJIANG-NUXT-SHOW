@@ -13,4 +13,5 @@ export const NEWS_SORT = [
   {key: 5, value: '区域规划'},
   {key: 6, value: '区域房价'},
   {key: 7, value: '实探楼盘'},
+  {key: 8, value: '房产百科'},
 ]
