@@ -1,8 +1,8 @@
 <template>
-  <div class="lg:container mx-auto">
+  <div class="mx-auto lg:container">
     <div class="w-full lg:h-24"></div>
     <!-- condition -->
-    <div class="sm:hidden w-full px-8 py-10 mt-16 bg-gray-100">
+    <div class="w-full px-8 py-10 mt-16 bg-gray-100 sm:hidden">
       <!-- 位置 -->
       <div class="w-full">
         <div class="w-full flex flex-row pb-4 border-gray-300 border-b-[1px]">
@@ -251,7 +251,7 @@
     <!-- 移动端codition -->
     <div class="fixed top-14 z-[51] bg-white w-full flex flex-col lg:hidden">
       <!-- title -->
-      <div class="w-full px-2 flex flex-row justify-around h-12">
+      <div class="flex flex-row justify-around w-full h-12 px-2">
         <!-- 位置 区域 商圈 地铁 -->
         <div class="m-menu-titile" @click="showMenuBodyM('0')">
           <span>位置</span>
@@ -394,9 +394,9 @@
         </div>
         <!-- 户型 -->
         <div :class="selectMenuM !== '2' ? 'max-h-0' : 'max-h-[33vh]'" class="flex flex-row w-full px-2 overflow-hidden ease-linear" style="transition: max-height .5s;">
-          <div class="w-full h-full text-sm text-gray-500 space-y-2">
+          <div class="w-full h-full space-y-2 text-sm text-gray-500">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row justify-center mr-4">
-              <div class="flex flex-row items-center w-14 justify-start whitespace-nowrap">
+              <div class="flex flex-row items-center justify-start w-14 whitespace-nowrap">
                 <input v-model="select.houseType" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectHouseType(index)" />
                 <label class="inline-block whitespace-nowrap" @click="checkHouseType(index)">{{ item.title }}</label >
               </div>
@@ -436,7 +436,7 @@
               <div v-for="(item, index) in saleState" :key="index">
               <div class="flex flex-row whitespace-nowrap">
                 <input v-model="select.saleState" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectSaleState(index)" />
-                <label class=" items-center inline-block whitespace-nowrap" @click="checkSaleState(index)">{{ item.title }}</label >
+                <label class="items-center inline-block  whitespace-nowrap" @click="checkSaleState(index)">{{ item.title }}</label >
               </div>
             </div>
             </div>
@@ -444,7 +444,7 @@
         </div>
         <!-- 排序 -->
         <div :class="selectMenuM !== '4' ? 'max-h-0' : 'max-h-[33vh]'" class="flex flex-row w-full px-2 overflow-hidden ease-linear" style="transition: max-height .5s;">
-          <div class="w-full h-full text-gray-500 space-y-2">
+          <div class="w-full h-full space-y-2 text-gray-500">
             <div class="text-sm text-center">
               <div :class="select.sortType === '1' ? 'text-fjBlue-100' : ''" @click="sortPrice">均价从高到底</div>
               <div :class="select.sortType === '2' ? 'text-fjBlue-100' : ''" @click="sortPrice">均价从底到高</div>
@@ -454,57 +454,57 @@
           </div>
         </div>
         <!-- 底部按钮 -->
-        <div class="w-full h-14 flex flex-row p-1 bg-white border">
+        <div class="flex flex-row w-full p-1 bg-white border h-14">
           <div class="w-2/3">
             <!-- 单价输入 -->
             <div :class="selectMenuM === '1' && selectMenuPrice === '1' ? 'p-1 w-full' : 'w-0 h-0'" class="overflow-hidden">
-              <div class="w-full flex flex-row whitespace-nowrap">
-                <div class="p-2 bg-gray-200 text-center align-middle">
-                  <input v-model="select.lowPrice" pattern="[0-9]*" type="number" placeholder="最底均价" min="0" class="w-full bg-gray-200 text-xs" @change="inputPrice">
+              <div class="flex flex-row w-full whitespace-nowrap">
+                <div class="p-2 text-center align-middle bg-gray-200">
+                  <input v-model="select.lowPrice" pattern="[0-9]*" type="number" placeholder="最底均价" min="0" class="w-full text-xs bg-gray-200" @change="inputPrice">
                 </div>
-                <label class="p-2 text-center align-middle inline-block whitespace-nowrap">-</label>
-                <div class="p-2 bg-gray-200 text-center align-middle">
-                  <input v-model="select.highPrice" pattern="[0-9]*" type="number" placeholder="最高均价" min="0" class="w-full bg-gray-200 text-xs" @change="inputPrice">
+                <label class="inline-block p-2 text-center align-middle whitespace-nowrap">-</label>
+                <div class="p-2 text-center align-middle bg-gray-200">
+                  <input v-model="select.highPrice" pattern="[0-9]*" type="number" placeholder="最高均价" min="0" class="w-full text-xs bg-gray-200" @change="inputPrice">
                 </div>
               </div>
             </div>
             <!-- 总价输入 -->
             <div :class="selectMenuM === '1' && selectMenuPrice === '2' ? 'p-1 w-full' : 'w-0 h-0'" class="overflow-hidden">
-              <div class="w-full flex flex-row whitespace-nowrap">
-                <div class="p-2 bg-gray-200 text-center align-middle">
-                  <input v-model="select.lowTotalPrice" pattern="[0-9]*" type="number" placeholder="最底总价" min="0" class="w-full bg-gray-200 text-xs" @change="inputTotalPrice">
+              <div class="flex flex-row w-full whitespace-nowrap">
+                <div class="p-2 text-center align-middle bg-gray-200">
+                  <input v-model="select.lowTotalPrice" pattern="[0-9]*" type="number" placeholder="最底总价" min="0" class="w-full text-xs bg-gray-200" @change="inputTotalPrice">
                 </div>
-                <label class="p-2 text-center align-middle inline-block whitespace-nowrap">-</label>
-                <div class="p-2 bg-gray-200 text-center align-middle">
-                  <input v-model="select.highTotalPrice" pattern="[0-9]*" type="number" placeholder="最高总价" min="0" class="w-full bg-gray-200 text-xs" @change="inputTotalPrice">
+                <label class="inline-block p-2 text-center align-middle whitespace-nowrap">-</label>
+                <div class="p-2 text-center align-middle bg-gray-200">
+                  <input v-model="select.highTotalPrice" pattern="[0-9]*" type="number" placeholder="最高总价" min="0" class="w-full text-xs bg-gray-200" @change="inputTotalPrice">
                 </div>
               </div>
             </div>
             <!-- 面积输入 -->
             <div :class="selectMenuM === '3' ? 'p-1 w-full' : 'w-0 h-0'" class="overflow-hidden">
-              <div class="w-full flex flex-row whitespace-nowrap">
-                <div class="p-2 bg-gray-200 text-center align-middle">
-                  <input v-model="select.lowAcreage" pattern="[0-9]*" type="number" placeholder="最底面积" min="0" class="w-full bg-gray-200 text-xs" @change="inputAcreage">
+              <div class="flex flex-row w-full whitespace-nowrap">
+                <div class="p-2 text-center align-middle bg-gray-200">
+                  <input v-model="select.lowAcreage" pattern="[0-9]*" type="number" placeholder="最底面积" min="0" class="w-full text-xs bg-gray-200" @change="inputAcreage">
                 </div>
-                <label class="p-2 text-center align-middle inline-block whitespace-nowrap">-</label>
-                <div class="p-2 bg-gray-200 text-center align-middle">
-                  <input v-model="select.heightAcreage" pattern="[0-9]*" type="number" placeholder="最高面积" min="0" class="w-full bg-gray-200 text-xs" @change="inputAcreage">
+                <label class="inline-block p-2 text-center align-middle whitespace-nowrap">-</label>
+                <div class="p-2 text-center align-middle bg-gray-200">
+                  <input v-model="select.heightAcreage" pattern="[0-9]*" type="number" placeholder="最高面积" min="0" class="w-full text-xs bg-gray-200" @change="inputAcreage">
                 </div>
               </div>
             </div>
           </div>
           <div class="w-1/3 p-2 text-center align-middle">
-            <button class="w-full bg-fjBlue-100 py-1 px-2 rounded text-white" @click="cancel">重置</button>
+            <button class="w-full px-2 py-1 text-white rounded bg-fjBlue-100" @click="cancel">重置</button>
           </div>
         </div>
       </div>
     </div>
-    <div :class="selectMenuM !== '' ? '' : 'hidden'" class="block fixed top-14 right-0 bottom-0 left-0 z-50" style="background: rgba(0,0,0,.5);" @click="selectMenuM = ''"></div>
+    <div :class="selectMenuM !== '' ? '' : 'hidden'" class="fixed bottom-0 left-0 right-0 z-50 block top-14" style="background: rgba(0,0,0,.5);" @click="selectMenuM = ''"></div>
     <div class="h-14"></div>
     <!-- list -->
-    <div id="list" class="overflow-hidden w-full sm:mt-1 lg:mt-14">
+    <div id="list" class="w-full overflow-hidden sm:mt-1 lg:mt-14">
       <!-- 标题 -->
-      <div class="sm:hidden flex flex-row w-full border-b-2 border-fjBlue-100">
+      <div class="flex flex-row w-full border-b-2 sm:hidden border-fjBlue-100">
         <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center">
           <span class="">默认排序</span>
         </div>
@@ -648,8 +648,8 @@
               <!-- 右中内容 -->
               <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
                 <div class="sm:w-full lg:w-3/5 h-full sm:text-[12px] lg:text-[18px]">
-                  <div class="flex flex-row sm:flex-shrink-0 items-center">
-                    <svg version="1.1" class="sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                  <div class="flex flex-row items-center sm:flex-shrink-0">
+                    <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                     AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                     RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
@@ -680,11 +680,11 @@
                     bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                     eTPfkgAAAABJRU5ErkJggg==" ></image>
                     </svg>
-                    <span class="sm:w-2/5 whitespace-nowrap overflow-hidden sm:mr-1 lg:mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
-                    <span class="sm:w-3/5 whitespace-nowrap overflow-hidden" :title="item.address">{{ item.address }}</span>
+                    <span class="overflow-hidden sm:w-2/5 whitespace-nowrap sm:mr-1 lg:mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
+                    <span class="overflow-hidden sm:w-3/5 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
                   </div>
                   <div class="flex flex-row items-center lg:mt-2">
-                    <svg version="1.1" class="sm:w-3 sm:h-3 lg:w-4 lg:h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                    <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                     AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                     RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5

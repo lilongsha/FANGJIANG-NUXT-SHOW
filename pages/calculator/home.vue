@@ -42,21 +42,21 @@
 					<div class="left">房屋总价</div>
 					<div class="right">
 						<input v-model="houseMoney" type="number" placeholder="请输入房屋总价（单位：万）" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">万</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">万</label >
 					</div>
 				</div>
 				<div v-if="type !== 0" class="item">
 					<div class="left">按揭成数</div>
 					<div class="right">
 						<input v-model="percent" maxlength="1" type="number" placeholder="请输入金额（单位：万）" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">成</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">成</label >
 					</div>
 				</div>
 				<div v-if="type !== 0" class="item">
 					<div class="left">按揭金额</div>
 					<div class="right">
 						<span>{{ percentMoney }}</span>
-						<label class="text-gray-300 inline-block whitespace-nowrap">万</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">万</label >
 					</div>
 				</div>
 				<div class="item">
@@ -100,14 +100,14 @@
 					<div class="left">LPR</div>
 					<div class="right">
 						<input v-model="lpr"  type="number" placeholder="请输入" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">%</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">%</label >
 					</div>
 				</div>
 				<div v-if="type1 !== 0" class="item">
 					<div class="left">基点</div>
 					<div class="right">
 						<input v-model="bp"  type="number" placeholder="请输入" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">BP(‰)</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">BP(‰)</label >
 					</div>
 				</div>
 				<div v-if="type1 !== 0" class="item">
@@ -142,21 +142,21 @@
 					<div class="left">房屋总价</div>
 					<div class="right">
 						<input v-model="houseMoney" type="number" placeholder="请输入房屋总价（单位：万）" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">万</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">万</label >
 					</div>
 				</div>
 				<div v-if="type !== 0" class="item">
 					<div class="left">按揭成数</div>
 					<div class="right">
 						<input v-model="percent" maxlength="1" type="number" placeholder="请输入金额（单位：万）" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">成</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">成</label >
 					</div>
 				</div>
 				<div v-if="type !== 0" class="item">
 					<div class="left">按揭金额</div>
 					<div class="right">
 						<span>{{ percentMoney }}</span>
-						<label class="text-gray-300 inline-block whitespace-nowrap">万</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">万</label >
 					</div>
 				</div>
 				<div class="item">
@@ -253,14 +253,14 @@
 					<div class="left">LPR</div>
 					<div class="right">
 						<input v-model="lpr"  type="number" placeholder="请输入" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">%</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">%</label >
 					</div>
 				</div>
 				<div v-if="type1 !== 0" class="item">
 					<div class="left">基点</div>
 					<div class="right">
 						<input v-model="bp"  type="number" placeholder="请输入" />
-						<label class="text-gray-300 inline-block whitespace-nowrap">BP(‰)</label >
+						<label class="inline-block text-gray-300 whitespace-nowrap">BP(‰)</label >
 					</div>
 				</div>
 				<div v-if="type1 !== 0" class="item">
@@ -273,6 +273,25 @@
 			<div class="w-full px-2">
 				<div class="mt-1 text-xs text-[#999]">以上为央行公布的贷款基准利率，结果仅供参考</div>
 				<div class="w-full "></div>
+			</div>
+			<div class="flex flex-row justify-around w-full px-6 mt-8">
+				<div class="w-[65%] h-10 text-white leading-10 text-[16px] bg-fjBlue-100 rounded-lg align-middle text-center" @click="calculator">开始计算</div>
+				<div class="w-[25%] h-10 text-white leading-10 text-[16px] bg-[#CCC] rounded-lg align-middle text-center" @click="clear">清空</div>
+			</div>
+			<div class="flex flex-col items-center w-full px-4 mt-8">
+				<div class="text-fjBlue-100 text-[12px] mb-2">
+					免责声明
+				</div>
+				<div class="text-fjBlue-100 text-[12px] mb-2">
+					-卸弃保证及限制责任条款-
+				</div>
+				<div class="w-full px-4 text-[#A9A9A9] text-[10px]">
+					<div>1、本网页所提供的所有资料及服务均免费，仅供参考。</div>
+					<div>2、使用者需自行判断应否使用或依赖该等资料或服务，并应自负风险。同时，在决定任何交易前，
+						使用者应通过其他独立渠道核实相关资料，并应向独立第三方寻求意见。</div>
+					<div>3、任何因利用本网页嗦提供资料或服务，而引起的任何直接、间接或附带的损失、费用，本公司
+						均不承担任何责任，任何人不得以此向本公司索偿。</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -366,10 +385,7 @@
 					}else{
 						// LPR
 						if(!this.isFloatNumber(this.lpr) || !this.isFloatNumber(this.bp)){
-							uni.showToast({
-								title:'请输入正确的基点或加点',
-								icon:'none'
-							})
+							// 请输入正确的基点或加点
 							return ;
 						}
 						param3 = (parseFloat(this.lpr) + (parseFloat(this.bp) / 100)).toFixed(2);
@@ -378,10 +394,7 @@
 					if(this.type === 0){
 						// 校验总价贷款计算器
 						if(!this.isNumber(this.money)){
-							uni.showToast({
-								title:'请输入正确的贷款金额',
-								icon:'none'
-							})
+							// 请输入正确的贷款金额
 							return;
 						}
 						// 总价
@@ -389,10 +402,7 @@
 					}else{
 						// 校验按揭贷款计算器
 						if(!this.isNumber(this.houseMoney) || !this.isNumber(this.percent)){
-							uni.showToast({
-								title:'请输入正确的贷款比例或贷款总额',
-								icon:'none'
-							})
+							// 请输入正确的贷款比例或贷款总额
 							return;
 						}
 						// 按揭
@@ -406,10 +416,7 @@
 					if(this.type === 0){
 						// 校验总价贷款计算器
 						if(!this.isNumber(this.money)){
-							uni.showToast({
-								title:'请输入正确的贷款金额',
-								icon:'none'
-							})
+							// 请输入正确的贷款金额
 							return;
 						}
 						// 总价
@@ -417,10 +424,7 @@
 					}else{
 						// 校验按揭贷款计算器
 						if(!this.isNumber(this.houseMoney) || !this.isNumber(this.percent)){
-							uni.showToast({
-								title:'请输入正确的贷款比例或贷款总额',
-								icon:'none'
-							})
+							// 请输入正确的贷款比例或贷款总额
 							return;
 						}
 						// 按揭
@@ -440,29 +444,13 @@
 					}else {
 						p6 = (parseFloat(this.lpr) + (parseFloat(this.bp) / 100)).toFixed(2);
 					}
-					uni.navigateTo({
-						url:`/mycomponents/calculator/result?param1=${p1}&param2=${p2}&param3=${p3}&param4=1&param5=${p4}&param6=${p5}&param7=${p6}`,
-					})
-					return ;
+					this.$router.push(`/calculator/result?param1=${p1}&param2=${p2}&param3=${p3}&param4=1&param5=${p4}&param6=${p5}&param7=${p6}`)
+					return;
 				}
-				uni.navigateTo({
-					url: `/mycomponents/calculator/result?param1=${param1}&param2=${param2}&param3=${param3}`
-				})
-			},
-			showYearPopup2(){
-				this.$refs.popup2.open()
-			},
-			showYearPopup3(){
-				this.$refs.popup3.open()
+				this.$router.push(`/calculator/result?param1=${param1}&param2=${param2}&param3=${param3}`)
 			},
 			changeRate(e){
 				this.rate = e.detail.value[0]
-			},
-			showRates(){
-				this.$refs.popup1.open()
-			},
-			showRates0(){
-				this.$refs.popup0.open()
 			},
 			clear(){
 				this.type = 0;
@@ -478,9 +466,6 @@
 				this.rate = 3;
 				this.lpr = null;
 				this.bp = null;
-			},
-			showYearPopup(){
-				this.$refs.popup.open()
 			},
 			changeType1(v) {
 				if (this.type1 === v) {
