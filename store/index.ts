@@ -102,6 +102,14 @@ export const actions = {
         await store.commit('app/TITLE_SET', '资讯')
         await store.commit('app/URL_SET', '')
         break;
+      case 'calculator-home':
+        await store.commit('app/TITLE_SET', '房贷计算器')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'calculator-result':
+        await store.commit('app/TITLE_SET', '房贷计算器')
+        await store.commit('app/URL_SET', '')
+        break;
     }
   }
 }
