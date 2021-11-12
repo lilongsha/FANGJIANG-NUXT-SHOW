@@ -22,8 +22,10 @@
           <span v-for="(item, index) in labels" :key="index" class="text-blue-600 bg-blue-300"></span>
         </div>
         <div class="w-full">
-          <span>资讯热线：</span>
-          <span class="text-lg text-fjBlue-100">{{ phoneNum }} 转 {{ number }}</span>
+          <a :href="`tel:${phoneNum},${number}%23`">
+            <span>咨询热线：</span>
+            <span class="text-lg text-fjBlue-100">{{ phoneNum }} 转 {{ number }}</span>
+          </a>
         </div>
       </div>
       <div v-if="price !== 'null'" class="w-1/4">
