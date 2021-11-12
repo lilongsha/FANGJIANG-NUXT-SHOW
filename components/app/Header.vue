@@ -1,5 +1,5 @@
 <template>
-  <div v-if="breadcrumbItems.length > 0" class="fixed z-50 w-full bg-white sm:w-full sm:overflow-hidden sm:top-14 sm:border-t lg:top-20 sm:px-2">
+  <div v-if="breadcrumbItems.length > 0" class="fixed z-50 bg-white lg:w-full sm:w-screen sm:overflow-hidden sm:top-14 sm:border-t lg:top-20 sm:px-2">
     <div class="container py-2 lg:mx-auto">
       <a-breadcrumb separator=">" class="flex flex-row items-center">
         <a-breadcrumb-item v-for="item in breadcrumbItems" :key="item.path" class="flex flex-row items-center flex-shrink-0">
