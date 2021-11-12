@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto">
+  <div class="sm:w-screen sm:overflow-hidden sm:px-2 lg:container mx-auto">
     <div class="w-full sm:h-16 lg:h-32"></div>
     <div class="mb-4 sm:text-xl lg:text-4xl font-bold text-[#333]">{{ news.title }}</div>
     <!-- 副标题 -->
-    <div class="w-2/3 text-[#999999]">
+    <div class="sm:w-full lg:w-2/3 text-[#999999]">
       <span>来源：</span>
       <span v-if="news.source">{{ news.source }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
       <span>发布时间：</span>
@@ -84,8 +84,9 @@
       </div>
     </div>
     <div class="mt-8 lg:pr-8 sm:w-full lg:w-2/3 content-css" v-html="news.content"></div>
-    <div class="lg:w-[821px] pr-8">
-      <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" />
+    <div class="lg:w-[821px] lg:pr-8 sm:w-full">
+      <!-- <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" /> -->
+      <house-content :context="projects" />
     </div>
     <div class="lg:w-[821px] h-[1px] bg-[#dddddd] my-8"></div>
     <!-- 其它资讯 -->
