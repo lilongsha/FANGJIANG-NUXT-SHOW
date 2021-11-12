@@ -66,7 +66,11 @@
             <div class="w-1/2 pt-2 space-y-2">
               <div>销售状态：<span v-if="house.saleState">{{ saleState[house.saleState].title }}</span><span v-else>暂无数据</span></div>
               <div>交房时间：<span v-if="house.payTime">预计{{ house.payTime.split('T')[0] }}</span><span v-else>暂无数据</span></div>
-              <div>咨询电话：<span class="text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</span></div>
+              <div>咨询电话：
+                <a :href="`tel:${phoneNum},${house.number}%23`">
+                  <span class="text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</span>
+                </a>
+              </div>
             </div>
             <div class="w-1/2 pt-2 space-y-2">
               <div>开盘时间：<span v-if="house.payTime">{{ house.payTime.split('T')[0] }}</span><span v-else>暂无数据</span></div>
