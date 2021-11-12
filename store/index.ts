@@ -110,6 +110,10 @@ export const actions = {
         await store.commit('app/TITLE_SET', '房贷计算器')
         await store.commit('app/URL_SET', '')
         break;
+      case 'house-id':
+          await store.commit('app/TITLE_SET', '房匠新房')
+          await store.commit('app/URL_SET', '')
+          break;
     }
   }
 }
