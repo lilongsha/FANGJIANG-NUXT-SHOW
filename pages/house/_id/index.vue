@@ -1,11 +1,11 @@
 <template>
-  <div class="">
-    <div class="w-full h-24"></div>
+  <div class="sm:w-screen sm:overflow-hidden">
+    <div class="w-full sm:h-4 lg:h-24"></div>
     <!-- house content -->
     <div class="w-full pb-7 bg-[#f6f9fe]">
-      <div class="container mx-auto">
+      <div class="lg:mx-auto sm:w-full lg:container">
         <!-- name and title -->
-        <div class="w-full pt-10">
+        <div class="w-full lg:pt-10 sm:hidden">
           <!-- name and saleState -->
           <div class="flex flex-row items-end w-full">
             <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
@@ -15,26 +15,26 @@
           </div>
           <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
         </div>
-        <!-- Carousel and baseInfo -->
-        <div class="flex flex-row w-full mt-8 h-[547px]">
+        <!-- carousel -->
+        <div class="flex flex-row w-full mt-8 sm:h-80 lg:h-[547px]">
           <!-- Carousel w-1280-567 -->
-          <div class="h-full w-[713px] flex flex-col">
+          <div class="h-full lg:w-[713px] sm:w-full flex flex-col">
             <!-- carousel img -->
-            <div class="w-full h-[450px] relative">
-              <div class="absolute left-0 top-[193px] z-10 flex flex-row items-center justify-center w-6 h-16 bg-black bg-opacity-60" @click="prev()">
+            <div class="w-full sm:h-3/4 lg:h-[450px] relative">
+              <div class="absolute left-0 sm:top-[90px] lg:top-[193px] z-10 flex flex-row items-center justify-center w-6 h-16 bg-black bg-opacity-60" @click="prev()">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
-              <div class="absolute right-0 top-[193px] z-10 flex flex-row items-center justify-center w-6 h-16 bg-black bg-opacity-60" @click="next()">
+              <div class="absolute right-0  sm:top-[90px] lg:top-[193px] z-10 flex flex-row items-center justify-center w-6 h-16 bg-black bg-opacity-60" @click="next()">
                 <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <a-carousel ref="carousel" arrows>
-                <div v-for="item in resourceList" :key="item.id" class="w-full h-[450px]">
+                <div v-for="item in resourceList" :key="item.id" class="w-full sm:h-[240px] lg:h-[450px]">
                   <img :src="item.address" :alt="item.title" class="object-cover w-full h-full" height="100%" width="100%">
                 </div>
               </a-carousel>
             </div>
             <!-- carousel sort -->
-            <div class="relative flex flex-row w-full h-20 mt-4 overflow-hidden bg-white">
+            <div class="relative flex flex-row w-full mt-4 overflow-hidden bg-white sm:h-1/4 lg:h-20">
               <div class="absolute left-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
@@ -50,7 +50,7 @@
             </div>
           </div>
           <!-- BaseInfo w-567px -->
-          <div class="h-full w-[555px] ml-3">
+          <div class="sm:w-0 sm:h-0 sm:overflow-hidden h-full w-[555px] ml-3">
             <!-- price -->
             <div class="px-6 w-full h-[155px] flex flex-col bg-fjBlue-100 text-white">
               <!-- lookTimes -->
@@ -103,6 +103,32 @@
                 <div class="w-full mt-6 text-2xl font-bold text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</div>
               </a>
             </div>
+          </div>
+        </div>
+        <!-- m base info -->
+        <div class="w-full p-4 mt-4 bg-white lg:hidden">
+          <div class="w-full h-6 leading-6 font-bold text-[18px]">
+            <span class="">{{ house.name }}</span>
+            <span v-if="house.saleState === '1'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
+            <span v-if="house.saleState === '2'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
+            <span v-if="house.saleState === '3'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+            <span v-if="house.type === '1'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
+            <span v-else-if="house.type === '2'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
+            <span v-else-if="house.type === '3'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
+            <span v-else-if="house.type === '4'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
+            <span v-else-if="house.type === '5'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
+            <span v-else-if="house.type === '6'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
+          </div>
+          <div class="w-full space-x-1">
+            <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item }}</span>
+          </div>
+          <div class="w-full mt-2 text-[16px]">
+            <span>参考价格：</span>
+            <span class="text-[18px] font-bold text-fjRed-100">{{ house.price }}</span>
+            <span class="text-[12px] text-fjRed-100">元/㎡</span>
+          </div>
+          <div class="w-full border-t">
+            <span class="text-xs text-gray-300 whitespace-pre-wrap">价格仅供参考，不做为最终购房的价格。价格更新时间：{{ house.updatePriceTime.split('T')[0] }}，价格有效期：{{ house.priceDays }}天</span>
           </div>
         </div>
         <!-- house menu -->
@@ -389,7 +415,7 @@ import { getDataResult, getPageResult } from '~/utils/response/util';
 import MapLoader from '~/plugins/loadMap';
 import LineEchart from '~/components/echart/LineEchart.vue'
 import { Breadcrumb } from '~/types/app';
-
+const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfo',
   components: {
@@ -619,6 +645,7 @@ questionTotal, option, phoneNum }
       showMoreId,
       map,
       showNews,
+      colors,
     }
   },
   head() {
