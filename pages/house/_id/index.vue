@@ -99,14 +99,18 @@
               </a>
               <div class="w-full mt-14 h-0.5 bg-[#DDDDDD]"></div>
               <!-- phone -->
-              <div class="w-full mt-6 text-2xl font-bold text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</div>
+              <a :href="`tel:${phoneNum},${house.number}%23`">
+                <div class="w-full mt-6 text-2xl font-bold text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</div>
+              </a>
             </div>
           </div>
         </div>
         <!-- house menu -->
         <div ref="menu" class="menu sticky z-20 flex flex-row flex-shrink-0 w-full h-16 bg-gray-200 mt-14 top-28 text-[#333333]">
           <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="w-32 h-full leading-[64px] text-center align-middle text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
-          <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
+          <a :href="`tel:${phoneNum},${house.number}%23`">
+            <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
+          </a>
         </div>
         <!-- house layout -->
         <div id="layout" ref="layout" class="w-full h-[532px] mt-8">
