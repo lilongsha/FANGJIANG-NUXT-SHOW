@@ -1,5 +1,6 @@
 <template>
-  <div class="mx-auto sm:w-full sm:px-2 lg:container lg:mt-12">
+<div>
+  <div class="mx-auto sm:w-full sm:px-2 lg:container lg:mt-12 sm:hidden">
     <!-- 标题 -->
     <div class="flex flex-row items-center w-full ml-4 h-9">
       <!-- 竖线 -->
@@ -8,8 +9,8 @@
       <div class="ml-2 text-xl font-bold">推荐楼盘</div>
     </div>
     <!-- 图片盒子 -->
-    <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
-      <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+    <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] p-2 mx-4 mt-8 h-112 overflow-hidden">
+      <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" class="block w-full h-full mx-[2%] my-[2%] shadow">
         <div class="w-full h-7/10">
           <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
         </div>
@@ -102,6 +103,60 @@
       </a>
     </div>
   </div>
+  <div class="w-full px-2 mx-auto mt-2 lg:hidden">
+    <!-- 标题 -->
+    <div class="flex flex-row items-center w-full sm:h-6 lg:ml-4 lg:h-9">
+      <!-- 竖线 -->
+      <div class="h-full bg-black sm:w-2 lg:w-4"></div>
+      <!-- 标题内容 -->
+      <div class="ml-2 font-bold text-black sm:text-lg lg:text-xl">推荐楼盘</div>
+    </div>
+    <!-- 图片盒子 -->
+    <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden">
+      <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
+        <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full">
+        <div class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
+          <span>{{ item.name }}</span>
+          <div>
+            <span class="text-fjRed-100 ">{{ item.price }}</span>
+            <span class="text-sm">元/㎡</span>
+          </div>
+        </div>
+        <div class="w-3/5 h-full p-2 lg:hidden">
+          <!-- 标题 -->
+          <div class="flex flex-row w-full h-6">
+            <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
+            <div v-if="item.saleState === '1'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjYellow-100">在售</div>
+            <div v-if="item.saleState === '2'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">待售</div>
+            <div v-if="item.saleState === '3'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjRed-100">售罄</div>
+            <div v-if="item.type === '1'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">住宅</div>
+            <div v-if="item.type === '2'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">公寓</div>
+            <div v-if="item.type === '3'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">商铺</div>
+            <div v-if="item.type === '4'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">写字楼</div>
+            <div v-if="item.type === '5'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">仓库</div>
+            <div v-if="item.type === '6'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">其它</div>
+          </div>
+          <!-- 信息 -->
+          <div class="flex flex-row w-full h-6 text-sm">
+            <h1 v-if="item.sysAreaByAreaId" class="w-24">[{{ item.sysAreaByAreaId.name }}]</h1>
+            <h1 class="w-full" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.address }}</h1>
+          </div>
+          <div class="flex flex-row justify-between w-full h-4 mb-1">
+            <!-- 价格 -->
+            <span v-if="item.price" class="text-fjRed-100">{{ item.price }}元/平</span>
+            <span v-else>暂无价格</span>
+            <!-- 建面 -->
+            <span class="text-gray-400">{{ item.roomAreas }}</span>
+          </div>
+          <!-- 标签 -->
+          <div class="flex flex-row w-full h-6 space-x-2 flex-nowrap">
+            <h1 v-for="(label, index) in item.sysDictDetailBeans" v-show="index < 3" :key="index" class="px-1 pt-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap">{{ label.value }}</h1>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
 </template>
 <script>
 import Vue from 'vue'
