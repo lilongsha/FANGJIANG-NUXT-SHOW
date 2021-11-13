@@ -114,6 +114,10 @@ export const actions = {
           await store.commit('app/TITLE_SET', '房匠新房')
           await store.commit('app/URL_SET', '')
           break;
+      case 'house-infomation-id':
+        await store.commit('app/TITLE_SET', '新房详情信息')
+        await store.commit('app/URL_SET', '')
+        break;
     }
   }
 }
