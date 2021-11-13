@@ -436,7 +436,7 @@
               <div v-for="(item, index) in saleState" :key="index">
               <div class="flex flex-row whitespace-nowrap">
                 <input v-model="select.saleState" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectSaleState(index)" />
-                <label class="items-center inline-block  whitespace-nowrap" @click="checkSaleState(index)">{{ item.title }}</label >
+                <label class="items-center inline-block whitespace-nowrap" @click="checkSaleState(index)">{{ item.title }}</label >
               </div>
             </div>
             </div>
@@ -500,9 +500,9 @@
       </div>
     </div>
     <div :class="selectMenuM !== '' ? '' : 'hidden'" class="fixed bottom-0 left-0 right-0 z-50 block top-14" style="background: rgba(0,0,0,.5);" @click="selectMenuM = ''"></div>
-    <div class="h-14"></div>
+    <div id="list" class="h-14"></div>
     <!-- list -->
-    <div id="list" class="w-full overflow-hidden sm:mt-1 lg:mt-14">
+    <div class="w-full overflow-hidden sm:mt-1 lg:mt-14">
       <!-- 标题 -->
       <div class="flex flex-row w-full border-b-2 sm:hidden border-fjBlue-100">
         <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center">
@@ -755,6 +755,7 @@
     <!-- pagination -->
     <div class="w-full text-right">
       <a-pagination
+        :simple="isMobile"
         :total="total"
         :show-total="total => `共计 ${total} 条`"
         :page-size="10"
@@ -973,6 +974,7 @@ export default Vue.extend({
       selectMenuM,
       selectMenuLine,
       selectMenuPrice,
+      isMobile: true,
     }
   },
   head() {
@@ -1025,6 +1027,13 @@ export default Vue.extend({
     }
   },
   mounted() {
+    const sUserAgent = navigator.userAgent.toLowerCase();
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+        // 跳转移动端页面
+        this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
     // route 获取参数设置到data中
     const query = this.$route.query
     const that = this;

@@ -92,7 +92,7 @@
       <div class="flex flex-row sm:w-full lg:w-2/3">
         <!-- sort menu -->
         <div class="sticky flex flex-col w-1/4 h-112 top-20">
-          <div class="flex flex-row items-center">
+          <div class="sm:w-[120px] flex flex-row items-center">
             <div class="w-1 h-4 ml-4 bg-black lg:hidden"></div>
             <span class="text-[#666666] sm:text-lg sm:font-bold lg:text-[20px] sm:ml-2 lg:mb-4">资讯类别</span>
           </div>
@@ -132,6 +132,7 @@
           <!-- pagination -->
           <div class="w-full text-center mt-14">
             <a-pagination
+              :simple="isMobile"
               :total="total"
               :show-total="total => `共计 ${total} 条`"
               :page-size="10"
@@ -228,7 +229,8 @@ export default Vue.extend({
       pageNum: 1,
       newsTop: [],
       newsList: [],
-      total: 0
+      total: 0,
+      isMobile: true,
     }
   },
   head() {
@@ -306,6 +308,15 @@ export default Vue.extend({
           content: keywords
         }
       ]
+    }
+  },
+  mounted() {
+    const sUserAgent = navigator.userAgent.toLowerCase();
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+        // 跳转移动端页面
+        this.isMobile = true;
+    } else {
+      this.isMobile = false;
     }
   },
   methods: {
