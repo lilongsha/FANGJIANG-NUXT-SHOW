@@ -305,8 +305,8 @@
               <div v-if="item.type === '6'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">其它</div>
             </div>
             <!-- 信息 -->
-            <div class="w-full h-6 text-sm">
-              <h1 v-if="item.sysAreaByAreaId">[{{ item.sysAreaByAreaId.name }}]</h1>
+            <div class="flex flex-row w-full h-6 text-sm">
+              <h1 v-if="item.sysAreaByAreaId" class="w-24">[{{ item.sysAreaByAreaId.name }}]</h1>
               <h1 class="w-full" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.address }}</h1>
             </div>
             <div class="flex flex-row justify-between w-full h-4 mb-1">
