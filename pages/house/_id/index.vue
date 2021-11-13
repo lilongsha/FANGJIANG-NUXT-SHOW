@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-screen sm:overflow-hidden">
+  <div class="sm:w-screen">
     <div class="w-full sm:h-4 lg:h-24"></div>
     <!-- house content -->
     <div class="w-full pb-7 bg-[#f6f9fe]">
@@ -16,7 +16,7 @@
           <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
         </div>
         <!-- carousel -->
-        <div class="flex flex-row w-full mt-8 sm:h-80 lg:h-[547px]">
+        <div class="flex flex-row sm:w-screen sm:overflow-hidden lg:w-full mt-8 sm:h-80 lg:h-[547px]">
           <!-- Carousel w-1280-567 -->
           <div class="h-full lg:w-[713px] sm:w-full flex flex-col">
             <!-- carousel img -->
@@ -28,7 +28,7 @@
                 <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <a-carousel ref="carousel" arrows>
-                <div v-for="item in resourceList" :key="item.id" class="w-full sm:h-[240px] lg:h-[450px]">
+                <div v-for="(item, index) in resourceList" :key="index" class="w-full sm:h-[240px] lg:h-[450px]">
                   <img :src="item.address" :alt="item.title" class="object-cover w-full h-full" height="100%" width="100%">
                 </div>
               </a-carousel>
@@ -39,7 +39,7 @@
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <div ref="sortScroll" class="relative h-full space-x-2 text-white transition-all" :style="sortRightString">
-                <div v-for="item in resourceSortList" :key="item.sort" class="static float-left w-24 h-full" @click="getResourceList(item.sort)">
+                <div v-for="(item, index) in resourceSortList" :key="index" class="static float-left w-24 h-full" @click="getResourceList(item.sort)">
                   <img :src="item.address" :alt="resourceSort[item.sort].title" width="100%" height="100%" class="object-cover w-full h-full">
                   <span class="absolute bottom-0 w-24 text-center bg-black bg-opacity-60">{{ resourceSort[item.sort].title }}</span>
                 </div>
@@ -130,42 +130,80 @@
           <div class="w-full border-t">
             <span class="text-xs text-gray-300 whitespace-pre-wrap">价格仅供参考，不做为最终购房的价格。价格更新时间：{{ house.updatePriceTime.split('T')[0] }}，价格有效期：{{ house.priceDays }}天</span>
           </div>
+          <div class="w-full pt-1 border-t">
+            <div class="flex flex-row w-full">
+              <div class="w-1/2">
+                <span>产权年限：</span>
+                <span v-if="house.property">{{ house.property }}年</span>
+                <span v-else>暂无数据</span>
+              </div>
+              <div class="w-1/2">
+                <span>建筑类型：</span>
+                <span v-if="house.buildType">{{ buildType[house.buildType].title }}</span>
+                <span v-else>暂无数据</span>
+              </div>
+            </div>
+            <div class="flex flex-row w-full">
+              <div class="w-1/2">
+                <span>开盘时间：</span>
+                <span v-if="house.payTime">{{ house.payTime.split('T')[0] }}</span>
+                <span v-else>暂无数据</span>
+              </div>
+              <div class="w-1/2">
+                <span>主力户型：</span>
+                <span v-if="layoutLabel">{{ layoutLabel }}</span>
+                <span v-else>暂无数据</span>
+              </div>
+            </div>
+            <div class="flex flex-row">
+              <div class="w-3/4">
+                <span>首付预算：</span>
+                <a :href="`tel:${phoneNum},${house.number}%23`">
+                  <span>咨询首付及贷款明细</span>
+                </a>
+              </div>
+              <div class="w-1/4 text-right">
+                <a :href="`/house/infomation/${house.id}.html`" :title="`${house.name}详情信息`" class="text-gray-400">更多信息></a>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- house menu -->
-        <div ref="menu" class="menu sticky z-20 flex flex-row flex-shrink-0 w-full h-16 bg-gray-200 mt-14 top-28 text-[#333333]">
-          <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="w-32 h-full leading-[64px] text-center align-middle text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
-          <a :href="`tel:${phoneNum},${house.number}%23`">
-            <div class="absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
+        <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-gray-200 sm:mt-4 lg:mt-14 sm:top-[95px] lg:top-28 text-[#333333]">
+          <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
+          <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
+            <div class="sm:hidden absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
           </a>
         </div>
         <!-- house layout -->
-        <div id="layout" ref="layout" class="w-full h-[532px] mt-8">
+        <div id="layout" ref="layout" class="w-full lg:h-[532px] m2-8">
           <!-- h-36px -->
-          <div class="flex flex-row items-center w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="flex flex-row items-center w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}户型</div>
+            <div class="sm:text-sm lg:text-xl font-bold sm:border-b-4 lg:border-b-[6px] border-fjBlue-100">{{ house.name }}户型</div>
           </div>
           <!-- content -->
-          <div class="w-full h-[496px] mt-8">
+          <div class="w-full lg:h-[496px] sm:mt-2 lg:mt-8">
             <div class="w-full h-12">
-              <span v-for="item in layouts" :key="item.value" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white text-lg' : ''" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
+              <span :class="'' === showDefaultLayout ? 'bg-fjBlue-100 text-white sm:text-sm' : 'sm:text-xs'" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout('')">全部</span>
+              <span v-for="(item,index) in layouts" :key="index" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white sm:text-sm' : 'sm:text-xs'" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
             </div>
-            <div class="relative w-full overflow-hidden h-112">
-              <div class="absolute top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
+            <div class="relative w-full overflow-hidden sm:h-56 lg:h-112">
+              <div class="absolute sm:top-[60px] lg:top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
-              <div class="absolute top-[120px] right-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutRight">
+              <div class="absolute sm:top-[60px] lg:top-[120px] right-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutRight">
                 <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <div class="w-full h-full overflow-hidden relactive">
-                <div ref="layoutScroll" class="relative flex flex-row h-full text-white transition-all" :style="layoutRightString">
-                  <div v-for="item in house.hLayoutsById" v-show="item.room == showDefaultLayout" :key="item.id" class="flex-shrink-0 h-full mr-8 overflow-hidden transition-all w-72 ">
-                    <div class="overflow-hidden h-80">
-                    <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full overflow-hidden transition-all duration-700 h-80 hover:scale-125">
+                <div ref="layoutScroll" class="relative flex flex-row h-full p-2 text-white transition-all" :style="layoutRightString">
+                  <div v-for="(item,index) in house.hLayoutsById" v-show="showDefaultLayout === '' || item.room == showDefaultLayout" :key="index" class="flex-shrink-0 h-full overflow-hidden transition-all shadow sm:mr-4 lg:mr-8 sm:w-44 lg:w-72">
+                    <div class="overflow-hidden sm:h-32 lg:h-80">
+                      <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
                     </div>
-                    <div class="flex flex-col w-full h-24 px-4 pt-2 shadow-md">
-                      <div class="flex flex-row text-xl font-bold text-black">
-                        <div class="-space-x-1 ">
+                    <div class="flex flex-col w-full h-24 px-4 pt-2">
+                      <div class="flex font-bold text-black lg:flex-row sm:text-sm lg:text-xl">
+                        <div class="-space-x-1">
                           <span v-if="item.room">{{ item.room }}</span>
                           <span v-if="item.room">室</span>
                           <span v-if="item.hall">{{ item.hall }}</span>
@@ -173,18 +211,18 @@
                           <span v-if="item.toilet">{{ item.toilet }}</span>
                           <span v-if="item.toilet">卫</span>
                         </div>
-                        <div class="">
-                          <span v-if="item.state === '1'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
-                          <span v-if="item.state === '2'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-                          <span v-if="item.state === '3'" class="px-1 pb-0.5 ml-4 text-sm font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+                        <div class="text-xs">
+                          <span v-if="item.state === '1'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
+                          <span v-if="item.state === '2'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
+                          <span v-if="item.state === '3'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
                         </div>
                       </div>
-                      <div class="flex flex-row flex-shrink-0 w-full text-gray-700">
-                        <span class="w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
-                        <span class="w-[174px] ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
+                      <div class="flex flex-shrink-0 w-full text-gray-700 sm:flex-col lg:flex-row">
+                        <span class="sm:w-full lg:w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
+                        <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
                       </div>
                       <div v-if="item.labels" class="flex flex-row w-full mt-2 space-x-2">
-                        <span v-for="(label, index) in item.labels.split(',')" v-show="index < 3" :key="index" class="px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
+                        <span v-for="(label, index1) in item.labels.split(',')" v-show="index1 < 3" :key="index1" class="px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
                           {{ label }}
                         </span>
                       </div>
@@ -196,31 +234,32 @@
           </div>
         </div>
         <!-- house news -->
-        <div id="news" class="sticky z-[60] float-right w-1/4 mt-8 transition-all top-44">
+        <div id="news" class="lg:sticky lg:z-[60] lg:float-right sm:w-full lg:w-1/4 m2-8 lg:transition-all lg:top-44">
           <!-- title -->
-          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
-            <span class="text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
+          <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
+            <span class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
           </div>
           <!-- content -->
-          <div class="w-full pt-1 space-y-2">
-            <div v-for="item in newsList" :key="item.id">
-              <a :href="`/info/${item.id}.html`" target="_blank" class="text-black hover:text-fjBlue-100">{{ item.title }}</a></div>
+          <div class="w-full pt-1 space-y-2 sm:px-2">
+            <div v-for="(item,index) in newsList" :key="index">
+              <a :href="`/info/${item.id}.html`" target="_blank" class="text-black sm:text-sm hover:text-fjBlue-100">{{ item.title }}</a>
+            </div>
           </div>
         </div>
         <!-- house layout -->
-        <div id="dynamic" ref="dynamic" class="w-3/4 pr-4 mt-8">
+        <div id="dynamic" ref="dynamic" class="content">
           <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态</div>
+            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态</div>
             <!-- 全部 -->
             <a :href="`/house/dynamic/list/${house.id}.html`" target="_blank">
               <div class="text-sm text-gray-500">更多({{ totalDynamic }})></div>
             </a>
           </div>
           <!-- content -->
-          <div class="w-full mt-8">
-            <div v-for="item in dynamicList" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
+          <div class="w-full m2-8">
+            <div v-for="(item,index) in dynamicList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
               <!-- dynamic Title -->
               <div class="w-full mb-4">
                 <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
@@ -235,19 +274,19 @@
           </div>
         </div>
         <!-- house question -->
-        <div id="question" ref="question" class="w-3/4 pr-4 mt-8">
+        <div id="question" ref="question" class="content">
           <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</div>
+            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</div>
             <!-- 全部 -->
             <a :href="`/house/discuss/list/${house.id}.html`" target="_blank">
               <div class="text-sm text-gray-500">更多({{ questionTotal }})></div>
             </a>
           </div>
           <!-- content -->
-          <div class="w-full mt-8">
-            <div v-for="item in questionList" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
+          <div class="w-full m2-8">
+            <div v-for="(item,index) in questionList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
               <!-- question Title -->
               <div class="w-full mb-4">
                 <a :href="`/house/discuss/${item.id}.html`" target="_blank">
@@ -256,7 +295,7 @@
               </div>
               <!-- question Content -->
               <div v-if="item.answerEntities && item.answerEntities.length > 0">
-                <div v-for="(answer, index) in item.answerEntities" v-show="index < 2 || item.id === showMoreId" :key="index" class="flex flex-row w-full mb-2 transition-all">
+                <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
                   <div class="w-3/4 overflow-hidden">
                     <span>{{ answer.content }}</span>
                   </div>
@@ -276,129 +315,27 @@
           </div>
         </div>
         <!-- house around -->
-        <div id="around" ref="around" class="w-full mt-8">
+        <div id="around" ref="around" class="content-1">
           <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}周边</div>
+            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}周边</div>
           </div>
-          <div id="aroundMap" class="w-full mt-4 h-112"></div>
+          <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
         </div>
         <!-- house price -->
-        <div id="price" ref="price" class="w-full mt-8 bg-white">
+        <div id="price" ref="price" class="bg-white content-1">
           <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</div>
+            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</div>
           </div>
-          <div class="w-full h-80">
+          <div class="w-full sm:h-56 lg:h-80">
             <line-echart :option="option" />
           </div>
         </div>
         <!-- house 推荐 -->
-        <div class="container mx-auto mt-12">
-          <!-- 标题 -->
-          <div class="flex flex-row items-center w-full ml-4 h-9">
-            <!-- 竖线 -->
-            <div class="w-4 h-full bg-black"></div>
-            <!-- 标题内容 -->
-            <div class="ml-2 text-xl font-bold">推荐楼盘</div>
-          </div>
-          <!-- 图片盒子 -->
-          <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] mx-4 mt-8 h-112 overflow-hidden">
-            <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
-              <div class="w-full h-7/10">
-                <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
-              </div>
-              <div class="w-full px-4 mt-2 bg-white h-3/10">
-                <div class="font-bold">
-                  <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
-                  <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
-                  <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-                  <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
-                  <span v-if="item.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
-                  <span v-if="item.type === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
-                  <span v-if="item.type === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
-                  <span v-if="item.type === '4'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
-                  <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
-                  <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
-                </div>
-                <div class="flex flex-row items-center mt-2">
-                  <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
-                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-              AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
-              RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
-              grUxRUEfDKXUHrKhTBCKdj4YmlRgRmMoAwqSQk0OSKRmgrcHE4McJQLv9fAdx/Od73y3XC/nnL3W
-              //9fe+191j6n279qsdDNGKM1GoCrTvvVsVgTtFv1qDDZayYblhm+4JDP46EHFAgzrPFshYAftMR9
-              /1Mg9BQt7nq85aRj/kFfYzTp2eXZLsRbdQuEEb41InlotcOP8Y+Ud6hmi8xOHk95KZ6qSyBMdFgP
-              8I318USZJEbZ6GVw2zPxp5oFwuPO6wXeiNtUtPC6z8BNw+OlUn/3XFRbQj+9Gj1xm+mgl7Y8f45A
-              2GI0mBbb1GCxzTQwOmypoUShyYnaipNbqFHxZLUZbAUH6qEnbnMghS4vEBpNAYvqoU8hpoTG4uEe
-              mbBlYHfefgijzDUOHXaXbtx4Kew2F8usrFSieeDTHPotjttgppk2OJ63nAlqXvFg0SKHkU7iSny0
-              hP67rrf2nrXGF0ui/tKApvhbuRlMBO0lwHtN4ah11jkKZofSdWpPseSuQaH3dJQAW8BXcQF4L3xp
-              PlrsyMR1eKGLJXcGhZ5/NpN/syG4mNAjLnARQ0JzRuBsiiVX4GFwJwMbBY4UjR1Jee7bnRRLrkAh
-              4G4Gdhv0KRrrk/Lct7ulCRYLXAGDMrDCok4OfbuK1tfklOe+DUqx5Ar8AjKVjSecQn+toR+Eflr1
-              x6mS1605xZJY8S4qHBmTZG2VfXjO6dCGaQYno1mblGLJncExlzE0TMjMYb9NYLBFFiX0m+L+4qgw
-              wVBcdqysQLyV9MSF2dTiWitTtb1iZVxbkn8BdaD4AyBzHoRZWnEtDiiBC/3N8RR+tydey/Ff1R+z
-              495KAg/p9AgWxi/UZeFVO/G3gbHCNhXv2AXero++C7ErZl7T0hPtQ9AYZtSV/wyNKXQlgXjGQfBB
-              XfkXog/GM1UFsAI0hTk15z9HUwpZZPkfXnvNxBWD421VLfRwWQO+j7NKvfkfXoVTtSE5B6pZi4YU
-              qpYZED72JngynlXRwhMKdf8kLsvzdy+DW+0G+Lpq/oWIG1bnu8sIxOuWgnFhecX8lxsHlsbr+RGV
-              fkDaFZre8HihTMQw58HP8elyLOVKBPOT656yEXsykfUJxHNJmcaGzbn5bzY2Kc+58izVfgIPJN+q
-              Jc0vaW4cjM9XYqhUIpihE+wM44voxyf0nar0rCoC8aapye3hMLKLfqTDye3UePOBBIgdloDe2sMY
-              CGO06w2WxI5q+Br+9AkbrE9u38G7yf3GuKE6tiYBwvvWZIZa4lu1IGsUIKyS3qyr40e14WoWILxi
-              q8fwpxWxeo+qX4Aw0GJsj521Y/4DSPcta79rLVoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAt
-              MDlUMTY6Mzg6NDIrMDg6MDDCFhjIAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4
-              OjQyKzA4OjAws0ugdAAAACB0RVh0c29mdHdhcmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2d
-              AAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6
-              OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRU
-              aHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3
-              MjIz7prBAAAAEnRFWHRUaHVtYjo6U2l6ZQAyMTI1QkLGHJgzAAAARnRFWHRUaHVtYjo6VVJJAGZp
-              bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
-              eTPfkgAAAABJRU5ErkJggg==" ></image>
-              </svg>
-                  <span v-if="item.address" class="overflow-hidden text-gray-400 whitespace-nowrap" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
-                </div>
-                <div class="flex flex-row items-center">
-                  <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
-                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-              AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
-              RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
-              6WA6SOMm6qYubvIG6SZUEBSDCCqCgw4i0kF0EkQipCiI2l6b9HIO6TPX3CX33l0iGfwv9967777f
-              9733cu/LWR5KYo7j5HGJVhqHRbmgYYnVBAiLMjM6D/h0V57WB8xxC4Dn/GCDVJcnXGwmmQTglLwf
-              BbA3rxeANWbkC73gRYnrQJFIgIq1ANzRdQ/yBq+BXdGWCrAOPNZ1D8ACMCJyugAb+GoE+Azkuq7W
-              FkA8NfCiTBTAM4ZpWifLwBBgDR7Ak6smgBjhBbepaAvT9rXNMxhiSbhtQaZFnadck9+CAHNZ7A0d
-              38dJMSFXkgNqSNZ8PhrYjDIL7OEyl5JN0TKwIovBG+IED4AzQYCmxEF24jAFZMUxHPJ8kJXWfflQ
-              3GSeHc1enAwkU5utPM8AuMqVLRZPmKfebMbZpsOBkXxb/yeQjp9BiVFqvn6Ol20W9VYzBkA+ijRJ
-              t5r/9GXn9BuQ7QdArUENuCe+d4BYwKz8mATgAmOMdbEcSZZBGnhPlW0dM6gmA2SAs/JdPCc6AAXR
-              lsiyHYffMqKu8FcVRgCO8ImlDlMaAjBXhiHG+1l4bQC/9AsvGMiyxRDQF/3PYLAyiNzT2mqEA3qX
-              jW+y47+Lumm4lYUCpIDpngGOtjwrwDJwUUwYOKkAjbA/IOIAJf4eUOo8KFMkxxsh+YKlsRrr7Ady
-              osSq70xxSTHOObJAuTmkvlXs5i2Fnk0RVDgkqz4AiAK3OUzGYLN6hP04LWq84ryqt/8AjaKFO12a
-              KAsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAtMDlUMTY6Mzg6MzYrMDg6MDA8nDXCAAAAJXRF
-              WHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4OjM2KzA4OjAwTcGNfgAAACB0RVh0c29mdHdh
-              cmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2dAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBh
-              Z2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1i
-              OjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JW
-              TgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3MTYfrg0bAAAAEnRFWHRUaHVtYjo6U2l6ZQAx
-              NjgyQkKYWsBsAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3Zp
-              ZXcyXzlfMTYzMTU5MjMzNzY3ODc4MzRfNzlfWzBdjI0y0QAAAABJRU5ErkJggg==" ></image>
-              </svg>
-                  <span class="overflow-hidden text-gray-400" :title="item.rooms">{{ item.rooms }}</span>
-                  <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
-                </div>
-                <div class="flex flex-row items-end justify-between px-2 h-9">
-                  <div v-if="item.labels" class="flex flex-row items-end space-x-2">
-                    <span v-for="(label, index) in (item.labels.split(','))" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
-                  </div>
-                  <div>
-                    <div>
-                      <span class="text-lg text-fjRed-100">{{ item.price }}</span>
-                      <span class="text-xs text-gray-400">元/㎡</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+        <reomend-house />
       </div>
     </div>
   </div>
@@ -406,7 +343,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Api as HouseApi, houseMenu, phoneNum } from '~/api/model/houseModel';
+import { Api as HouseApi, houseMenu, phoneNum, buildType } from '~/api/model/houseModel';
 import { Api as ResourceApi, resourceSort } from '~/api/model/resourceModel';
 import { Api as DynamicApi, sort as DynamicSort } from '~/api/model/dynamicModel';
 import { Api as NewsApi } from '~/api/model/newsModel';
@@ -414,12 +351,14 @@ import { getQuestions } from '~/api/model/questionModel';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 import MapLoader from '~/plugins/loadMap';
 import LineEchart from '~/components/echart/LineEchart.vue'
+import ReomendHouse from '~/components/house/RecomendHouse.vue'
 import { Breadcrumb } from '~/types/app';
 const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfo',
   components: {
     LineEchart,
+    ReomendHouse,
   },
   async asyncData ({ $axios, params, store }) {
     let id = params.id;
@@ -547,8 +486,9 @@ export default Vue.extend({
       },
       yAxis: {
         type: 'value',
+        show: true,
         axisLabel: {
-          formatter: '{value} 元/㎡'
+          formatter: '{value}元/㎡'
         }
       },
       series: [
@@ -620,6 +560,7 @@ questionTotal, option, phoneNum }
     const showMoreId: string = '';
     const map: any = undefined;
     const showNews: boolean = true;
+    const option: any = {};
     return {
       id,
       resourceSort,
@@ -646,6 +587,9 @@ questionTotal, option, phoneNum }
       map,
       showNews,
       colors,
+      buildType,
+      isMobile: true,
+      option,
     }
   },
   head() {
@@ -698,6 +642,16 @@ questionTotal, option, phoneNum }
       const store = that.$store;
       const hotProject: [] = store.state.app.hotProject;
       return hotProject.slice(0, 4);
+    }
+  },
+  beforeMount() {
+    const sUserAgent = navigator.userAgent.toLowerCase();
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+        // 跳转移动端页面
+        this.isMobile = true;
+        this.option.yAxis.show = false;
+    } else {
+      this.isMobile = false;
     }
   },
   mounted() {
@@ -805,10 +759,11 @@ questionTotal, option, phoneNum }
         if (Object.keys(flagObj).length > 2) {
           continue;
         }
-        result = result + keys[i] + '室 ｜ '
+        result = result + keys[i] + '/'
       }
-      result = result.substring(0, result.length - 3);
-      this.showDefaultLayout = this.layouts[0].rooms
+      result = result.substring(0, result.length - 1);
+      result = result + '室';
+      // this.showDefaultLayout = this.layouts[0].rooms
       this.layoutLabel = result;
     },
     next() {
@@ -828,31 +783,43 @@ questionTotal, option, phoneNum }
       const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
       const priceTop = (this as any).$refs.price.getBoundingClientRect().top;
       // 150 距离顶部的距离
-      if (layoutTop < 200 ) {
+      let top = 200;
+      if(this.isMobile) {
+        top = 150;
+      }
+      if (layoutTop < top ) {
         this.topFlag = 'layout'
       }
-      if (dynamicTop < 200 ) {
+      if (dynamicTop < top ) {
         this.topFlag = 'dynamic'
       }
-      if (questionTop < 200 ) {
+      if (questionTop < top ) {
         this.topFlag = 'question'
       }
-      if (aoroundTop < 200 ) {
-        this.topFlag = 'around'
+      if (aoroundTop < top ) {
+        this.topFlag = 'around';
       }
-      if (priceTop < 200 ) {
+      if (priceTop < top ) {
         this.topFlag = 'price'
       }
     },
     scrollLayoutRight() {
-      this.layoutRight = this.layoutRight + 288;
+      let times = 288;
+      if (this.isMobile) {
+        times = 56;
+      }
+      this.layoutRight = this.layoutRight + times;
       this.layoutRightString = 'right: ' + this.layoutRight + 'px';
     },
     scrollLayoutLeft() {
-      if (this.layoutRight - 288 < 0) {
+      let times = 288;
+      if (this.isMobile) {
+        times = 56;
+      }
+      if (this.layoutRight - times < 0) {
         return;
       }
-      this.layoutRight = this.layoutRight - 288;
+      this.layoutRight = this.layoutRight - times;
       this.layoutRightString = 'right: ' + this.layoutRight + 'px';
     },
     changeLayout(layout: string) {
@@ -872,4 +839,25 @@ questionTotal, option, phoneNum }
 .menu .menu-sub {
   @apply bg-fjBlue-100 text-white;
 }
+
+.content {
+  @apply lg:pr-4 sm:mt-2 lg:mt-8 sm:w-full lg:w-3/4;
+}
+
+.content-1 {
+  @apply w-full sm:mt-2 lg:mt-8;
+}
+
+.content .h-m, .content-1 .h-m {
+  @apply sm:h-6 lg:h-[36px];
+}
+
+.h-m .font {
+  @apply sm:text-sm lg:text-xl;
+}
+
+.m2-8 {
+  @apply sm:mt-2 lg:mt-8;
+}
+
 </style>
