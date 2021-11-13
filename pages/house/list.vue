@@ -1026,7 +1026,7 @@ export default Vue.extend({
       deep: true,
     }
   },
-  mounted() {
+  beforeMount() {
     const sUserAgent = navigator.userAgent.toLowerCase();
     if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
         // 跳转移动端页面
@@ -1034,6 +1034,8 @@ export default Vue.extend({
     } else {
       this.isMobile = false;
     }
+  },
+  mounted() {
     // route 获取参数设置到data中
     const query = this.$route.query
     const that = this;
