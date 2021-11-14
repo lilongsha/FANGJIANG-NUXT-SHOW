@@ -118,6 +118,18 @@ export const actions = {
         await store.commit('app/TITLE_SET', '新房详情信息')
         await store.commit('app/URL_SET', '')
         break;
+      case 'discuss-list': 
+        await store.commit('app/TITLE_SET', '新房问答')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'discuss-id': 
+        await store.commit('app/TITLE_SET', '新房问答详情')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'dynamic-list': 
+        await store.commit('app/TITLE_SET', '新房动态')
+        await store.commit('app/URL_SET', '')
+        break;
     }
   }
 }
