@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto">
-    <div class="w-full h-32"></div>
-    <div class="text-4xl">{{ question.content }}</div>
+  <div class="mx-auto sm:w-screen sm:px-2 lg:container">
+    <div class="w-full sm:h-10 lg:h-32"></div>
+    <div class="sm:text-xl lg:text-4xl">{{ question.content }}</div>
     <!-- 左侧推荐楼盘 -->
-    <div class="sticky flex flex-col float-right w-1/3 top-28">
+    <div class="sticky flex flex-col float-right w-1/3 sm:hidden top-28">
       <div class="w-full mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -72,10 +72,10 @@
         </div>
       </div>
     </div>
-    <div class="w-2/3 pr-4 mt-4">
+    <div class="mt-4 lg:pr-4 sm:w-full lg:w-2/3">
       <div v-if="question.answerEntities && question.answerEntities.length > 0">
         <div v-for="(answer, index) in question.answerEntities" :key="index" class="flex flex-row w-full mb-2 transition-all">
-          <div class="w-3/4 overflow-hidden">
+          <div class="overflow-hidden sm:w-full lg:w-3/4">
             <span>{{ answer.content }}</span>
           </div>
           <div class="flex flex-row items-center justify-end w-1/4">
@@ -90,9 +90,10 @@
     <div class="w-2/3 mt-2 pb-[6px] border-b border-fjBlue-100 pr-2">
       <span class="border-b-8 border-fjBlue-100">热门问答</span>
     </div>
-    <div class="flex flex-row w-2/3 mt-4">
+    <div class="flex flex-row sm:w-full lg:w-2/3 sm:mt-2 lg:mt-4">
       <div v-for="item in questions" :key="item.id" class="mr-10 font-medium"><a target="_blank" :href="`/house/discuss/${item.id}.html`">{{ item.content }}</a></div>
     </div>
+    <reomend-house />
   </div>
 </template>
 
@@ -101,10 +102,13 @@ import Vue from 'vue'
 import { Api as QuestionApi } from '~/api/model/discuss';
 import { Breadcrumb } from '~/types/app';
 import { getDataResult, getPageResult } from '~/utils/response/util';
+import ReomendHouse from '~/components/house/RecomendHouse.vue'
 
 export default Vue.extend({
   name: 'DiscussDetail',
-  components: {},
+  components: {
+    ReomendHouse,
+  },
   async asyncData({ $axios, route, store }) {
     
 
