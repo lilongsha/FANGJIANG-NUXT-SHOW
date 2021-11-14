@@ -1,12 +1,12 @@
 <template>
-  <div class="">
-    <div id="list" class="w-full h-24"></div>
-    <div class="container flex flex-row mx-auto">
-      <div class="w-3/4 pr-4 mt-8">
+  <div class="sm:w-screen sm:px-2">
+    <div id="list" class="w-full sm:h-10 lg:h-24"></div>
+    <div class="flex flex-row mx-auto sm:w-full lg:container">
+      <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8">
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
           <!-- 标题内容 -->
-          <div class="text-xl font-bold border-b-[6px] border-fjBlue-100">{{ project.name }}问答</div>
+          <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100">{{ project.name }}问答</div>
         </div>
         <!-- content -->
         <div class="w-full mt-8">
@@ -40,9 +40,10 @@
       </div>
     </div>
     <!-- pagination -->
-    <div class="container">
-      <div class="w-3/4 text-right">
+    <div class="sm:w-full lg:container">
+      <div class="text-right sm:w-full lg:w-3/4">
         <a-pagination
+          :simple="isMobile"
           :total="pageParam.total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
@@ -118,11 +119,22 @@ export default Vue.extend({
     const questions: any[] = [];
     const showMoreId: string = '';
     const id: string = '';
+    const isMobile: boolean = true;
     return {
       id,
       pageParam,
       questions,
       showMoreId,
+      isMobile,
+    }
+  },
+  beforeMount() {
+    const sUserAgent = navigator.userAgent.toLowerCase();
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+        // 跳转移动端页面
+        this.isMobile = true;
+    } else {
+      this.isMobile = false;
     }
   },
   methods: {
