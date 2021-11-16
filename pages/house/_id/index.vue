@@ -197,11 +197,11 @@
               </div>
               <div class="w-full h-full overflow-hidden relactive">
                 <div ref="layoutScroll" class="relative flex flex-row h-full p-2 text-white transition-all" :style="layoutRightString">
-                  <div v-for="(item,index) in house.hLayoutsById" v-show="showDefaultLayout === '' || item.room == showDefaultLayout" :key="index" class="flex-shrink-0 h-full overflow-hidden transition-all shadow sm:mr-4 lg:mr-8 sm:w-44 lg:w-72">
+                  <div v-for="(item,index) in house.hLayoutsById" v-show="showDefaultLayout === '' || item.room == showDefaultLayout" :key="index" class="flex-shrink-0 h-full overflow-hidden transition-all shadow sm:mr-4 lg:mr-8 sm:w-48 lg:w-72">
                     <div class="overflow-hidden sm:h-32 lg:h-80">
                       <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
                     </div>
-                    <div class="flex flex-col w-full h-24 px-4 pt-2">
+                    <div class="flex flex-col w-full h-24 pt-2 sm:px-1 lg:px-4">
                       <div class="flex font-bold text-black lg:flex-row sm:text-sm lg:text-xl">
                         <div class="-space-x-1">
                           <span v-if="item.room">{{ item.room }}</span>
@@ -221,8 +221,8 @@
                         <span class="sm:w-full lg:w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
                         <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
                       </div>
-                      <div v-if="item.labels" class="flex flex-row w-full mt-2 space-x-2">
-                        <span v-for="(label, index1) in item.labels.split(',')" v-show="index1 < 3" :key="index1" class="px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
+                      <div v-if="item.labels" class="flex flex-row w-full mt-2 sm:space-x-1 lg:space-x-2">
+                        <span v-for="(label, index1) in item.labels.split(',')" v-show="index1 < 3" :key="index1" class="whitespace-nowrap sm:px-1 lg:px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
                           {{ label }}
                         </span>
                       </div>
@@ -246,7 +246,7 @@
             </div>
           </div>
         </div>
-        <!-- house layout -->
+        <!-- house dynamic -->
         <div id="dynamic" ref="dynamic" class="content sm:px-2">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">

@@ -327,12 +327,12 @@
     <!-- 热销楼盘 -->
     <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
       <!-- 标题 -->
-      <div class="flex flex-row items-center w-full sm:h-6 lg:ml-4 lg:h-9">
+      <div class="flex flex-row items-center justify-around w-full sm:h-6 lg:ml-4 lg:h-9">
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 ml-2 font-bold sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
-        <div class="text-right sm:w-[208px] lg:w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
+        <div class="text-right sm:w-full lg:w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
       <div class="sm:pb-2 grid lg:grid-cols-4 lg:grid-rows-1 gap-2 w-[full-8] lg:mx-4 mt-8 lg:h-112 overflow-hidden">
