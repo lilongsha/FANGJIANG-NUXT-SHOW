@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!getIsMap" class="block mt-20">
+  <div v-if="!getIsMap" class="block lg:mt-20">
     <div class="flex flex-col items-center justify-center w-full mx-auto">
       <div class="object-cover w-full sm:h-[192px] lg:h-[282px] bg-bottom-lou">
         <div class="container h-full mx-auto">
