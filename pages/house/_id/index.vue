@@ -176,7 +176,7 @@
           </a>
         </div>
         <!-- house layout -->
-        <div id="layout" ref="layout" class="w-full lg:h-[532px] m2-8">
+        <div id="layout" ref="layout" class="w-full sm:px-2 lg:h-[532px] m2-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -234,7 +234,7 @@
           </div>
         </div>
         <!-- house news -->
-        <div id="news" class="lg:sticky lg:z-[60] lg:float-right sm:w-full lg:w-1/4 m2-8 lg:transition-all lg:top-44">
+        <div id="news" class="lg:sticky sm:px-2 lg:z-[60] lg:float-right sm:w-full lg:w-1/4 m2-8 lg:transition-all lg:top-44">
           <!-- title -->
           <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
             <span class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
@@ -247,7 +247,7 @@
           </div>
         </div>
         <!-- house layout -->
-        <div id="dynamic" ref="dynamic" class="content">
+        <div id="dynamic" ref="dynamic" class="content sm:px-2">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -274,7 +274,7 @@
           </div>
         </div>
         <!-- house question -->
-        <div id="question" ref="question" class="content">
+        <div id="question" ref="question" class="content sm:px-2">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -296,17 +296,19 @@
               <!-- question Content -->
               <div v-if="item.answerEntities && item.answerEntities.length > 0">
                 <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
-                  <div class="overflow-hidden sm:w-full lg:w-3/4">
+                  <div class="overflow-hidden sm:w-3/5 lg:w-3/4">
                     <span class="sm:text-xs">{{ answer.content }}</span>
                   </div>
-                  <div class="flex flex-row items-center justify-end w-1/4">
+                  <div class="flex flex-row items-center justify-end sm:w-2/5 lg:w-1/4">
                     <svg t="1632970194001" class="w-3 h-3" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3415" width="128" height="128"><path d="M598.354747 67.542626c-48.148687 0-90.130101 32.905051-98.960808 79.437576 0 0-14.312727 72.882424-21.798787 99.090101-12.308687 43.196768-55.363232 90.944646-86.522829 106.188283-23.531313 11.636364-110.99798 11.765657-116.350707 11.765656H155.707475c-32.762828 0-59.384242 26.479192-59.384243 59.384243v475.022222c0 32.762828 26.479192 59.384242 59.384243 59.384242h548.033939c88.126061 0 163.025455-64.452525 176.135758-151.647676l45.873131-305.713132c10.834747-71.809293-44.8-136.274747-117.423838-136.274747H673.254141s20.066263-66.469495 30.228687-178.669899c5.081212-56.837172-35.167677-110.99798-94.280404-117.152323-3.620202-0.54303-7.227475-0.814545-10.847677-0.814546zM333.705051 898.288485V421.533737c38.917172-2.534141 66.999596-8.016162 83.574949-16.316767 43.726869-21.669495 99.633131-81.040808 117.281616-143.088485 7.899798-27.681616 21.39798-96.155152 23.001212-104.184243 3.47798-17.92 20.596364-31.159596 40.649697-31.159596 1.603232 0 3.206465 0.129293 4.822627 0.271516 28.211717 2.947879 43.326061 29.698586 41.32202 52.686868-9.360808 103.912727-27.823838 166.503434-28.082425 166.904243l-23.130505 76.489697h215.182223c17.519192 0 33.564444 7.356768 45.071515 20.596363 11.507071 13.239596 16.316768 30.228687 13.640404 47.618586L821.294545 797.052121c-8.830707 58.569697-58.181818 101.094141-117.423838 101.094142h-370.165656v0.142222z m-177.997576 0v-475.022222h118.626262v475.022222H155.707475z m0 0" p-id="3416"></path></svg>
                     <span class="sm:mr-2 lg:mr-6">{{ answer.likeNum }}</span>
                     <span class="sm:text-xs">{{ answer.createTime.split('T')[0] }}</span>
                   </div>
                 </div>
-                <div v-if="item.answerEntities.length > 2 && showMoreId === ''" class="w-full text-center sm:text-xs" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
-                <div v-else class="w-full text-center sm:text-xs" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
+                <div v-if="item.answerEntities.length > 2">
+                  <div v-if="showMoreId !== item.id" class="w-full text-center sm:text-xs" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
+                  <div v-else class="w-full text-center sm:text-xs" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
+                </div>
               </div>
               <!-- question Time -->
               <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
@@ -315,7 +317,7 @@
           </div>
         </div>
         <!-- house around -->
-        <div id="around" ref="around" class="content-1">
+        <div id="around" ref="around" class="content-1 sm:px-2">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
@@ -324,7 +326,7 @@
           <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
         </div>
         <!-- house price -->
-        <div id="price" ref="price" class="bg-white content-1">
+        <div id="price" ref="price" class="bg-white content-1 sm:px-2">
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
