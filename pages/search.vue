@@ -3,7 +3,7 @@
     <div class="flex flex-row items-center w-full pt-4">
       <input v-model="searchText" type="text" class="mx-auto w-3/4 px-4 h-7 text-sm rounded-2xl bg-[#ededed] outline-none " placeholder="请输入搜索项目">
     </div>
-    <div class="flex flex-col w-full mb-2 space-y-2 overflow-hidden text-black">
+    <div class="flex flex-col w-full mb-2 space-y-2 overflow-hidden text-black min-h-[320px]">
       <div v-for="item in list" :key="item.id" class="flex flex-row overflow-hidden">
         <a :href="`/house/${item.id}.html`" target="_blank" :title="item.name" class="flex flex-row w-full h-6 px-5 overflow-hidden justify-items-center">
           <!-- 项目名称 区域 -->
