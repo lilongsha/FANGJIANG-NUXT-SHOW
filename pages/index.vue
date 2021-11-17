@@ -433,7 +433,7 @@
     <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
       <!-- 标题 -->
       <div class="flex flex-col items-center justify-center">
-        <div class="ml-2 font-bold sm:text-lg lg:text-xl">楼盘资讯</div>
+        <div class="ml-2 font-bold sm:text-lg lg:text-xl">楼市资讯</div>
         <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
       </div>
       <!-- 内容 -->
