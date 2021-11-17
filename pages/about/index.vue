@@ -1,9 +1,9 @@
 <template>
   <div class="overflow-hidden">
-    <div class="h-20">
+    <div class="lg:h-20">
     </div>
     <div>
-      <img src="~/assets/img/about/banner.jpg" alt="" class="w-full h-112">
+      <img src="~/assets/img/about/banner.jpg" alt="" class="w-full sm:h-36 lg:h-112">
     </div>
     <div class="flex flex-col items-center w-full mt-4 space-y-1">
       <div class="point bg-fjBlue-100 opacity-10"></div>
@@ -19,8 +19,8 @@
           <span class="text-xl font-bold text-black">关于我们</span>
         </div>
       </div>
-      <div class="grid w-full grid-cols-2 justify-items-center h-[510px]">
-        <div class="relative w-full">
+      <div class="grid w-full sm:grid-cols-1 lg:grid-cols-2 justify-items-center h-[510px]">
+        <div class="relative w-full sm:hidden">
           <div class="w-[483px] h-[500px] absolute bg-fjBlue-100 opacity-10 -left-4 top-4 z-10"></div>
           <img src="~/assets/img/about/1.jpg" class="w-[483px] h-[500px] z-20 absolute">
         </div>
@@ -52,8 +52,8 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-300">
-      <div class=" h-[500px] mt-20 container mx-auto ">
+    <div class="bg-gray-100">
+      <div class="sm:h-[320px] lg:h-[500px] sm:mt-8 lg:mt-20 container mx-auto ">
         <div class="relative w-full top-8 h-1/5">
           <div class="abCenter z-9">
             <span class="text-3xl font-bold text-gray-200">HONOR</span>
@@ -62,11 +62,11 @@
             <span class="text-xl font-bold text-black">公司荣誉</span>
           </div>
         </div>
-        <div class="relative w-full px-24 h-4/5">
-          <div class="absolute left-14 top-[152px]">
+        <div class="relative w-full sm:px-8 lg:px-24 h-4/5">
+          <div class="absolute sm:left-1 sm:top-[82px] lg:left-14 lg:top-[152px]">
             <img src="" alt="" class="w-10 h-24 ">
           </div>
-          <div class="absolute top-36 right-14 ">
+          <div class="absolute  sm:right-1 sm:top-[82px] lg:right-14 lg:top-[152px]">
             <img src="" alt="" class="w-10 h-24">
           </div>
           <div class="w-full h-full px-6 overflow-hidden">
@@ -97,7 +97,7 @@
         <div class="flex flex-row items-start h-full">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top ">
-              <p class="textSize ">2017.9.5</p>
+              <p class="textSize ">2017.09.05</p>
             </div>
           </div>
           <div class="w-4 ml-4">
@@ -116,7 +116,7 @@
         <div class="flex flex-row items-start h-full ">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top">
-              <p class="textSize ">2018.2.7</p>
+              <p class="textSize ">2018.02.07</p>
             </div>
           </div>
           <div class="w-4 ml-4">
@@ -135,7 +135,7 @@
         <div class="flex flex-row items-start h-full ">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top">
-              <p class="textSize ">2019.4.5</p>
+              <p class="textSize ">2019.04.05</p>
             </div>
           </div>
           <div class="w-4 ml-4">
@@ -154,7 +154,7 @@
         <div class="flex flex-row items-start h-full ">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top">
-              <p class="textSize ">2019.9.13</p>
+              <p class="textSize ">2019.09.13</p>
             </div>
           </div>
           <div class="w-4 ml-4">
@@ -173,7 +173,7 @@
         <div class="flex flex-row items-start h-full ">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top">
-              <p class="textSize ">2021.8.1</p>
+              <p class="textSize ">2021.08.01</p>
             </div>
           </div>
           <div class="w-4 ml-4">
@@ -192,7 +192,7 @@
         <div class="flex flex-row items-start h-full ">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top">
-              <p class="textSize ">2021.1.1</p>
+              <p class="textSize ">2021.01.01</p>
             </div>
           </div>
           <div class="w-4 ml-4">
@@ -251,7 +251,7 @@ export default Vue.extend({
     @apply w-4 h-4 opacity-100 bg-fjBlue-100 rounded-full border-2;
   }
   .line {
-    @apply w-1 h-20 bg-fjBlue-100 opacity-50;
+    @apply w-1 sm:h-28 lg:h-20 bg-fjBlue-100 opacity-50;
   }
   .span2 {
     @apply text-base mt-2;

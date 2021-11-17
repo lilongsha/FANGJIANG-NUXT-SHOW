@@ -130,6 +130,14 @@ export const actions = {
         await store.commit('app/TITLE_SET', '新房动态')
         await store.commit('app/URL_SET', '')
         break;
+      case 'about': 
+        await store.commit('app/TITLE_SET', '关于我们')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'about-joinUs': 
+        await store.commit('app/TITLE_SET', '加入我们')
+        await store.commit('app/URL_SET', '')
+        break;
     }
   }
 }
