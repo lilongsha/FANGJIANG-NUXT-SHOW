@@ -142,6 +142,25 @@
             </div>
           </div>
         </div>
+        <!-- 楼盘分析 -->
+        <div class="w-full p-4 mt-4 shadow">
+          <!-- 标题 -->
+          <div class="w-full pb-[1px] border-b border-fjBlue-100">
+            <span class="text-lg font-bold border-b-[6px] border-fjBlue-100">楼盘解析</span>
+          </div>
+          <!-- 内容 -->
+          <div class="py-2 space-y-4">
+            <div class="w-full">交通配套：<span v-if="house.trafficInfo" class="text-gray-400">{{ house.trafficInfo }}㎡</span><span v-else>暂无数据</span></div>
+            <div class="w-full">医疗配套：<span v-if="house.medicalInfo" class="text-gray-400">{{ house.medicalInfo }}㎡</span><span v-else>暂无数据</span></div>
+            <div class="w-full">商业配套：<span v-if="house.matchingInfo" class="text-gray-400">{{ house.matchingInfo }}㎡</span><span v-else>暂无数据</span></div>
+            <div class="w-full">教育配套：<span v-if="house.educationInfo" class="text-gray-400">{{ house.educationInfo }}㎡</span><span v-else>暂无数据</span></div>
+            <div class="w-full">其它配套：<span v-if="house.otherInfo" class="text-gray-400">{{ house.otherInfo }}㎡</span><span v-else>暂无数据</span></div>
+            <div class="w-full">楼盘优点：<span v-if="house.advantage" class="text-gray-400">{{ house.advantage }}㎡</span><span v-else>暂无数据</span></div>
+            <div>
+              <span class="">项目缺点：<a :href="`tel:${phoneNum},${house.number}%23`">请咨询客服了解<span class="text-fjRed-100">[{{house.name}}]</span>缺点信息</a></span>
+            </div>
+          </div>
+        </div>
         <!-- 价格信息 -->
         <div class="w-full p-4 mt-4 shadow">
           <!-- 标题 -->
@@ -217,6 +236,9 @@ export default Vue.extend({
         {
           data: [],
           type: 'line',
+          tooltip: {
+            trigger: 'item'
+          },
           markPoint: {
             data: [
               { type: 'max', name: 'Max' },
@@ -245,6 +267,9 @@ export default Vue.extend({
         top: '0',
         left: '0'
       },
+      tooltip: {
+        trigger: 'axis'
+      },
       legend: {
         left: '0',
         top: '28',
@@ -264,6 +289,9 @@ export default Vue.extend({
         {
           name: '',
           type: 'radar',
+          tooltip: {
+            trigger: 'item'
+          },
           data: [{ value: [0], name: ''}]
         }
       ]
