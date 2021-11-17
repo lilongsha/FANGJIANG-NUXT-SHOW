@@ -73,7 +73,7 @@
               </div>
             </div>
             <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
-              <div>开盘时间：<span v-if="house.payTime">{{ house.payTime.split('T')[0] }}</span><span v-else>暂无数据</span></div>
+              <div>开盘时间：<span v-if="house.openTime">{{ house.openTime.split('T')[0] }}</span><span v-else>暂无数据</span></div>
               <div>售楼地址：<span v-if="house.saleAddress">预计{{ house.saleAddress }}</span><span v-else>暂无数据</span></div>
             </div>
           </div>
