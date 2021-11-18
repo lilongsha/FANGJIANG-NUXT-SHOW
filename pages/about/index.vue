@@ -10,7 +10,7 @@
       <div class="opacity-50 point bg-fjBlue-100"></div>
       <div class="opacity-100 point bg-fjBlue-100"></div>
     </div>
-    <div class="container mx-auto mt-4 ">
+    <div class="container mx-auto mt-4">
       <div class="relative w-full h-20">
         <div class="abCenter z-9">
           <span class="text-3xl font-bold text-gray-200">ABOUTUS</span>
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="bg-gray-100">
-      <div class="sm:h-[320px] lg:h-[500px] sm:mt-8 lg:mt-20 container mx-auto ">
+      <div v-if="false" class="sm:h-[320px] lg:h-[500px] sm:mt-8 lg:mt-20 container mx-auto ">
         <div class="relative w-full top-8 h-1/5">
           <div class="abCenter z-9">
             <span class="text-3xl font-bold text-gray-200">HONOR</span>
@@ -221,6 +221,23 @@ export default Vue.extend({
   name: 'InfoList',
   data () {
     return {
+    }
+  },
+  head() {
+    return {
+      title: `关于我们-房匠`,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: `关于我们-房匠`
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `关于我们-房匠`
+        },
+      ],
     }
   },
   methods: {

@@ -26,11 +26,11 @@
           <div class="flex flex-row items-center justify-center pt-8 text-white sm:space-x-1 lg:space-x-4">
             <a href="/about" class="text-white" target="_blank">关于房匠</a>
             <span>|</span>
-            <a href="/" class="text-white" target="_blank">联系我们</a>
+            <a href="/about/joinUs?type=0" class="text-white" target="_blank">联系我们</a>
             <span>|</span>
-            <a href="/" class="text-white" target="_blank">招商加盟</a>
+            <a href="/about/joinUs?type=2" class="text-white" target="_blank">招商加盟</a>
             <span>|</span>
-            <a href="/" class="text-white" target="_blank">诚聘英才</a>
+            <a href="/about/joinUs?type=1" class="text-white" target="_blank">诚聘英才</a>
           </div>
           <div class="flex flex-row items-center justify-center pt-4 space-x-4 text-white">
             <a href="https://beian.miit.gov.cn/" class="text-white" target="_blank" rel="nofollow">冀ICP备19024434号</a>

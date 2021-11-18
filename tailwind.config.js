@@ -39,6 +39,7 @@ module.exports = {
     extend: {
       backgroundImage: _theme => ({
         'about-1': "url('~/assets/img/about/map.jpg')",
+        'about-2': "url('~/assets/img/about/about-02.jpg')",
         'index-menu': "url('~/assets/img/index-menu.png')",
         'bottom-lou': "url('~/assets/img/bottom/index_02.jpg')",
         'index-1': "url('~/assets/img/index/1.png')",
