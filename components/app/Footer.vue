@@ -7,7 +7,7 @@
           <div class="flex flex-row w-full text-base text-white mt-14">
             <span :class="type === '0' ? 'border-b-2 border-blue-500' : ''" class="transition duration-500 ease-linear sm:mr-2 lg:mr-16" @mouseover="type = '0'">热销楼盘</span>
             <span :class="type === '1' ? 'border-b-2 border-blue-500' : ''" class="transition duration-500 ease-linear sm:mr-2 lg:mr-16" @mouseover="type = '1'">友情链接</span>
-            <a href="/map" target="_blank" class="text-white sm:mr-2 lg:mr-16">地图找房</a>
+            <!-- <a href="/map" target="_blank" class="text-white sm:mr-2 lg:mr-16">地图找房</a> -->
             <a href="/info/list" target="_blank" class="text-white sm:mr-2 lg:mr-16">楼市资讯</a>
           </div>
           <!-- 菜单主体 -->

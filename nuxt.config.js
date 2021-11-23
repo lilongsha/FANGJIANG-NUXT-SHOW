@@ -1,4 +1,15 @@
 export default {
+  hooks: {
+    'render:route': (_url, result) => {
+      result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
+      result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
+    },
+    // 'vue-renderer:ssr:context': (context) => {
+    //   const routePath = JSON.stringify(context.nuxt.routePath);
+    //   context.nuxt = {serverRendered: true, routePath};
+    // }
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: '房匠',
@@ -110,6 +121,10 @@ export default {
       if (isClient) {
         config.devtool = 'eval-source-map'
       }
-    }
+    },
+    // 打包样式
+    extractCSS: { allChunks: true },
+    // 设置CDN
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt'
   }
 }

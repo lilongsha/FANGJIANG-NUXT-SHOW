@@ -94,7 +94,7 @@
               <div v-if="house.openTime" class="w-full py-4">最新开盘：{{ house.openTime.split('T')[0] }}</div>
               <div v-else class="w-full py-4">最新开盘：暂未开盘</div>
               <!-- 查看更多楼盘详情 -->
-              <a class="w-full border-b-[1px] border-fjBlue-100" :href="`/house/infomation/${house.id}.html`" :title="`${house.name}详情信息`" target="_blank">
+              <a class="w-full text-fjBlue-100 border-b-[1px] border-fjBlue-100" :href="`/house/infomation/${house.id}.html`" :title="`${house.name}详情信息`" target="_blank">
                 查看更多楼盘详情
               </a>
               <div class="w-full mt-14 h-0.5 bg-[#DDDDDD]"></div>
