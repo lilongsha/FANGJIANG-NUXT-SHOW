@@ -147,6 +147,8 @@ export const projectType: any[] = [
   {title: '商铺',  },
   {title: '写字楼',  },
   {title: '仓库',  },
+  {title: '别墅',  },
+  {title: '商业类',  },
 ]
 // 状态 1在售 2待售 3售罄
 export const saleState: any[] = [

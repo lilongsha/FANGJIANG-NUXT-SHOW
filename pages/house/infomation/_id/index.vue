@@ -11,12 +11,13 @@
         <span v-if="house.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
         <span v-else-if="house.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
         <span v-else-if="house.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
-        <span v-if="house.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
+        <type-label :type="house.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
+        <!-- <span v-if="house.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
         <span v-else-if="house.type === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
         <span v-else-if="house.type === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
         <span v-else-if="house.type === '4'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
         <span v-else-if="house.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
-        <span v-else-if="house.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span>
+        <span v-else-if="house.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span> -->
         <span class="sm:ml-2 lg:ml-4"></span>
         <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
       </div>
@@ -33,12 +34,13 @@
           <div class="flex lg:flex-row sm:flex-col">
             <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
               <div>产权类型：
-                <span v-if="house.type === '1'" class="font-normal">住宅</span>
+                <type-label :type="house.type" :class-name="'font-normal'"></type-label>
+                <!-- <span v-if="house.type === '1'" class="font-normal">住宅</span>
                 <span v-else-if="house.type === '2'" class="font-normal">公寓</span>
                 <span v-else-if="house.type === '3'" class="font-normal">商铺</span>
                 <span v-else-if="house.type === '4'" class="font-normal">写字楼</span>
                 <span v-else-if="house.type === '5'" class="font-normal">仓库</span>
-                <span v-else-if="house.type === '6'" class="font-normal">其它</span>
+                <span v-else-if="house.type === '6'" class="font-normal">其它</span> -->
               </div>
               <div>建筑类型：<span v-if="house.buildType">{{ buildType[house.buildType].title }}</span><span v-else>暂无数据</span></div>
               <div>产权年限：<span v-if="house.property">{{ house.property }}年</span><span v-else>暂无数据</span></div>

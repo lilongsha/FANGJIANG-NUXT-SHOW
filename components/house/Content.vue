@@ -20,13 +20,14 @@
               </div>
             </div>
             <div class="sm:mt-1 sm:text-[12px] lg:text-[16px]">
+              <type-label :type="item.type" :class-name="'text-gray-400'" />
               <!-- 类型 -->
-              <span v-if="item.type === '1'" class="text-gray-400">住宅</span>
+              <!-- <span v-if="item.type === '1'" class="">住宅</span>
               <span v-if="item.type === '2'" class="text-gray-400">公寓</span>
               <span v-if="item.type === '3'" class="text-gray-400">商铺</span>
               <span v-if="item.type === '4'" class="text-gray-400">写字楼</span>
               <span v-if="item.type === '5'" class="text-gray-400">仓库</span>
-              <span v-if="item.type === '6'" class="text-gray-400">其它</span>
+              <span v-if="item.type === '6'" class="text-gray-400">其它</span> -->
               <!-- 面积 -->
               <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
               <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
