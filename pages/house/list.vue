@@ -711,10 +711,14 @@
                     <span>{{getRoomList(item)}}</span>
                   </div>
                   <div class="flex flex-row items-center lg:hidden">
-                    <div class="w-2/5">
+                    <div v-if="item.price" class="w-2/5">
                       <span v-if="item.price" class="text-[#DA1111] text-[16px] font-bold">{{ item.price }}</span>
                       <span v-if="item.price" class="text-[12px]">元/㎡</span>
-                      <span v-if="!item.price">暂无数据</span>
+                    </div>
+                    <div v-else class="w-2/5">
+                      <span v-if="item.lowTotalPrice" class="text-[#DA1111] text-[16px] font-bold">{{ item.lowTotalPrice }}</span>
+                      <span v-if="item.lowTotalPrice" class="text-[12px]">万/套起</span>
+                      <span v-else>暂无数据</span>
                     </div>
                     <div class="w-3/5">
                       <span class="text-xs">更新日期：</span>

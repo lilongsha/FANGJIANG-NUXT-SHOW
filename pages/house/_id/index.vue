@@ -61,13 +61,14 @@
               <!-- price and totalPrice -->
               <div class="flex flex-row justify-between w-full">
                 <div>
-                  <span class="text-sm">参数单价：</span>
-                  <span class="text-[22px]">{{ house.price }}</span>
-                  <span class="text-sm">元/㎡起</span>
+                  <span class="text-sm">参考单价：</span>
+                  <span v-if="house.price" class="text-[22px]">{{ house.price }}<span class="text-sm">元/㎡起</span></span>
+                  <span v-else>暂无数据</span>
                 </div>
-                <div>
-                  <span class="text-[22px]">{{ house.lowTotalPrice }}-{{ house.highTotalPrice }}</span>
-                  <span class="text-sm">（万/套）</span>
+                <div v-if="house.lowTotalPrice">
+                  <span class="text-[22px]">{{ house.lowTotalPrice }}<span v-if="house.highTotalPrice">-</span>{{ house.highTotalPrice }}</span>
+                  <span v-if="house.highTotalPrice" class="text-sm">（万/套）</span>
+                  <span v-else class="text-sm">（万/套）起</span>
                 </div>
               </div>
               <!-- 价格更新日期 -->
@@ -124,11 +125,11 @@
           </div>
           <div class="w-full mt-2 text-[16px]">
             <span>参考价格：</span>
-            <span class="text-[18px] font-bold text-fjRed-100">{{ house.price }}</span>
-            <span class="text-[12px] text-fjRed-100">元/㎡</span>
+            <span v-if="house.price" class="text-[18px] font-bold text-fjRed-100">{{ house.price }}<span class="text-[12px] text-fjRed-100">元/㎡</span></span>
+            <span v-else class="text-[14px] text-gray-300">暂无数据</span>
           </div>
           <div class="w-full border-t">
-            <span class="text-xs text-gray-300 whitespace-pre-wrap">价格仅供参考，不做为最终购房的价格。价格更新时间：{{ house.updatePriceTime.split('T')[0] }}，价格有效期：{{ house.priceDays }}天</span>
+            <span class="text-xs text-gray-300 whitespace-pre-wrap">价格仅供参考，不做为最终购房的价格。<span v-if="house.updatePriceTime">价格更新时间：{{ house.updatePriceTime.split('T')[0] }}，价格有效期：{{ house.priceDays }}天</span></span>
           </div>
           <div class="w-full pt-1 border-t">
             <div class="flex flex-row w-full">
