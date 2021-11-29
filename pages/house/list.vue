@@ -505,7 +505,7 @@
     <div class="w-full overflow-hidden sm:mt-1 lg:mt-14">
       <!-- 标题 -->
       <div class="flex flex-row w-full border-b-2 sm:hidden border-fjBlue-100">
-        <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center">
+        <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center" @click="clearSort">
           <span class="">默认排序</span>
         </div>
         <div class="w-[97px] h-[52px] text-black flex flex-row justify-center items-center" @click="sortPrice">
@@ -898,6 +898,9 @@ export default Vue.extend({
       if (select.sortType === '4') {
         sort.asc = ['openTime']
       }
+      if (select.sortType !== '1' && select.sortType !== '2' && select.sortType !== '3' && select.sortType !== '4') {
+        sort.desc = ['orderNum']
+      }
       const param: any = {
         data: condition,
         page: {
@@ -1244,6 +1247,9 @@ export default Vue.extend({
       if (this.select.sortType === '4') {
         sort.asc = ['openTime']
       }
+      if (this.select.sortType !== '1' && this.select.sortType !== '2' && this.select.sortType !== '3' && this.select.sortType !== '4') {
+        sort.desc = ['orderNum']
+      }
       const param: any = {
         data: condition,
         page: {
@@ -1451,6 +1457,9 @@ export default Vue.extend({
       }
       this.select.sortType = '3';
     },
+    clearSort() {
+      this.select.sortType = '';
+    }
   }
 })
 </script>
