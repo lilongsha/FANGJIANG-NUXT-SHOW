@@ -153,7 +153,7 @@
           <div v-show="menuShow.isShow" class="w-3/5 h-full ml-4 transition-all bg-black bg-opacity-80 rounded-2xl">
             <!-- 区域 -->
             <div v-show="menuShow.flag === 1" class="grid grid-flow-row grid-cols-5 gap-4 m-8 text-center text-white">
-              <a v-for="area in areas" :key="area.id" class="overflow-hidden text-base text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?areaId=${area.id}`" target="_blank">{{ area.name }}</a>
+              <a v-for="area in areas" :key="area.id" rel="nofollow" class="overflow-hidden text-base text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?areaId=${area.id}`" target="_blank">{{ area.name }}</a>
             </div>
             <!-- 商圈 -->
             <div v-show="menuShow.flag === 2" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
@@ -182,7 +182,7 @@
               </div>
               <div v-show="!showTrading" class="w-2/3 h-full ml-2">
                 <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center">
-                  <a v-for="trading in tradings" :key="trading.id" class="h-6 overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?tradingId=${trading.id}`" target="_blank">{{ trading.name }}</a>
+                  <a v-for="trading in tradings" :key="trading.id" rel="nofollow" class="h-6 overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?tradingId=${trading.id}`" target="_blank">{{ trading.name }}</a>
                 </div>
                 <AppLoading ref="loadingTrading" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
               </div>
@@ -214,7 +214,7 @@
               </div>
               <div v-show="!showMetroStation" class="static w-2/3 h-full ml-2">
                 <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center text-white">
-                  <a v-for="metroStation in metroStations" :key="metroStation.id" class="overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?metroStationId=${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
+                  <a v-for="metroStation in metroStations" :key="metroStation.id" rel="nofollow" class="overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?metroStationId=${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
                 </div>
                 <AppLoading ref="loadingMetroStation" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
               </div>
@@ -244,7 +244,7 @@
     <!-- 移动端功能栏 -->
     <div class="w-full h-24 p-4 mt-4 lg:hidden">
       <div class="flex flex-row justify-around w-full h-full shadow">
-        <a href="/house/list">
+        <a rel="nofollow" href="/house/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/02.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">新房</span>
@@ -256,13 +256,13 @@
             <span class="text-sm text-black">资讯</span>
           </div>
         </a>
-        <a href="">
+        <a rel="nofollow" href="/video">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/04.png" alt="" class="w-8 h-8">
-            <span class="text-sm text-black">找房</span>
+            <span class="text-sm text-black">视频</span>
           </div>
         </a>
-        <a href="/calculator/home">
+        <a rel="nofollow" href="/calculator/home">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/01.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">计算器</span>
@@ -281,7 +281,7 @@
       </div>
       <!-- 图片盒子 -->
       <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden">
-        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
+        <a v-for="item in recommendProjects" :key="item.id" rel="nofollow" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
           <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full" @mouseover="selectRecommendKey = item.id">
           <div v-show="selectRecommendKey === item.id" class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
@@ -297,13 +297,14 @@
               <div v-if="item.saleState === '1'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjYellow-100">在售</div>
               <div v-if="item.saleState === '2'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">待售</div>
               <div v-if="item.saleState === '3'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjRed-100">售罄</div>
-              <type-label :type="item.type" :class-name="'h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'"></type-label>
-              <!-- <div v-if="item.type === '1'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">住宅</div>
-              <div v-if="item.type === '2'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">公寓</div>
-              <div v-if="item.type === '3'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">商铺</div>
-              <div v-if="item.type === '4'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">写字楼</div>
-              <div v-if="item.type === '5'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">仓库</div>
-              <div v-if="item.type === '6'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">其它</div> -->
+              <!-- <type-label :sort="item.type" :class-name="'h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'" /> -->
+              <span v-if="item.type === '1'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">住宅</span>
+              <span v-if="item.type === '2'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">公寓</span>
+              <span v-if="item.type === '3'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">商铺</span>
+              <span v-if="item.type === '4'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">写字楼</span>
+              <span v-if="item.type === '5'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">仓库</span>
+              <span v-if="item.type === '6'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">别墅</span>
+              <span v-if="item.type === '7'" class="h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">商业类</span>
             </div>
             <!-- 信息 -->
             <div class="flex flex-row w-full h-6 text-sm">
@@ -332,12 +333,12 @@
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
-        <div class="text-right sm:w-full lg:w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a rel="nofollow" href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
+        <div class="text-right sm:w-full lg:w-[1128px]"><a rel="nofollow" href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
       <div class="sm:pb-2 grid lg:grid-cols-4 lg:grid-rows-1 gap-2 w-[full-8] lg:mx-4 mt-8 lg:h-112 overflow-hidden">
-        <a v-for="item in hotProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+        <a v-for="item in hotProjects" :key="item.id" rel="nofollow" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="w-full sm:h-3/5 lg:h-7/10">
             <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>
@@ -347,13 +348,14 @@
               <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
               <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
               <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
-              <type-label :type="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
-              <!-- <span v-if="item.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
+              <!-- <type-label :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'" /> -->
+              <span v-if="item.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
               <span v-if="item.type === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
               <span v-if="item.type === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
               <span v-if="item.type === '4'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
               <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
-              <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">其它</span> -->
+              <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">别墅</span>
+              <span v-if="item.type === '7'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商业类</span>
             </div>
             <div class="flex flex-row items-center mt-2">
               <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -444,7 +446,7 @@
           <span :class="newsType === '3' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '3'">楼市政策</span>
           <span :class="newsType === '1' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '1'">实探楼盘</span>
           <span :class="newsType === '2' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '2'">房贷利率</span>
-          <a class="text-gray-500 hover:text-fjBlue-100" @click="goNews">查看更多</a>
+          <a href="/info/list" class="text-gray-500 hover:text-fjBlue-100" @click="goNews">查看更多</a>
         </div>
         <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full sm:grid-cols-1 sm:grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-4 lg:px-4 mt-2 lg:h-[456px]">
           <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full sm:h-[120px] lg:h-[220px] shadow-lg" :title="item.title">
@@ -602,7 +604,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapMutations } from 'vuex';
 import { Api as AreaApi, AreaByCondition, AreaModel } from '@/api/model/areaModel'
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '@/api/model/tradingAreaModel';
 import { Api as BannerApi, BannerByCondition, BannerModel } from '@/api/model/bannerModel';
@@ -962,8 +963,7 @@ export default Vue.extend({
     closeMenu() {
       this.menuShow.isShow = false;
       this.menuShow.flag = 0;
-    },
-    ...mapMutations('app', ['BREADCRUMB_RE_SET', 'TITLE_SET', 'URL_SET']),
+    }
   },
 })
 </script>
