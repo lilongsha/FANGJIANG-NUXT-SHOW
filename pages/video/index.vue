@@ -3,7 +3,7 @@
     <div class="lg:h-24"></div>
     <div class="flex sm:flex-col sm:pt-4 sm:w-full sm:px-4 lg:container lg:flex-row lg:h-[580px] mx-auto bg-[#333]">
       <div class="sm:w-full lg:w-[70%] sm:h-52 lg:h-full">
-        <video class="object-fill w-full h-full" :src="topData[curIndex].videoAddress" :poster="topData[curIndex].photoAddress" controls></video>
+        <video class="w-full h-full" :src="topData[curIndex].videoAddress" :poster="topData[curIndex].photoAddress" controls></video>
       </div>
       <div class="sm:w-full sm:flex-row lg:w-[30%] lg:h-full flex lg:flex-col">
         <div v-for="(item, index) in topData" :key="item.id" class="relative p-4 sm:w-1/3 lg:w-full sm:h-full lg:h-1/3" :class="curIndex == index ? 'on' : ''" @click="changeVideo(index)">

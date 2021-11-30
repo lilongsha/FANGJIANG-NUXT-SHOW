@@ -4,7 +4,7 @@
     <div class="mx-auto lg:flex lg:flex-row lg:container sm:px-4">
       <div class="lg:w-[70%]">
         <div class="sm:h-60 lg:h-[580px]">
-          <video class="object-fill w-full h-full" :src="videoItem.videoAddress" :poster="videoItem.photoAddress" controls></video>
+          <video class="w-full h-full" :src="videoItem.videoAddress" :poster="videoItem.photoAddress" controls></video>
         </div>
         <div class="mt-4 w-full bg-[#F5F5F5] pb-10 shadow">
           <div class="px-4">
