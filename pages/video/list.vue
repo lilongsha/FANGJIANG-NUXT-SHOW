@@ -116,11 +116,19 @@ export default Vue.extend({
           pageSize: this.pageSize
         },
       }
-      const result:any = await this.$axios.$post(VideoApi.ByPage, param);
-      if (result.code === 200) {
-        this.list = result.data.content;
-        this.total = result.data.page.totalElements;
+      try {
+        this.$nuxt.$loading.start();
+        const result:any = await this.$axios.$post(VideoApi.ByPage, param);
+        if (result.code === 200) {
+          this.list = result.data.content;
+          this.total = result.data.page.totalElements;
+        }
+      } catch (e) { }
+      finally {
+        this.$nuxt.$loading.finish();
       }
+      
+
       const anchor:any = this.$el.querySelector('#list')
       anchor.scrollIntoView({ behavior: 'smooth' })
     }
