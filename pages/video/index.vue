@@ -1,14 +1,14 @@
 <template>
-  <div class="w-full">
+  <div class="w-full sm:pb-4">
     <div class="lg:h-24"></div>
-    <div class="flex lg:container lg:flex-row lg:h-[580px] mx-auto bg-[#333]">
-      <div class="w-[70%] h-full">
+    <div class="flex sm:flex-col sm:pt-4 sm:w-full sm:px-4 lg:container lg:flex-row lg:h-[580px] mx-auto bg-[#333]">
+      <div class="sm:w-full lg:w-[70%] sm:h-52 lg:h-full">
         <video class="object-fill w-full h-full" :src="topData[curIndex].videoAddress" :poster="topData[curIndex].photoAddress" controls></video>
       </div>
-      <div class="w-[30%] h-full flex lg:flex-col">
-        <div v-for="(item, index) in topData" :key="item.id" class="relative w-full p-4 h-1/3" :class="curIndex == index ? 'on' : ''" @click="changeVideo(index)">
+      <div class="sm:w-full sm:flex-row lg:w-[30%] lg:h-full flex lg:flex-col">
+        <div v-for="(item, index) in topData" :key="item.id" class="relative p-4 sm:w-1/3 lg:w-full sm:h-full lg:h-1/3" :class="curIndex == index ? 'on' : ''" @click="changeVideo(index)">
           <div></div>
-          <img :src="item.photoAddress" class="relative z-10 object-cover w-full h-full rounded">
+          <img :src="item.photoAddress" class="relative z-10 object-cover w-full rounded sm:h-16 lg:h-full">
         </div>
       </div>
     </div>
@@ -152,7 +152,7 @@ export default Vue.extend({
 
 <style scoped>
 .on div {
-  @apply absolute z-0 left-2 top-1/2 -mt-2 w-4 h-4 rotate-45 bg-[#ff0000];
+  @apply absolute z-0 sm:left-1/2 sm:top-2 sm:-ml-2 lg:left-2 lg:top-1/2 lg:-mt-2 w-4 h-4 rotate-45 bg-[#ff0000];
 }
 
 .on img {
@@ -160,7 +160,7 @@ export default Vue.extend({
 }
 
 .box {
-  @apply flex lg:container lg:flex-col lg:h-[260px] mx-auto mt-14;
+  @apply flex sm:w-full sm:px-4 lg:container flex-col lg:h-[260px] mx-auto sm:mt-4 lg:mt-14;
 }
 
 .box .title {
@@ -172,15 +172,15 @@ export default Vue.extend({
 }
 
 .box .title a {
-  @apply text-[#999] block;
+  @apply text-[#999] block sm:text-[12px];
 }
 
 .content {
-  @apply h-52 flex flex-row space-x-11 mt-4;
+  @apply lg:h-52 flex sm:flex-col sm:px-4 lg:flex-row sm:space-y-4 lg:space-x-11 mt-4;
 }
 
 .content .item {
-  @apply w-72 h-full;
+  @apply sm:w-full lg:w-72 h-full;
 }
 
 .content .item a {

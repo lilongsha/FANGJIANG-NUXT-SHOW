@@ -138,6 +138,18 @@ export const actions = {
         await store.commit('app/TITLE_SET', '加入我们')
         await store.commit('app/URL_SET', '')
         break;
+      case 'video': 
+        await store.commit('app/TITLE_SET', '视频')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'video-list': 
+        await store.commit('app/TITLE_SET', '视频列表')
+        await store.commit('app/URL_SET', '')
+        break;
+      case 'video-id': 
+        await store.commit('app/TITLE_SET', '视频')
+        await store.commit('app/URL_SET', '')
+        break;
     }
   }
 }

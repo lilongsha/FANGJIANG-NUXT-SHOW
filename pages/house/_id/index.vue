@@ -237,7 +237,7 @@
           </div>
         </div>
         <!-- house news -->
-        <div id="news" class="lg:sticky sm:px-2 lg:z-[60] lg:float-right sm:w-full lg:w-1/4 m2-8 lg:transition-all lg:top-44">
+        <div id="news" class="bg-[#f6f9fe] lg:p-2 lg:sticky sm:px-2 lg:z-[60] lg:float-right sm:w-full lg:w-1/4 m2-8 lg:transition-all lg:top-44">
           <!-- title -->
           <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
             <span class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
@@ -361,7 +361,7 @@
           </div>
         </div>
         <!-- house 推荐 -->
-        <reomend-house />
+        <recomend-house class=""/>
       </div>
     </div>
   </div>
@@ -377,14 +377,14 @@ import { getQuestions } from '~/api/model/questionModel';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 import MapLoader from '~/plugins/loadMap';
 import LineEchart from '~/components/echart/LineEchart.vue'
-import ReomendHouse from '~/components/house/RecomendHouse.vue'
+import RecomendHouse from '~/components/house/RecomendHouse.vue'
 import { Breadcrumb } from '~/types/app';
 const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfo',
   components: {
     LineEchart,
-    ReomendHouse,
+    RecomendHouse,
   },
   async asyncData ({ $axios, params, store }) {
     let id = params.id;

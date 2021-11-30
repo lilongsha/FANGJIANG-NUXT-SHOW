@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full">
-    <div class="lg:h-24"></div>
-    <div class="flex flex-row mx-auto lg:container">
-      <div class="w-[70%]">
-        <div class="h-[580px]">
+  <div class="w-full sm:pb-4">
+    <div class="sm:h-10 lg:h-24"></div>
+    <div class="mx-auto lg:flex lg:flex-row lg:container sm:px-4">
+      <div class="lg:w-[70%]">
+        <div class="sm:h-60 lg:h-[580px]">
           <video class="object-fill w-full h-full" :src="videoItem.videoAddress" :poster="videoItem.photoAddress" controls></video>
         </div>
         <div class="mt-4 w-full bg-[#F5F5F5] pb-10 shadow">
@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div class="w-[30%] pl-6">
+      <div class="lg:w-[30%] lg:pl-6">
         <div v-if="house" class="shadow p-2 bg-[#F5F5F5]">
           <span class="text-2xl font-bold text-[#333]">相关楼盘</span>
           <a :href="`/house/${house.id}.html`" class="block w-full h-full">

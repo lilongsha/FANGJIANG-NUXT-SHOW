@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full sm:pb-4">
     <div id="list" class="lg:h-24"></div>
     <div v-if="list.length > 0" class="box">
       <div class="title">
@@ -136,7 +136,7 @@ export default Vue.extend({
 }
 
 .box {
-  @apply flex lg:container lg:flex-col lg:h-[260px] mx-auto mt-4;
+  @apply flex sm:w-full sm:px-4 lg:container flex-col lg:h-[260px] mx-auto mt-4;
 }
 
 .box .title {
@@ -148,15 +148,15 @@ export default Vue.extend({
 }
 
 .box .title a {
-  @apply text-[#999] block;
+  @apply text-[#999] block sm:text-[12px];
 }
 
 .content {
-  @apply h-52 flex flex-row space-x-11 mt-4;
+  @apply lg:h-52 flex sm:flex-col sm:px-4 lg:flex-row sm:space-y-4 lg:space-x-11 mt-4;
 }
 
 .content .item {
-  @apply w-72 h-full;
+  @apply sm:w-full lg:w-72 h-full;
 }
 
 .content .item a {
