@@ -12,14 +12,14 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div v-if="projectData.length > 0" class="box">
       <div class="title">
         <span>项目实拍</span>
         <a href="/video/list?sort=1">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in projectData" :key="item.id" class="item">
-          <a :href="`/video/${item.id}`">
+          <a :href="`/video/${item.id}.html`">
             <div>{{ item.title }}</div>
             <img src="~/assets/img/video/play.png" class="play"/>
             <img :src="item.photoAddress">
@@ -27,14 +27,14 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div v-if="roomData.length > 0" class="box">
       <div class="title">
         <span>样板间赏析</span>
         <a href="/video/list?sort=2">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in roomData" :key="item.id" class="item">
-          <a :href="`/video/${item.id}`">
+          <a :href="`/video/${item.id}.html`">
             <div>{{ item.title }}</div>
             <img src="~/assets/img/video/play.png" class="play"/>
             <img :src="item.photoAddress">
@@ -42,14 +42,14 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div v-if="compareData.length > 0" class="box">
       <div class="title">
         <span>项目对比</span>
         <a href="/video/list?sort=3">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in compareData" :key="item.id" class="item">
-          <a :href="`/video/${item.id}`">
+          <a :href="`/video/${item.id}.html`">
             <div>{{ item.title }}</div>
             <img src="~/assets/img/video/play.png" class="play"/>
             <img :src="item.photoAddress">
@@ -57,14 +57,14 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div v-if="policyData.length > 0" class="box">
       <div class="title">
         <span>楼市政策</span>
         <a href="/video/list?sort=4">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in policyData" :key="item.id" class="item">
-          <a :href="`/video/${item.id}`">
+          <a :href="`/video/${item.id}.html`">
             <div>{{ item.title }}</div>
             <img src="~/assets/img/video/play.png" class="play"/>
             <img :src="item.photoAddress">
@@ -176,7 +176,7 @@ export default Vue.extend({
 }
 
 .content {
-  @apply h-52 flex flex-row justify-between mt-4;
+  @apply h-52 flex flex-row space-x-11 mt-4;
 }
 
 .content .item {
