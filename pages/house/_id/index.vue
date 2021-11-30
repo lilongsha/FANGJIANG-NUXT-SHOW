@@ -254,13 +254,13 @@
           <!-- h-36px -->
           <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}分析</div>
+            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}项目分析</div>
           </div>
           <!-- content -->
           <div class="w-full m2-8">
             <!-- 项目优点 -->
             <div v-if="house.advantage" class="flex flex-row w-full h-full">
-              <div class="w-1/6 font-bold font">项目优点：</div>
+              <div class="flex-shrink-0 font-bold font">项目优点：</div>
               <div class="w-5/6">{{ house.advantage }}</div>
             </div>
             <!-- 项目缺点 -->
