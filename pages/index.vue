@@ -442,13 +442,14 @@
       </div>
       <!-- 内容 -->
       <div class="mx-auto mt-8 sm:w-full sm:px-2 lg:container">
-        <div class="flex flex-row justify-center pb-4 space-x-6 text-gray-500">
+        <div class="flex flex-row justify-center pb-4 text-gray-500 sm:space-x-2 lg:space-x-6">
+          <span :class="newsType === '4' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '4'">最新资讯</span>
           <span :class="newsType === '3' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '3'">楼市政策</span>
           <span :class="newsType === '1' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '1'">实探楼盘</span>
           <span :class="newsType === '2' ? 'text-blue-600' : ''" class="hover:text-blue-300" @click="newsType = '2'">房贷利率</span>
           <a href="/info/list" class="text-gray-500 hover:text-fjBlue-100" @click="goNews">查看更多</a>
         </div>
-        <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full sm:grid-cols-1 sm:grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-4 lg:px-4 mt-2 lg:h-[456px]">
+        <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full sm:grid-cols-1 sm:grid-rows-4 lg:grid-cols-2 lg:grid-rows-4 gap-4 lg:px-4 mt-2 lg:h-[912px]">
           <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full sm:h-[120px] lg:h-[220px] shadow-lg" :title="item.title">
             <img :src="item.img" :alt="item.title" height="100%" width="100%" class="object-cover h-full sm:w-2/5 lg:w-64">
             <div class="w-full h-full bg-white sm:p-2 lg:p-4">
@@ -778,7 +779,22 @@ export default Vue.extend({
       getBannerResult(),
     ])
 
-    // 获取资讯 7: 实探楼盘 4: 房贷利率 3: 楼市政策
+    // 获取资讯 最新 7: 实探楼盘 4: 房贷利率 3: 楼市政策
+    const getNews0 = async () => {
+      const newsParam: any = {
+        data: {
+          cityId: store.state.app.cityId,
+        },
+        page: {
+          pageNum: 0,
+          pageSize: 8,
+        },
+        sort: {
+          desc: ['createTime'],
+        },
+      }
+      return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
+    }
     const getNews7 = async () => {
       const newsParam: any = {
         data: {
@@ -787,10 +803,10 @@ export default Vue.extend({
         },
         page: {
           pageNum: 0,
-          pageSize: 4,
+          pageSize: 8,
         },
         sort: {
-          desc: ['createTime'],
+          desc: ['lookTimes'],
         },
       }
       return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
@@ -803,10 +819,10 @@ export default Vue.extend({
         },
         page: {
           pageNum: 0,
-          pageSize: 4,
+          pageSize: 8,
         },
         sort: {
-          desc: ['createTime'],
+          desc: ['lookTimes'],
         },
       }
       return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
@@ -819,10 +835,10 @@ export default Vue.extend({
         },
         page: {
           pageNum: 0,
-          pageSize: 4,
+          pageSize: 8,
         },
         sort: {
-          desc: ['createTime'],
+          desc: ['lookTimes'],
         },
       }
       return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
@@ -831,12 +847,14 @@ export default Vue.extend({
       1: [],
       2: [],
       3: [],
+      4: [],
     };
     const getNews = async () => {
-      const [news7, news4, news3] = await Promise.all([
+      const [news7, news4, news3, news0] = await Promise.all([
         getNews7(),
         getNews4(),
-        getNews3()
+        getNews3(),
+        getNews0(),
       ])
       if (news7.code === 200) {
         newsObj[1] = getDataResult(news7);
@@ -846,6 +864,9 @@ export default Vue.extend({
       }
       if (news3.code === 200) {
         newsObj[3] = getDataResult(news3);
+      }
+      if (news0.code === 200) {
+        newsObj[4] = getDataResult(news0);
       }
     }
     await getNews();
@@ -858,6 +879,7 @@ export default Vue.extend({
       selectRecommendKey,
       hotProjects,
       newsObj,
+      newsType: '4',
     }
   },
   data() {
@@ -870,7 +892,7 @@ export default Vue.extend({
       showMetroStation: false,
       tradings: [],
       metroStations: [],
-      newsType: '3', // 资讯分类 7 4 3
+      newsType: '4', // 资讯分类 7 4 3
       labels: [],
       processType: '0',
     }
