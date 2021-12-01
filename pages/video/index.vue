@@ -18,10 +18,13 @@
         <a href="/video/list?sort=1">查看更多</a>
       </div>
       <div class="content">
-        <div v-for="item in projectData" :key="item.id" class="item">
+        <div v-for="item in projectData" :key="item.id" class="item group">
           <a :href="`/video/${item.id}.html`">
-            <div>{{ item.title }}</div>
-            <img src="~/assets/img/video/play.png" class="play"/>
+            <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+            </div>
+            <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
             <img :src="item.photoAddress">
           </a>
         </div>
@@ -33,10 +36,13 @@
         <a href="/video/list?sort=2">查看更多</a>
       </div>
       <div class="content">
-        <div v-for="item in roomData" :key="item.id" class="item">
+        <div v-for="item in roomData" :key="item.id" class="item group">
           <a :href="`/video/${item.id}.html`">
-            <div>{{ item.title }}</div>
-            <img src="~/assets/img/video/play.png" class="play"/>
+            <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+            </div>
+            <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
             <img :src="item.photoAddress">
           </a>
         </div>
@@ -48,10 +54,13 @@
         <a href="/video/list?sort=3">查看更多</a>
       </div>
       <div class="content">
-        <div v-for="item in compareData" :key="item.id" class="item">
+        <div v-for="item in compareData" :key="item.id" class="item group">
           <a :href="`/video/${item.id}.html`">
-            <div>{{ item.title }}</div>
-            <img src="~/assets/img/video/play.png" class="play"/>
+            <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+            </div>
+            <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
             <img :src="item.photoAddress">
           </a>
         </div>
@@ -63,10 +72,13 @@
         <a href="/video/list?sort=4">查看更多</a>
       </div>
       <div class="content">
-        <div v-for="item in policyData" :key="item.id" class="item">
+        <div v-for="item in policyData" :key="item.id" class="item group">
           <a :href="`/video/${item.id}.html`">
-            <div>{{ item.title }}</div>
-            <img src="~/assets/img/video/play.png" class="play"/>
+            <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+            </div>
+            <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
             <img :src="item.photoAddress">
           </a>
         </div>
@@ -192,7 +204,7 @@ export default Vue.extend({
 }
 
 .content .item a div {
-  @apply bg-black absolute bottom-0 w-full h-10 object-cover flex flex-row items-center px-2 bg-opacity-40 text-white;
+  @apply bg-black absolute bottom-0 w-full object-cover flex flex-col px-2 bg-opacity-40 text-white;
 }
 
 .content .item a .play {

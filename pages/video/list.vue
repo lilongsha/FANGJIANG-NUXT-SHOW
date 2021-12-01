@@ -9,10 +9,13 @@
         <span v-if="sort === '4'">楼市政策</span>
       </div>
       <div class="content">
-        <div v-for="item in list" :key="item.id" class="item">
+        <div v-for="item in list" :key="item.id" class="item group">
           <a :href="`/video/${item.id}.html`">
-            <div>{{ item.title }}</div>
-            <img src="~/assets/img/video/play.png" class="play"/>
+            <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+            </div>
+            <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
             <img :src="item.photoAddress">
           </a>
         </div>
@@ -144,7 +147,7 @@ export default Vue.extend({
 }
 
 .box {
-  @apply flex sm:w-full sm:px-4 lg:container flex-col lg:h-[260px] mx-auto mt-4;
+  @apply flex sm:w-full sm:px-4 lg:container flex-col lg:h-[260px] mx-auto sm:mt-4 lg:mt-14;
 }
 
 .box .title {
@@ -176,7 +179,7 @@ export default Vue.extend({
 }
 
 .content .item a div {
-  @apply bg-black absolute bottom-0 w-full h-10 object-cover flex flex-row items-center px-2 bg-opacity-40 text-white;
+  @apply bg-black absolute bottom-0 w-full object-cover flex flex-col px-2 bg-opacity-40 text-white;
 }
 
 .content .item a .play {
