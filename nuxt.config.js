@@ -4,10 +4,6 @@ export default {
       result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
       result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
     },
-    // 'vue-renderer:ssr:context': (context) => {
-    //   const routePath = JSON.stringify(context.nuxt.routePath);
-    //   context.nuxt = {serverRendered: true, routePath};
-    // }
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -20,9 +16,9 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'static/favicon.ico' },
-      { rel: 'shortcut icon', href: 'static/favicon.ico' },
-      { rel: 'apple-touch-icon', href: 'static/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' },
+      { rel: 'shortcut icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' },
+      { rel: 'apple-touch-icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' }
     ]
   },
 
@@ -86,7 +82,7 @@ export default {
       description: '房匠网房源多,信息全,价透明,做您买房路上的自己人',
     },
     icon: {
-      source: 'static/icon.png',
+      source: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/icon.png',
       fileName: 'icon.png',
     }
   },
@@ -126,6 +122,6 @@ export default {
     // 打包样式
     extractCSS: { allChunks: true },
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211130'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211201'
   }
 }
