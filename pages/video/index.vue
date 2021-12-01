@@ -180,7 +180,7 @@ export default Vue.extend({
 }
 
 .content .item {
-  @apply sm:w-full lg:w-72 h-full;
+  @apply sm:w-full sm:h-48 lg:w-72 lg:h-full;
 }
 
 .content .item a {
