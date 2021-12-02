@@ -1,3 +1,4 @@
+const Timestamp = new Date().getTime();
 export default {
   hooks: {
     'render:route': (_url, result) => {
@@ -116,10 +117,13 @@ export default {
       if (isClient) {
         config.devtool = 'eval-source-map'
       }
+      // 文件缓存问题
+      config.output.filename = `js/[name].${Timestamp}.js`
+      config.output.chunkFilename = `js/[name].${Timestamp}.js`
     },
     // 打包样式
     extractCSS: { allChunks: true },
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211201'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211202'
   }
 }
