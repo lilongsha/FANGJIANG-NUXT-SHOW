@@ -811,7 +811,6 @@ export default Vue.extend({
   },
   async asyncData({ $axios, store, route, req }) {
     const userAgent = req?.headers['user-agent'] || '';
-    console.log('userAgent:::::', userAgent);
     let isMobile:any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
       // 跳转移动端页面
