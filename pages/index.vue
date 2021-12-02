@@ -433,6 +433,30 @@
         </a>
       </div>
     </div>
+    <!-- 视频 -->
+    <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
+      <!-- 标题 -->
+      <div class="flex flex-row items-center justify-around w-full sm:h-6 lg:ml-4 lg:h-9">
+        <!-- 竖线 -->
+        <div class="h-full bg-black sm:w-2 lg:w-4"></div>
+        <!-- 标题内容 -->
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a rel="nofollow" href="/video" target="_blank" class="text-black hover:text-fjBlue-100">视频看房</a></div>
+        <div class="text-right sm:w-full lg:w-[1128px]"><a rel="nofollow" href="/video" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
+      </div>
+      <!-- 图片盒子 -->
+      <div class="grid gap-2 mt-8 overflow-hidden sm:pb-2 sm:grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 lg:mx-4 lg:h-60">
+        <a v-for="item in topData" :key="item.id" rel="nofollow" :href="`/video/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+          <div class="relative w-full sm:h-60 lg:h-full group">
+            <div class="absolute bottom-0 flex flex-col justify-center object-cover w-full h-10 px-2 text-white transition-all bg-black lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 bg-opacity-40 lg:group-hover:h-full">
+              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+            </div>
+            <img class="absolute w-10 h-10 -mt-5 -ml-5 transition-all top-1/2 left-1/2 lg:group-hover:hidden" src="~/assets/img/video/play.png"/>
+            <img v-if="item.photoAddress" :src="item.photoAddress" :alt="item.title" width="100%" height="100%" class="object-cover w-full h-full">
+          </div>
+        </a>
+      </div>
+    </div>
     <!-- 资讯 -->
     <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
       <!-- 标题 -->
@@ -466,30 +490,6 @@
             </div>
           </a>
         </div>
-      </div>
-    </div>
-    <!-- 视频 -->
-    <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
-      <!-- 标题 -->
-      <div class="flex flex-row items-center justify-around w-full sm:h-6 lg:ml-4 lg:h-9">
-        <!-- 竖线 -->
-        <div class="h-full bg-black sm:w-2 lg:w-4"></div>
-        <!-- 标题内容 -->
-        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a rel="nofollow" href="/video" target="_blank" class="text-black hover:text-fjBlue-100">视频看房</a></div>
-        <div class="text-right sm:w-full lg:w-[1128px]"><a rel="nofollow" href="/video" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
-      </div>
-      <!-- 图片盒子 -->
-      <div class="grid gap-2 mt-8 overflow-hidden sm:pb-2 sm:grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 lg:mx-4 lg:h-60">
-        <a v-for="item in topData" :key="item.id" rel="nofollow" :href="`/video/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
-          <div class="relative w-full sm:h-60 lg:h-full group">
-            <div class="absolute bottom-0 flex flex-col justify-center object-cover w-full h-10 px-2 text-white transition-all bg-black lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 bg-opacity-40 lg:group-hover:h-full">
-              <p class="text-[18px]">{{ item.title }}</p>
-              <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
-            </div>
-            <img class="absolute w-10 h-10 -mt-5 -ml-5 transition-all top-1/2 left-1/2 lg:group-hover:hidden" src="~/assets/img/video/play.png"/>
-            <img v-if="item.photoAddress" :src="item.photoAddress" :alt="item.title" width="100%" height="100%" class="object-cover w-full h-full">
-          </div>
-        </a>
       </div>
     </div>
     <!-- 置业管家 -->
