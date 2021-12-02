@@ -40,7 +40,7 @@ import { Api as VideoApi } from '@/api/model/videoModel'
 export default Vue.extend({
   name: "Video",
   async asyncData({ $axios, store, route, req }) {
-    const userAgent = req.headers['user-agent'] || '';
+    const userAgent = req?.headers['user-agent'] || '';
 
     const cityId = store.state.app.cityId;
     const query = route.query;

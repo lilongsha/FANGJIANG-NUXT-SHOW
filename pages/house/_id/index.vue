@@ -387,7 +387,7 @@ export default Vue.extend({
     RecomendHouse,
   },
   async asyncData ({ $axios, params, store, req }) {
-    const userAgent = req.headers['user-agent'] || '';
+    const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
     if (id.endsWith('.html')) {

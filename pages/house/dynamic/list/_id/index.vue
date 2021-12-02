@@ -53,7 +53,7 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, params, store, req }) {
-    const userAgent = req.headers['user-agent'] || '';
+    const userAgent = req?.headers['user-agent'] || '';
     
     let id: string = params.id;
     if (id.endsWith('.html')) {

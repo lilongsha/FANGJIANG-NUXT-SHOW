@@ -810,7 +810,7 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, store, route, req }) {
-    const userAgent = req.headers['user-agent'] || '';
+    const userAgent = req?.headers['user-agent'] || '';
     let isMobile:any;
     if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
       // 跳转移动端页面

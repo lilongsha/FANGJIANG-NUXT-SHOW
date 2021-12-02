@@ -156,7 +156,7 @@ import { getDataResult } from '~/utils/response/util'
 export default Vue.extend({
   name: 'InfoList',
   async asyncData({ $axios, route, store, req }) {
-    const userAgent = req.headers['user-agent'] || '';
+    const userAgent = req?.headers['user-agent'] || '';
     
     const query: any = route.query;
     const sort: number = Number(query.type) || 0;
