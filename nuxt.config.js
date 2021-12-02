@@ -19,6 +19,11 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' },
       { rel: 'shortcut icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' },
       { rel: 'apple-touch-icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' }
+    ],
+    script: [
+      { src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar' },
+      // 百度统计代码
+      { src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' }
     ]
   },
 
@@ -26,13 +31,6 @@ export default {
   css: [
     'ant-design-vue/dist/antd.css',
     '~/assets/css/ant/antd.css'
-  ],
-
-  script: [
-    {
-      type: 'text/javascript',
-      src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar'
-    }
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
