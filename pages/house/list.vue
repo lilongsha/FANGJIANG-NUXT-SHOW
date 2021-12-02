@@ -811,8 +811,9 @@ export default Vue.extend({
   },
   async asyncData({ $axios, store, route, req }) {
     const userAgent = req?.headers['user-agent'] || '';
+    console.log('userAgent:::::', userAgent);
     let isMobile:any;
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
       // 跳转移动端页面
       isMobile = true;
     } else {
@@ -963,6 +964,7 @@ export default Vue.extend({
     const selectMenuM: string = '';
     const selectMenuLine: string = '';
     const selectMenuPrice: string = '1';
+    let isMobile: any;
     return {
       areas,
       projectList,
@@ -991,7 +993,8 @@ export default Vue.extend({
       phoneNum,
       selectMenuM,
       selectMenuLine,
-      selectMenuPrice
+      selectMenuPrice,
+      isMobile
     }
   },
   head() {

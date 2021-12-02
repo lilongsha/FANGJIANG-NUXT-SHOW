@@ -103,7 +103,7 @@ export default Vue.extend({
     store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
 
     let isMobile:any;
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
         // 跳转移动端页面
         isMobile = true;
     } else {

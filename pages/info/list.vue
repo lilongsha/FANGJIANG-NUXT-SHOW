@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto sm:w-full lg:container">
+  <div class="mx-auto sm:w-full lg:container sm:pb-4">
     <div class="w-full sm:h-2 lg:h-24"></div>
     <!-- top -->
     <div class="sm:hidden flex flex-row w-full h-[300px]">
@@ -217,7 +217,7 @@ export default Vue.extend({
     await getNews();
 
     let isMobile: any;
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
         // 跳转移动端页面
         isMobile = true;
     } else {
