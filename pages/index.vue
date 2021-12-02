@@ -475,7 +475,7 @@
         </div>
         <div v-for="(list, index) in newsObj" v-show="newsType === index" :key="index" class="grid w-full sm:grid-cols-1 sm:grid-rows-4 lg:grid-cols-2 lg:grid-rows-4 gap-4 lg:px-4 mt-2 lg:h-[912px]">
           <a v-for="item in list" :key="item.id" :href="`/info/${item.id}.html`" class="flex flex-row w-full sm:h-[120px] lg:h-[220px] shadow-lg" :title="item.title">
-            <img :src="item.img" :alt="item.title" height="100%" width="100%" class="object-cover h-full sm:w-2/5 lg:w-64">
+            <img :src="item.img" :alt="item.title" height="100%" width="100%" class="flex-shrink-0 object-cover h-full sm:w-2/5 lg:w-64">
             <div class="w-full h-full bg-white sm:p-2 lg:p-4">
               <div class="w-full font-bold text-black sm:h-12 sm:overflow-hidden sm:text-sm lg:text-xl"  style="overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
                 {{ item.title }}
