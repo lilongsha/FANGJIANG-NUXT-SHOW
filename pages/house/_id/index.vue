@@ -571,7 +571,6 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
-    
     return { id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile }
   },

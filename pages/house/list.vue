@@ -761,7 +761,16 @@
     <!-- pagination -->
     <div class="w-full text-right">
       <a-pagination
-        :simple="isMobile"
+        v-if="isMobile"
+        :simple="true"
+        :total="total"
+        :show-total="total => `共计 ${total} 条`"
+        :page-size="10"
+        :current="pageNum"
+        @change="pageChange"
+      />
+      <a-pagination
+        v-else
         :total="total"
         :show-total="total => `共计 ${total} 条`"
         :page-size="10"
@@ -811,7 +820,6 @@ export default Vue.extend({
   },
   async asyncData({ $axios, store, route, req }) {
     const userAgent = req?.headers['user-agent'] || '';
-    console.log('userAgent:::::', userAgent);
     let isMobile:any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
       // 跳转移动端页面
@@ -964,7 +972,6 @@ export default Vue.extend({
     const selectMenuM: string = '';
     const selectMenuLine: string = '';
     const selectMenuPrice: string = '1';
-    let isMobile: any;
     return {
       areas,
       projectList,
@@ -993,8 +1000,7 @@ export default Vue.extend({
       phoneNum,
       selectMenuM,
       selectMenuLine,
-      selectMenuPrice,
-      isMobile
+      selectMenuPrice
     }
   },
   head() {

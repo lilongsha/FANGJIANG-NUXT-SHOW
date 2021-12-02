@@ -23,7 +23,16 @@
     </div>
     <div class="mx-auto mt-2 text-right lg:container">
       <a-pagination
-        :simple="isMobile"
+        v-if="isMobile"
+        :simple="true"
+        :total="total"
+        :show-total="total => `共计 ${total} 条`"
+        :page-size="12"
+        :current="pageNum"
+        @change="pageChange"
+      />
+      <a-pagination
+        v-else
         :total="total"
         :show-total="total => `共计 ${total} 条`"
         :page-size="12"
