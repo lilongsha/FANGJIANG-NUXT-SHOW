@@ -809,7 +809,15 @@ export default Vue.extend({
   name: 'Home',
   components: {
   },
-  async asyncData({ $axios, store, route }) {
+  async asyncData({ $axios, store, route, req }) {
+    const userAgent = req.headers['user-agent'] || '';
+    let isMobile:any;
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+      // 跳转移动端页面
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
     // 获取区域
     const areaData: AreaByCondition = {
       id: store.state.app.cityId,
@@ -899,7 +907,7 @@ export default Vue.extend({
         sort.asc = ['openTime']
       }
       if (select.sortType !== '1' && select.sortType !== '2' && select.sortType !== '3' && select.sortType !== '4') {
-        sort.desc = ['orderNum']
+        sort.desc = ['orderNum', 'createTime']
       }
       const param: any = {
         data: condition,
@@ -929,7 +937,8 @@ export default Vue.extend({
       projectType,
       saleState,
       projectList,
-      total
+      total,
+      isMobile,
     }
   },
   data () {
@@ -982,8 +991,7 @@ export default Vue.extend({
       phoneNum,
       selectMenuM,
       selectMenuLine,
-      selectMenuPrice,
-      isMobile: true,
+      selectMenuPrice
     }
   },
   head() {
@@ -1033,15 +1041,6 @@ export default Vue.extend({
         this.getList();
       },
       deep: true,
-    }
-  },
-  beforeMount() {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
-        // 跳转移动端页面
-        this.isMobile = true;
-    } else {
-      this.isMobile = false;
     }
   },
   mounted() {
@@ -1248,7 +1247,7 @@ export default Vue.extend({
         sort.asc = ['openTime']
       }
       if (this.select.sortType !== '1' && this.select.sortType !== '2' && this.select.sortType !== '3' && this.select.sortType !== '4') {
-        sort.desc = ['orderNum']
+        sort.desc = ['orderNum', 'createTime']
       }
       const param: any = {
         data: condition,

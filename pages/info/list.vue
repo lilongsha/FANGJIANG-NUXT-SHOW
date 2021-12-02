@@ -155,7 +155,9 @@ import { getDataResult } from '~/utils/response/util'
 
 export default Vue.extend({
   name: 'InfoList',
-  async asyncData({ $axios, route, store }) {
+  async asyncData({ $axios, route, store, req }) {
+    const userAgent = req.headers['user-agent'] || '';
+    
     const query: any = route.query;
     const sort: number = Number(query.type) || 0;
 
@@ -169,7 +171,7 @@ export default Vue.extend({
           pageSize: 5,
         },
         sort: {
-          desc: ['orderNum'],
+          desc: ['orderNum', 'createTime'],
         },
       }
       if (sort && sort !== 0) {
@@ -213,16 +215,26 @@ export default Vue.extend({
       }
     }
     await getNews();
+
+    let isMobile: any;
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+        // 跳转移动端页面
+        isMobile = true;
+    } else {
+      isMobile = false;
+    }
     
     return {
       newsTop,
       newsList,
       total,
       sort,
+      isMobile,
     }
   },
   data () {
     const sort: number = 0;
+    let isMobile:any;
     return {
       sort,
       NEWS_SORT,
@@ -230,7 +242,7 @@ export default Vue.extend({
       newsTop: [],
       newsList: [],
       total: 0,
-      isMobile: true,
+      isMobile,
     }
   },
   head() {
@@ -308,15 +320,6 @@ export default Vue.extend({
           content: keywords
         }
       ]
-    }
-  },
-  beforeMount() {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
-        // 跳转移动端页面
-        this.isMobile = true;
-    } else {
-      this.isMobile = false;
     }
   },
   methods: {

@@ -52,7 +52,9 @@ export default Vue.extend({
   name: 'DiscussList',
   components: {
   },
-  async asyncData({ $axios, params, store }) {
+  async asyncData({ $axios, params, store, req }) {
+    const userAgent = req.headers['user-agent'] || '';
+    
     let id: string = params.id;
     if (id.endsWith('.html')) {
       id = id.replace('.html', '');
@@ -85,11 +87,20 @@ export default Vue.extend({
     breadcrumb.push({ title: '动态', href: '', icon: 'list' })
     store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
 
+    let isMobile: any;
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+        // 跳转移动端页面
+        isMobile = true;
+    } else {
+      isMobile = false;
+    }
+
     return {
       pageParam,
       id,
       dynamics,
-      project
+      project,
+      isMobile
     }
   },
   data () {
@@ -101,22 +112,13 @@ export default Vue.extend({
 
     const dynamics: any[] = [];
     const id: string = '';
-    const isMobile: boolean = true;
+    let isMobile:any;
     return {
       id,
       pageParam,
       dynamics,
       DynamicSort,
       isMobile,
-    }
-  },
-  beforeMount() {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
-        // 跳转移动端页面
-        this.isMobile = true;
-    } else {
-      this.isMobile = false;
     }
   },
   methods: {

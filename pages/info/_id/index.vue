@@ -202,7 +202,7 @@ export default Vue.extend({
           pageSize: 5,
         },
         sort: {
-          desc: ['orderNum'],
+          desc: ['orderNum', 'createTime'],
         },
       }
       const result = await $axios.$post(NewsApi.GetNewsByCity, newsParam);

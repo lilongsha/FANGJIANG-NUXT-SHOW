@@ -53,7 +53,7 @@ export const actions = {
         pageSize: 10,
       },
       sort: {
-        desc: ['orderNum'],
+        desc: ['orderNum', 'createTime'],
       },
     }
     const hotProjectResult:BasePageResult<any> = await context.app.$axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);

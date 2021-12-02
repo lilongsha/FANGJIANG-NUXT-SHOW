@@ -39,7 +39,9 @@ import Vue from 'vue'
 import { Api as VideoApi } from '@/api/model/videoModel'
 export default Vue.extend({
   name: "Video",
-  async asyncData({ $axios, store, route }) {
+  async asyncData({ $axios, store, route, req }) {
+    const userAgent = req.headers['user-agent'] || '';
+
     const cityId = store.state.app.cityId;
     const query = route.query;
     const sort = query.sort;
@@ -62,16 +64,24 @@ export default Vue.extend({
       total = result.data.page.totalElements;
     }
 
-    return { cityId, list, sort, isMobile: true, total };
+    let isMobile: any;
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+        // 跳转移动端页面
+        isMobile = true;
+    } else {
+      isMobile = false;
+    }
+    return { cityId, list, sort, isMobile, total };
   },
   data() {
+    let isMobile: any;
     return {
       list: [],
       cityId: '',
       pageNum: 1,
       pageSize: 12,
       sort: '',
-      isMobile: true,
+      isMobile,
       total: 0,
     }
   },
@@ -96,15 +106,6 @@ export default Vue.extend({
         },
       ],
     };
-  },
-  beforeMount() {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
-        // 跳转移动端页面
-        this.isMobile = true;
-    } else {
-      this.isMobile = false;
-    }
   },
   methods: {
     async pageChange(page: number) {

@@ -777,7 +777,7 @@ export default Vue.extend({
         pageSize: 4,
       },
       sort: {
-        desc: ['orderNum'],
+        desc: ['orderNum', 'createTime'],
       },
     }
     let hotProjects: any[] = []

@@ -386,7 +386,9 @@ export default Vue.extend({
     LineEchart,
     RecomendHouse,
   },
-  async asyncData ({ $axios, params, store }) {
+  async asyncData ({ $axios, params, store, req }) {
+    const userAgent = req.headers['user-agent'] || '';
+
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
@@ -561,8 +563,17 @@ export default Vue.extend({
       await getHouseInfo();
     }
     
+    let isMobile: any;
+    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(userAgent.toLowerCase())) {
+        // 跳转移动端页面
+        isMobile = true;
+        option.yAxis.show = false;
+    } else {
+      isMobile = false;
+    }
+    
     return { id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
-questionTotal, option, phoneNum }
+questionTotal, option, phoneNum, isMobile }
   },
   data () {
     const id: string = '';
@@ -587,6 +598,7 @@ questionTotal, option, phoneNum }
     const map: any = undefined;
     const showNews: boolean = true;
     const option: any = {};
+    let isMobile: any;
     return {
       id,
       resourceSort,
@@ -614,7 +626,7 @@ questionTotal, option, phoneNum }
       showNews,
       colors,
       buildType,
-      isMobile: true,
+      isMobile,
       option,
     }
   },
@@ -668,16 +680,6 @@ questionTotal, option, phoneNum }
       const store = that.$store;
       const hotProject: [] = store.state.app.hotProject;
       return hotProject.slice(0, 4);
-    }
-  },
-  beforeMount() {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
-        // 跳转移动端页面
-        this.isMobile = true;
-        this.option.yAxis.show = false;
-    } else {
-      this.isMobile = false;
     }
   },
   mounted() {
