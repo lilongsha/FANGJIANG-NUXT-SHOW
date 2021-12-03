@@ -35,14 +35,13 @@
           <div class="flex lg:flex-row sm:flex-col">
             <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
               <div>产权类型：
-                <!-- <type-label :type="house.type" :class-name="'font-normal'"></type-label> -->
                 <span v-if="house.type === '1'" class="font-normal">住宅</span>
-                <span v-else-if="house.type === '2'" class="font-normal">公寓</span>
-                <span v-else-if="house.type === '3'" class="font-normal">商铺</span>
-                <span v-else-if="house.type === '4'" class="font-normal">写字楼</span>
-                <span v-else-if="house.type === '5'" class="font-normal">仓库</span>
-                <span v-else-if="house.type === '6'" class="font-normal">别墅</span>
-                <span v-else-if="house.type === '7'" class="font-normal">商业类</span>
+                <span v-if="house.type === '2'" class="font-normal">公寓</span>
+                <span v-if="house.type === '3'" class="font-normal">商铺</span>
+                <span v-if="house.type === '4'" class="font-normal">写字楼</span>
+                <span v-if="house.type === '5'" class="font-normal">仓库</span>
+                <span v-if="house.type === '6'" class="font-normal">别墅</span>
+                <span v-if="house.type === '7'" class="font-normal">商业类</span>
               </div>
               <div>建筑类型：<span v-if="house.buildType">{{ buildType[house.buildType].title }}</span><span v-else>暂无数据</span></div>
               <div>产权年限：<span v-if="house.property">{{ house.property }}年</span><span v-else>暂无数据</span></div>
@@ -199,7 +198,9 @@ export default Vue.extend({
     LineEchart,
     ReomendHouse
   },
-  async asyncData ({ $axios, params, store }) {
+  async asyncData ({ $axios, params, store, req }) {
+    const userAgent = req?.headers['user-agent'] || '';
+
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
@@ -330,6 +331,11 @@ export default Vue.extend({
 
     await getHouse();
 
+    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
+        // 跳转移动端页面
+        option.yAxis.show = false;
+    }
+
     return {
       house, option, scoreOption
     }
@@ -337,6 +343,7 @@ export default Vue.extend({
   data() {
     const showBuild: boolean = false;
     const option: any = {};
+    let house: any;
     return {
       colors,
       buildType,
@@ -345,6 +352,56 @@ export default Vue.extend({
       phoneNum,
       showBuild,
       option,
+      house,
+    }
+  },
+  head() {
+    const houseName: string = this.house.name;
+    const houseCityName: string = this.house.sysCityByCityId.name;
+    const houseProvinceName: string = this.house.sysProvinceByProvinceId.name;
+    const latLng: string = this.house.latitude + '' + this.house.longitude;
+    const title: string = `${this.house.name}项目详情信息 - 房匠`;
+    const description: string = `房匠网为您提供${houseName}项目信息,${houseName}价格,${houseName}售楼处电话,${houseName}周边配套,${houseName}开盘时间等信息,了解更多${this.house.name}详细信息,请关注房匠网.`;
+    const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
+    const firstImgAddress: string = this.house.firstImg?.address;
+    const sandImgAddress: string = this.house.sandImg?.address;
+    const pubTime: string = this.house.updateTime;
+    const upTime: string = this.house.updateTime || this.house.createTime;
+    const keyword: string = `${houseName},${houseName}信息,${houseName}价格,${houseName}售楼处电话,${houseName}周边配套,${houseName}开盘时间`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    let location: string;
+    if (this.house.latitude && this.house.longitude) {
+      location = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
+    } else {
+      location = `province=${houseProvinceName};city=${houseCityName};`;
+    }
+    return {
+      title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keyword
+        },
+        {
+          hid: 'location',
+          name: 'location',
+          content: location
+        },
+      ],
+      script: [
+        {
+          innerHTML: ldJson,
+          type: 'application/ld+json',
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script']
     }
   },
   computed: {
@@ -353,13 +410,6 @@ export default Vue.extend({
       const store = that.$store;
       const hotProject: [] = store.state.app.hotProject;
       return hotProject.slice(0, 4);
-    }
-  },
-  beforeMount() {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
-        // 跳转移动端页面
-        this.option.yAxis.show = false;
     }
   },
   methods: {

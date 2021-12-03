@@ -643,7 +643,12 @@ questionTotal, option, phoneNum, isMobile }
     const upTime: string = this.house.updateTime || this.house.createTime;
     const keyword: string = `${houseName},${houseName}怎么样,${houseName}价格,${houseName}售楼处电话,${houseName}户型,${houseName}开盘时间`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
-    const location: string = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
+    let location: string;
+    if (this.house.latitude && this.house.longitude) {
+      location = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
+    } else {
+      location = `province=${houseProvinceName};city=${houseCityName};`;
+    }
     return {
       title,
       meta: [

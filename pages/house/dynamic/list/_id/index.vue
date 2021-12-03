@@ -31,18 +31,18 @@
         <a-pagination
           v-if="isMobile"
           :simple="true"
-          :total="total"
+          :total="pageParam.total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
-          :current="pageNum"
+          :current="pageParam.pageNum"
           @change="pageChange"
         />
         <a-pagination
           v-else
-          :total="total"
+          :total="pageParam.total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
-          :current="pageNum"
+          :current="pageParam.pageNum"
           @change="pageChange"
         />
       </div>
@@ -119,6 +119,7 @@ export default Vue.extend({
       total: 0,
     };
 
+    let project: any;
     const dynamics: any[] = [];
     const id: string = '';
     let isMobile:any;
@@ -128,6 +129,56 @@ export default Vue.extend({
       dynamics,
       DynamicSort,
       isMobile,
+      project,
+    }
+  },
+  head() {
+    const houseName: string = this.project.name;
+    const houseCityName: string = this.project.sysCityByCityId.name;
+    const houseProvinceName: string = this.project.sysProvinceByProvinceId.name;
+    const latLng: string = this.project.latitude + '' + this.project.longitude;
+    const title: string = `${this.project.name}项目最新动态 - 房匠`;
+    const description: string = `房匠网为您提供${houseName}项目信息,${houseName}最新动态信息,了解更多${this.project.name}详细信息,请关注房匠网.`;
+    const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
+    const firstImgAddress: string = this.project.firstImg?.address;
+    const sandImgAddress: string = this.project.sandImg?.address;
+    const pubTime: string = this.project.updateTime;
+    const upTime: string = this.project.updateTime || this.project.createTime;
+    const keyword: string = `${houseName},${houseName}项目信息,${houseName}最新动态`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    let location: string;
+    if (this.project.latitude && this.project.longitude) {
+      location = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
+    } else {
+      location = `province=${houseProvinceName};city=${houseCityName};`;
+    }
+    return {
+      title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keyword
+        },
+        {
+          hid: 'location',
+          name: 'location',
+          content: location
+        },
+      ],
+      script: [
+        {
+          innerHTML: ldJson,
+          type: 'application/ld+json',
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script']
     }
   },
   methods: {
