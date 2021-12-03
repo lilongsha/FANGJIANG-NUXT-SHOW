@@ -1,4 +1,3 @@
-const Timestamp = new Date().getTime();
 const dev = process.env.NODE_ENV !== 'production'
 const scriptUrl = [
   { src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar' }
@@ -11,7 +10,7 @@ export default {
     'render:route': (_url, result) => {
       result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
       result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
-    },
+    }
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -114,19 +113,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // debugger 调试
-    extend(config, { isClient }) {
-      // Run ESLint on save
-      if (isClient) {
-        config.devtool = 'eval-source-map'
-      }
-      // 文件缓存问题
-      config.output.filename = `js/[name].${Timestamp}.js`
-      config.output.chunkFilename = `js/[name].${Timestamp}.js`
-    },
     // 打包样式
-    extractCSS: { allChunks: true },
+    extractCSS: true,
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211203'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt2021120311557'
   }
 }
