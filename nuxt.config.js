@@ -1,4 +1,11 @@
 const Timestamp = new Date().getTime();
+const dev = process.env.NODE_ENV !== 'production'
+const scriptUrl = [
+  { src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar' }
+];
+if (!dev) {
+  scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
+}
 export default {
   hooks: {
     'render:route': (_url, result) => {
@@ -21,11 +28,7 @@ export default {
       { rel: 'shortcut icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' },
       { rel: 'apple-touch-icon', href: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/icon/favicon.ico' }
     ],
-    script: [
-      { src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar' },
-      // 百度统计代码
-      { src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' }
-    ]
+    script: scriptUrl
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -124,6 +127,6 @@ export default {
     // 打包样式
     extractCSS: { allChunks: true },
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211202'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/nuxt_20211203'
   }
 }

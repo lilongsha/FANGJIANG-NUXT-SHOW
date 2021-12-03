@@ -132,7 +132,16 @@
           <!-- pagination -->
           <div class="w-full text-center mt-14">
             <a-pagination
-              :simple="isMobile"
+              v-if="isMobile"
+              :simple="true"
+              :total="total"
+              :show-total="total => `共计 ${total} 条`"
+              :page-size="10"
+              :current="pageNum"
+              @change="pageChange"
+            />
+            <a-pagination
+              v-else
               :total="total"
               :show-total="total => `共计 ${total} 条`"
               :page-size="10"

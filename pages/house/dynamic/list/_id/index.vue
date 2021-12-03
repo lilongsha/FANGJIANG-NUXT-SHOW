@@ -29,11 +29,20 @@
     <div class="sm:w-full lg:container">
       <div class="text-right sm:w-full lg:w-3/4">
         <a-pagination
-          :simple="isMobile"
-          :total="pageParam.total"
+          v-if="isMobile"
+          :simple="true"
+          :total="total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
-          :current="pageParam.pageNum"
+          :current="pageNum"
+          @change="pageChange"
+        />
+        <a-pagination
+          v-else
+          :total="total"
+          :show-total="total => `共计 ${total} 条`"
+          :page-size="10"
+          :current="pageNum"
           @change="pageChange"
         />
       </div>
