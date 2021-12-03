@@ -157,7 +157,7 @@ export default Vue.extend({
 }
 
 .box {
-  @apply flex sm:w-full sm:px-4 lg:container flex-col lg:h-[260px] mx-auto sm:mt-4 lg:mt-14;
+  @apply flex sm:w-full sm:px-4 lg:container flex-col mx-auto sm:mt-4 lg:mt-14;
 }
 
 .box .title {
@@ -173,11 +173,11 @@ export default Vue.extend({
 }
 
 .content {
-  @apply lg:h-52 flex sm:flex-col sm:px-4 lg:flex-row sm:space-y-4 lg:space-x-11 mt-4;
+  @apply sm:flex sm:flex-col sm:px-4 sm:space-y-4 mt-4 lg:grid lg:grid-cols-4 lg:grid-flow-row lg:gap-y-4;
 }
 
 .content .item {
-  @apply sm:w-full sm:h-48 lg:w-72 lg:h-full;
+  @apply lg:h-52 sm:w-full sm:h-48 lg:w-72;
 }
 
 .content .item a {
