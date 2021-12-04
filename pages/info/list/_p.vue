@@ -135,27 +135,25 @@
       <!-- <div class="sticky w-1/3"></div> -->
     </div>
     <!-- pagination -->
-          <div class="w-full mt-4 text-center">
-            <a-pagination
-              v-if="isMobile"
-              size="small"
-              :total="total"
-              :show-total="total => `共计 ${total} 条`"
-              :page-size="10"
-              :current="pageNum"
-              :item-render="itemRender"
-              @change="pageChange"
-            />
-            <a-pagination
-              v-else
-              :total="total"
-              :show-total="total => `共计 ${total} 条`"
-              :page-size="10"
-              :current="pageNum"
-              :item-render="itemRender"
-              @change="pageChange"
-            />
-          </div>
+    <div class="w-full mt-4 text-center">
+      <a-pagination
+        v-if="isMobile"
+        size="small"
+        :total="total"
+        :show-total="total => `共计 ${total} 条`"
+        :page-size="10"
+        :current="pageNum"
+        :item-render="itemRender"
+      />
+      <a-pagination
+        v-else
+        :total="total"
+        :show-total="total => `共计 ${total} 条`"
+        :page-size="10"
+        :current="pageNum"
+        :item-render="itemRender"
+      />
+    </div>
   </div>
 </template>
 
@@ -368,12 +366,12 @@ export default Vue.extend({
     }
   },
   methods: {
-    async pageChange(page: number) {
-      this.pageNum = page;
-      await this.getNewsList();
-      const anchor:any = this.$el.querySelector('#list')
-      anchor.scrollIntoView({ behavior: 'smooth' })
-    },
+    // async pageChange(page: number) {
+    //   this.pageNum = page;
+    //   await this.getNewsList();
+    //   const anchor:any = this.$el.querySelector('#list')
+    //   anchor.scrollIntoView({ behavior: 'smooth' })
+    // },
     async getNewsList () {
       const newsParam: any = {
         data: {
@@ -429,7 +427,7 @@ export default Vue.extend({
         }
       }
       if (type === "prev") {
-        const path = `/info/list/p${page + 1},type-${this.sort}`;
+        const path = `/info/list/p${page},type-${this.sort}`;
         if (originalElement.data) {
           Object.assign(originalElement.data, {
             attrs: {
@@ -454,7 +452,7 @@ export default Vue.extend({
       }
 
       if (type === "next") {
-        const path = `/info/list/p${page - 1},type-${this.sort}`;
+        const path = `/info/list/p${page},type-${this.sort}`;
         if (originalElement.data) {
           Object.assign(originalElement.data, {
             attrs: {
