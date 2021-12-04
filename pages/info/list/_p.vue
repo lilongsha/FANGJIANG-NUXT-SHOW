@@ -98,7 +98,7 @@
           </div>
           <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg">
             <span>
-              <a :href="`/info/list?type=${item.key}`" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
+              <a :href="`/info/list/p1,type-${item.key}.html`" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
             </span>
           </div>
         </div>
@@ -129,15 +129,21 @@
               </div>
             </div>
           </div>
-          <!-- pagination -->
-          <div class="w-full text-center mt-14">
+        </div>
+      </div>
+      <!-- ad -->
+      <!-- <div class="sticky w-1/3"></div> -->
+    </div>
+    <!-- pagination -->
+          <div class="w-full mt-4 text-center">
             <a-pagination
               v-if="isMobile"
-              :simple="true"
+              size="small"
               :total="total"
               :show-total="total => `共计 ${total} 条`"
               :page-size="10"
               :current="pageNum"
+              :item-render="itemRender"
               @change="pageChange"
             />
             <a-pagination
@@ -146,14 +152,10 @@
               :show-total="total => `共计 ${total} 条`"
               :page-size="10"
               :current="pageNum"
+              :item-render="itemRender"
               @change="pageChange"
             />
           </div>
-        </div>
-      </div>
-      <!-- ad -->
-      <!-- <div class="sticky w-1/3"></div> -->
-    </div>
   </div>
 </template>
 
@@ -161,13 +163,46 @@
 import Vue from 'vue'
 import { Api as NewsApi, NEWS_SORT } from '~/api/model/newsModel'
 import { getDataResult } from '~/utils/response/util'
+const fields: string[] = [
+  'type'
+]
 
 export default Vue.extend({
   name: 'InfoList',
   async asyncData({ $axios, route, store, req }) {
+    let pageNum = 1;
     const userAgent = req?.headers['user-agent'] || '';
+    let query:any;
+    let params = route.params?.p;
+    if (params) {
+      if (params.endsWith('.html')) {
+        params = params.split('.')[0];
+      }
+      const paramsArray = params.split(',');
+      query = {};
+      paramsArray.forEach((item:string) => {
+        if (item && item.indexOf('-')){
+          const p = item.split('-');
+          if (fields.includes(p[0])) {
+            const key = p[0]
+            const value = p[1];
+            let temp:any;
+            // eslint-disable-next-line prefer-const
+            temp = {};
+            temp[key] = value;
+            Object.assign(query, temp);
+          }
+        }
+        if (item && item.startsWith('p')) {
+          pageNum = Number(item.substring(1));
+        }
+      })
+    }
     
-    const query: any = route.query;
+    if (!query) {
+      query = {};
+    }
+
     const sort: number = Number(query.type) || 0;
 
     const getNewsTop = async () => {
@@ -194,7 +229,7 @@ export default Vue.extend({
           cityId: store.state.app.cityId,
         },
         page: {
-          pageNum: 0,
+          pageNum: pageNum - 1,
           pageSize: 10,
         },
         sort: {
@@ -239,6 +274,7 @@ export default Vue.extend({
       total,
       sort,
       isMobile,
+      pageNum,
     }
   },
   data () {
@@ -367,13 +403,82 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       }
     },
-    // async changeSort(flag: string) {
-    //   this.sort = flag;
-    //   this.pageNum = 1;
-    //   await this.getNewsList();
-    //   const anchor:any = this.$el.querySelector('#list')
-    //   anchor.scrollIntoView({ behavior: 'smooth' })
-    // }
+    itemRender (page: any, type: any, originalElement: any) {
+      if (type === "page") {
+        const path = `/info/list/p${page},type-${this.sort}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      if (type === "prev") {
+        const path = `/info/list/p${page + 1},type-${this.sort}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+
+      if (type === "next") {
+        const path = `/info/list/p${page - 1},type-${this.sort}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      return originalElement;
+    }
   }
 })
 </script>
