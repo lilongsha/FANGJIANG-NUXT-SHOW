@@ -90,11 +90,11 @@ export const actions = {
         await store.commit('app/URL_SET', '/search')
         await store.commit('app/BREADCRUMB_RE_SET', '新房')
         break;
-      case 'house-list':
+      case 'house-list-p':
         await store.commit('app/TITLE_SET', '新房')
         await store.commit('app/URL_SET', '')
         break;
-      case 'info-list':
+      case 'info-list-p':
         await store.commit('app/TITLE_SET', '资讯')
         await store.commit('app/URL_SET', '')
         break;

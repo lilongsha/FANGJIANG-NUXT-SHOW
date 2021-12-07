@@ -12,20 +12,22 @@
             <!-- 区域 -->
             <div :class="select.areaId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '1'">
               <span>区域</span>
-              <div v-show="select.areaId.length > 0" class="flex flex-row items-center" @click.stop="select['areaId'] = []">
-                <span>({{ select.areaId.length }})</span>
-                <svg
-                  t="1631524675623"
-                  class="w-2 h-2 transition-all text-fjBlue-100"
-                  fill="currentColor"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="4701"
-                  width="128"
-                  height="128">
-                  <path d="M512.000006 0a511.943117 511.943117 0 1 0 0.056883 1024A511.943117 511.943117 0 0 0 512.000006 0z m213.992223 644.593267a57.678925 57.678925 0 0 1-81.455838 81.569604L512.000006 593.626486l-132.65015 132.536385a57.394512 57.394512 0 0 1-81.455838 0 57.678925 57.678925 0 0 1 0-81.569604l132.536385-132.422619-132.536385-132.65015A57.678925 57.678925 0 1 1 379.463621 297.950894L512.000006 430.487279l132.65015-132.65015a57.678925 57.678925 0 1 1 81.569604 81.569604L593.56961 511.943117l132.422619 132.65015z" p-id="4702" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
-                </svg>
+              <div v-show="select.areaId.length > 0" @click.stop="">
+                <a :href="getClearUrl('areaId')" class="flex flex-row items-center">
+                  <span>({{ select.areaId.length }})</span>
+                  <svg
+                    t="1631524675623"
+                    class="w-2 h-2 transition-all text-fjBlue-100"
+                    fill="currentColor"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="4701"
+                    width="128"
+                    height="128">
+                    <path d="M512.000006 0a511.943117 511.943117 0 1 0 0.056883 1024A511.943117 511.943117 0 0 0 512.000006 0z m213.992223 644.593267a57.678925 57.678925 0 0 1-81.455838 81.569604L512.000006 593.626486l-132.65015 132.536385a57.394512 57.394512 0 0 1-81.455838 0 57.678925 57.678925 0 0 1 0-81.569604l132.536385-132.422619-132.536385-132.65015A57.678925 57.678925 0 1 1 379.463621 297.950894L512.000006 430.487279l132.65015-132.65015a57.678925 57.678925 0 1 1 81.569604 81.569604L593.56961 511.943117l132.422619 132.65015z" p-id="4702" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                  </svg>
+                </a>
               </div>
               <svg
                 :class="locationType === '1' ? 'rotate-180' : ''"
@@ -49,20 +51,22 @@
             <!-- 商圈 -->
             <div :class="select.tradingId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '2'">
               <span>商圈</span>
-              <div v-show="select.tradingId.length > 0" class="flex flex-row items-center" @click.stop="select['tradingId'] = []">
-                <span>({{ select.tradingId.length }})</span>
-                <svg
-                  t="1631524675623"
-                  class="w-2 h-2 transition-all text-fjBlue-100"
-                  fill="currentColor"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="4701"
-                  width="128"
-                  height="128">
-                  <path d="M512.000006 0a511.943117 511.943117 0 1 0 0.056883 1024A511.943117 511.943117 0 0 0 512.000006 0z m213.992223 644.593267a57.678925 57.678925 0 0 1-81.455838 81.569604L512.000006 593.626486l-132.65015 132.536385a57.394512 57.394512 0 0 1-81.455838 0 57.678925 57.678925 0 0 1 0-81.569604l132.536385-132.422619-132.536385-132.65015A57.678925 57.678925 0 1 1 379.463621 297.950894L512.000006 430.487279l132.65015-132.65015a57.678925 57.678925 0 1 1 81.569604 81.569604L593.56961 511.943117l132.422619 132.65015z" p-id="4702" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
-                </svg>
+              <div v-show="select.tradingId.length > 0" @click.stop="">
+                <a :href="getClearUrl('tradingId')" class="flex flex-row items-center">
+                  <span>({{ select.tradingId.length }})</span>
+                  <svg
+                    t="1631524675623"
+                    class="w-2 h-2 transition-all text-fjBlue-100"
+                    fill="currentColor"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="4701"
+                    width="128"
+                    height="128">
+                    <path d="M512.000006 0a511.943117 511.943117 0 1 0 0.056883 1024A511.943117 511.943117 0 0 0 512.000006 0z m213.992223 644.593267a57.678925 57.678925 0 0 1-81.455838 81.569604L512.000006 593.626486l-132.65015 132.536385a57.394512 57.394512 0 0 1-81.455838 0 57.678925 57.678925 0 0 1 0-81.569604l132.536385-132.422619-132.536385-132.65015A57.678925 57.678925 0 1 1 379.463621 297.950894L512.000006 430.487279l132.65015-132.65015a57.678925 57.678925 0 1 1 81.569604 81.569604L593.56961 511.943117l132.422619 132.65015z" p-id="4702" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                  </svg>
+                </a>
               </div>
               <svg
                 :class="locationType === '2' ? 'rotate-180' : ''"
@@ -86,20 +90,22 @@
             <!-- 地铁 -->
             <div :class="select.stationId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '3'">
               <span>地铁</span>
-              <div v-show="select.stationId.length > 0" class="flex flex-row items-center" @click="select['stationId'] = []">
-                <span>({{ select.stationId.length }})</span>
-                <svg
-                  t="1631524675623"
-                  class="w-2 h-2 transition-all text-fjBlue-100"
-                  fill="currentColor"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="4701"
-                  width="128"
-                  height="128">
-                  <path d="M512.000006 0a511.943117 511.943117 0 1 0 0.056883 1024A511.943117 511.943117 0 0 0 512.000006 0z m213.992223 644.593267a57.678925 57.678925 0 0 1-81.455838 81.569604L512.000006 593.626486l-132.65015 132.536385a57.394512 57.394512 0 0 1-81.455838 0 57.678925 57.678925 0 0 1 0-81.569604l132.536385-132.422619-132.536385-132.65015A57.678925 57.678925 0 1 1 379.463621 297.950894L512.000006 430.487279l132.65015-132.65015a57.678925 57.678925 0 1 1 81.569604 81.569604L593.56961 511.943117l132.422619 132.65015z" p-id="4702" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
-                </svg>
+              <div v-show="select.stationId.length > 0" @click.stop="">
+                <a :href="getClearUrl('stationId')" class="flex flex-row items-center">
+                  <span>({{ select.stationId.length }})</span>
+                  <svg
+                    t="1631524675623"
+                    class="w-2 h-2 transition-all text-fjBlue-100"
+                    fill="currentColor"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="4701"
+                    width="128"
+                    height="128">
+                    <path d="M512.000006 0a511.943117 511.943117 0 1 0 0.056883 1024A511.943117 511.943117 0 0 0 512.000006 0z m213.992223 644.593267a57.678925 57.678925 0 0 1-81.455838 81.569604L512.000006 593.626486l-132.65015 132.536385a57.394512 57.394512 0 0 1-81.455838 0 57.678925 57.678925 0 0 1 0-81.569604l132.536385-132.422619-132.536385-132.65015A57.678925 57.678925 0 1 1 379.463621 297.950894L512.000006 430.487279l132.65015-132.65015a57.678925 57.678925 0 1 1 81.569604 81.569604L593.56961 511.943117l132.422619 132.65015z" p-id="4702" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                  </svg>
+                </a>
               </div>
               <svg
                 :class="locationType === '3' ? 'rotate-180' : ''"
@@ -126,18 +132,22 @@
         <div class="w-full flex flex-row py-4 justify-end border-gray-300 border-b-[1px] text-xs text-gray-700">
           <!-- 区域 -->
           <div :class="locationType === '1' ? 'w-11/12' : 'h-0 w-0'" class="grid grid-flow-row grid-cols-12 gap-4 overflow-hidden transition-all auto-rows-auto">
-            <span v-for="item in areas" :key="item.id" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('areaId', item.id)">{{ item.name }}</span>
+            <div v-for="item in areas" :key="item.id">
+              <a :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'areaId')">{{ item.name }}</a>
+            </div>
           </div>
           <!-- 商圈 -->
           <div :class="locationType === '2' ? 'w-11/12' : 'h-0 w-0'" class="grid grid-flow-row grid-cols-8 gap-4 overflow-hidden transition-all auto-rows-auto">
-            <span v-for="item in tradings" :key="item.id" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('tradingId', item.id)">{{ item.name }}</span>
+            <div v-for="item in tradings" :key="item.id" >
+              <a :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'tradingId')">{{ item.name }}</a>
+            </div>
           </div>
           <!-- 地铁 -->
           <div :class="locationType === '3' ? 'w-11/12' : 'h-0 w-0'" class="overflow-hidden transition-all ">
             <div v-for="line in metroLines" :key="line.id" class="flex flex-row">
               <span class="w-1/12 mr-4 text-gray-600">{{ line.name }}</span>
               <div class="w-11/12 space-x-4">
-                <span v-for="station in line.stations" :key="station.id" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('stationId', station.id)">{{ station.name }}</span>
+                <a v-for="station in line.stations" :key="station.id" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" :href="getUrl(station.id, 'stationId')">{{ station.name }}</a>
               </div>
             </div>
           </div>
@@ -149,10 +159,11 @@
           <div class="w-1/12 text-xs font-semibold">单价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in priceList" :key="index" class="flex flex-row mr-4">
-              <div v-if="item.title !== null" class="flex flex-row whitespace-nowrap">
-                <input v-model="select.price" :title="item.title" type="radio" name="price" :value="index" class="w-3 h-4 mr-1" @change="selectPrice(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkPrice(index)">{{ item.title }}</label >
-              </div>
+              <a v-if="item.title !== null" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'price')">
+                <img v-if="select.price === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
               <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowPrice" type="number" min="0" class="w-16" @change="inputPrice">
                 <label class="inline-block whitespace-nowrap">-</label>
@@ -169,10 +180,11 @@
           <div class="w-1/12 text-xs font-semibold">总价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in totalPriceList" :key="index" class="flex flex-row mr-4">
-              <div v-if="item.title !== null"  class="flex flex-row whitespace-nowrap">
-                <input v-model="select.totalPrice" :title="item.title" type="radio" name="totalPrice" :value="index" class="w-3 h-4 mr-1" @change="selectTotalPrice(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkTotalPrice(index)">{{ item.title }}</label >
-              </div>
+              <a v-if="item.title !== null" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
+                <img v-if="select.totalPrice === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
               <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
                 <label class="inline-block whitespace-nowrap">-</label>
@@ -189,10 +201,11 @@
           <div class="w-1/12 text-xs font-semibold">面积</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in acreageList" :key="index" class="flex flex-row mr-4">
-              <div v-if="item.title !== null"  class="flex flex-row whitespace-nowrap">
-                <input v-model="select.acreage" :title="item.title" type="radio" name="area" :value="index" class="w-3 h-4 mr-1" @change="selectAcreage(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkAcreage(index)">{{ item.title }}</label >
-              </div>
+              <a v-if="item.title !== null" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
+                <img v-if="select.acreage === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
 
               <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowAcreage" type="number" min="0" class="w-16" @change="inputAcreage">
@@ -210,10 +223,11 @@
           <div class="w-1/12 text-xs font-semibold">户型</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row mr-4">
-              <div class="flex flex-row whitespace-nowrap">
-                <input v-model="select.houseType" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectHouseType(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkHouseType(index)">{{ item.title }}</label >
-              </div>
+              <a class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
+                <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
           </div>
         </div>
@@ -224,10 +238,11 @@
           <div class="w-1/12 text-xs font-semibold">类型</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in projectType" :key="index" class="flex flex-row mr-4">
-              <div class="flex flex-row whitespace-nowrap">
-                <input v-model="select.projectType" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectProjectType(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkProjectType(index)">{{ item.title }}</label >
-              </div>
+              <a class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
+                <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
           </div>
         </div>
@@ -239,10 +254,11 @@
           <!-- flex flex-row flex-wrap items-center w-11/12 h-full text-xs text-gray-500 -->
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in saleState" :key="index" class="flex flex-row mr-4">
-              <div class="flex flex-row whitespace-nowrap">
-                <input v-model="select.saleState" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectSaleState(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkSaleState(index)">{{ item.title }}</label >
-              </div>
+              <a class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
+                <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
           </div>
         </div>
@@ -762,12 +778,12 @@
     <div class="w-full text-right">
       <a-pagination
         v-if="isMobile"
-        :simple="true"
+        size="small"
         :total="total"
         :show-total="total => `共计 ${total} 条`"
         :page-size="10"
         :current="pageNum"
-        @change="pageChange"
+        :item-render="itemRender"
       />
       <a-pagination
         v-else
@@ -775,7 +791,7 @@
         :show-total="total => `共计 ${total} 条`"
         :page-size="10"
         :current="pageNum"
-        @change="pageChange"
+        :item-render="itemRender"
       />
     </div>
     <!--  -->
@@ -796,16 +812,19 @@ import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '~/api/model/tradingAreaModel';
 import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
+type fieldType = 'areaId'|'tradingId'|'stationId'|'price'|'lowPrice'|'highPrice'|'totalPrice'|'lowTotalPrice'|'highTotalPrice'|'acreage'|'lowAcreage'|'heightAcreage'|'houseType'|'projectType'|'saleState'|'sortType';
 const fields: string[] = [
   'areaId', 
   'tradingId', 
   'stationId', 
-  'acreage',
-  'houseType'
+  'houseType',
+  'projectType',
+  'saleState'
 ]
 const fields2: string[] = [
   'price', 
   'totalPrice', 
+  'acreage',
   'lowPrice',
   'highPrice',
   'lowTotalPrice',
@@ -819,6 +838,8 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, store, route, req }) {
+    const curPath = route.path;
+
     const userAgent = req?.headers['user-agent'] || '';
     let isMobile:any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
@@ -868,16 +889,51 @@ export default Vue.extend({
       metroLines = getDataResult(metroLineResult);
     }
 
-    const query = route.query
+    // const query = route.query
+    let query:any;
+    let params = route.params?.p;
+    let pageNum = 1;
+    if (params) {
+      if (params.endsWith('.html')) {
+        params = params.split('.')[0];
+      }
+      const paramsArray = params.split(',');
+      query = {};
+      paramsArray.forEach((item:string) => {
+        if (item && item.indexOf('-')){
+          const p = item.split('-');
+          if (fields.includes(p[0]) || fields2.includes(p[0])) {
+            const key = p[0]
+            const value = p[1];
+            let temp:any;
+            // eslint-disable-next-line prefer-const
+            temp = {};
+            temp[key] = value;
+            Object.assign(query, temp);
+          }
+        }
+        if (item && item.search(/p[0-9]+/) >= 0) {
+          pageNum = Number(item.substring(1));
+        }
+      })
+    }
+    if (!query) {
+      query = {};
+    }
+    
     const select: any = {};
     fields.forEach((item) => {
       if (query[item]) {
-        select[item] = (query[item] as string).split(',')
+        select[item] = (query[item] as string).split('s')
+      } else {
+        select[item] = [];
       }
     });
     fields2.forEach((item) => {
-      if (query?.item) {
-        select[item] = query?.item as string
+      if (query[item]) {
+        select[item] = query[item] as string
+      } else {
+        select[item] = '0';
       }
     });
 
@@ -902,6 +958,10 @@ export default Vue.extend({
       condition.type = select.projectType;
       condition.saleState = select.saleState;
       condition.rooms = select.houseType;
+      if (select.price) {
+        condition.lowPrice = priceList[select.price].lowPrice;
+        condition.highPrice = priceList[select.price].highPrice;
+      }
       const sort: any = {};
       if (select.sortType === '1') {
         sort.desc = ['price']
@@ -921,7 +981,7 @@ export default Vue.extend({
       const param: any = {
         data: condition,
         page: {
-          pageNum: 0,
+          pageNum: pageNum - 1,
           pageSize: 10
         },
         sort,
@@ -936,6 +996,9 @@ export default Vue.extend({
     await getList();
 
     return {
+      curPath,
+      pageNum,
+      select,
       areas,
       metroLines,
       tradings,
@@ -972,7 +1035,9 @@ export default Vue.extend({
     const selectMenuM: string = '';
     const selectMenuLine: string = '';
     const selectMenuPrice: string = '1';
+    const curPath: string = '';
     return {
+      curPath,
       areas,
       projectList,
       locationType: '1', // 1: 区域 2:商圈 3: 地铁
@@ -1052,22 +1117,22 @@ export default Vue.extend({
       deep: true,
     }
   },
-  mounted() {
-    // route 获取参数设置到data中
-    const query = this.$route.query
-    const that = this;
-    fields.forEach((item) => {
-      if (query[item]) {
-        (that.select as any)[item] = (query[item] as string).split(',')
-      }
-    });
-    fields2.forEach((item) => {
-      if (query?.item) {
-        (that.select as any)[item] = query?.item as string
-      }
-    });
-    // await this.getList();
-  },
+  // mounted() {
+  //   // route 获取参数设置到data中
+  //   const query = this.$route.query
+  //   const that = this;
+  //   fields.forEach((item) => {
+  //     if (query[item]) {
+  //       (that.select as any)[item] = (query[item] as string).split(',')
+  //     }
+  //   });
+  //   fields2.forEach((item) => {
+  //     if (query?.item) {
+  //       (that.select as any)[item] = query?.item as string
+  //     }
+  //   });
+  //   // await this.getList();
+  // },
   methods: {
     cancel() {
       this.select = {
@@ -1096,12 +1161,6 @@ export default Vue.extend({
         this.selectMenuM = flag;
       }
       
-    },
-    async pageChange(page: number) {
-      this.pageNum = page;
-      await this.getList();
-      const anchor:any = this.$el.querySelector('#list')
-      anchor.scrollIntoView({ behavior: 'smooth' })
     },
     getPriceDate(time: string) {
       const date = new Date(time);
@@ -1467,6 +1526,168 @@ export default Vue.extend({
     },
     clearSort() {
       this.select.sortType = '';
+    },
+    itemRender (page: any, type: any, originalElement: any) {
+      const fullPath = this.curPath;
+      let path;
+      if (fullPath.search(/p[0-9],*/) >= 0) {
+	      path = fullPath.replace(/p[0-9],*/, `p${page},`)
+      } else {
+        path = fullPath.replace('house/list/', `house/list/p${page},`)
+      }
+      if (type === "page") {
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      if (type === "prev") {
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+
+      if (type === "next") {
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      return originalElement;
+    },
+    getUrl(value: string, flag: fieldType) {
+      let path = '/house/list/p1,';
+      fields.forEach((field) => {
+        if (field === flag) {
+          if (!this.select[flag]) {
+            path = path + flag + '-' + value + ',';
+          } else if (value === '0') {
+            return path;
+          } else if (this.select[flag] instanceof Array) {
+            const params:any = {};
+            (this.select[flag] as []).forEach((item) => {
+              params[item] = '';
+            })
+            if (this.select[flag] && (this.select[flag] as string[]).includes(value)) {
+              const keys = Object.keys(params);
+              const i = keys.indexOf(value);
+              keys.splice(i, 1);
+              if (keys.length > 0) {
+                let param = keys.toString();
+                param = param.replaceAll(',', 's');
+                path = path + flag + '-' + param + ',';
+              }
+            } else {
+              params[value] = '';
+              const keys = Object.keys(params);
+              if (keys.length > 0) {
+                let param = keys.toString();
+                param = param.replaceAll(',', 's');
+                path = path + flag + '-' + param + ',';
+              }
+            }
+          }
+        } else {
+          const otherField: fieldType = field as fieldType;
+          if (this.select[otherField] && (this.select[otherField] as []).length > 0) {
+            const params:any = {};
+            (this.select[otherField] as []).forEach((item) => {
+              params[item] = '';
+            })
+            const keys = Object.keys(params);
+            if (keys.length > 0) {
+              let param = keys.toString();
+              param = param.replaceAll(',', 's');
+              path = path + field + '-' + param + ',';
+            }
+          }
+        }
+      })
+      fields2.forEach((field) => {
+        const curField: fieldType = field as fieldType;
+        if (flag === field) {
+          if (value === '0') {
+            return path;
+          } else {
+            const i = Number(value);
+            path = path + field + '-' + i + ','; 
+          }
+        } else if (this.select[curField] && this.select[curField] !== '') {
+          if (this.select[curField] !== '0') {
+            path = path + field + '-' + this.select[curField] + ',';
+          }
+        }
+      })
+      return path;
+    },
+    getClearUrl(value: fieldType) {
+      let path = '/house/list/p1,';
+      fields.forEach((field) => {
+        if (field !== value) {
+          const params: any = {};
+          const curField: fieldType = field as fieldType;
+          if (this.select[curField] && (this.select[curField] as []).length > 0) {
+            (this.select[curField] as []).forEach((item) => {
+              params[item] = '';
+            })
+            path = path + field + '-' + Object.keys(params).toString().replaceAll(',', 's') + ','
+          }
+        }
+      })
+
+      return path;
     }
   }
 })
