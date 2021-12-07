@@ -992,6 +992,7 @@ export default Vue.extend({
         },
         sort,
       };
+      console.log('req param::::', param)
       const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
       if (result.code === 200) {
         projectList = getDataResult(result)
@@ -1632,15 +1633,15 @@ export default Vue.extend({
               keys.splice(i, 1);
               if (keys.length > 0) {
                 let param = keys.toString();
-                param = param.replaceAll(',', 's');
+                param = param.replace(/,/g, 's');
                 path = path + flag + '-' + param + ',';
               }
             } else {
               params[value] = '';
               const keys = Object.keys(params);
               if (keys.length > 0) {
-                let param = keys.toString();
-                param = param.replaceAll(',', 's');
+                let param:string = keys.toString();
+                param = param.replace(/,/g, 's');
                 path = path + flag + '-' + param + ',';
               }
             }
@@ -1655,7 +1656,7 @@ export default Vue.extend({
             const keys = Object.keys(params);
             if (keys.length > 0) {
               let param = keys.toString();
-              param = param.replaceAll(',', 's');
+              param = param.replace(/,/g, 's');
               path = path + field + '-' + param + ',';
             }
           }
@@ -1688,7 +1689,9 @@ export default Vue.extend({
             (this.select[curField] as []).forEach((item) => {
               params[item] = '';
             })
-            path = path + field + '-' + Object.keys(params).toString().replaceAll(',', 's') + ','
+            let param = Object.keys(params).toString()
+            param = param.replace(/,/g, 's');
+            path = path + field + '-' + param + ','
           }
         }
       })
