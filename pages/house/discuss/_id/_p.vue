@@ -46,7 +46,7 @@
       <div class="text-right sm:w-full lg:w-3/4">
         <a-pagination
           v-if="isMobile"
-          :simple="true"
+          size="small"
           :total="pageParam.total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
