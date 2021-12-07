@@ -47,19 +47,19 @@
         <a-pagination
           v-if="isMobile"
           :simple="true"
-          :total="total"
+          :total="pageParam.total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
-          :current="pageNum"
-          @change="pageChange"
+          :current="pageParam.pageNum"
+          :item-render="itemRender"
         />
         <a-pagination
           v-else
-          :total="total"
+          :total="pageParam.total"
           :show-total="total => `共计 ${total} 条`"
           :page-size="10"
-          :current="pageNum"
-          @change="pageChange"
+          :current="pageParam.pageNum"
+          :item-render="itemRender"
         />
       </div>
     </div>
@@ -77,15 +77,22 @@ export default Vue.extend({
   name: 'DiscussList',
   components: {
   },
-  async asyncData({ $axios, params, store, req }) {
+  async asyncData({ $axios, route, store, req }) {
     const userAgent = req?.headers['user-agent'] || '';
-    let id: string = params.id;
-    if (id.endsWith('.html')) {
-      id = id.replace('.html', '');
+    let pageNum = 1;
+    let p = route.params?.p;
+    const id = route.params?.id;
+    if (p) {
+      if (p.endsWith('.html')) {
+        p = p.split('.')[0];
+      }
+    }
+    if (p && p.startsWith('p')) {
+      pageNum = Number(p.substring(1));
     }
     const pageParam = {
       pageSize: 10,
-      pageNum: 1,
+      pageNum,
       total: 0
     }
 
@@ -124,7 +131,7 @@ export default Vue.extend({
       id,
       questions,
       project,
-      isMobile
+      isMobile,
     }
   },
   data () {
@@ -150,21 +157,82 @@ export default Vue.extend({
     showMore(id: string) {
       this.showMoreId = id;
     },
-    async getList() {
-      const result = await getQuestions(this.$axios, this.id, this.pageParam.pageSize, this.pageParam.pageNum - 1);
-      if (result.code === 200) {
-        const { content, page } = getPageResult(result);
-        this.pageParam.total = page.totalElements;
-        this.pageParam.pageNum = page.number + 1;
-        this.questions = content;
+    itemRender (page: any, type: any, originalElement: any) {
+      if (type === "page") {
+        const path = `/house/discuss/${this.id}/p${page}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
       }
-    },
-    async pageChange(page: number) {
-      this.pageParam.pageNum = page;
-      await this.getList();
-      const anchor:any = this.$el.querySelector('#list')
-      anchor.scrollIntoView({ behavior: 'smooth' })
-    },
+      if (type === "prev") {
+        const path = `/house/discuss/${this.id}/p${page}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+
+      if (type === "next") {
+        const path = `/house/discuss/${this.id}/p${page}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      return originalElement;
+    }
   }
 })
 </script>

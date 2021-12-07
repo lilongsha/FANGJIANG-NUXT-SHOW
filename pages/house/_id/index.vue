@@ -277,7 +277,7 @@
             <!-- 标题内容 -->
             <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态</div>
             <!-- 全部 -->
-            <a :href="`/house/dynamic/list/${house.id}.html`" target="_blank">
+            <a :href="`/house/dynamic/${house.id}/p1`" target="_blank">
               <div class="text-sm text-gray-500">更多({{ totalDynamic }})></div>
             </a>
           </div>
@@ -304,7 +304,7 @@
             <!-- 标题内容 -->
             <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</div>
             <!-- 全部 -->
-            <a :href="`/house/discuss/list/${house.id}.html`" target="_blank">
+            <a :href="`/house/discuss/${house.id}/p1`" target="_blank">
               <div class="text-sm text-gray-500">更多({{ questionTotal }})></div>
             </a>
           </div>
