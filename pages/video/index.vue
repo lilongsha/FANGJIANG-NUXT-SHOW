@@ -15,7 +15,7 @@
     <div v-if="projectData.length > 0" class="box">
       <div class="title">
         <span>项目实拍</span>
-        <a href="/video/list?sort=1">查看更多</a>
+        <a href="/video/list/p1,sort-1">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in projectData" :key="item.id" class="item group">
@@ -33,7 +33,7 @@
     <div v-if="roomData.length > 0" class="box">
       <div class="title">
         <span>样板间赏析</span>
-        <a href="/video/list?sort=2">查看更多</a>
+        <a href="/video/list/p1,sort-2">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in roomData" :key="item.id" class="item group">
@@ -51,7 +51,7 @@
     <div v-if="compareData.length > 0" class="box">
       <div class="title">
         <span>项目对比</span>
-        <a href="/video/list?sort=3">查看更多</a>
+        <a href="/video/list/p1,sort-3">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in compareData" :key="item.id" class="item group">
@@ -69,7 +69,7 @@
     <div v-if="policyData.length > 0" class="box">
       <div class="title">
         <span>楼市政策</span>
-        <a href="/video/list?sort=4">查看更多</a>
+        <a href="/video/list/p1,sort-4">查看更多</a>
       </div>
       <div class="content">
         <div v-for="item in policyData" :key="item.id" class="item group">

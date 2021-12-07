@@ -29,7 +29,7 @@
         :show-total="total => `共计 ${total} 条`"
         :page-size="12"
         :current="pageNum"
-        @change="pageChange"
+        :item-render="itemRender"
       />
       <a-pagination
         v-else
@@ -37,7 +37,7 @@
         :show-total="total => `共计 ${total} 条`"
         :page-size="12"
         :current="pageNum"
-        @change="pageChange"
+        :item-render="itemRender"
       />
     </div>
   </div>
@@ -50,9 +50,33 @@ export default Vue.extend({
   name: "Video",
   async asyncData({ $axios, store, route, req }) {
     const userAgent = req?.headers['user-agent'] || '';
+    let query:any;
+    let params = route.params?.p;
+    let pageNum = 1;
+    if (params) {
+      if (params.endsWith('.html')) {
+        params = params.split('.')[0];
+      }
+      const paramsArray = params.split(',');
+      query = {};
+      paramsArray.forEach((item:string) => {
+        if (item && item.indexOf('-')){
+          const p = item.split('-');
+          const key = p[0]
+          const value = p[1];
+          let temp:any;
+          // eslint-disable-next-line prefer-const
+          temp = {};
+          temp[key] = value;
+          Object.assign(query, temp);
+        }
+        if (item && item.search(/p[0-9]+/) >= 0) {
+          pageNum = Number(item.substring(1));
+        }
+      })
+    }
 
     const cityId = store.state.app.cityId;
-    const query = route.query;
     const sort = query.sort;
 
     const param: any = {
@@ -61,7 +85,7 @@ export default Vue.extend({
         sort,
       },
       page: {
-        pageNum: 0,
+        pageNum: pageNum - 1,
         pageSize: 12,
       },
     }
@@ -80,7 +104,7 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
-    return { cityId, list, sort, isMobile, total };
+    return { cityId, list, sort, isMobile, total, pageNum };
   },
   data() {
     let isMobile: any;
@@ -144,6 +168,82 @@ export default Vue.extend({
 
       const anchor:any = this.$el.querySelector('#list')
       anchor.scrollIntoView({ behavior: 'smooth' })
+    },
+    itemRender (page: any, type: any, originalElement: any) {
+      if (type === "page") {
+        const path = `/video/list/p${page},sort-${this.sort}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      if (type === "prev") {
+        const path = `/video/list/p${page},sort-${this.sort}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+
+      if (type === "next") {
+        const path = `/video/list/p${page},sort-${this.sort}`;
+        if (originalElement.data) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: path
+            }
+          });
+        } else {
+          originalElement.data = {
+            attrs: {
+              href: path
+            }
+          }
+        }
+        const callback = function (e:any) {
+          e.preventDefault();
+        };
+        if (originalElement.on) {
+          Object.assign(originalElement.on, {click: callback});
+        } else {
+          originalElement.on = {click: callback};
+        }
+      }
+      return originalElement;
     }
   }
 })
