@@ -215,9 +215,9 @@
                           <span v-if="item.toilet">卫</span>
                         </div>
                         <div class="text-xs">
-                          <span v-if="item.state === '1'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
-                          <span v-if="item.state === '2'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-                          <span v-if="item.state === '3'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+                          <span v-if="item.saleState === '1'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
+                          <span v-if="item.saleState === '2'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
+                          <span v-if="item.saleState === '3'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
                         </div>
                       </div>
                       <div class="flex flex-shrink-0 w-full text-gray-700 sm:flex-col lg:flex-row">
