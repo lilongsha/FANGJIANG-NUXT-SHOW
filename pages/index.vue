@@ -153,7 +153,7 @@
           <div v-show="menuShow.isShow" class="w-3/5 h-full ml-4 transition-all bg-black bg-opacity-80 rounded-2xl">
             <!-- 区域 -->
             <div v-show="menuShow.flag === 1" class="grid grid-flow-row grid-cols-5 gap-4 m-8 text-center text-white">
-              <a v-for="area in areas" :key="area.id" rel="nofollow" class="overflow-hidden text-base text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?areaId=${area.id}`" target="_blank">{{ area.name }}</a>
+              <a v-for="area in areas" :key="area.id" rel="nofollow" class="overflow-hidden text-base text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,areaId-${area.id}`" target="_blank">{{ area.name }}</a>
             </div>
             <!-- 商圈 -->
             <div v-show="menuShow.flag === 2" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
@@ -182,7 +182,7 @@
               </div>
               <div v-show="!showTrading" class="w-2/3 h-full ml-2">
                 <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center">
-                  <a v-for="trading in tradings" :key="trading.id" rel="nofollow" class="h-6 overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?tradingId=${trading.id}`" target="_blank">{{ trading.name }}</a>
+                  <a v-for="trading in tradings" :key="trading.id" rel="nofollow" class="h-6 overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,tradingId-${trading.id}`" target="_blank">{{ trading.name }}</a>
                 </div>
                 <AppLoading ref="loadingTrading" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
               </div>
@@ -214,7 +214,7 @@
               </div>
               <div v-show="!showMetroStation" class="static w-2/3 h-full ml-2">
                 <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center text-white">
-                  <a v-for="metroStation in metroStations" :key="metroStation.id" rel="nofollow" class="overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list?metroStationId=${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
+                  <a v-for="metroStation in metroStations" :key="metroStation.id" rel="nofollow" class="overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,stationId-${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
                 </div>
                 <AppLoading ref="loadingMetroStation" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
               </div>
