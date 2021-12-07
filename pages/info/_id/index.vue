@@ -87,7 +87,6 @@
     </div>
     <div class="mt-8 lg:pr-8 sm:w-full lg:w-2/3 content-css" v-html="news.content"></div>
     <div class="lg:w-[821px] lg:pr-8 sm:w-full">
-      <!-- <house-content v-for="item in projects" :key="item.id" :name="item.name" :image="item.firstImg.address || ''" :house-id="item.id" :price="item.price + ''" :area="item.sysAreaByAreaId.name" :address="item.address" :layout="item.layoutStr" :build-area="item.area" :labels="item.labels.split(',')" :number="item.number" /> -->
       <house-content :context="projects" />
     </div>
     <div class="lg:w-[821px] h-[1px] bg-[#dddddd] my-8"></div>
