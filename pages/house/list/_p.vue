@@ -164,7 +164,7 @@
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
               </a>
-              <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
+              <div v-if="false && item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowPrice" type="number" min="0" class="w-16" @change="inputPrice">
                 <label class="inline-block whitespace-nowrap">-</label>
                 <input v-model="select.highPrice" type="number" min="0" class="w-16" @change="inputPrice">
@@ -185,7 +185,7 @@
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
               </a>
-              <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
+              <div v-if="false && item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
                 <label class="inline-block whitespace-nowrap">-</label>
                 <input v-model="select.highTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
@@ -207,7 +207,7 @@
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
               </a>
 
-              <div v-if="item.title === null" class="flex flex-row whitespace-nowrap">
+              <div v-if="false && item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowAcreage" type="number" min="0" class="w-16" @change="inputAcreage">
                 <label class="inline-block whitespace-nowrap">-</label>
                 <input v-model="select.heightAcreage" type="number" min="0" class="w-16" @change="inputAcreage">
@@ -364,12 +364,12 @@
           </div>
           <div :class="locationType === '1' ? 'm-sub-menu' : 'm-sub-menu-hidden'">
             <div :class="locationType === '1' ? 'w-full h-full' : 'h-0 w-0'" class="m-sub-menu-div">
-              <span v-for="item in areas" :key="item.id" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('areaId', item.id)">{{ item.name }}</span>
+              <a v-for="item in areas" :key="item.id" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''"  :href="getUrl(item.id, 'areaId')">{{ item.name }}</a>
             </div>
           </div>
           <div :class="locationType === '2' ? 'm-sub-menu' : 'm-sub-menu-hidden'">
             <div :class="locationType === '2' ? 'w-full h-full' : 'h-0 w-0'" class="m-sub-menu-div">
-              <span v-for="item in tradings" :key="item.id" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('tradingId', item.id)">{{ item.name }}</span>
+              <a v-for="item in tradings" :key="item.id" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'tradingId')">{{ item.name }}</a>
             </div>
           </div>
           <div :class="locationType === '3' ? 'm-sub-menu' : 'm-sub-menu-hidden'">
@@ -379,7 +379,7 @@
               </div>
               <div class="flex flex-col w-1/2">
                 <div v-for="line in metroLines" v-show="selectMenuLine === line.id" :key="line.id" class="w-full mr-4 text-gray-600 space-y-2 flex flex-col overflow-hidden max-h-[33vh] overflow-y-auto">
-                  <span v-for="station in line.stations" :key="station.id" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" @click="selectFunc('stationId', station.id)">{{ station.name }}</span>
+                  <a v-for="station in line.stations" :key="station.id" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" :href="getUrl(station.id, 'stationId')">{{ station.name }}</a>
                 </div>
               </div>
             </div>
@@ -393,18 +393,20 @@
           </div>
           <div :class="selectMenuPrice === '1' ? 'm-sub-menu-col' : 'm-sub-menu-hidden'">
             <div v-for="(item, index) in priceList" :key="index">
-              <div v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap">
-                <input v-model="select.price" :title="item.title" type="radio" name="price" :value="index" class="w-3 h-4 mr-1" @change="selectPrice(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkPrice(index)">{{ item.title }}</label >
-              </div>
+              <a v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'price')">
+                <img v-if="select.price === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
           </div>
           <div :class="selectMenuPrice === '2' ? 'm-sub-menu-col' : 'm-sub-menu-hidden'">
             <div v-for="(item, index) in totalPriceList" :key="index">
-              <div v-if="item.title !== null"  class="flex flex-row whitespace-nowrap">
-                <input v-model="select.totalPrice" :title="item.title" type="radio" name="totalPrice" :value="index" class="w-3 h-4 mr-1" @change="selectTotalPrice(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkTotalPrice(index)">{{ item.title }}</label >
-              </div>
+              <a v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
+                <img v-if="select.totalPrice === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
           </div>
         </div>
@@ -412,10 +414,11 @@
         <div :class="selectMenuM !== '2' ? 'max-h-0' : 'max-h-[33vh]'" class="flex flex-row w-full px-2 overflow-hidden ease-linear" style="transition: max-height .5s;">
           <div class="w-full h-full space-y-2 text-sm text-gray-500">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row justify-center mr-4">
-              <div class="flex flex-row items-center justify-start w-14 whitespace-nowrap">
-                <input v-model="select.houseType" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectHouseType(index)" />
-                <label class="inline-block whitespace-nowrap" @click="checkHouseType(index)">{{ item.title }}</label >
-              </div>
+              <a class="flex flex-row items-center justify-start w-14 whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
+                <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
           </div>
         </div>
@@ -426,10 +429,11 @@
             <div class="w-full my-2 font-bold"><span>面积</span></div>
             <div class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
               <div v-for="(item, index) in acreageList" :key="index">
-                <div v-if="item.title !== null"  class="flex flex-row items-center whitespace-nowrap">
-                  <input v-model="select.acreage" :title="item.title" type="radio" name="area" :value="index" class="w-3 h-4 mr-1" @change="selectAcreage(index)" />
-                  <label class="inline-block whitespace-nowrap" @click="checkAcreage(index)">{{ item.title }}</label >
-                </div>
+                <a v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
+                  <img v-if="select.acreage === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                  <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                  <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+                </a>
               </div>
             </div>
           </div>
@@ -438,10 +442,11 @@
             <div class="w-full my-2 font-bold"><span>类型</span></div>
             <div class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
               <div v-for="(item, index) in projectType" :key="index">
-                <div class="flex flex-row items-center whitespace-nowrap">
-                  <input v-model="select.projectType" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectProjectType(index)" />
-                  <label class="inline-block whitespace-nowrap" @click="checkProjectType(index)">{{ item.title }}</label >
-                </div>
+                <a class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
+                  <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                  <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                  <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+                </a>
               </div>
             </div>
           </div>
@@ -450,10 +455,11 @@
             <div class="w-full my-2 font-bold"><span>状态</span></div>
             <div class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
               <div v-for="(item, index) in saleState" :key="index">
-              <div class="flex flex-row whitespace-nowrap">
-                <input v-model="select.saleState" :title="item.title" type="checkbox" :name="item.title" :value="index" class="w-3 h-4 mr-1" @change="selectSaleState(index)" />
-                <label class="items-center inline-block whitespace-nowrap" @click="checkSaleState(index)">{{ item.title }}</label >
-              </div>
+              <a class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
+                <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              </a>
             </div>
             </div>
           </div>
@@ -471,7 +477,7 @@
         </div>
         <!-- 底部按钮 -->
         <div class="flex flex-row w-full p-1 bg-white border h-14">
-          <div class="w-2/3">
+          <div v-if="false" class="w-2/3">
             <!-- 单价输入 -->
             <div :class="selectMenuM === '1' && selectMenuPrice === '1' ? 'p-1 w-full' : 'w-0 h-0'" class="overflow-hidden">
               <div class="flex flex-row w-full whitespace-nowrap">
@@ -510,7 +516,7 @@
             </div>
           </div>
           <div class="w-1/3 p-2 text-center align-middle">
-            <button class="w-full px-2 py-1 text-white rounded bg-fjBlue-100" @click="cancel">重置</button>
+            <a class="block w-full px-2 py-1 text-white rounded bg-fjBlue-100" href="/house/list">重置</a>
           </div>
         </div>
       </div>
@@ -795,7 +801,7 @@
       />
     </div>
     <!--  -->
-    <div class="w-full mt-12 text-[#999999] text-xs">
+    <div class="w-full mt-12 text-[#999999] text-xs sm:p-2">
       郑重提示广大用户：本页面内容，旨在为满足广大用户的信息需求而免费提供，并非广告服务性信息。页面所载内容，仅供用户参考和借鉴，最终以开发商实际公示为准。商品房预售须取得《商品房预售许可证》，
 用户在购房时请务必慎重查验开发商的证件信息。（注：本页面所提到房屋面积如无特别标示，均指建筑面积）
     </div>
