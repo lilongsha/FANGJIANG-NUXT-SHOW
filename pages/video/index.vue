@@ -114,7 +114,6 @@ export default Vue.extend({
       policyData = result.data.SORT_POLICY.content;
     }
     const curIndex = 0;
-
     return { topData, projectData, roomData, compareData, policyData, curIndex }
   },
   data() {
@@ -137,14 +136,17 @@ export default Vue.extend({
     if (city.endsWith('市')) {
       city = city.substring(city.length - 1);
     }
+    const pubTime: string = this.topData[0].createTime.split('.')[0];
+    let upTime: string = this.topData[0].updateTime || this.topData[0].createTime;
+    upTime = upTime.split('.')[0];
 
     return {
-      title: `${city}新房视频-房匠网`,
+      title: `${city}新房视频-房匠`,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频,${city}新房网`
+          content: `${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频,${city}新房`
         },
         {
           hid: 'description',
@@ -152,6 +154,13 @@ export default Vue.extend({
           content: `房匠网提供${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.`
         },
       ],
+      script: [
+        {
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${city}新房视频-房匠网","images":[""],"description": "房匠网提供${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.","pubDate":"${pubTime}","upDate":"${upTime}"}`,
+          type: 'application/ld+json',
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script']
     };
   },
   methods: {

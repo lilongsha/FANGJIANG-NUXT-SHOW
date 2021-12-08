@@ -640,8 +640,9 @@ questionTotal, option, phoneNum, isMobile }
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.house.firstImg?.address;
     const sandImgAddress: string = this.house.sandImg?.address;
-    const pubTime: string = this.house.updateTime;
-    const upTime: string = this.house.updateTime || this.house.createTime;
+    const pubTime: string = this.house.createTime.split('.')[0];
+    let upTime: string = this.house.updateTime || this.house.createTime;
+    upTime = upTime.split('.')[0];
     const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}怎么样,${houseName}价格,${houseName}售楼处电话,${houseName}户型`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;

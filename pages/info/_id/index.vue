@@ -270,8 +270,9 @@ export default Vue.extend({
     const description: string = `${this.news.description}`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const imgUrl: string = this.news.img;
-    const pubTime: string = this.news.updateTime;
-    const upTime: string = this.news.updateTime || this.news.createTime;
+    const pubTime: string = this.news.createTime.split('.')[0];
+    let upTime: string = this.news.updateTime || this.news.createTime;
+    upTime = upTime.split('.')[0];
     const keyword: string = this.news.keywords;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${imgUrl}","${imgUrl}", "${imgUrl}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     const location: string = `province=${newsProvinceName};city=${newsCityName};coord=${latLng}`;

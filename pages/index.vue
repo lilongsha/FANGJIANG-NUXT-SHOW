@@ -959,7 +959,7 @@ export default Vue.extend({
       ],
       script: [
         {
-          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${city}新房_${city}楼盘_${city}买房-房匠网","images":[""],"description": "房匠网提供${city}新房,${city}楼盘,${city}买房,${city}楼市等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.","upDate":"2021-10-14T18:00:00"}`,
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${city}新房_${city}楼盘_${city}买房-房匠网","images":[""],"description": "房匠网提供${city}新房,${city}楼盘,${city}买房,${city}楼市等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.","upDate":"2021-12-08T22:22:00"}`,
           type: 'application/ld+json',
         }
       ],
