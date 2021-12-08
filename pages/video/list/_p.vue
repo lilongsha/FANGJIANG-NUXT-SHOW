@@ -185,8 +185,8 @@ export default Vue.extend({
         }
       }
 
-      if (type === 'prev') {
-        if (page === 0) {
+      if (type === 'prev' || type === 'next') {
+        if (page === 0 || page === this.pageNum) {
           Object.assign(originalElement.data, {
             attrs: {
               href: 'javascript:;',
@@ -196,8 +196,8 @@ export default Vue.extend({
         }
       }
 
-      if (type === 'prev' || type === 'next') {
-        if (page === 0 || page === this.pageNum) {
+      if (type === 'page') {
+        if (page === this.pageNum) {
           Object.assign(originalElement.data, {
             attrs: {
               href: 'javascript:;',
