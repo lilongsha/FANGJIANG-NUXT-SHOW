@@ -467,11 +467,11 @@
         <!-- 排序 -->
         <div :class="selectMenuM !== '4' ? 'max-h-0' : 'max-h-[33vh]'" class="flex flex-row w-full px-2 overflow-hidden ease-linear" style="transition: max-height .5s;">
           <div class="w-full h-full space-y-2 text-gray-500">
-            <div class="text-sm text-center">
-              <div :class="select.sortType === '1' ? 'text-fjBlue-100' : ''" @click="sortPrice">均价从高到底</div>
-              <div :class="select.sortType === '2' ? 'text-fjBlue-100' : ''" @click="sortPrice">均价从底到高</div>
-              <div :class="select.sortType === '3' ? 'text-fjBlue-100' : ''" @click="sortTime">开盘时间顺序</div>
-              <div :class="select.sortType === '4' ? 'text-fjBlue-100' : ''" @click="sortTime">开盘时间倒序</div>
+            <div class="flex flex-col text-sm text-center">
+              <a :class="select.sortType === '1' ? 'text-fjBlue-100' : ''" :href="getSortUrl('1')">均价从高到底</a>
+              <a :class="select.sortType === '2' ? 'text-fjBlue-100' : ''" :href="getSortUrl('2')">均价从底到高</a>
+              <a :class="select.sortType === '3' ? 'text-fjBlue-100' : ''" :href="getSortUrl('3')">开盘时间顺序</a>
+              <a :class="select.sortType === '4' ? 'text-fjBlue-100' : ''" :href="getSortUrl('4')">开盘时间倒序</a>
             </div>
           </div>
         </div>
@@ -527,10 +527,10 @@
     <div class="w-full overflow-hidden sm:mt-1 lg:mt-14">
       <!-- 标题 -->
       <div class="flex flex-row w-full border-b-2 sm:hidden border-fjBlue-100">
-        <div class="w-[97px] h-[52px] bg-fjBlue-100 text-white flex flex-row justify-center items-center" @click="clearSort">
-          <span class="">默认排序</span>
+        <div :class="select.sortType === '0' ? 'bg-fjBlue-100 text-white' : 'text-black'" class="w-[97px] h-[52px] flex flex-row justify-center items-center">
+          <a :href="getSortUrl('0')" >默认排序</a>
         </div>
-        <div class="w-[97px] h-[52px] text-black flex flex-row justify-center items-center" @click="sortPrice">
+        <a :href="getSortUrl('1')" :class="select.sortType === '1' || select.sortType === '2' ? 'bg-fjBlue-100 text-white' : 'text-black'" class="w-[97px] h-[52px] flex flex-row justify-center items-center">
           <span class="">均价</span>
           <div class="flex flex-col">
             <svg
@@ -570,8 +570,8 @@
               ></path>
             </svg>
           </div>
-        </div>
-        <div class="w-[97px] h-[52px] text-black flex flex-row justify-center items-center" @click="sortTime">
+        </a>
+        <a :href="getSortUrl('3')" :class="select.sortType === '3' || select.sortType === '4' ? 'bg-fjBlue-100 text-white' : 'text-black'" class="w-[97px] h-[52px] flex flex-row justify-center items-center">
           <span class="">开盘时间</span>
           <div class="flex flex-col">
             <svg
@@ -611,7 +611,7 @@
                 ></path>
               </svg>
           </div>
-        </div>
+        </a>
         <div v-if="false" class="flex flex-row items-center justify-end w-full">
           <span>我的关注</span>
           <svg
@@ -899,6 +899,8 @@ export default Vue.extend({
     let query:any;
     let params = route.params?.p;
     let pageNum = 1;
+    const select: any = {};
+    select.sortType = '0';
     if (params) {
       if (params.endsWith('.html')) {
         params = params.split('.')[0];
@@ -921,13 +923,15 @@ export default Vue.extend({
         if (item && item.search(/p[0-9]+/) >= 0) {
           pageNum = Number(item.substring(1));
         }
+        if (item && item.search(/sort-[0-9]+/) >= 0) {
+          select.sortType = item.replace('sort-', '');
+        }
       })
     }
     if (!query) {
       query = {};
     }
     
-    const select: any = {};
     fields.forEach((item) => {
       if (query[item]) {
         select[item] = (query[item] as string).split('s')
@@ -992,7 +996,6 @@ export default Vue.extend({
         },
         sort,
       };
-      console.log('req param::::', param)
       const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
       if (result.code === 200) {
         projectList = getDataResult(result)
@@ -1124,22 +1127,6 @@ export default Vue.extend({
       deep: true,
     }
   },
-  // mounted() {
-  //   // route 获取参数设置到data中
-  //   const query = this.$route.query
-  //   const that = this;
-  //   fields.forEach((item) => {
-  //     if (query[item]) {
-  //       (that.select as any)[item] = (query[item] as string).split(',')
-  //     }
-  //   });
-  //   fields2.forEach((item) => {
-  //     if (query?.item) {
-  //       (that.select as any)[item] = query?.item as string
-  //     }
-  //   });
-  //   // await this.getList();
-  // },
   methods: {
     cancel() {
       this.select = {
@@ -1695,7 +1682,46 @@ export default Vue.extend({
           }
         }
       })
+      fields2.forEach((field) => {
+        const curField: fieldType = field as fieldType
+        if (this.select[curField] !== '0') {
+          path = path + field + '-' + this.select[curField] + ',';
+        }
+      })
 
+      return path;
+    },
+    getSortUrl(type:string) {
+      let path = '/house/list/p1,';
+      fields.forEach((field) => {
+        const params: any = {};
+        const curField: fieldType = field as fieldType;
+        if (this.select[curField] && (this.select[curField] as []).length > 0) {
+          (this.select[curField] as []).forEach((item) => {
+            params[item] = '';
+          })
+          let param = Object.keys(params).toString()
+          param = param.replace(/,/g, 's');
+          path = path + field + '-' + param + ','
+        }
+      })
+      fields2.forEach((field) => {
+        const curField: fieldType = field as fieldType
+        if (this.select[curField] !== '0') {
+          path = path + field + '-' + this.select[curField] + ',';
+        }
+      })
+      if (type === '1') {
+        if (this.select.sortType === '1') {
+          type = '2'
+        }
+      }
+      if (type === '3') {
+        if (this.select.sortType === '3') {
+          type = '4'
+        }
+      }
+      path = path + `sort-${type},`;
       return path;
     }
   }
