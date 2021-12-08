@@ -1136,26 +1136,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    cancel() {
-      this.select = {
-        areaId: [],
-        tradingId: [],
-        stationId: [],
-        price: 0,
-        lowPrice: '',
-        highPrice: '',
-        totalPrice: 0,
-        lowTotalPrice: '',
-        highTotalPrice: '',
-        acreage: 0,
-        lowAcreage: '',
-        heightAcreage: '',
-        houseType: [],
-        projectType: [],
-        saleState: [],
-        sortType: '',
-      }
-    },
     showMenuBodyM(flag: string) {
       if (this.selectMenuM === flag) {
         this.selectMenuM = '';
@@ -1163,18 +1143,6 @@ export default Vue.extend({
         this.selectMenuM = flag;
       }
       
-    },
-    getPriceDate(time: string) {
-      const date = new Date(time);
-      const result = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-      return result;
-    },
-    getPrice(item: any) {
-      if (!item.updatePriceTime) {
-        return '暂无数据'
-      }
-      return ''
-
     },
     getRoomList(room: any) {
       const flagObj = {
@@ -1265,16 +1233,6 @@ export default Vue.extend({
       }
       return ''
     },
-    getRoomLabels(_roomLabelsStr: string) {
-      // const result: any[] = [];
-      // const labelArray: string[] = roomLabelsStr.split(',');
-      // this.labels.forEach((item: any) => {
-      //   if (labelArray.includes(item.id)) {
-      //     result.push(item)
-      //   }
-      // })
-      // return result;
-    },
     async getList() {
       const condition: any = {};
       condition.city = { id: this.$store.state.app.cityId }
@@ -1346,188 +1304,14 @@ export default Vue.extend({
       }
       return 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F3d%2Fa5%2F42%2F3da542de95a5ab09941a42ff4256951d.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1634269587&t=80f0f68d94ff94c2c11f9ec12456637c';
     },
-    selectFunc(flag: 'areaId' | 'tradingId' | 'stationId', id: string) {
-      if (this.select[flag].includes(id)) {
-        const i: number = this.select[flag].indexOf(id);
-        this.select[flag].splice(i, 1);
-      } else {
-        this.select[flag].push(id);
-      }
-    },
     inputPrice() {
       this.select.price = 0;
-    },
-    selectPrice(index: number) {
-      this.select.lowPrice = '';
-      this.select.highPrice = '';
-      if (index === 0) {
-        this.select.lowPrice = '';
-        this.select.highPrice = '';
-      } else {
-        this.select.lowPrice = priceList[index].lowPrice || '';
-        this.select.highPrice = priceList[index].highPrice || '';
-      }
-    },
-    checkPrice(index: number) {
-      this.select.price = index;
-      if (index === 0) {
-        this.select.lowPrice = '';
-        this.select.highPrice = '';
-      } else {
-        this.select.lowPrice = priceList[index].lowPrice || '';
-        this.select.highPrice = priceList[index].highPrice || '';
-      }
     },
     inputTotalPrice() {
       this.select.totalPrice = 0;
     },
-    selectTotalPrice(index: number) {
-      if (index === 0) {
-        this.select.lowTotalPrice = '';
-        this.select.highTotalPrice = '';
-      } else {
-        this.select.lowTotalPrice = totalPriceList[index].lowTotalPrice || '';
-        this.select.highTotalPrice = totalPriceList[index].highTotalPrice || '';
-      }
-      
-    },
-    checkTotalPrice(index: number) {
-      this.select.totalPrice = index;
-      if (index === 0) {
-        this.select.lowTotalPrice = '';
-        this.select.highTotalPrice = '';
-      } else {
-        this.select.lowTotalPrice = totalPriceList[index].lowTotalPrice || '';
-        this.select.highTotalPrice = totalPriceList[index].highTotalPrice || '';
-      }
-    },
     inputAcreage() {
       this.select.acreage = 0;
-    },
-    selectAcreage(index: number) {
-      if (index === 0) {
-        this.select.lowAcreage = '';
-        this.select.heightAcreage = '';
-      } else {
-        this.select.lowAcreage = acreageList[index].lowAcreage || '';
-        this.select.heightAcreage = acreageList[index].highAcreage || '';
-      }
-    },
-    checkAcreage(index: number) {
-      this.select.acreage = index;
-      if (index === 0) {
-        this.select.lowAcreage = '';
-        this.select.heightAcreage = '';
-      } else {
-        this.select.lowAcreage = acreageList[index].lowAcreage || '';
-        this.select.heightAcreage = acreageList[index].highAcreage || '';
-      }
-    },
-    selectHouseType(index: string | number) {
-      if (index === 0) {
-        this.select.houseType = [0]
-      } else if (this.select.houseType.includes(0)) {
-          this.select.houseType.splice(this.select.houseType.indexOf(0), 1);
-      }
-      if (this.select.houseType.length < 1) {
-        this.select.houseType = [0]
-      }
-    },
-    checkHouseType(index: string | number) {
-      if (index === 0) {
-        this.select.houseType = [0]
-      } else {
-        if (this.select.houseType.includes(0)) {
-          this.select.houseType.splice(this.select.houseType.indexOf(0), 1);
-        }
-        if (this.select.houseType.includes((index as number))) {
-          this.select.houseType.splice(this.select.houseType.indexOf((index as number)), 1);
-        } else {
-          this.select.houseType.push((index as number));
-        }
-      }
-      if (this.select.houseType.length < 1) {
-        this.select.houseType = [0]
-      }
-    },
-    selectProjectType(index: string | number) {
-      if (index === 0) {
-        this.select.projectType = [0]
-      } else if (this.select.projectType.includes(0)) {
-          this.select.projectType.splice(this.select.projectType.indexOf(0), 1);
-      }
-      if (this.select.projectType.length < 1) {
-        this.select.projectType = [0];
-      }
-    },
-    checkProjectType(index: string | number) {
-      if (index === 0) {
-        this.select.projectType = [0]
-      } else {
-        if (this.select.projectType.includes(0)) {
-          this.select.projectType.splice(this.select.projectType.indexOf(0), 1);
-        }
-        if (this.select.projectType.includes((index as number))) {
-          this.select.projectType.splice(this.select.projectType.indexOf((index as number)), 1);
-        } else {
-          this.select.projectType.push((index as number));
-        }
-      }
-      if (this.select.projectType.length < 1) {
-        this.select.projectType = [0];
-      }
-    },
-    selectSaleState(index: string | number) {
-      if (index === 0) {
-        this.select.saleState = [0]
-      } else if (this.select.saleState.includes(0)) {
-          this.select.saleState.splice(this.select.saleState.indexOf(0), 1);
-      }
-      if (this.select.saleState.length < 1) {
-        this.select.saleState = [0]
-      }
-    },
-    checkSaleState(index: string | number) {
-      if (index === 0) {
-        this.select.saleState = [0]
-      } else {
-        if (this.select.saleState.includes(0)) {
-          this.select.saleState.splice(this.select.saleState.indexOf(0), 1);
-        }
-        if (this.select.saleState.includes((index as number))) {
-          this.select.saleState.splice(this.select.saleState.indexOf((index as number)), 1);
-        } else {
-          this.select.saleState.push((index as number));
-        }
-      }
-      if (this.select.saleState.length < 1) {
-        this.select.saleState = [0]
-      }
-    },
-    sortPrice() {
-      if (this.select.sortType === '1') {
-        this.select.sortType = '2'
-        return
-      }
-      if (this.select.sortType === '2') {
-        this.select.sortType = '1'
-        return 
-      }
-      this.select.sortType = '1';
-    },
-    sortTime() {
-      if (this.select.sortType === '3') {
-        this.select.sortType = '4'
-        return
-      }
-      if (this.select.sortType === '4') {
-        this.select.sortType = '3'
-        return 
-      }
-      this.select.sortType = '3';
-    },
-    clearSort() {
-      this.select.sortType = '';
     },
     itemRender (page: any, _type: any, originalElement: any) {
       const fullPath = this.curPath;
