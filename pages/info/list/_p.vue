@@ -98,7 +98,8 @@
           </div>
           <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg">
             <span>
-              <a :href="`/info/list/p1,type-${item.key}.html`" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
+              <a v-if="item.key === 0" href="/info/list/p1.html" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
+              <a v-else :href="`/info/list/p1,type-${item.key}.html`" :class="item.key === sort ? 'text-fjBlue-100' : 'text-[#999999]'" class="group-hover:text-fjBlue-100">{{ item.value }}</a>
             </span>
           </div>
         </div>
@@ -401,79 +402,32 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       }
     },
-    itemRender (page: any, type: any, originalElement: any) {
-      if (type === "page") {
-        const path = `/info/list/p${page},type-${this.sort}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
+    itemRender (page: any, _type: any, originalElement: any) {
+      let path = `/info/list/p${page}.html`;
+        if (this.sort !== 0) {
+          path = `/info/list/p${page},type-${this.sort}.html`;
         }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
-      }
-      if (type === "prev") {
-        const path = `/info/list/p${page},type-${this.sort}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
-      }
 
-      if (type === "next") {
-        const path = `/info/list/p${page},type-${this.sort}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
+      if (originalElement.data) {
+        Object.assign(originalElement.data, {
+          attrs: {
+            href: path
+          }
+        });
+      } else {
+        originalElement.data = {
+          attrs: {
+            href: path
           }
         }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
+      }
+      const callback = function (e:any) {
+        e.preventDefault();
+      };
+      if (originalElement.on) {
+        Object.assign(originalElement.on, {click: callback});
+      } else {
+        originalElement.on = {click: callback};
       }
       return originalElement;
     }

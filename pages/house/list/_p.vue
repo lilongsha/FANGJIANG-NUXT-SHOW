@@ -1091,28 +1091,36 @@ export default Vue.extend({
         }
       })
     }
-    if (!area) {
-      area = city;
+    // if (!area) {
+    //   area = city;
+    // }
+    let title = `${city}新房_${city}楼盘_${city}买房-房匠网`;
+    let keywords = `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网`;
+    let content1 = `房匠网为您提供;${city}新房,${city}楼盘,${city}买房相关信息,房匠网-让买房变得简单!`;
+    let local = city;
+    if (area && area !== '') {
+      title = `${city}${area}新房_${city}${area}楼盘_${city}${area}买房-房匠网`;
+      keywords = `${city}${area}新房,${city}${area}楼盘,${city}${area}买房购房,${city}${area}房价,${city}${area}新房网`
+      content1 = `房匠网为您提供;${city}${area}新房,${city}${area}楼盘,${city}${area}买房相关信息,房匠网-让买房变得简单!`
+      local = local + area;
     }
-    
-    
     return {
-      title: `${area}新房_${area}楼盘_${area}买房-房匠网`,
+      title,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网`
+          content: keywords
         },
         {
           hid: 'description',
           name: 'description',
-          content: `房匠网为您提供;${city}新房,${city}楼盘,${city}买房相关信息,房匠网-让买房变得简单!`
+          content: content1
         },
       ],
       script: [
         {
-          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${area}新房_${area}楼盘_${area}买房-房匠网","images":[""],"description": "房匠网为您提供;${city}新房,${city}楼盘,${city}买房相关信息,房匠网-让买房变得简单!","upDate":"2021-10-14T18:00:00"}`,
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${local}新房_${local}楼盘_${local}买房-房匠网","images":[""],"description": "房匠网为您提供;${local}新房,${local}楼盘,${local}买房相关信息,房匠网-让买房变得简单!","upDate":"2021-12-08T18:00:00"}`,
           type: 'application/ld+json',
         }
       ],
@@ -1521,83 +1529,35 @@ export default Vue.extend({
     clearSort() {
       this.select.sortType = '';
     },
-    itemRender (page: any, type: any, originalElement: any) {
+    itemRender (page: any, _type: any, originalElement: any) {
       const fullPath = this.curPath;
       let path;
       if (fullPath.search(/p[0-9],*/) >= 0) {
 	      path = fullPath.replace(/p[0-9],*/, `p${page},`)
       } else {
-        path = fullPath.replace('house/list/', `house/list/p${page},`)
-      }
-      if (type === "page") {
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
-      }
-      if (type === "prev") {
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
+        path = fullPath.replace('/house/list', `house/list/p${page},`)
       }
 
-      if (type === "next") {
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
+      if (originalElement.data) {
+        Object.assign(originalElement.data, {
+          attrs: {
+            href: path
+          }
+        });
+      } else {
+        originalElement.data = {
+          attrs: {
+            href: path
           }
         }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
+      }
+      const callback = function (e:any) {
+        e.preventDefault();
+      };
+      if (originalElement.on) {
+        Object.assign(originalElement.on, {click: callback});
+      } else {
+        originalElement.on = {click: callback};
       }
       return originalElement;
     },

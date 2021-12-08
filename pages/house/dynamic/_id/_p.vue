@@ -141,17 +141,18 @@ export default Vue.extend({
   },
   head() {
     const houseName: string = this.project.name;
-    const houseCityName: string = this.project.sysCityByCityId.name;
+    const houseAreaName: string = this.project.sysAreaByAreaId.name || '';
+    const houseCityName: string = this.project.sysCityByCityId.name || '';
     const houseProvinceName: string = this.project.sysProvinceByProvinceId.name;
     const latLng: string = this.project.latitude + '' + this.project.longitude;
-    const title: string = `${this.project.name}项目最新动态 - 房匠`;
-    const description: string = `房匠网为您提供${houseName}项目信息,${houseName}最新动态信息,了解更多${this.project.name}详细信息,请关注房匠网.`;
+    const title: string = `${houseCityName}${houseAreaName}${this.project.name}楼盘最新动态 - 房匠`;
+    const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${houseName}楼盘信息,${houseName}最新动态信息,了解更多${houseCityName}${houseAreaName}${this.project.name}详细信息,请关注房匠网.`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.project.firstImg?.address;
     const sandImgAddress: string = this.project.sandImg?.address;
     const pubTime: string = this.project.updateTime;
     const upTime: string = this.project.updateTime || this.project.createTime;
-    const keyword: string = `${houseName},${houseName}项目信息,${houseName}最新动态`;
+    const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}楼盘信息,${houseName}最新动态`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
     if (this.project.latitude && this.project.longitude) {
@@ -189,80 +190,30 @@ export default Vue.extend({
     }
   },
   methods: {
-    itemRender (page: any, type: any, originalElement: any) {
-      if (type === "page") {
-        const path = `/house/dynamic/${this.id}/p${page}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
+    itemRender (page: any, _type: any, originalElement: any) {
+      const path = `/house/dynamic/${this.id}/p${page}`;
+      if (originalElement.data) {
+        Object.assign(originalElement.data, {
+          attrs: {
+            href: path
+          }
+        });
+      } else {
+        originalElement.data = {
+          attrs: {
+            href: path
           }
         }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
       }
-      if (type === "prev") {
-        const path = `/house/dynamic/${this.id}/p${page}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
+      const callback = function (e:any) {
+        e.preventDefault();
+      };
+      if (originalElement.on) {
+        Object.assign(originalElement.on, {click: callback});
+      } else {
+        originalElement.on = {click: callback};
       }
-
-      if (type === "next") {
-        const path = `/house/dynamic/${this.id}/p${page}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
-      }
+      
       return originalElement;
     }
   }

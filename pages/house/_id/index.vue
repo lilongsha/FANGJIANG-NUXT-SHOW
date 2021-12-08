@@ -631,18 +631,19 @@ questionTotal, option, phoneNum, isMobile }
   },
   head() {
     const houseName: string = this.house.name;
-    const houseCityName: string = this.house.sysCityByCityId.name;
+    const houseAreaName: string = this.house.sysAreaByAreaId.name || '';
+    const houseCityName: string = this.house.sysCityByCityId.name || '';
     const houseProvinceName: string = this.house.sysProvinceByProvinceId.name;
     const latLng: string = this.house.latitude + '' + this.house.longitude;
-    const title: string = `${this.house.name}项目价格,户型,开盘时间详情 - 房匠`;
-    const description: string = `房匠网为您提供${this.house.name}售楼处电话,开盘时间,地理位置,相册图片,楼盘房价,户型图等信息,了解更多${this.house.name}详细信息,请关注房匠网.`;
+    const title: string = `${houseCityName}${houseAreaName}${this.house.name}楼盘价格,户型,开盘时间详情 - 房匠`;
+    const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${this.house.name}信息售楼处电话,${this.house.name}开盘时间,${this.house.name}地理位置,${this.house.name}相册图片,${this.house.name}楼盘房价,${this.house.name}户型图等信息,了解更多${houseCityName}${houseAreaName}${this.house.name}详细信息,请关注房匠网.`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.house.firstImg?.address;
     const sandImgAddress: string = this.house.sandImg?.address;
     const pubTime: string = this.house.updateTime;
     const upTime: string = this.house.updateTime || this.house.createTime;
-    const keyword: string = `${houseName},${houseName}怎么样,${houseName}价格,${houseName}售楼处电话,${houseName}户型,${houseName}开盘时间`;
-    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${houseName},${houseCityName}${houseName},${houseCityName}${houseName}价格,${houseCityName}${houseName}价格走势,${houseCityName}${houseName}售楼处${houseCityName}${houseName}售楼处电话,${houseCityName}${houseName}户型 - 房匠","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}怎么样,${houseName}价格,${houseName}售楼处电话,${houseName}户型`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
     if (this.house.latitude && this.house.longitude) {
       location = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;

@@ -105,6 +105,7 @@ import { Api as QuestionApi } from '~/api/model/discuss';
 import { Breadcrumb } from '~/types/app';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 import ReomendHouse from '~/components/house/RecomendHouse.vue'
+import { getProject } from '~/api/model/houseModel';
 
 export default Vue.extend({
   name: 'DiscussDetail',
@@ -130,6 +131,7 @@ export default Vue.extend({
       if (result.code === 200) {
         question = getDataResult(result);
         await getQuestions(question.projectId);
+        await getProjectData(question.projectId);
         const breadcrumb: Breadcrumb[] = [];
         breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
         breadcrumb.push({ title: '问答', href: '/info/list', icon: 'list' })
@@ -160,6 +162,14 @@ export default Vue.extend({
       }
     }
 
+    let project: any;
+    const getProjectData = async (id: string) => {
+      const resultProject = await getProject($axios, id)
+      if (resultProject.code === 200) {
+        project = getDataResult(resultProject);
+      }
+    }
+
     await Promise.all([
       getQuestion()
     ])
@@ -169,29 +179,40 @@ export default Vue.extend({
       id,
       question,
       questions,
+      project,
     }
   },
   data() {
     const id: string = '';
     const question: any = {};
+    let project:any;
     return {
       id,
       question,
+      project,
     }
   },
   head() {
-    const newsCityName: string = this.question.city?.name;
-    const newsProvinceName: string = this.question.province?.name;
-    const latLng: string = this.question.latitude + '' + this.question.longitude;
+    const houseName: string = this.project.name;
+    const houseAreaName: string = this.project.sysAreaByAreaId.name || '';
+    const houseCityName: string = this.project.sysCityByCityId.name || '';
+    const houseProvinceName: string = this.project.sysProvinceByProvinceId.name || '';
+    const latLng: string = this.project.latitude + '' + this.project.longitude;
     const title: string = `${this.question.content} - 房匠`;
-    const description: string = `${this.question.description}`;
+    const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${houseName}楼盘问答频道作为${houseName}业主论坛，拥有大量业主与售楼处互动信息及专家点评。让您全面了解${houseCityName}${houseAreaName}${houseName}怎么样？评价好不好？请关注房匠网.`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
-    const imgUrl: string = this.question.img;
+    const firstImgAddress: string = this.project.firstImg?.address;
+    const sandImgAddress: string = this.project.sandImg?.address;
     const pubTime: string = this.question.updateTime;
     const upTime: string = this.question.updateTime || this.question.createTime;
-    const keyword: string = this.question.keywords;
-    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${imgUrl}","${imgUrl}", "${imgUrl}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
-    const location: string = `province=${newsProvinceName};city=${newsCityName};coord=${latLng}`;
+    const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}楼盘怎么样,${houseName}好不好,${houseName}业主论坛`;
+    const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
+    let location: string;
+    if (this.project.latitude && this.project.longitude) {
+      location = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
+    } else {
+      location = `province=${houseProvinceName};city=${houseCityName};`;
+    }
     return {
       title,
       meta: [
