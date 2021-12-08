@@ -1319,7 +1319,7 @@ export default Vue.extend({
       if (fullPath.search(/p[0-9],*/) >= 0) {
 	      path = fullPath.replace(/p[0-9],*/, `p${page},`)
       } else {
-        path = fullPath.replace('/house/list', `house/list/p${page},`)
+        path = fullPath.replace('/house/list', `/house/list/p${page},`)
       }
 
       if (originalElement.data) {
