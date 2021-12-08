@@ -170,79 +170,52 @@ export default Vue.extend({
       anchor.scrollIntoView({ behavior: 'smooth' })
     },
     itemRender (page: any, type: any, originalElement: any) {
-      if (type === "page") {
-        const path = `/video/list/p${page},sort-${this.sort}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
+      const path = `/video/list/p${page},sort-${this.sort}`;
+      if (originalElement.data) {
+        Object.assign(originalElement.data, {
+          attrs: {
+            href: path
           }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
-        }
-      }
-      if (type === "prev") {
-        const path = `/video/list/p${page},sort-${this.sort}`;
-        if (originalElement.data) {
-          Object.assign(originalElement.data, {
-            attrs: {
-              href: path
-            }
-          });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
+        });
+      } else {
+        originalElement.data = {
+          attrs: {
+            href: path
           }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
         }
       }
 
-      if (type === "next") {
-        const path = `/video/list/p${page},sort-${this.sort}`;
-        if (originalElement.data) {
+      if (type === 'prev') {
+        if (page === 0) {
           Object.assign(originalElement.data, {
             attrs: {
-              href: path
+              href: 'javascript:;',
+              rel: 'nofollow'
             }
           });
-        } else {
-          originalElement.data = {
-            attrs: {
-              href: path
-            }
-          }
-        }
-        const callback = function (e:any) {
-          e.preventDefault();
-        };
-        if (originalElement.on) {
-          Object.assign(originalElement.on, {click: callback});
-        } else {
-          originalElement.on = {click: callback};
         }
       }
+
+      if (type === 'prev' || type === 'next') {
+        if (page === 0 || page === this.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
+      const callback = function (e:any) {
+        e.preventDefault();
+      };
+      if (originalElement.on) {
+        Object.assign(originalElement.on, {click: callback});
+      } else {
+        originalElement.on = {click: callback};
+      }
+      
       return originalElement;
     }
   }

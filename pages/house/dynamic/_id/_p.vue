@@ -190,7 +190,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    itemRender (page: any, _type: any, originalElement: any) {
+    itemRender (page: any, type: any, originalElement: any) {
       const path = `/house/dynamic/${this.id}/p${page}`;
       if (originalElement.data) {
         Object.assign(originalElement.data, {
@@ -205,6 +205,29 @@ export default Vue.extend({
           }
         }
       }
+
+      if (type === 'prev') {
+        if (page === 0) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
+      if (type === 'prev' || type === 'next') {
+        if (page === 0 || page === this.pageParam.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
       const callback = function (e:any) {
         e.preventDefault();
       };

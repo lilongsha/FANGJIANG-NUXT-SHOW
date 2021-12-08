@@ -1313,11 +1313,11 @@ export default Vue.extend({
     inputAcreage() {
       this.select.acreage = 0;
     },
-    itemRender (page: any, _type: any, originalElement: any) {
+    itemRender (page: any, type: any, originalElement: any) {
       const fullPath = this.curPath;
       let path;
-      if (fullPath.search(/p[0-9],*/) >= 0) {
-	      path = fullPath.replace(/p[0-9],*/, `p${page},`)
+      if (fullPath.search(/p[0-9]+,*/) >= 0) {
+	      path = fullPath.replace(/p[0-9]+,*/, `p${page},`)
       } else {
         path = fullPath.replace('/house/list', `/house/list/p${page},`)
       }
@@ -1333,6 +1333,28 @@ export default Vue.extend({
           attrs: {
             href: path
           }
+        }
+      }
+
+      if (type === 'prev' || type === 'next') {
+        if (page === 0 || page === this.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
+      if (type === 'page') {
+        if (page === this.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
         }
       }
       const callback = function (e:any) {

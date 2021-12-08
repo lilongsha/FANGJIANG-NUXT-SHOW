@@ -402,7 +402,7 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       }
     },
-    itemRender (page: any, _type: any, originalElement: any) {
+    itemRender (page: any, type: any, originalElement: any) {
       let path = `/info/list/p${page}.html`;
         if (this.sort !== 0) {
           path = `/info/list/p${page},type-${this.sort}.html`;
@@ -421,6 +421,29 @@ export default Vue.extend({
           }
         }
       }
+
+      if (type === 'prev' || type === 'next') {
+        if (page === 0 || page === this.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
+      if (type === 'page') {
+        if (page === this.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
       const callback = function (e:any) {
         e.preventDefault();
       };
