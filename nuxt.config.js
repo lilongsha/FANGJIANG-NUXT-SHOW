@@ -116,6 +116,6 @@ export default {
     // 打包样式
     extractCSS: true,
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20211207'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20211208'
   }
 }
