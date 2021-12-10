@@ -225,9 +225,11 @@ export default Vue.extend({
     const keyword: string = this.videoItem.keyword;
     const title: string = this.videoItem.title;
     const description: string = this.videoItem.description;
-
+    const pubTime: string = this.videoItem.createTime.split('.')[0];
+    let upTime: string = this.videoItem.updateTime || this.videoItem.createTime;
+    upTime = upTime.split('.')[0];
     return {
-      title: `${title}新房视频-房匠网`,
+      title: `${title}-房匠网`,
       meta: [
         {
           hid: 'keywords',
@@ -240,6 +242,13 @@ export default Vue.extend({
           content: `${description}`
         },
       ],
+      script: [
+        {
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${title}-房匠网","images":[""],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`,
+          type: 'application/ld+json',
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script']
     };
   },
   methods: {

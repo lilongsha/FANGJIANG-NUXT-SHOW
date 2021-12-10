@@ -166,8 +166,9 @@ export default Vue.extend({
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.project.firstImg?.address;
     const sandImgAddress: string = this.project.sandImg?.address;
-    const pubTime: string = this.project.updateTime;
-    const upTime: string = this.project.updateTime || this.project.createTime;
+    const pubTime: string = this.project.createTime.split('.')[0];
+    let upTime: string = this.project.updateTime || this.project.createTime;
+    upTime = upTime.split('.')[0];
     const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}楼盘怎么样,${houseName}好不好,${houseName}业主论坛`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
@@ -209,7 +210,7 @@ export default Vue.extend({
     showMore(id: string) {
       this.showMoreId = id;
     },
-    itemRender (page: any, _type: any, originalElement: any) {
+    itemRender (page: any, type: any, originalElement: any) {
       const path = `/house/discuss/${this.id}/p${page}`;
       if (originalElement.data) {
         Object.assign(originalElement.data, {
@@ -224,6 +225,29 @@ export default Vue.extend({
           }
         }
       }
+
+      if (type === 'prev' || type === 'next') {
+        if (page === 0 || page === this.pageParam.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
+      if (type === 'page') {
+        if (page === this.pageParam.pageNum) {
+          Object.assign(originalElement.data, {
+            attrs: {
+              href: 'javascript:;',
+              rel: 'nofollow'
+            }
+          });
+        }
+      }
+
       const callback = function (e:any) {
         e.preventDefault();
       };
