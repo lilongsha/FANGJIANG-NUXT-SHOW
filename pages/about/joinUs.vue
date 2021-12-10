@@ -249,11 +249,9 @@
               <div class="title">面试热线</div>
               <div class="mt-6">
                 <p>公司招聘电话：</p>
-                <p>15832137856 / 18032668717（李女士）</p>
+                <p>18032668717（李女士）</p>
                 <p>简历投递：</p>
-                <p>1148709065@qq.com</p>
                 <p>18032668717@qq.com</p>
-                <img class="w-1/3" src="~/assets/img/about/wechat-li.jpg">
               </div>
             </div>
           </div>

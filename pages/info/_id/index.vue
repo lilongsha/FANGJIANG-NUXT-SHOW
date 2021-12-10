@@ -317,9 +317,9 @@ export default Vue.extend({
 })
 </script>
 <style scoped>
-div .content-css >>> * {
+/* div .content-css >>> * {
   color: #333;
   font-size: 16px;
   font-family: "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", 微软雅黑, "Segoe UI", Tahoma, 宋体b8b体, SimSun, sans-serif;
-}
+} */
 </style>
