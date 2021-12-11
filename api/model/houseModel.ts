@@ -224,3 +224,14 @@ export async function getProject($axios: any, projectId: string) {
   }
   return await $axios.$post(Api.GetProject, param)
 }
+
+export const projectTypeShow: any[] = [
+  '未知',
+  '住宅',
+  '公寓',
+  '商铺',
+  '写字楼',
+  '仓库',
+  '别墅',
+  '商业类',
+]

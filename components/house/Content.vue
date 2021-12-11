@@ -17,13 +17,7 @@
                 <h3 v-if="item.saleState === '3'" class="px-1 text-white rounded-sm bg-fjRed-100">售罄</h3>
               </div>
               <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
-                <span v-if="item.type === '1'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
-                <span v-if="item.type === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
-                <span v-if="item.type === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
-                <span v-if="item.type === '4'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
-                <span v-if="item.type === '5'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
-                <span v-if="item.type === '6'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">别墅</span>
-                <span v-if="item.type === '7'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">商业类</span>
+                <type-label :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
               </div>
             </div>
             <div class="flex flex-row items-center sm:flex-shrink-0">

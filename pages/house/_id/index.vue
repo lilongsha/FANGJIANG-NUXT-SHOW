@@ -113,14 +113,7 @@
             <span v-if="house.saleState === '1'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
             <span v-if="house.saleState === '2'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
             <span v-if="house.saleState === '3'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
-            <!-- <type-label :type="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'"></type-label> -->
-            <span v-if="house.type === '1'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">住宅</span>
-            <span v-else-if="house.type === '2'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">公寓</span>
-            <span v-else-if="house.type === '3'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">商铺</span>
-            <span v-else-if="house.type === '4'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">写字楼</span>
-            <span v-else-if="house.type === '5'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">仓库</span>
-            <span v-else-if="house.type === '6'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">别墅</span>
-            <span v-else-if="house.type === '7'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">商业类</span>
+            <type-label :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
           </div>
           <div class="w-full space-x-1">
             <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item }}</span>
