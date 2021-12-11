@@ -113,7 +113,7 @@
             <span v-if="house.saleState === '1'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
             <span v-if="house.saleState === '2'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
             <span v-if="house.saleState === '3'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
-            <type-label :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
+            <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'" />
           </div>
           <div class="w-full space-x-1">
             <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item }}</span>

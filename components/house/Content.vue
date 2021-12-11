@@ -111,11 +111,15 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { phoneNum } from '~/api/model/houseModel'
+import Vue from 'vue';
+import TypeLabel from '~/components/house/TypeLabel.vue';
+import { phoneNum } from '~/api/model/houseModel';
 
 export default Vue.extend({
   name: 'HouseContent',
+  components: {
+    TypeLabel
+  },
   props: {
     context: {
       type: Array,

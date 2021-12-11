@@ -654,7 +654,7 @@
               </div>
               <div class="sm:mt-1 sm:text-[12px] lg:text-[16px]">
                 <!-- 类型 -->
-                <type-label :sort="item.type" :class-name="'text-gray-400'" />
+                <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" />
                 <!-- 面积 -->
                 <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
                 <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>

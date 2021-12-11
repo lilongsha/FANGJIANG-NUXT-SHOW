@@ -150,8 +150,12 @@
 </template>
 <script>
 import Vue from 'vue'
+import TypeLabel from '~/components/house/TypeLabel.vue';
 export default Vue.extend({
   name: 'RecomendHouse',
+  components: {
+    TypeLabel
+  },
   computed: {
     getHotProject() {
       const that = this;
