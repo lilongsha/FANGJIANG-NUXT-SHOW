@@ -39,9 +39,9 @@
       <!-- <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/about/company" target="_blank">关于</a> -->
     </div>
     <!-- 右侧 -->
-    <div class="absolute right-0 flex flex-row items-center justify-center h-full max-w-lg">
+    <div class="absolute right-0 flex flex-row items-center justify-center h-full max-w-lg group">
       <!-- 搜索 -->
-      <div class="flex items-center ml-8 mr-6 text-lg transition-all group">
+      <div class="flex items-center ml-8 mr-6 text-lg transition-all">
         <svg 
           t="1631870449894" 
           class="w-5 h-5 icon group-hover:opacity-0" 
