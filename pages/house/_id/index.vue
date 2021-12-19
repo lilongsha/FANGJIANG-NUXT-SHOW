@@ -38,8 +38,8 @@
               <div class="absolute left-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
-              <div ref="sortScroll" class="relative h-full space-x-2 text-white transition-all" :style="sortRightString">
-                <div v-for="(item, index) in resourceSortList" :key="index" class="static float-left w-24 h-full" @click="getResourceList(item.sort)">
+              <div ref="sortScroll" class="relative grid h-full grid-flow-col space-x-2 text-white transition-all" :style="sortRightString">
+                <div v-for="(item, index) in resourceSortList" :key="index" class="static w-24 h-full" @click="getResourceList(item.sort)">
                   <img :src="item.address" :alt="resourceSort[item.sort].title" width="100%" height="100%" class="object-cover w-full h-full">
                   <span class="absolute bottom-0 w-24 text-center bg-black bg-opacity-60">{{ resourceSort[item.sort].title }}</span>
                 </div>
@@ -722,17 +722,25 @@ questionTotal, option, phoneNum, isMobile }
       this.showMoreId = id;
     },
     scrollRight() {
-      if ((this as any).$refs.sortScroll.offsetWidth - 713 < this.sortRight) {
-        return;
+      // if ((this as any).$refs.sortScroll.offsetWidth - 713 < this.sortRight) {
+      //   return;
+      // }
+      let times = 100;
+      if (this.isMobile) {
+        times = 50;
       }
-      this.sortRight = this.sortRight + 100;
+      this.sortRight = this.sortRight + times;
       this.sortRightString = 'right: ' + this.sortRight + 'px';
     },
     scrollLeft() {
-      if (this.sortRight - 100 < 0) {
+      let times = 100;
+      if (this.isMobile) {
+        times = 50;
+      }
+      if (this.sortRight - times < 0) {
         return;
       }
-      this.sortRight = this.sortRight - 100;
+      this.sortRight = this.sortRight - times;
       this.sortRightString = 'right: ' + this.sortRight + 'px';
     },
     async getResourceList(sort: string) {
