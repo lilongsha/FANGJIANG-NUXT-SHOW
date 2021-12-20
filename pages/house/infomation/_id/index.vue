@@ -8,9 +8,7 @@
         <span v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</span>
       </div>
       <div class="sm:mt-2 lg:mt-4">
-        <span v-if="house.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
-        <span v-else-if="house.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-        <span v-else-if="house.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+        <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
         <HouseTypeLabel :sort="house.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
         <span class="sm:ml-2 lg:ml-4"></span>
         <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
@@ -92,9 +90,7 @@
                   <td class="w-1/12 border">{{ item.price }}</td>
                   <td class="w-3/12 border">{{ item.priceDescription }}</td>
                   <td class="w-1/12 border">
-                    <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
-                    <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-                    <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+                    <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
                   </td>
                   <td class="w-1/12 border">{{ item.floors }}</td>
                   <td class="w-4/12 border">{{ item.description }}</td>

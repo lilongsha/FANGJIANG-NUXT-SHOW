@@ -29,9 +29,7 @@
               <div class="w-1/2 h-full pl-2">
                 <div class="flex flex-row items-end">
                   <div class="text-[16px] font-bold">{{ house.name }}</div>
-                  <div v-if="house.saleState === '1'" class="px-0.5 ml-2 mb-0.5 text-[12px] text-center text-white bg-fjRed-100">在售</div>
-                  <div v-if="house.saleState === '2'" class="px-0.5 ml-2 mb-0.5 text-[12px] text-center text-white bg-fjBlue-100">待售</div>
-                  <div v-if="house.saleState === '3'" class="px-0.5 ml-2 mb-0.5 text-[12px] text-center text-white bg-fjYellow-100">售罄</div>
+                  <HouseStateDiv :state="house.saleState" :class-name="'px-0.5 ml-2 mb-0.5 text-[12px] text-center text-white'" />
                 </div>
                 <div>
                   <div class="flex flex-row items-center mt-2">

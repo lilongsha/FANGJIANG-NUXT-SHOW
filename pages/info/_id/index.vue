@@ -23,9 +23,7 @@
           <a target="_blank" :href="`/house/${item.id}.html`">
             <div class="w-full">
               <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`" class="text-black hover:text-fjBlue-100">{{ item.name }}</a></span>
-              <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
-              <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-              <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
               <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
             </div>
             <div class="flex flex-row items-center">
@@ -104,9 +102,7 @@
           <a target="_blank" :href="`/house/${item.id}.html`">
             <div class="w-full">
               <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`" class="text-black hover:text-fjBlue-100">{{ item.name }}</a></span>
-              <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
-              <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-              <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
               <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
             </div>
             <div class="flex flex-row items-center">

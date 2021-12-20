@@ -17,9 +17,7 @@
         <div class="w-full px-4 mt-2 bg-white h-3/10">
           <div class="font-bold">
             <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
-            <span v-if="item.saleState === '1'" class="px-1 py-0.5 font-normal text-sm text-white rounded-sm bg-fjYellow-100">在售</span>
-            <span v-if="item.saleState === '2'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-            <span v-if="item.saleState === '3'" class="px-1 py-0.5 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+            <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
             <type-label :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
           </div>
           <div class="flex flex-row items-center mt-2">
@@ -121,9 +119,7 @@
           <!-- 标题 -->
           <div class="flex flex-row w-full h-6">
             <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
-            <div v-if="item.saleState === '1'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjYellow-100">在售</div>
-            <div v-if="item.saleState === '2'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100">待售</div>
-            <div v-if="item.saleState === '3'" class="mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjRed-100">售罄</div>
+            <HouseStateDiv :state="item.saleState" :class-name="'mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white'" />
             <type-label :sort="item.type" :class-name="'h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'"></type-label>
           </div>
           <!-- 信息 -->

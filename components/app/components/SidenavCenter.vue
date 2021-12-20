@@ -69,9 +69,7 @@
                   <span class="text-lg font-bold text-fjRed-100">{{ item.price }}</span>
                   <span v-if="item.price" class="mt-1 text-sm">元/㎡</span>
                   <span v-else>暂无数据</span>
-                  <div v-if="item.saleState === '1'" class="px-1 pt-1 ml-2 text-xs text-center text-white align-middle bg-fjRed-100">在售</div>
-                  <div v-if="item.saleState === '2'" class="px-1 pt-1 ml-2 text-xs text-center text-white align-middle bg-fjBlue-100">待售</div>
-                  <div v-if="item.saleState === '3'" class="px-1 pt-1 ml-2 text-xs text-center text-white align-middle bg-fjYellow-100">售罄</div>
+                  <HouseStateDiv :state="item.saleState" :class-name="'px-1 pt-1 ml-2 text-xs text-center text-white align-middle'" />
                 </div>
               </a>
             </div>

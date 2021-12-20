@@ -9,9 +9,7 @@
           <!-- name and saleState -->
           <div class="flex flex-row items-end w-full">
             <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
-            <span v-if="house.saleState === '1'" class="px-1 my-auto text-sm font-normal text-white rounded-sm ml-7 bg-fjYellow-100">在售</span>
-            <span v-if="house.saleState === '2'" class="px-1 my-auto font-normal text-white rounded-sm ml-7 bg-fjBlue-100">待售</span>
-            <span v-if="house.saleState === '3'" class="px-1 my-auto font-normal text-white rounded-sm ml-7 bg-fjRed-100">售罄</span>
+            <HouseStateLabel :state="house.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
           </div>
           <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
         </div>
@@ -110,9 +108,7 @@
         <div class="w-full p-4 mt-4 bg-white lg:hidden">
           <div class="w-full h-6 leading-6 font-bold text-[18px]">
             <span class="">{{ house.name }}</span>
-            <span v-if="house.saleState === '1'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
-            <span v-if="house.saleState === '2'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-            <span v-if="house.saleState === '3'" class="px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+            <HouseStateLabel :state="house.saleState" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm'" />
             <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'" />
           </div>
           <div class="w-full space-x-1">
@@ -208,9 +204,7 @@
                           <span v-if="item.toilet">卫</span>
                         </div>
                         <div class="text-xs">
-                          <span v-if="item.saleState === '1'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjYellow-100">在售</span>
-                          <span v-if="item.saleState === '2'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjBlue-100">待售</span>
-                          <span v-if="item.saleState === '3'" class="sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm bg-fjRed-100">售罄</span>
+                          <HouseStateLabel :state="item.saleState" :class-name="'sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm'" />
                         </div>
                       </div>
                       <div class="flex flex-shrink-0 w-full text-gray-700 sm:flex-col lg:flex-row">
