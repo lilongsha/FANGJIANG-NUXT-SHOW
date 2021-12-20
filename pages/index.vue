@@ -926,17 +926,17 @@ export default Vue.extend({
     }
     
     return {
-      title: `${city}新房_${city}楼盘_${city}买房-房匠网`,
+      title: `${city}新房_${city}楼盘_${city}买房_${city}视频看房-房匠网`,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网`
+          content: `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网,${city}视频看房`
         },
         {
           hid: 'description',
           name: 'description',
-          content: `房匠网提供${city}新房,${city}楼盘,${city}买房,${city}楼市等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.`
+          content: `房匠网提供${city}新房,${city}楼盘,${city}买房,${city}楼市等最新信息.房匠网房源多,信息全,价透明,更有最新楼盘实景视频展示,做您买房路上的自己人.`
         },
       ],
       script: [
