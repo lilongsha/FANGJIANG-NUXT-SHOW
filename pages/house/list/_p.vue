@@ -264,6 +264,19 @@
         </div>
       </div>
     </div>
+    <div class="flex flex-row justify-between w-full mt-7 sm:hidden">
+      <div class="w-[625px] h-[154px] bg-cover rounded-md bg-bimg pl-[80px] pt-[24px]">
+        <div>
+          <div class="text-[34px] font-bold text-white italic">线上<span class="mx-4">“<span class="text-[#ECF000]">0</span>接触”</span>找房</div>
+          <div class="text-[12px] tracking-[13px] text-white italic">足不出户换新房安全更安心</div>
+          <button class="bg-[#ECF000] rounded-3xl font-bold h-[26px] w-[91px] text-fjBlue-100 text-[12px] mt-[12px] italic " @click="helpUser">马上看房</button>
+        </div>
+      </div>
+      <div class="w-[625px] h-[154px] bg-cover rounded-md bg-rightbg pl-[33px] pt-[22px]">
+        <div class="text-[38px] font-bold text-white">看房专车免费接送</div>
+        <button class="bg-white rounded-3xl font-bold h-[39px] w-[140px] text-fjBlue-100 text-[18px] mt-[12px]" @click="openActivityClue('4')">立即预约</button>
+      </div>
+    </div>
     <!-- 移动端codition -->
     <div class="fixed top-14 z-[51] bg-white w-full flex flex-col lg:hidden">
       <!-- title -->
@@ -522,9 +535,9 @@
       </div>
     </div>
     <div :class="selectMenuM !== '' ? '' : 'hidden'" class="fixed bottom-0 left-0 right-0 z-50 block top-14" style="background: rgba(0,0,0,.5);" @click="selectMenuM = ''"></div>
-    <div id="list" class="h-14"></div>
+    <div id="list" class="h-14 lg:hidden"></div>
     <!-- list -->
-    <div class="w-full overflow-hidden sm:mt-1 lg:mt-14">
+    <div class="w-full overflow-hidden sm:mt-1 lg:mt-8">
       <!-- 标题 -->
       <div class="flex flex-row w-full border-b-2 sm:hidden border-fjBlue-100">
         <div :class="select.sortType === '0' ? 'bg-fjBlue-100 text-white' : 'text-black'" class="w-[97px] h-[52px] flex flex-row justify-center items-center">
@@ -612,9 +625,10 @@
               </svg>
           </div>
         </a>
-        <div v-if="false" class="flex flex-row items-center justify-end w-full">
+        <div class="flex flex-row items-center justify-end w-full">
           <span>我的关注</span>
-          <svg
+          <img src="~/assets/img/clue/heart.png" alt="">
+          <!-- <svg
             class="w-2 h-2 transition-all rotate-180 text-fjRed-100"
             fill="currentColor"
             viewBox="0 0 1024 1024"
@@ -630,146 +644,171 @@
               data-spm-anchor-id="a313x.7781069.0.i0"
               class="selected"
             ></path>
-          </svg>
+          </svg> -->
         </div>
       </div>
       <!-- 主体 -->
       <div class="w-full sm:mt-1 lg:mt-6">
-        <div v-for="item in projectList" :key="item.id" class="sm:mb-2 sm:px-2 lg:p-4 lg:mb-12 hover:bg-gray-100">
-          <a :href="`/house/${item.id}.html`" target="_blank" class="w-full sm:h-36 lg:h-[250px] flex flex-row">
-            <!-- 左边图片 -->
-            <div class="sm:h-24 lg:h-full sm:w-1/3 lg:w-[360px] static">
-              <img :src="getImg(item)" class="object-cover w-full h-full" :alt="item.name">
-            </div>
-            <!-- 右边内容 -->
-            <div class="h-full sm:w-2/3 lg:w-[920px] sm:pl-2 lg:pl-6">
-              <div class="flex flex-row items-center lg:h-11">
-                <!-- title -->
-                <h1 class="h-full mb-0 sm:pb-0 sm:text-[16px] lg:text-[28px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
-                <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
-                  <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
-                  <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
-                  <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
+        <div v-for="(item, index) in projectList" :key="item.id" class="">
+          <div class="sm:mb-2 sm:px-2 lg:p-4 lg:mb-6 hover:bg-gray-100">
+            <a :href="`/house/${item.id}.html`" target="_blank" class="w-full sm:h-36 lg:h-[250px] flex flex-row">
+              <!-- 左边图片 -->
+              <div class="sm:h-24 lg:h-full sm:w-1/3 lg:w-[360px] static">
+                <img :src="getImg(item)" class="object-cover w-full h-full" :alt="item.name" />
+              </div>
+              <!-- 右边内容 -->
+              <div class="h-full sm:w-2/3 lg:w-[920px] sm:pl-2 lg:pl-6">
+                <div class="flex flex-row items-center lg:h-11">
+                  <!-- title -->
+                  <h1 class="h-full mb-0 sm:pb-0 sm:text-[16px] lg:text-[28px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
+                  <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
+                    <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
+                    <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
+                    <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
+                  </div>
+                  <div class="ml-2 lg:hidden" @click="re">
+                    <button class="font-medium text-white bg-fjRed-100 py-1 px-1 text-[8px]" @click="openClue('6')">订阅楼盘</button>
+                  </div>
                 </div>
-              </div>
-              <div class="sm:mt-1 sm:text-[12px] lg:text-[16px]">
-                <!-- 类型 -->
-                <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" />
-                <!-- 面积 -->
-                <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
-                <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
-                <!-- 开盘时间 -->
-                <span v-if="item.openTime" class="text-gray-400">|</span>
-                <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
-              </div>
-              <!-- 右中内容 -->
-              <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
-                <div class="sm:w-full lg:w-3/5 h-full sm:text-[12px] lg:text-[18px]">
-                  <div class="flex flex-row items-center sm:flex-shrink-0">
-                    <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
-                        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-                    AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
-                    RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
-                    grUxRUEfDKXUHrKhTBCKdj4YmlRgRmMoAwqSQk0OSKRmgrcHE4McJQLv9fAdx/Od73y3XC/nnL3W
-                    //9fe+191j6n279qsdDNGKM1GoCrTvvVsVgTtFv1qDDZayYblhm+4JDP46EHFAgzrPFshYAftMR9
-                    /1Mg9BQt7nq85aRj/kFfYzTp2eXZLsRbdQuEEb41InlotcOP8Y+Ud6hmi8xOHk95KZ6qSyBMdFgP
-                    8I318USZJEbZ6GVw2zPxp5oFwuPO6wXeiNtUtPC6z8BNw+OlUn/3XFRbQj+9Gj1xm+mgl7Y8f45A
-                    2GI0mBbb1GCxzTQwOmypoUShyYnaipNbqFHxZLUZbAUH6qEnbnMghS4vEBpNAYvqoU8hpoTG4uEe
-                    mbBlYHfefgijzDUOHXaXbtx4Kew2F8usrFSieeDTHPotjttgppk2OJ63nAlqXvFg0SKHkU7iSny0
-                    hP67rrf2nrXGF0ui/tKApvhbuRlMBO0lwHtN4ah11jkKZofSdWpPseSuQaH3dJQAW8BXcQF4L3xp
-                    PlrsyMR1eKGLJXcGhZ5/NpN/syG4mNAjLnARQ0JzRuBsiiVX4GFwJwMbBY4UjR1Jee7bnRRLrkAh
-                    4G4Gdhv0KRrrk/Lct7ulCRYLXAGDMrDCok4OfbuK1tfklOe+DUqx5Ar8AjKVjSecQn+toR+Eflr1
-                    x6mS1605xZJY8S4qHBmTZG2VfXjO6dCGaQYno1mblGLJncExlzE0TMjMYb9NYLBFFiX0m+L+4qgw
-                    wVBcdqysQLyV9MSF2dTiWitTtb1iZVxbkn8BdaD4AyBzHoRZWnEtDiiBC/3N8RR+tydey/Ff1R+z
-                    495KAg/p9AgWxi/UZeFVO/G3gbHCNhXv2AXero++C7ErZl7T0hPtQ9AYZtSV/wyNKXQlgXjGQfBB
-                    XfkXog/GM1UFsAI0hTk15z9HUwpZZPkfXnvNxBWD421VLfRwWQO+j7NKvfkfXoVTtSE5B6pZi4YU
-                    qpYZED72JngynlXRwhMKdf8kLsvzdy+DW+0G+Lpq/oWIG1bnu8sIxOuWgnFhecX8lxsHlsbr+RGV
-                    fkDaFZre8HihTMQw58HP8elyLOVKBPOT656yEXsykfUJxHNJmcaGzbn5bzY2Kc+58izVfgIPJN+q
-                    Jc0vaW4cjM9XYqhUIpihE+wM44voxyf0nar0rCoC8aapye3hMLKLfqTDye3UePOBBIgdloDe2sMY
-                    CGO06w2WxI5q+Br+9AkbrE9u38G7yf3GuKE6tiYBwvvWZIZa4lu1IGsUIKyS3qyr40e14WoWILxi
-                    q8fwpxWxeo+qX4Aw0GJsj521Y/4DSPcta79rLVoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAt
-                    MDlUMTY6Mzg6NDIrMDg6MDDCFhjIAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4
-                    OjQyKzA4OjAws0ugdAAAACB0RVh0c29mdHdhcmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2d
-                    AAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6
-                    OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRU
-                    aHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3
-                    MjIz7prBAAAAEnRFWHRUaHVtYjo6U2l6ZQAyMTI1QkLGHJgzAAAARnRFWHRUaHVtYjo6VVJJAGZp
-                    bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
-                    eTPfkgAAAABJRU5ErkJggg==" ></image>
-                    </svg>
-                    <span class="overflow-hidden sm:w-2/5 whitespace-nowrap sm:mr-1 lg:mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
-                    <span class="overflow-hidden sm:w-3/5 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
-                  </div>
-                  <div class="flex flex-row items-center lg:mt-2">
-                    <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
-                        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-                    AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
-                    RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
-                    6WA6SOMm6qYubvIG6SZUEBSDCCqCgw4i0kF0EkQipCiI2l6b9HIO6TPX3CX33l0iGfwv9967777f
-                    9733cu/LWR5KYo7j5HGJVhqHRbmgYYnVBAiLMjM6D/h0V57WB8xxC4Dn/GCDVJcnXGwmmQTglLwf
-                    BbA3rxeANWbkC73gRYnrQJFIgIq1ANzRdQ/yBq+BXdGWCrAOPNZ1D8ACMCJyugAb+GoE+Azkuq7W
-                    FkA8NfCiTBTAM4ZpWifLwBBgDR7Ak6smgBjhBbepaAvT9rXNMxhiSbhtQaZFnadck9+CAHNZ7A0d
-                    38dJMSFXkgNqSNZ8PhrYjDIL7OEyl5JN0TKwIovBG+IED4AzQYCmxEF24jAFZMUxHPJ8kJXWfflQ
-                    3GSeHc1enAwkU5utPM8AuMqVLRZPmKfebMbZpsOBkXxb/yeQjp9BiVFqvn6Ol20W9VYzBkA+ijRJ
-                    t5r/9GXn9BuQ7QdArUENuCe+d4BYwKz8mATgAmOMdbEcSZZBGnhPlW0dM6gmA2SAs/JdPCc6AAXR
-                    lsiyHYffMqKu8FcVRgCO8ImlDlMaAjBXhiHG+1l4bQC/9AsvGMiyxRDQF/3PYLAyiNzT2mqEA3qX
-                    jW+y47+Lumm4lYUCpIDpngGOtjwrwDJwUUwYOKkAjbA/IOIAJf4eUOo8KFMkxxsh+YKlsRrr7Ady
-                    osSq70xxSTHOObJAuTmkvlXs5i2Fnk0RVDgkqz4AiAK3OUzGYLN6hP04LWq84ryqt/8AjaKFO12a
-                    KAsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAtMDlUMTY6Mzg6MzYrMDg6MDA8nDXCAAAAJXRF
-                    WHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4OjM2KzA4OjAwTcGNfgAAACB0RVh0c29mdHdh
-                    cmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2dAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBh
-                    Z2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1i
-                    OjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JW
-                    TgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3MTYfrg0bAAAAEnRFWHRUaHVtYjo6U2l6ZQAx
-                    NjgyQkKYWsBsAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3Zp
-                    ZXcyXzlfMTYzMTU5MjMzNzY3ODc4MzRfNzlfWzBdjI0y0QAAAABJRU5ErkJggg==" ></image>
-                    </svg>
-                    <span class="whitespace-nowrap">户型：</span>
-                    <span>{{getRoomList(item)}}</span>
-                  </div>
-                  <div class="flex flex-row items-center lg:hidden">
-                    <div v-if="item.price" class="w-2/5">
-                      <span v-if="item.price" class="text-[#DA1111] text-[16px] font-bold">{{ item.price }}</span>
-                      <span v-if="item.price" class="text-[12px]">元/㎡</span>
+                <div class="sm:mt-1 sm:text-[12px] lg:text-[16px]">
+                  <!-- 类型 -->
+                  <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" />
+                  <!-- 面积 -->
+                  <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
+                  <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
+                  <!-- 开盘时间 -->
+                  <span v-if="item.openTime" class="text-gray-400">|</span>
+                  <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
+                </div>
+                <!-- 右中内容 -->
+                <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
+                  <div class="sm:w-full lg:w-3/5 h-full sm:text-[12px] lg:text-[18px]">
+                    <div class="flex flex-row items-center sm:flex-shrink-0">
+                      <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                          href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                      AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+                      RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
+                      grUxRUEfDKXUHrKhTBCKdj4YmlRgRmMoAwqSQk0OSKRmgrcHE4McJQLv9fAdx/Od73y3XC/nnL3W
+                      //9fe+191j6n279qsdDNGKM1GoCrTvvVsVgTtFv1qDDZayYblhm+4JDP46EHFAgzrPFshYAftMR9
+                      /1Mg9BQt7nq85aRj/kFfYzTp2eXZLsRbdQuEEb41InlotcOP8Y+Ud6hmi8xOHk95KZ6qSyBMdFgP
+                      8I318USZJEbZ6GVw2zPxp5oFwuPO6wXeiNtUtPC6z8BNw+OlUn/3XFRbQj+9Gj1xm+mgl7Y8f45A
+                      2GI0mBbb1GCxzTQwOmypoUShyYnaipNbqFHxZLUZbAUH6qEnbnMghS4vEBpNAYvqoU8hpoTG4uEe
+                      mbBlYHfefgijzDUOHXaXbtx4Kew2F8usrFSieeDTHPotjttgppk2OJ63nAlqXvFg0SKHkU7iSny0
+                      hP67rrf2nrXGF0ui/tKApvhbuRlMBO0lwHtN4ah11jkKZofSdWpPseSuQaH3dJQAW8BXcQF4L3xp
+                      PlrsyMR1eKGLJXcGhZ5/NpN/syG4mNAjLnARQ0JzRuBsiiVX4GFwJwMbBY4UjR1Jee7bnRRLrkAh
+                      4G4Gdhv0KRrrk/Lct7ulCRYLXAGDMrDCok4OfbuK1tfklOe+DUqx5Ar8AjKVjSecQn+toR+Eflr1
+                      x6mS1605xZJY8S4qHBmTZG2VfXjO6dCGaQYno1mblGLJncExlzE0TMjMYb9NYLBFFiX0m+L+4qgw
+                      wVBcdqysQLyV9MSF2dTiWitTtb1iZVxbkn8BdaD4AyBzHoRZWnEtDiiBC/3N8RR+tydey/Ff1R+z
+                      495KAg/p9AgWxi/UZeFVO/G3gbHCNhXv2AXero++C7ErZl7T0hPtQ9AYZtSV/wyNKXQlgXjGQfBB
+                      XfkXog/GM1UFsAI0hTk15z9HUwpZZPkfXnvNxBWD421VLfRwWQO+j7NKvfkfXoVTtSE5B6pZi4YU
+                      qpYZED72JngynlXRwhMKdf8kLsvzdy+DW+0G+Lpq/oWIG1bnu8sIxOuWgnFhecX8lxsHlsbr+RGV
+                      fkDaFZre8HihTMQw58HP8elyLOVKBPOT656yEXsykfUJxHNJmcaGzbn5bzY2Kc+58izVfgIPJN+q
+                      Jc0vaW4cjM9XYqhUIpihE+wM44voxyf0nar0rCoC8aapye3hMLKLfqTDye3UePOBBIgdloDe2sMY
+                      CGO06w2WxI5q+Br+9AkbrE9u38G7yf3GuKE6tiYBwvvWZIZa4lu1IGsUIKyS3qyr40e14WoWILxi
+                      q8fwpxWxeo+qX4Aw0GJsj521Y/4DSPcta79rLVoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAt
+                      MDlUMTY6Mzg6NDIrMDg6MDDCFhjIAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4
+                      OjQyKzA4OjAws0ugdAAAACB0RVh0c29mdHdhcmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2d
+                      AAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6
+                      OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRU
+                      aHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3
+                      MjIz7prBAAAAEnRFWHRUaHVtYjo6U2l6ZQAyMTI1QkLGHJgzAAAARnRFWHRUaHVtYjo6VVJJAGZp
+                      bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
+                      eTPfkgAAAABJRU5ErkJggg==" ></image>
+                      </svg>
+                      <span class="overflow-hidden sm:w-2/5 whitespace-nowrap sm:mr-1 lg:mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
+                      <span class="overflow-hidden sm:w-3/5 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
                     </div>
-                    <div v-else class="w-2/5">
-                      <span v-if="item.lowTotalPrice" class="text-[#DA1111] text-[16px] font-bold">{{ item.lowTotalPrice }}</span>
-                      <span v-if="item.lowTotalPrice" class="text-[12px]">万/套起</span>
-                      <span v-else>暂无数据</span>
+                    <div class="flex flex-row items-center lg:mt-2">
+                      <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                          href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                      AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+                      RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
+                      6WA6SOMm6qYubvIG6SZUEBSDCCqCgw4i0kF0EkQipCiI2l6b9HIO6TPX3CX33l0iGfwv9967777f
+                      9733cu/LWR5KYo7j5HGJVhqHRbmgYYnVBAiLMjM6D/h0V57WB8xxC4Dn/GCDVJcnXGwmmQTglLwf
+                      BbA3rxeANWbkC73gRYnrQJFIgIq1ANzRdQ/yBq+BXdGWCrAOPNZ1D8ACMCJyugAb+GoE+Azkuq7W
+                      FkA8NfCiTBTAM4ZpWifLwBBgDR7Ak6smgBjhBbepaAvT9rXNMxhiSbhtQaZFnadck9+CAHNZ7A0d
+                      38dJMSFXkgNqSNZ8PhrYjDIL7OEyl5JN0TKwIovBG+IED4AzQYCmxEF24jAFZMUxHPJ8kJXWfflQ
+                      3GSeHc1enAwkU5utPM8AuMqVLRZPmKfebMbZpsOBkXxb/yeQjp9BiVFqvn6Ol20W9VYzBkA+ijRJ
+                      t5r/9GXn9BuQ7QdArUENuCe+d4BYwKz8mATgAmOMdbEcSZZBGnhPlW0dM6gmA2SAs/JdPCc6AAXR
+                      lsiyHYffMqKu8FcVRgCO8ImlDlMaAjBXhiHG+1l4bQC/9AsvGMiyxRDQF/3PYLAyiNzT2mqEA3qX
+                      jW+y47+Lumm4lYUCpIDpngGOtjwrwDJwUUwYOKkAjbA/IOIAJf4eUOo8KFMkxxsh+YKlsRrr7Ady
+                      osSq70xxSTHOObJAuTmkvlXs5i2Fnk0RVDgkqz4AiAK3OUzGYLN6hP04LWq84ryqt/8AjaKFO12a
+                      KAsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMTAtMDlUMTY6Mzg6MzYrMDg6MDA8nDXCAAAAJXRF
+                      WHRkYXRlOm1vZGlmeQAyMDIxLTEwLTA5VDE2OjM4OjM2KzA4OjAwTcGNfgAAACB0RVh0c29mdHdh
+                      cmUAaHR0cHM6Ly9pbWFnZW1hZ2ljay5vcme8zx2dAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBh
+                      Z2VzADGn/7svAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA0OIdghy0AAAAWdEVYdFRodW1i
+                      OjpJbWFnZTo6V2lkdGgANDh/z0egAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JW
+                      TgAAABd0RVh0VGh1bWI6Ok1UaW1lADE2MzM3Njg3MTYfrg0bAAAAEnRFWHRUaHVtYjo6U2l6ZQAx
+                      NjgyQkKYWsBsAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3Zp
+                      ZXcyXzlfMTYzMTU5MjMzNzY3ODc4MzRfNzlfWzBdjI0y0QAAAABJRU5ErkJggg==" ></image>
+                      </svg>
+                      <span class="whitespace-nowrap">户型：</span>
+                      <span>{{getRoomList(item)}}</span>
                     </div>
-                    <div class="w-3/5">
-                      <span class="text-xs">更新日期：</span>
+                    <div class="flex flex-row items-center justify-between py-1 pl-2 bg-[#F5F5F5] lg:mt-4 lg:space-x-2 lg:h-[35px] lg:w-[370px] sm:hidden">
+                      <div class="flex flex-row items-center space-x-2">
+                        <img src="~/assets/img/clue/smallDing.png" alt="" />
+                        <span class="text-[#333333] lg:text-[15px] sm:text-[9px] font-normal">设置订阅楼盘，楼盘信息早知道</span>
+                      </div>
+                      <div class="z-[40] flex flex-row items-center" @click="re">
+                        <button class="font-medium text-white bg-fjRed-100 lg:py-1 lg:px-2 lg:text-[15px] sm:text-[9px]" @click="openClue('6')">订阅楼盘信息</button>
+                      </div>
+                    </div>
+                    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="item.id" :clue-type="clueType" @isOpen="isOpen" />
+                    <div class="flex flex-row items-center lg:hidden">
+                      <div v-if="item.price" class="w-2/5">
+                        <span v-if="item.price" class="text-[#DA1111] text-[16px] font-bold">{{ item.price }}</span>
+                        <span v-if="item.price" class="text-[12px]">元/㎡</span>
+                      </div>
+                      <div v-else class="w-2/5">
+                        <span v-if="item.lowTotalPrice" class="text-[#DA1111] text-[16px] font-bold">{{ item.lowTotalPrice }}</span>
+                        <span v-if="item.lowTotalPrice" class="text-[12px]">万/套起</span>
+                        <span v-else>暂无数据</span>
+                      </div>
+                      <div class="w-3/5">
+                        <span class="text-xs">更新日期：</span>
+                        <span v-if="item.updatePriceTime" class="text-xs">{{ item.updatePriceTime.split('T')[0] }}</span>
+                        <span v-else class="text-xs">暂无数据</span>
+                      </div>
+                    </div>
+                    <div v-if="item.labels" class="lg:mt-4">
+                      <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="sm:text-[12px] lg:text-[14px] rounded sm:px-1 lg:px-2 lg:py-1 sm:mr-1 lg:mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
+                    </div>
+                  </div>
+                  <div class="sm:w-0 sm:overflow-hidden sm:hidden lg:w-2/5 text-[14px] text-right">
+                    <div class="w-full">
+                      <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
+                      <span v-if="item.price">元/㎡起</span>
+                      <span v-if="!item.price">暂无数据</span>
+                    </div>
+                    <div class="w-full">
+                      <span class="text-xs">价格更新日期：</span>
                       <span v-if="item.updatePriceTime" class="text-xs">{{ item.updatePriceTime.split('T')[0] }}</span>
                       <span v-else class="text-xs">暂无数据</span>
                     </div>
-                  </div>
-                  <div v-if="item.labels" class="lg:mt-16">
-                    <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="sm:text-[12px] lg:text-[14px] rounded sm:px-1 lg:px-2 lg:py-1 sm:mr-1 lg:mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
-                  </div>
-                </div>
-                <div class="sm:w-0 sm:overflow-hidden sm:hidden lg:w-2/5 text-[14px] text-right">
-                  <div class="w-full">
-                    <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
-                    <span v-if="item.price">元/㎡起</span>
-                    <span v-if="!item.price">暂无数据</span>
-                  </div>
-                  <div class="w-full">
-                    <span class="text-xs">价格更新日期：</span>
-                    <span v-if="item.updatePriceTime" class="text-xs">{{ item.updatePriceTime.split('T')[0] }}</span>
-                    <span v-else class="text-xs">暂无数据</span>
-                  </div>
-                  <div class="w-full">
-                    <span v-if="item.priceDays" class="text-xs">价格有效期：{{ item.priceDays }}天</span>
-                    <span v-else class="text-xs">暂无数据</span>
-                  </div>
-                  <div class="w-full mt-4">
-                    <span></span>
-                    <span class="text-2xl font-bold text-fjRed-100">{{ phoneNum }}&nbsp;&nbsp;转&nbsp;&nbsp;{{ item.number }}</span>
+                    <div class="w-full">
+                      <span v-if="item.priceDays" class="text-xs">价格有效期：{{ item.priceDays }}天</span>
+                      <span v-else class="text-xs">暂无数据</span>
+                    </div>
+                    <div class="w-full mt-4">
+                      <span></span>
+                      <span class="text-2xl font-bold text-fjRed-100">{{ phoneNum }}&nbsp;&nbsp;转&nbsp;&nbsp;{{ item.number }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
+          <div v-show="index === 0 && activities[0]" class="relative lg:my-4 sm:hidden">
+            <img v-if="activities[0]" class="flex flex-row items-center justify-center bg-cover h-[100px] w-full" :src="activities[0].headImg">
+            <span v-if="activities[0]" class="absolute top-1/2 mt-[-31.5px] text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15', activities[0].id)">{{activities[0].title}}</span>
+            <span class="absolute right-2 top-2 text-white tracking-[8px]">广告</span>
+          </div>
+          <div v-show="index === 1 && activities[1]" class="relative lg:my-4 sm:hidden">
+            <img v-if="activities[1]" class="flex flex-row items-center justify-center bg-cover h-[100px] w-full" :src="activities[1].headImg">
+            <span v-if="activities[1]"  class="absolute top-1/2 mt-[-31.5px] text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15',activities[1].id )">{{activities[1].title}}</span>
+            <span class="absolute right-2 top-2 text-white tracking-[8px]">广告</span>
+          </div>
         </div>
       </div>
     </div>
@@ -800,6 +839,8 @@
     </div>
     <!-- 广告位1 -->
     <!-- 广告位2 -->
+    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :activity-id="activityId" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  @isOpen="isOpen" />
   </div>
 </template>
 
@@ -811,6 +852,7 @@ import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api
 import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from '~/api/model/tradingAreaModel';
 import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
+import { ActivityApi, ActivityModel } from '~/api/clue/activity';
 type fieldType = 'areaId'|'tradingId'|'stationId'|'price'|'lowPrice'|'highPrice'|'totalPrice'|'lowTotalPrice'|'highTotalPrice'|'acreage'|'lowAcreage'|'heightAcreage'|'houseType'|'projectType'|'saleState'|'sortType';
 const fields: string[] = [
   'areaId', 
@@ -837,6 +879,20 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, store, route, req }) {
+    const activityParam = {
+      data: {
+        cityId:store.state.app.cityId
+      }
+    }
+    const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
+    let activities;
+    if (activityResult.code === 200) {
+      const result:ActivityModel[] = getDataResult(activityResult);
+      if (result) {
+        activities = result;
+      }
+    }
+
     const curPath = route.path;
 
     const userAgent = req?.headers['user-agent'] || '';
@@ -944,6 +1000,7 @@ export default Vue.extend({
     let total: number = 0;
 
     const getList = async () => {
+      // this.activity()
       const condition: any = {};
       condition.city = { id: store.state.app.cityId }
       const areaIds: any[] = [];
@@ -999,6 +1056,7 @@ export default Vue.extend({
     await getList();
 
     return {
+      activities,
       curPath,
       pageNum,
       select,
@@ -1017,6 +1075,12 @@ export default Vue.extend({
     }
   },
   data () {
+    const activityId: string = '';
+    const activities: ActivityModel[] = [];
+    const openingHelp: boolean = false;
+    const openActivity = false;
+    const clueType: string = '';
+    const opening: boolean = false;
     const areaId: string[] = [];
     const tradingId: string[] = [];
     const stationId: string[] = [];
@@ -1040,6 +1104,12 @@ export default Vue.extend({
     const selectMenuPrice: string = '1';
     const curPath: string = '';
     return {
+      activityId,
+      activities,
+      openingHelp,
+      openActivity,
+      clueType,
+      opening,
       curPath,
       areas,
       projectList,
@@ -1129,6 +1199,27 @@ export default Vue.extend({
     }
   },
   methods: {
+    re (e: Event) {
+      debugger;
+        e.stopPropagation();
+    },
+    helpUser() {
+      this.openingHelp = true;
+    },
+    isOpen() {
+      this.opening = false;
+      this.openActivity = false;
+      this.openingHelp = false;
+    },
+    openActivityClue(type: string, id: string) {
+      this.activityId = id;
+      this.clueType = type;
+      this.openActivity = true;
+    },
+    openClue(type: string) {
+      this.clueType = type;
+      this.opening = true;
+    },
     showMenuBodyM(flag: string) {
       if (this.selectMenuM === flag) {
         this.selectMenuM = '';

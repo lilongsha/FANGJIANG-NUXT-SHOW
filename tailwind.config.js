@@ -38,6 +38,11 @@ module.exports = {
     fontFamily: {},
     extend: {
       backgroundImage: _theme => ({
+        'people': "url('~/assets/img/clue/people.png')",
+        'rightbg': "url('~/assets/img/clue/rightbg.png')",
+        'bimg': "url('~/assets/img/clue/bimg.png')",
+        'list-ad': "url('~/assets/img/clue/listAd.png')",
+        'clue-head': "url('~/assets/img/clue/head.png')",
         'about-1': "url('~/assets/img/about/map.jpg')",
         'about-2': "url('~/assets/img/about/about-02.jpg')",
         'index-menu': "url('~/assets/img/index-menu.png')",

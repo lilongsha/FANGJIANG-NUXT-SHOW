@@ -63,6 +63,12 @@
                   <span v-if="house.price" class="text-[22px]">{{ house.price }}<span class="text-sm">元/㎡起</span></span>
                   <span v-else>暂无数据</span>
                 </div>
+                <div v-show="house.saleState != '2'" class="flex items-center justify-center -ml-9">
+                    <button class=" space-x-1 p-1 object-center border border-white rounded flex flex-row w-[76px] h-[19px] items-center" @click="openClue('2')">
+                      <img src="~/assets/img/clue/price.png" alt="" class="w-[13px] h-[12px]">
+                      <span class="text-xs font-medium text-white">降价通知</span>
+                    </button>
+                </div>
                 <div v-if="house.lowTotalPrice">
                   <span class="text-[22px]">{{ house.lowTotalPrice }}<span v-if="house.highTotalPrice">-</span>{{ house.highTotalPrice }}</span>
                   <span v-if="house.highTotalPrice" class="text-sm">（万/套）</span>
@@ -86,20 +92,43 @@
             </div>
             <div class="px-6 w-full h-[392px] text-[#666666] text-base">
               <!-- address -->
-              <div class="w-full pt-4">项目地址：{{ house.address }}</div>
+              <div class="w-full pt-4">项目地址：{{ house.address }} <button class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('10')">[周边配套信息]</button></div>
               <!-- house -->
-              <div class="w-full pt-4">主力户型：{{ layoutLabel }}</div>
+              <div class="w-full pt-4">主力户型：{{ layoutLabel }} <button v-show="house.saleState != '2'" class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('8')">[成交价查询]</button></div>
               <!-- 最新开盘 -->
-              <div v-if="house.openTime" class="w-full py-4">最新开盘：{{ house.openTime.split('T')[0] }}</div>
-              <div v-else class="w-full py-4">最新开盘：暂未开盘</div>
+              <div v-if="house.openTime" class="w-full py-4">最新开盘：{{ house.openTime.split('T')[0] }} <button class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('9')">[开盘提醒我]</button></div>
+              <div v-else class="w-full py-4">最新开盘：暂未开盘 <button class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('9')">[开盘提醒我]</button></div>
               <!-- 查看更多楼盘详情 -->
               <a class="w-full text-fjBlue-100 border-b-[1px] border-fjBlue-100" :href="`/house/infomation/${house.id}.html`" :title="`${house.name}详情信息`" target="_blank">
                 查看更多楼盘详情
               </a>
-              <div class="w-full mt-14 h-0.5 bg-[#DDDDDD]"></div>
+              <button class="w-[100px] text-fjBlue-100 font-medium text-[16px] ml-4" @click="helpUser" >
+                [帮您找房]
+              </button>
+              <div class="rounded-md  w-[506px] h-[60px]  bg-[#F7DFCF] mt-5 flex flex-row items-center pl-4 overflow-hidden relative">
+                <div class="w-[338px] space-x-4 flex flex-row">
+                  <img src="~/assets/img/clue/bus.png" alt="" class="w-[42px] h-[24px]">
+                  <span class="text-[#EB670C] text-[20px] font-medium">看房专车免费车接车送</span>
+                </div>
+                <div class=" absolute top-0 -right-7 skew-x-[-36deg] w-[178px] h-full bg-[#EB670C] opacity-60 z-30 "></div>
+                <div class="skew-x-[-36deg] bg-[#EB670C] w-[178px] h-full absolute top-0 -right-9 flex flex-row items-center z-40">
+                  <button class="skew-x-[36deg] text-white font-[20px] object-center pl-[50px]" @click="openClue('4')">立即报名</button>  
+                </div>
+              </div>
+              <div class="rounded-md  w-[506px] h-[60px]  bg-[#F7DFCF] mt-5 flex flex-row items-center pl-4 overflow-hidden relative">
+                <div class="w-[338px] space-x-4 flex flex-row items-center">
+                  <img src="~/assets/img/clue/group.png" alt="" class="w-[38px] h-[34px]">
+                  <span class="text-[#EB670C] text-[18px] font-medium">正在组团砍价，成团后短信通知您</span>
+                </div>
+                <div class=" absolute top-0 -right-7 skew-x-[-36deg] w-[178px] h-full bg-[#EB670C] opacity-60 z-30 "></div>
+                <div class="skew-x-[-36deg] bg-[#EB670C] w-[178px] h-full absolute top-0 -right-9 flex flex-row items-center z-40">
+                  <button class="skew-x-[36deg] text-white font-[20px] object-center pl-[50px]" @click="openClue('5')">立即报名</button>  
+                </div>
+              </div>
+              <div class="w-full mt-5 h-0.5 bg-[#DDDDDD]"></div>
               <!-- phone -->
               <a :href="`tel:${phoneNum},${house.number}%23`">
-                <div class="w-full mt-6 text-2xl font-bold text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</div>
+                <div class="w-full mt-6 ml-2 text-2xl font-bold text-fjRed-100">{{ phoneNum }} 转 {{ house.number }}</div>
               </a>
             </div>
           </div>
@@ -110,6 +139,10 @@
             <span class="">{{ house.name }}</span>
             <HouseStateLabel :state="house.saleState" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm'" />
             <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'" />
+            <!-- <button class="px-1 ml-2 text-[12px] font-normal text-fjBlue-100" @click="openClue">价格变化提醒</button> -->
+            <button class="w-[80px] text-fjBlue-100 font-medium text-[9px]" @click="helpUser" >
+                [帮您找房]
+            </button>
           </div>
           <div class="w-full space-x-1">
             <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item }}</span>
@@ -223,134 +256,156 @@
             </div>
           </div>
         </div>
-        <!-- house news -->
-        <div id="news" class="bg-[#f6f9fe] lg:p-2 lg:sticky sm:px-2 lg:z-[60] lg:float-right sm:w-full lg:w-1/4 m2-8 lg:transition-all lg:top-44">
-          <!-- title -->
-          <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
-            <span class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
-          </div>
-          <!-- content -->
-          <div class="w-full pt-1 space-y-2 sm:px-2">
-            <div v-for="(item,index) in newsList" :key="index">
-              <a :href="`/info/${item.id}.html`" target="_blank" class="text-black sm:text-sm hover:text-fjBlue-100">{{ item.title }}</a>
-            </div>
-          </div>
-        </div>
-        <!-- house advantage -->
-        <div class="content sm:px-2">
-          <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
-            <!-- 标题内容 -->
-            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}项目分析</div>
-          </div>
-          <!-- content -->
-          <div class="w-full m2-8">
-            <!-- 项目优点 -->
-            <div v-if="house.advantage" class="flex flex-row w-full h-full">
-              <div class="flex-shrink-0 font-bold font">项目优点：</div>
-              <div class="w-5/6">{{ house.advantage }}</div>
-            </div>
-            <!-- 项目缺点 -->
-            <div class="flex flex-row w-full h-full">
-              <div class="font-bold font">项目缺点：</div>
-              <div class="flex flex-row items-center justify-center"><a :href="`tel:${phoneNum},${house.number}%23`">请咨询客服了解<span class="text-fjRed-100">[{{house.name}}]</span>缺点信息</a></div>
-            </div>
-          </div>
-        </div>
-        <!-- house dynamic -->
-        <div id="dynamic" ref="dynamic" class="content sm:px-2">
-          <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
-            <!-- 标题内容 -->
-            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态</div>
-            <!-- 全部 -->
-            <a :href="`/house/dynamic/${house.id}/p1`" target="_blank">
-              <div class="text-sm text-gray-500">更多({{ totalDynamic }})></div>
-            </a>
-          </div>
-          <!-- content -->
-          <div class="w-full m2-8">
-            <div v-for="(item,index) in dynamicList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
-              <!-- dynamic Title -->
-              <div class="w-full mb-4">
-                <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
-                <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs text-white">{{ DynamicSort[item.sort].title }}</span>
+        <!-- 测试右侧sticky -->
+        <div class="lg:flex lg:flex-row">
+          <div class="lg:w-3/4">
+                <!-- house advantage -->
+            <div class="content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+                <!-- 标题内容 -->
+                <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}项目分析</div>
               </div>
-              <!-- dynamic Content -->
-              <p class="w-full mb-8 truncate whitespace-pre-wrap max-h-16 first-letter:ml-4">{{ item.description }}</p>
-              <!-- dynamic Time -->
-              <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
-              <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
+              <!-- content -->
+              <div class="w-full m2-8">
+                <!-- 项目优点 -->
+                <div v-if="house.advantage" class="flex flex-row w-full h-full">
+                  <div class="flex-shrink-0 font-bold font">项目优点：</div>
+                  <div class="w-5/6">{{ house.advantage }}</div>
+                </div>
+                <!-- 项目缺点 -->
+                <div class="flex flex-row w-full h-full">
+                  <div class="font-bold font">项目缺点：</div>
+                  <div class="flex flex-row items-center justify-center"><a :href="`tel:${phoneNum},${house.number}%23`">请咨询客服了解<span class="text-fjRed-100">[{{house.name}}]</span>缺点信息</a></div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <!-- house question -->
-        <div id="question" ref="question" class="content sm:px-2">
-          <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
-            <!-- 标题内容 -->
-            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</div>
-            <!-- 全部 -->
-            <a :href="`/house/discuss/${house.id}/p1`" target="_blank">
-              <div class="text-sm text-gray-500">更多({{ questionTotal }})></div>
-            </a>
-          </div>
-          <!-- content -->
-          <div class="w-full m2-8">
-            <div v-for="(item,index) in questionList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
-              <!-- question Title -->
-              <div class="w-full mb-4">
-                <a :href="`/house/discuss/${item.id}.html`" target="_blank">
-                  <span class="text-black sm:text-sm lg:text-lg hover:border-b border-fjBlue-100">{{ item.content }}</span>
+            <!-- house dynamic -->
+            <div id="dynamic" ref="dynamic" class="content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+                <!-- 标题内容 -->
+                <div class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}动态 
+                  <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
+                    <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                    <span class="text-[13px] font-medium text-fjBlue-100">新动态通知我</span>
+                  </button></div>
+                <!-- 全部 -->
+                <a :href="`/house/dynamic/${house.id}/p1`" target="_blank">
+                  <div class="text-sm text-gray-500">更多({{ totalDynamic }})></div>
                 </a>
               </div>
-              <!-- question Content -->
-              <div v-if="item.answerEntities && item.answerEntities.length > 0">
-                <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
-                  <div class="overflow-hidden sm:w-3/5 lg:w-3/4">
-                    <span class="sm:text-xs">{{ answer.content }}</span>
+              <!-- content -->
+              <div class="w-full m2-8">
+                <div v-for="(item,index) in dynamicList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
+                  <!-- dynamic Title -->
+                  <div class="w-full mb-4">
+                    <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
+                    <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs text-white">{{ DynamicSort[item.sort].title }}</span>
                   </div>
-                  <div class="flex flex-row items-center justify-end sm:w-2/5 lg:w-1/4">
-                    <svg t="1632970194001" class="w-3 h-3" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3415" width="128" height="128"><path d="M598.354747 67.542626c-48.148687 0-90.130101 32.905051-98.960808 79.437576 0 0-14.312727 72.882424-21.798787 99.090101-12.308687 43.196768-55.363232 90.944646-86.522829 106.188283-23.531313 11.636364-110.99798 11.765657-116.350707 11.765656H155.707475c-32.762828 0-59.384242 26.479192-59.384243 59.384243v475.022222c0 32.762828 26.479192 59.384242 59.384243 59.384242h548.033939c88.126061 0 163.025455-64.452525 176.135758-151.647676l45.873131-305.713132c10.834747-71.809293-44.8-136.274747-117.423838-136.274747H673.254141s20.066263-66.469495 30.228687-178.669899c5.081212-56.837172-35.167677-110.99798-94.280404-117.152323-3.620202-0.54303-7.227475-0.814545-10.847677-0.814546zM333.705051 898.288485V421.533737c38.917172-2.534141 66.999596-8.016162 83.574949-16.316767 43.726869-21.669495 99.633131-81.040808 117.281616-143.088485 7.899798-27.681616 21.39798-96.155152 23.001212-104.184243 3.47798-17.92 20.596364-31.159596 40.649697-31.159596 1.603232 0 3.206465 0.129293 4.822627 0.271516 28.211717 2.947879 43.326061 29.698586 41.32202 52.686868-9.360808 103.912727-27.823838 166.503434-28.082425 166.904243l-23.130505 76.489697h215.182223c17.519192 0 33.564444 7.356768 45.071515 20.596363 11.507071 13.239596 16.316768 30.228687 13.640404 47.618586L821.294545 797.052121c-8.830707 58.569697-58.181818 101.094141-117.423838 101.094142h-370.165656v0.142222z m-177.997576 0v-475.022222h118.626262v475.022222H155.707475z m0 0" p-id="3416"></path></svg>
-                    <span class="sm:mr-2 lg:mr-6">{{ answer.likeNum }}</span>
-                    <span class="sm:text-xs">{{ answer.createTime.split('T')[0] }}</span>
-                  </div>
-                </div>
-                <div v-if="item.answerEntities.length > 2">
-                  <div v-if="showMoreId !== item.id" class="w-full text-center sm:text-xs" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
-                  <div v-else class="w-full text-center sm:text-xs" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
+                  <!-- dynamic Content -->
+                  <p class="w-full mb-8 truncate whitespace-pre-wrap max-h-16 first-letter:ml-4">{{ item.description }}</p>
+                  <!-- dynamic Time -->
+                  <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
+                  <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
                 </div>
               </div>
-              <!-- question Time -->
-              <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
-              <div v-else class="text-gray-400 sm:text-xs lg:text-sm">{{ item.createTime.split('T')[0] }}</div>
+            </div>
+            <!-- house question -->
+            <div id="question" ref="question" class="content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+                <!-- 标题内容 -->
+                <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</div>
+                <!-- 全部 -->
+                <a :href="`/house/discuss/${house.id}/p1`" target="_blank">
+                  <div class="text-sm text-gray-500">更多({{ questionTotal }})></div>
+                </a>
+              </div>
+              <!-- content -->
+              <div class="w-full m2-8">
+                <div v-for="(item,index) in questionList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
+                  <!-- question Title -->
+                  <div class="w-full mb-4">
+                    <a :href="`/house/discuss/${item.id}.html`" target="_blank">
+                      <span class="text-black sm:text-sm lg:text-lg hover:border-b border-fjBlue-100">{{ item.content }}</span>
+                    </a>
+                  </div>
+                  <!-- question Content -->
+                  <div v-if="item.answerEntities && item.answerEntities.length > 0">
+                    <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
+                      <div class="overflow-hidden sm:w-3/5 lg:w-3/4">
+                        <span class="sm:text-xs">{{ answer.content }}</span>
+                      </div>
+                      <div class="flex flex-row items-center justify-end sm:w-2/5 lg:w-1/4">
+                        <svg t="1632970194001" class="w-3 h-3" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3415" width="128" height="128"><path d="M598.354747 67.542626c-48.148687 0-90.130101 32.905051-98.960808 79.437576 0 0-14.312727 72.882424-21.798787 99.090101-12.308687 43.196768-55.363232 90.944646-86.522829 106.188283-23.531313 11.636364-110.99798 11.765657-116.350707 11.765656H155.707475c-32.762828 0-59.384242 26.479192-59.384243 59.384243v475.022222c0 32.762828 26.479192 59.384242 59.384243 59.384242h548.033939c88.126061 0 163.025455-64.452525 176.135758-151.647676l45.873131-305.713132c10.834747-71.809293-44.8-136.274747-117.423838-136.274747H673.254141s20.066263-66.469495 30.228687-178.669899c5.081212-56.837172-35.167677-110.99798-94.280404-117.152323-3.620202-0.54303-7.227475-0.814545-10.847677-0.814546zM333.705051 898.288485V421.533737c38.917172-2.534141 66.999596-8.016162 83.574949-16.316767 43.726869-21.669495 99.633131-81.040808 117.281616-143.088485 7.899798-27.681616 21.39798-96.155152 23.001212-104.184243 3.47798-17.92 20.596364-31.159596 40.649697-31.159596 1.603232 0 3.206465 0.129293 4.822627 0.271516 28.211717 2.947879 43.326061 29.698586 41.32202 52.686868-9.360808 103.912727-27.823838 166.503434-28.082425 166.904243l-23.130505 76.489697h215.182223c17.519192 0 33.564444 7.356768 45.071515 20.596363 11.507071 13.239596 16.316768 30.228687 13.640404 47.618586L821.294545 797.052121c-8.830707 58.569697-58.181818 101.094141-117.423838 101.094142h-370.165656v0.142222z m-177.997576 0v-475.022222h118.626262v475.022222H155.707475z m0 0" p-id="3416"></path></svg>
+                        <span class="sm:mr-2 lg:mr-6">{{ answer.likeNum }}</span>
+                        <span class="sm:text-xs">{{ answer.createTime.split('T')[0] }}</span>
+                      </div>
+                    </div>
+                    <div v-if="item.answerEntities.length > 2">
+                      <div v-if="showMoreId !== item.id" class="w-full text-center sm:text-xs" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
+                      <div v-else class="w-full text-center sm:text-xs" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
+                    </div>
+                  </div>
+                  <!-- question Time -->
+                  <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
+                  <div v-else class="text-gray-400 sm:text-xs lg:text-sm">{{ item.createTime.split('T')[0] }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- house around -->
+            <div id="around" ref="around" class="content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+                <!-- 标题内容 -->
+                <div class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边
+                  <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
+                    <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                    <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
+                  </button>
+                </div>
+              </div>
+              <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
+            </div>
+            <!-- house price -->
+            <div id="price" ref="price" class="bg-white content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+                <!-- 标题内容 -->
+                <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</div>
+              </div>
+              <div class="w-full sm:h-56 lg:h-80">
+                <line-echart :option="option" />
+              </div>
+            </div>      
+          </div>
+          <div class="lg:w-1/4">
+            <div id="news" class="bg-[#f6f9fe] lg:p-2 lg:sticky sm:px-2 lg:z-[19] lg:float-right sm:w-full lg:w-full m2-8 lg:transition-all lg:top-44">
+                <!-- title -->
+              <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
+                <span class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</span>
+              </div>
+              <!-- content -->
+              <div class="w-full pt-1 space-y-2 sm:px-2">
+                <div v-for="(item,index) in newsList" :key="index">
+                  <a :href="`/info/${item.id}.html`" target="_blank" class="text-black sm:text-sm hover:text-fjBlue-100">{{ item.title }}</a>
+                </div>
+              </div>
+              <!-- ad -->
+              <div class="lg:mt-9 sm:hidden">
+                <img class="w-[306px] h-[298px]" src="~/assets/img/clue/ad.png" alt="广告" @click="openClue('15')">
+              </div>
             </div>
           </div>
         </div>
-        <!-- house around -->
-        <div id="around" ref="around" class="content-1 sm:px-2">
-          <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
-            <!-- 标题内容 -->
-            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}周边</div>
-          </div>
-          <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
-        </div>
-        <!-- house price -->
-        <div id="price" ref="price" class="bg-white content-1 sm:px-2">
-          <!-- h-36px -->
-          <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
-            <!-- 标题内容 -->
-            <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</div>
-          </div>
-          <div class="w-full sm:h-56 lg:h-80">
-            <line-echart :option="option" />
-          </div>
-        </div>
+        
         <!-- house 推荐 -->
         <recomend-house class=""/>
       </div>
     </div>
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :project-id="house.id" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -562,6 +617,9 @@ export default Vue.extend({
 questionTotal, option, phoneNum, isMobile }
   },
   data () {
+    const openingHelp: boolean = false;
+    const clueType: string = '';
+    const opening: boolean = false;
     const id: string = '';
     const house: any = {};
     const sortRight: number = 0;
@@ -586,6 +644,9 @@ questionTotal, option, phoneNum, isMobile }
     const option: any = {};
     let isMobile: any;
     return {
+      openingHelp,
+      clueType,
+      opening,
       id,
       resourceSort,
       DynamicSort,
@@ -712,6 +773,17 @@ questionTotal, option, phoneNum, isMobile }
     this.getHouseType();
   },
   methods: {
+    helpUser() {
+      this.openingHelp = true;
+    },
+    isOpen() {
+      this.opening = false;
+      this.openingHelp = false;
+    },
+    openClue(type: string) {
+      this.clueType = type;
+      this.opening = true;
+    },
     showMore(id: string) {
       this.showMoreId = id;
     },

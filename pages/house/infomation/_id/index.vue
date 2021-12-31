@@ -61,7 +61,9 @@
               </div>
             </div>
             <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
-              <div>开盘时间：<span v-if="house.openTime">{{ house.openTime.split('T')[0] }}</span><span v-else>暂无数据</span></div>
+              <div>开盘时间：<span v-if="house.openTime">{{ house.openTime.split('T')[0] }}</span><span v-else>暂无数据</span>
+                <button class="text-fjBlue-100 font-medium lg:text-[16px] ml-4 lg:w-[91px] lg:h-[17px]" @click="openClue('9')">[开盘提醒我]</button>
+              </div>
               <div>售楼地址：<span v-if="house.saleAddress">预计{{ house.saleAddress }}</span><span v-else>暂无数据</span></div>
             </div>
           </div>
@@ -132,8 +134,15 @@
         <div class="w-full p-4 mt-4 shadow">
           <!-- 标题 -->
           <div class="w-full pb-[1px] border-b border-fjBlue-100">
-            <span class="text-lg font-bold border-b-[6px] border-fjBlue-100">楼盘解析</span>
+            <span class="text-lg font-bold border-b-[6px] border-fjBlue-100 flex">楼盘解析
+              <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
+                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
+              </button>
+            </span>
+            
           </div>
+          
           <!-- 内容 -->
           <div class="py-2 space-y-4">
             <div class="w-full">交通配套：<span v-if="house.trafficInfo" class="text-gray-400">{{ house.trafficInfo }}</span><span v-else>暂无数据</span></div>
@@ -158,12 +167,22 @@
           </div>
         </div>
       </div>
-      <div class="sm:w-0 sm:hidden lg:w-1/4">
+      <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
         <!-- 广告位 -->
+        <div>
+          <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-[306px] h-[358px]">
+        </div>
+        <div>
+          <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]">
+        </div>
+        <div>
+          <img src="~/assets/img/clue/ad.png" alt="广告" class="w-[306px] h-[358px]">
+        </div>
       </div>
     </div>
     <!-- 推荐楼盘 -->
     <reomend-house />
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -324,10 +343,14 @@ export default Vue.extend({
     }
   },
   data() {
+    const clueType: string = '';
+    const opening: boolean = false;
     const showBuild: boolean = false;
     const option: any = {};
     let house: any;
     return {
+      clueType,
+      opening,
       colors,
       buildType,
       decorationType,
@@ -398,6 +421,13 @@ export default Vue.extend({
     }
   },
   methods: {
+    isOpen() {
+      this.opening = false;
+    },
+    openClue(type: string) {
+      this.clueType = type;
+      this.opening = true;
+    },
      changeShowBuild(flag: boolean) {
       this.showBuild = flag;
     },

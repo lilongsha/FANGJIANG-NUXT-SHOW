@@ -1,12 +1,19 @@
 <template>
-  <div class="sm:w-screen sm:px-2">
+  <div class="sm:w-screen sm:px-2 mx-auto lg:container">
     <div id="list" class="w-full sm:h-10 lg:h-24"></div>
-    <div class="flex flex-row mx-auto sm:w-full lg:container">
-      <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8">
+    <div class="flex flex-row w-full">
+    <div class="lg:w-3/4 sm:w-full">
+    <div class="flex flex-row sm:w-full lg:w-full">
+      <div class="sm:w-full lg:w-full lg:pr-4 sm:mt-2 lg:mt-8">
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
           <!-- 标题内容 -->
-          <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100">{{ project.name }}动态</div>
+          <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100  flex justify-center items-center">{{ project.name }}动态
+            <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
+                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                <span class="text-[13px] font-medium text-fjBlue-100">新动态通知我</span>
+            </button>
+          </div>
         </div>
         <!-- content -->
         <div class="w-full mt-8">
@@ -26,7 +33,7 @@
       </div>
     </div>
     <!-- pagination -->
-    <div class="sm:w-full lg:container">
+    <div class="sm:w-full lg:w-full">
       <div class="text-right sm:w-full lg:w-3/4">
         <a-pagination
           v-if="isMobile"
@@ -47,6 +54,31 @@
         />
       </div>
     </div>
+    <div class="lg:mt-10 sm:mt-2 border border-[#DDDDDD] flex flex-row justify-between items-center lg:h-[79px] lg:px-6 sm:h-[46px] sm:w-full">
+      <div class="space-x-2 flex flex-row items-center"> 
+        <img src="~/assets/img/clue/ding.png" alt="" class="lg:w-5 lg:h-5 sm:w-3 sm:h-3">
+        <span class="text-[#333333] lg:text-[20px] sm:text-xs font-normal">设置订阅楼盘，楼盘信息早知道</span>
+      </div>
+      <div class="flex flex-row items-center">
+        <input type="text" class="placeholder-[#999999] bg-[#F5F5F5] lg:w-[266px] lg:h-[45px] sm:h-[35px] sm:w-[85px] sm:text-[10px] lg:pl-5 -mr-1" placeholder="请输入手机号">
+        <button class="text-white lg:text-[20px] sm:text-xs font-medium bg-fjRed-100 lg:w-[156px] lg:h-[46px] sm:w-[90px] sm:h-[35px]" @click="openClue('6')">订阅楼盘信息</button>
+      </div>
+    </div>
+    </div>
+    <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
+        <!-- 广告位 -->
+        <div>
+          <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-[306px] h-[358px]">
+        </div>
+        <div>
+          <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]">
+        </div>
+        <div>
+          <img src="~/assets/img/clue/ad.png" alt="广告" class="w-[306px] h-[358px]">
+        </div>
+    </div>
+    </div>
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="project.id" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -120,6 +152,8 @@ export default Vue.extend({
     }
   },
   data () {
+    const clueType: string = '';
+    const opening: boolean = false;
     const pageParam = {
       pageSize: 10,
       pageNum: 0,
@@ -131,6 +165,8 @@ export default Vue.extend({
     const id: string = '';
     let isMobile:any;
     return {
+      clueType,
+      opening,
       id,
       pageParam,
       dynamics,
@@ -191,6 +227,13 @@ export default Vue.extend({
     }
   },
   methods: {
+    isOpen() {
+      this.opening = false;
+    },
+    openClue(type: string) {
+      this.clueType = type;
+      this.opening = true;
+    },
     itemRender (page: any, type: any, originalElement: any) {
       const path = `/house/dynamic/${this.id}/p${page}`;
       if (originalElement.data) {
