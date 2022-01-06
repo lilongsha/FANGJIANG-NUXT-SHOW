@@ -626,8 +626,8 @@
           </div>
         </a>
         <div class="flex flex-row items-center justify-end w-full">
-          <span>我的关注</span>
-          <img src="~/assets/img/clue/heart.png" alt="">
+          <!-- <span>我的关注</span>
+          <img src="~/assets/img/clue/heart.png" alt=""> -->
           <!-- <svg
             class="w-2 h-2 transition-all rotate-180 text-fjRed-100"
             fill="currentColor"
@@ -650,8 +650,8 @@
       <!-- 主体 -->
       <div class="w-full sm:mt-1 lg:mt-6">
         <div v-for="(item, index) in projectList" :key="item.id" class="">
-          <div class="sm:mb-2 sm:px-2 lg:p-4 lg:mb-6 hover:bg-gray-100">
-            <a :href="`/house/${item.id}.html`" target="_blank" class="w-full sm:h-36 lg:h-[250px] flex flex-row">
+          <div class="sm:py-4 sm:px-2 lg:p-4 lg:mb-6 hover:bg-gray-100">
+            <a :href="`/house/${item.id}.html`" target="_blank" class="w-full sm:max-h-36 lg:h-[250px] flex flex-row">
               <!-- 左边图片 -->
               <div class="sm:h-24 lg:h-full sm:w-1/3 lg:w-[360px] static">
                 <img :src="getImg(item)" class="object-cover w-full h-full" :alt="item.name" />
@@ -666,19 +666,19 @@
                     <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
                     <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
                   </div>
-                  <div class="ml-2 lg:hidden" @click="re">
-                    <button class="font-medium text-white bg-fjRed-100 py-1 px-1 text-[8px]" @click="openClue('6')">订阅楼盘</button>
-                  </div>
+                  <!-- <div class="ml-2 lg:hidden">
+                    <button class="font-medium text-white bg-fjRed-100 text-[12px]" @click.stop="openClue('6', item.id)">订阅楼盘</button>
+                  </div> -->
                 </div>
-                <div class="sm:mt-1 sm:text-[12px] lg:text-[16px]">
+                <div class="sm:mt-1 sm:text-[12px] lg:text-[16px] flex flex-row">
                   <!-- 类型 -->
                   <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" />
                   <!-- 面积 -->
-                  <span v-if="item.hLayoutsById.length > 0" class="text-gray-400">|</span>
-                  <span class="text-gray-400" :title="getRoomArea(item.hLayoutsById)">{{ getRoomArea(item.hLayoutsById) }}</span>
+                  <span v-if="item.hLayoutsById.length > 0" class="ml-2 text-gray-400">|</span>
+                  <span v-if="getRoomArea(item.hLayoutsById)" class="ml-2 text-gray-400">{{ getRoomArea(item.hLayoutsById) }}</span>
                   <!-- 开盘时间 -->
-                  <span v-if="item.openTime" class="text-gray-400">|</span>
-                  <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
+                  <span v-if="item.openTime" class="ml-2 text-gray-400">|</span>
+                  <span class="ml-2 text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
                 </div>
                 <!-- 右中内容 -->
                 <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
@@ -715,8 +715,7 @@
                       bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                       eTPfkgAAAABJRU5ErkJggg==" ></image>
                       </svg>
-                      <span class="overflow-hidden sm:w-2/5 whitespace-nowrap sm:mr-1 lg:mr-4" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]</span>
-                      <span class="overflow-hidden sm:w-3/5 whitespace-nowrap" :title="item.address">{{ item.address }}</span>
+                      <span class="overflow-hidden whitespace-nowrap sm:mr-1 lg:mr-4 sm:max-w-[200px]" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden sm:w-full whitespace-nowrap sm:ml-2" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
                     </div>
                     <div class="flex flex-row items-center lg:mt-2">
                       <svg version="1.1" class="mr-1 text-gray-400 sm:w-3 sm:h-3 lg:w-4 lg:h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -750,11 +749,11 @@
                         <img src="~/assets/img/clue/smallDing.png" alt="" />
                         <span class="text-[#333333] lg:text-[15px] sm:text-[9px] font-normal">设置订阅楼盘，楼盘信息早知道</span>
                       </div>
-                      <div class="z-[40] flex flex-row items-center" @click="re">
-                        <button class="font-medium text-white bg-fjRed-100 lg:py-1 lg:px-2 lg:text-[15px] sm:text-[9px]" @click="openClue('6')">订阅楼盘信息</button>
+                      <div class="z-[40] flex flex-row items-center">
+                        <button class="font-medium text-white bg-fjRed-100 lg:py-1 lg:px-2 lg:text-[15px] sm:text-[9px]" @click.stop="openClue('6', item.id, item.sysCityByCityId.id, item.lookTime)">订阅楼盘信息</button>
                       </div>
                     </div>
-                    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="item.id" :clue-type="clueType" @isOpen="isOpen" />
+                    
                     <div class="flex flex-row items-center lg:hidden">
                       <div v-if="item.price" class="w-2/5">
                         <span v-if="item.price" class="text-[#DA1111] text-[16px] font-bold">{{ item.price }}</span>
@@ -799,14 +798,14 @@
               </div>
             </a>
           </div>
-          <div v-show="index === 0 && activities[0]" class="relative lg:my-4 sm:hidden">
-            <img v-if="activities[0]" class="flex flex-row items-center justify-center bg-cover h-[100px] w-full" :src="activities[0].headImg">
-            <span v-if="activities[0]" class="absolute top-1/2 mt-[-31.5px] text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15', activities[0].id)">{{activities[0].title}}</span>
+          <div v-show="index === 0 && activities[0]" class="relative lg:my-4 sm:px-2">
+            <img v-if="activities[0]" class="sm:h-[40px] flex flex-row items-center justify-center bg-cover lg:h-[100px] w-full" :src="activities[0].headImg">
+            <span v-if="activities[0]" class="sm:text-[20px] sm:mt-[-10px] absolute top-1/2 lg:mt-[-31.5px]  lg:text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15', activities[0].id)">{{activities[0].title}}</span>
             <span class="absolute right-2 top-2 text-white tracking-[8px]">广告</span>
           </div>
-          <div v-show="index === 1 && activities[1]" class="relative lg:my-4 sm:hidden">
-            <img v-if="activities[1]" class="flex flex-row items-center justify-center bg-cover h-[100px] w-full" :src="activities[1].headImg">
-            <span v-if="activities[1]"  class="absolute top-1/2 mt-[-31.5px] text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15',activities[1].id )">{{activities[1].title}}</span>
+          <div v-show="index === 1 && activities[1]" class="relative lg:my-4 sm:px-2">
+            <img v-if="activities[1]" class="sm:h-[40px] flex flex-row items-center justify-center bg-cover lg:h-[100px] w-full" :src="activities[1].headImg">
+            <span v-if="activities[1]"  class=" sm:text-[20px] absolute top-1/2 mt-[-31.5px] lg:text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15',activities[1].id )">{{activities[1].title}}</span>
             <span class="absolute right-2 top-2 text-white tracking-[8px]">广告</span>
           </div>
         </div>
@@ -839,8 +838,9 @@
     </div>
     <!-- 广告位1 -->
     <!-- 广告位2 -->
-    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :activity-id="activityId" :clue-type="clueType" @isOpen="isOpen" />
-    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  @isOpen="isOpen" />
+    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :city="cityId" :activity-id="activityId" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :city-id="cityId"  @isOpen="isOpen" />
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="cityId" :look="lookTime"  :project-id="id" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -1049,6 +1049,7 @@ export default Vue.extend({
       const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
       if (result.code === 200) {
         projectList = getDataResult(result)
+        // console.log('projectList', projectList);
         total = result.data.page.totalElements;
       }
     }
@@ -1104,6 +1105,9 @@ export default Vue.extend({
     const selectMenuPrice: string = '1';
     const curPath: string = '';
     return {
+      cityId: '',
+      lookTime: 0,
+      id: '',
       activityId,
       activities,
       openingHelp,
@@ -1200,7 +1204,6 @@ export default Vue.extend({
   },
   methods: {
     re (e: Event) {
-      debugger;
         e.stopPropagation();
     },
     helpUser() {
@@ -1216,9 +1219,18 @@ export default Vue.extend({
       this.clueType = type;
       this.openActivity = true;
     },
-    openClue(type: string) {
+    openClue(type: string, projectId?: string, cityId?:string, look?: number) {
       this.clueType = type;
       this.opening = true;
+      this.id = projectId || '';
+      this.cityId = cityId || '';
+      this.lookTime = look || 0;
+      const evt =  window.event;
+      if (evt && evt.preventDefault) {
+          evt.preventDefault();
+          evt.stopPropagation ? evt.stopPropagation() : (evt.cancelBubble = true);
+      }
+      return false;
     },
     showMenuBodyM(flag: string) {
       if (this.selectMenuM === flag) {

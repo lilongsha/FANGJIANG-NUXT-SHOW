@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-screen sm:px-2 mx-auto lg:container">
+  <div class="mx-auto sm:w-screen sm:px-2 lg:container">
     <div id="list" class="w-full sm:h-10 lg:h-24"></div>
     <div class="flex flex-row w-full">
     <div class="lg:w-3/4 sm:w-full">
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="lg:mt-10 sm:mt-2 border border-[#DDDDDD] flex flex-row justify-between items-center lg:h-[79px] lg:px-6 sm:h-[46px] sm:w-full">
-      <div class="space-x-2 flex flex-row items-center"> 
+      <div class="flex flex-row items-center space-x-2"> 
         <img src="~/assets/img/clue/ding.png" alt="" class="lg:w-5 lg:h-5 sm:w-3 sm:h-3">
         <span class="text-[#333333] lg:text-[20px] sm:text-xs font-normal">设置订阅楼盘，楼盘信息早知道</span>
       </div>
@@ -68,22 +68,24 @@
     <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
         <!-- 广告位 -->
         <div>
-          <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-[306px] h-[358px]">
+          <img src="~/assets/img/clue/busAd.png" alt="看房专车免费接送" class="w-[306px] h-[358px]" @click="openActivityClue('4')">
         </div>
         <div>
-          <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]">
+          <img src="~/assets/img/clue/groupAd.png" alt="组团砍价，参与拼团" class="w-[306px] h-[358px]" @click="openActivityClue('5')">
         </div>
         <div>
-          <img src="~/assets/img/clue/ad.png" alt="广告" class="w-[306px] h-[358px]">
+          <img v-if="activities[0]" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
         </div>
     </div>
     </div>
-    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="project.id" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :city="city" :look="lookTime" :project-id="project.id" :activity-id="activityId" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="city" :look="lookTime"  :project-id="project.id" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { ActivityApi, ActivityModel } from '~/api/clue/activity';
 import { getDynamicNews, sort as DynamicSort } from '~/api/model/dynamicModel'
 import { getProject } from '~/api/model/houseModel'
 import { Breadcrumb } from '~/types/app';
@@ -94,6 +96,20 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, store, req, route }) {
+    const activityParam = {
+      data: {
+        cityId:store.state.app.cityId
+      }
+    }
+    const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
+    let activities;
+    if (activityResult.code === 200) {
+      const result:ActivityModel[] = getDataResult(activityResult);
+      if (result) {
+        activities = result;
+      }
+    }
+    
     const userAgent = req?.headers['user-agent'] || '';
     let pageNum = 1;
     let p = route.params?.p;
@@ -119,8 +135,12 @@ export default Vue.extend({
     ])
 
     let project: any;
+    let city: any;
+    let lookTime: any;
     if (resultProject.code === 200) {
       project = getDataResult(resultProject);
+      lookTime = project.lookTime;
+      city = project.sysCityByCityId.id;
     }
     
     const { content, page } = getPageResult(resultDynamic);
@@ -148,7 +168,10 @@ export default Vue.extend({
       id,
       dynamics,
       project,
-      isMobile
+      city,
+      lookTime,
+      isMobile,
+      activities
     }
   },
   data () {
@@ -165,6 +188,8 @@ export default Vue.extend({
     const id: string = '';
     let isMobile:any;
     return {
+      activityId: '',
+      openActivity: false,
       clueType,
       opening,
       id,
@@ -227,8 +252,14 @@ export default Vue.extend({
     }
   },
   methods: {
+    openActivityClue(type: string, id: string) {
+      this.activityId = id;
+      this.clueType = type;
+      this.openActivity = true;
+    },
     isOpen() {
       this.opening = false;
+      this.openActivity = false;
     },
     openClue(type: string) {
       this.clueType = type;

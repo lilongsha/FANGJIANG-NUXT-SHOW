@@ -63,7 +63,7 @@
                   <span v-if="house.price" class="text-[22px]">{{ house.price }}<span class="text-sm">元/㎡起</span></span>
                   <span v-else>暂无数据</span>
                 </div>
-                <div v-show="house.saleState != '2'" class="flex items-center justify-center -ml-9">
+                <div v-show="house.saleState != '2'" class="flex items-center justify-center ml-1">
                     <button class=" space-x-1 p-1 object-center border border-white rounded flex flex-row w-[76px] h-[19px] items-center" @click="openClue('2')">
                       <img src="~/assets/img/clue/price.png" alt="" class="w-[13px] h-[12px]">
                       <span class="text-xs font-medium text-white">降价通知</span>
@@ -92,7 +92,7 @@
             </div>
             <div class="px-6 w-full h-[392px] text-[#666666] text-base">
               <!-- address -->
-              <div class="w-full pt-4">项目地址：{{ house.address }} <button class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('10')">[周边配套信息]</button></div>
+              <div class="w-full pt-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">项目地址：{{ house.address }} <button class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('10')">[周边配套信息]</button></div>
               <!-- house -->
               <div class="w-full pt-4">主力户型：{{ layoutLabel }} <button v-show="house.saleState != '2'" class="text-fjBlue-100 font-medium text-[16px] ml-4" @click="openClue('8')">[成交价查询]</button></div>
               <!-- 最新开盘 -->
@@ -102,9 +102,6 @@
               <a class="w-full text-fjBlue-100 border-b-[1px] border-fjBlue-100" :href="`/house/infomation/${house.id}.html`" :title="`${house.name}详情信息`" target="_blank">
                 查看更多楼盘详情
               </a>
-              <button class="w-[100px] text-fjBlue-100 font-medium text-[16px] ml-4" @click="helpUser" >
-                [帮您找房]
-              </button>
               <div class="rounded-md  w-[506px] h-[60px]  bg-[#F7DFCF] mt-5 flex flex-row items-center pl-4 overflow-hidden relative">
                 <div class="w-[338px] space-x-4 flex flex-row">
                   <img src="~/assets/img/clue/bus.png" alt="" class="w-[42px] h-[24px]">
@@ -135,22 +132,19 @@
         </div>
         <!-- m base info -->
         <div class="w-full p-4 mt-4 bg-white lg:hidden">
-          <div class="w-full h-6 leading-6 font-bold text-[18px]">
+          <div class="w-full h-6 leading-6 font-bold text-[18px] flex flex-row items-center">
             <span class="">{{ house.name }}</span>
             <HouseStateLabel :state="house.saleState" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm'" />
-            <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100'" />
-            <!-- <button class="px-1 ml-2 text-[12px] font-normal text-fjBlue-100" @click="openClue">价格变化提醒</button> -->
-            <button class="w-[80px] text-fjBlue-100 font-medium text-[9px]" @click="helpUser" >
-                [帮您找房]
-            </button>
+            <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100 h-[15px]'" />
           </div>
           <div class="w-full space-x-1">
             <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item }}</span>
           </div>
-          <div class="w-full mt-2 text-[16px]">
+          <div class="flex flex-row items-center w-full mt-2 text-[16px]">
             <span>参考价格：</span>
             <span v-if="house.price" class="text-[18px] font-bold text-fjRed-100">{{ house.price }}<span class="text-[12px] text-fjRed-100">元/㎡</span></span>
             <span v-else class="text-[14px] text-gray-300">暂无数据</span>
+            <button class="text-fjBlue-100 font-medium text-[13px] ml-2"  @click="openClue('2')">[降价通知我]</button>
           </div>
           <div class="w-full border-t">
             <span class="text-xs text-gray-300 whitespace-pre-wrap">价格仅供参考，不做为最终购房的价格。<span v-if="house.updatePriceTime">价格更新时间：{{ house.updatePriceTime.split('T')[0] }}，价格有效期：{{ house.priceDays }}天</span></span>
@@ -162,22 +156,23 @@
                 <span v-if="house.property">{{ house.property }}年</span>
                 <span v-else>暂无数据</span>
               </div>
-              <div class="w-1/2">
+              <div class="w-1/2 text-right">
                 <span>建筑类型：</span>
                 <span v-if="house.buildType">{{ buildType[house.buildType].title }}</span>
                 <span v-else>暂无数据</span>
               </div>
             </div>
+            <div>
+              <span>主力户型：</span>
+              <span v-if="layoutLabel">{{ layoutLabel }}</span>
+              <span v-else>暂无数据</span>
+            </div>
             <div class="flex flex-row w-full">
-              <div class="w-1/2">
+              <div class="w-full">
                 <span>开盘时间：</span>
                 <span v-if="house.payTime">{{ house.payTime.split('T')[0] }}</span>
                 <span v-else>暂无数据</span>
-              </div>
-              <div class="w-1/2">
-                <span>主力户型：</span>
-                <span v-if="layoutLabel">{{ layoutLabel }}</span>
-                <span v-else>暂无数据</span>
+                <button class="text-fjBlue-100 font-medium text-[13px] ml-2" @click="openClue('9')">[开盘提醒我]</button>
               </div>
             </div>
             <div class="flex flex-row">
@@ -227,7 +222,7 @@
                       <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
                     </div>
                     <div class="flex flex-col w-full h-24 pt-2 sm:px-1 lg:px-4">
-                      <div class="flex font-bold text-black lg:flex-row sm:text-sm lg:text-xl">
+                      <div class="flex items-center font-bold text-black lg:flex-row sm:text-sm lg:text-xl">
                         <div class="-space-x-1">
                           <span v-if="item.room">{{ item.room }}</span>
                           <span v-if="item.room">室</span>
@@ -281,17 +276,17 @@
               </div>
             </div>
             <!-- house dynamic -->
-            <div id="dynamic" ref="dynamic" class="content-1 sm:px-2">
+            <div id="dynamic" ref="dynamic" class="flex flex-col items-center content-1 sm:px-2">
               <!-- h-36px -->
-              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+              <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100 relative">
                 <!-- 标题内容 -->
-                <div class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}动态 
-                  <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
-                    <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
-                    <span class="text-[13px] font-medium text-fjBlue-100">新动态通知我</span>
-                  </button></div>
+                <div class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态 </div>
+                <button class=" sm:hidden object-center ml-2 mb-1 space-x-2 p-1 border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
+                  <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                  <span class="text-[13px] font-medium text-fjBlue-100">新动态通知我</span>
+                </button>
                 <!-- 全部 -->
-                <a :href="`/house/dynamic/${house.id}/p1`" target="_blank">
+                <a :href="`/house/dynamic/${house.id}/p1`" target="_blank" class="absolute right-0">
                   <div class="text-sm text-gray-500">更多({{ totalDynamic }})></div>
                 </a>
               </div>
@@ -309,6 +304,10 @@
                   <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
                   <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
                 </div>
+              </div>
+              <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('7')">
+                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                <span class="text-[#015EEA] text-[16px] font-medium ml-2">新动态通知我</span>
               </div>
             </div>
             <!-- house question -->
@@ -355,21 +354,24 @@
               </div>
             </div>
             <!-- house around -->
-            <div id="around" ref="around" class="content-1 sm:px-2">
+            <div id="around" ref="around" class="flex flex-col items-center content-1 sm:px-2">
               <!-- h-36px -->
-              <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
+              <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
-                <div class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边
-                  <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
+                <div class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边</div>
+                <button class=" sm:hidden ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
                     <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                     <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
                   </button>
-                </div>
               </div>
               <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
+              <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('10')">
+                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                <span class="text-[#015EEA] text-[16px] font-medium ml-2">了解配套</span>
+              </div>
             </div>
             <!-- house price -->
-            <div id="price" ref="price" class="bg-white content-1 sm:px-2">
+            <div id="price" ref="price" class="flex flex-col items-center bg-white content-1 sm:px-2">
               <!-- h-36px -->
               <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
@@ -377,6 +379,10 @@
               </div>
               <div class="w-full sm:h-56 lg:h-80">
                 <line-echart :option="option" />
+              </div>
+               <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('2')">
+                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                <span class="text-[#015EEA] text-[16px] font-medium ml-2">价格波动通知我</span>
               </div>
             </div>      
           </div>
@@ -394,7 +400,8 @@
               </div>
               <!-- ad -->
               <div class="lg:mt-9 sm:hidden">
-                <img class="w-[306px] h-[298px]" src="~/assets/img/clue/ad.png" alt="广告" @click="openClue('15')">
+                <!-- <img class="w-[306px] h-[298px]" src="~/assets/img/clue/ad.png" alt="广告" @click="openClue('15')"> -->
+                <img v-if="activities[0]" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
               </div>
             </div>
           </div>
@@ -404,8 +411,8 @@
         <recomend-house class=""/>
       </div>
     </div>
-    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
-    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :project-id="house.id" @isOpen="isOpen" />
+    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :city="cityId" :look="lookTime" :project-id="id" :activity-id="activityId" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="cityId" :look="lookTime"  :project-id="id" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -421,6 +428,7 @@ import MapLoader from '~/plugins/loadMap';
 import LineEchart from '~/components/echart/LineEchart.vue'
 import RecomendHouse from '~/components/house/RecomendHouse.vue'
 import { Breadcrumb } from '~/types/app';
+import { ActivityApi, ActivityModel } from '~/api/clue/activity';
 const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfo',
@@ -429,6 +437,19 @@ export default Vue.extend({
     RecomendHouse,
   },
   async asyncData ({ $axios, params, store, req }) {
+    const activityParam = {
+      data: {
+        cityId:store.state.app.cityId
+      }
+    }
+    const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
+    let activities;
+    if (activityResult.code === 200) {
+      const result:ActivityModel[] = getDataResult(activityResult);
+      if (result) {
+        activities = result;
+      }
+    }
     const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
@@ -594,8 +615,12 @@ export default Vue.extend({
     }
     const result = await $axios.$post(HouseApi.GetProject, param)
     let house: any;
+    let cityId: string = '';
+    let lookTime: number = 0;
     if (result.code === 200) {
       house = getDataResult(result);
+      cityId = house.sysCityByCityId.id;
+      lookTime = house.lookTime
       const breadcrumb: Breadcrumb[] = [];
       breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
       breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
@@ -613,11 +638,14 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
-    return { id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
+    const clueType: string = '';
+    const opening: boolean = false;
+    
+
+    return { activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile }
   },
   data () {
-    const openingHelp: boolean = false;
     const clueType: string = '';
     const opening: boolean = false;
     const id: string = '';
@@ -644,7 +672,8 @@ questionTotal, option, phoneNum, isMobile }
     const option: any = {};
     let isMobile: any;
     return {
-      openingHelp,
+      activityId: '',
+      openActivity: false,
       clueType,
       opening,
       id,
@@ -773,12 +802,14 @@ questionTotal, option, phoneNum, isMobile }
     this.getHouseType();
   },
   methods: {
-    helpUser() {
-      this.openingHelp = true;
+    openActivityClue(type: string, id: string) {
+      this.activityId = id;
+      this.clueType = type;
+      this.openActivity = true;
     },
     isOpen() {
       this.opening = false;
-      this.openingHelp = false;
+      this.openActivity = false;
     },
     openClue(type: string) {
       this.clueType = type;
