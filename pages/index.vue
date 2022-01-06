@@ -290,28 +290,30 @@
               <span class="text-sm">元/㎡</span>
             </div>
           </div>
-          <div class="w-3/5 h-full p-2 lg:hidden">
+          <div class="w-3/5 h-full px-2 lg:hidden">
             <!-- 标题 -->
-            <div class="flex flex-row w-full h-6">
+            <div class="flex flex-row items-center w-full h-6">
               <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
-              <HouseStateDiv :state="item.saleState" :class-name="'mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white'" />
-              <HouseTypeLabel :sort="item.type" :class-name="'h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'" />
+              <HouseStateDiv :state="item.saleState" :class-name="'mx-1 text-[12px] align-middle rounded-sm text-center px-0.5 text-white'" />
+              <HouseTypeLabel :sort="item.type" :class-name="' py-0.5 text-[12px] align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'" />
             </div>
             <!-- 信息 -->
             <div class="flex flex-row w-full h-6 text-sm">
               <h1 v-if="item.sysAreaByAreaId" class="w-24">[{{ item.sysAreaByAreaId.name }}]</h1>
-              <h1 class="w-full" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.address }}</h1>
+              <h1 class="w-full" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ item.address }}</h1>
+              <!-- overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all; -->
             </div>
             <div class="flex flex-row justify-between w-full h-4 mb-1">
-              <!-- 价格 -->
-              <span v-if="item.price" class="text-fjRed-100">{{ item.price }}元/平</span>
-              <span v-else>暂无价格</span>
               <!-- 建面 -->
               <span class="text-gray-400">{{ item.tempBuildArea }}</span>
+              <!-- 价格 -->
+              <span v-if="item.price" class="font-bold text-fjRed-100">{{ item.price }}元/㎡</span>
+              <span v-else>暂无价格</span>
+              
             </div>
             <!-- 标签 -->
-            <div class="flex flex-row w-full h-6 space-x-2 flex-nowrap">
-              <h1 v-for="(label, index) in item.sysDictDetailBeans" v-show="index < 3" :key="index" class="px-1 pt-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap">{{ label.value }}</h1>
+            <div class="flex flex-row w-full mt-2 space-x-2 flex-nowrap">
+              <div v-for="(label, index) in item.sysDictDetailBeans" v-show="index < 3" :key="index" class="px-1 text-[12px] overflow-hidden text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap">{{ label.value }}</div>
             </div>
           </div>
         </a>
@@ -334,10 +336,10 @@
             <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>
           <div class="w-full px-4 mt-2 bg-white sm:h-2/5 lg:h-3/10">
-            <div class="font-bold">
+            <div class="flex flex-row items-center font-bold">
               <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
-              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
-              <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'" />
+              <HouseStateLabel :state="item.saleState" :class-name="' font-normal py-0.5 mx-1 text-[14px] align-middle rounded-sm text-center px-0.5 text-white'" />
+              <HouseTypeLabel :sort="item.type" :class-name="' font-normal py-0.5 px-0.5 text-[14px] align-middle rounded-sm text-center text-white bg-fjBlue-100'" />
             </div>
             <div class="flex flex-row items-center mt-2">
               <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -371,7 +373,7 @@
               bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
               eTPfkgAAAABJRU5ErkJggg==" ></image>
               </svg>
-              <span v-if="item.address" class="text-gray-400" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
+              <span v-if="item.address" class="text-gray-400" style="overflow: hidden;white-space:nowrap;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
               <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"

@@ -11,7 +11,7 @@
           <img v-if="item.firstImg.address" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
         </div>
         <div class="w-2/3 h-28">
-          <div class="w-full">
+          <div class="flex flex-row items-center w-full">
             <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a></span>
             <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
             <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
@@ -31,7 +31,7 @@
                 data-spm-anchor-id="a313x.7781069.0.i2"
                 class="selected"></path>
             </svg>
-            <span v-if="item.address" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
+            <span v-if="item.address" class="overflow-hidden text-gray-400" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span>
           </div>
           <div class="flex flex-row items-center">
             <svg

@@ -1,5 +1,7 @@
 <template>
+<div>
   <span :class="className">{{ projectTypeShow[sort] }}</span>
+</div>
 </template>
 <script>
 

@@ -15,10 +15,10 @@
           <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
         </div>
         <div class="w-full px-4 mt-2 bg-white h-3/10">
-          <div class="font-bold">
+          <div class="flex flex-row items-center font-bold ">
             <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
-            <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
-            <type-label :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
+            <HouseStateLabel :state="item.saleState" class="ml-2" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
+            <type-label :sort="item.type" class="ml-2" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
           </div>
           <div class="flex flex-row items-center mt-2">
             <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -117,10 +117,10 @@
         </div>
         <div class="w-3/5 h-full p-2 lg:hidden">
           <!-- 标题 -->
-          <div class="flex flex-row w-full h-6">
+          <div class="flex flex-row items-center w-full h-6">
             <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
-            <HouseStateDiv :state="item.saleState" :class-name="'mx-1 pt-0.5 h-6 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white'" />
-            <type-label :sort="item.type" :class-name="'h-6 pt-0.5 text-xs leading-5 align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'"></type-label>
+            <HouseStateDiv :state="item.saleState" :class-name="' mx-1 text-[12px] align-middle rounded-sm text-center px-0.5 text-white'" />
+            <type-label :sort="item.type" :class-name="'py-0.5 text-[12px] align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'"></type-label>
           </div>
           <!-- 信息 -->
           <div class="flex flex-row w-full h-6 text-sm">

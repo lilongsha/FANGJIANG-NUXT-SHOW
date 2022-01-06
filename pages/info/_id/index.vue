@@ -21,9 +21,9 @@
         </div>
         <div class="w-2/3 h-28">
           <a target="_blank" :href="`/house/${item.id}.html`">
-            <div class="w-full">
+            <div class="flex flex-row items-center w-full">
               <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`" class="text-black hover:text-fjBlue-100">{{ item.name }}</a></span>
-              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
+              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" class="mx-1" />
               <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
             </div>
             <div class="flex flex-row items-center">
@@ -41,7 +41,7 @@
                   data-spm-anchor-id="a313x.7781069.0.i2"
                   class="selected"></path>
               </svg>
-              <span v-if="item.address" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
+              <span v-if="item.address" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" class="overflow-hidden text-gray-400" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
               <svg
@@ -100,10 +100,10 @@
         </div>
         <div class="w-2/3 h-28">
           <a target="_blank" :href="`/house/${item.id}.html`">
-            <div class="w-full">
+            <div class="flex flex-row items-center w-full">
               <span class="text-lg font-bold text-black py-0.5"><a target="_blank" :href="`/house/${item.id}.html`" class="text-black hover:text-fjBlue-100">{{ item.name }}</a></span>
-              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
-              <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
+              <HouseStateLabel :state="item.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm text-[13px]'" class="mx-1" />
+              <HouseTypeLabel :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100 text-[13px]'"></HouseTypeLabel>
             </div>
             <div class="flex flex-row items-center">
               <svg
@@ -120,7 +120,7 @@
                   data-spm-anchor-id="a313x.7781069.0.i2"
                   class="selected"></path>
               </svg>
-              <span v-if="item.address" class="overflow-hidden text-gray-400 "  style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" :title="item.address">{{ item.address }}</span>
+              <span v-if="item.address" class="overflow-hidden text-gray-400 " style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span>
             </div>
             <div class="flex flex-row items-center">
               <svg

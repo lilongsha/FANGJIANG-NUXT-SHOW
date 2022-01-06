@@ -9,14 +9,14 @@
           </div>
           <!-- 内容 -->
           <div class="flex-shrink w-full h-full sm:pl-1 lg:pl-2">
-            <div class="flex flex-row">
+            <div class="flex flex-row items-center">
               <h3 class="h-full mb-0 sm:pb-0 sm:text-[16px] lg:text-[22px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h3>
-              <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
+              <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2  lg:text-[14px] lg:ml-4">
                 <h3 v-if="item.saleState === '1'" class="px-1 text-white rounded-sm bg-fjYellow-100">在售</h3>
                 <h3 v-if="item.saleState === '2'" class="px-1 text-white rounded-sm bg-fjBlue-100">待售</h3>
                 <h3 v-if="item.saleState === '3'" class="px-1 text-white rounded-sm bg-fjRed-100">售罄</h3>
               </div>
-              <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
+              <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2  lg:text-[14px] lg:ml-4">
                 <type-label :sort="item.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
               </div>
             </div>
