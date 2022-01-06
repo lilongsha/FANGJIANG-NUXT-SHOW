@@ -1,14 +1,14 @@
 <template>
   <div class="mx-auto sm:w-full sm:px-2 lg:container">
     <div class="w-full sm:h-12 lg:h-32"></div>
-    <div class="w-full h-24">
+    <div class="w-full h-24 px-4">
       <!-- name -->
       <div class="w-full sm:flex sm:flex-col">
         <span class="font-bold sm:text-xl lg:text-3xl">{{ house.name }}</span>
         <span v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</span>
       </div>
-      <div class="sm:mt-2 lg:mt-4">
-        <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
+      <div class="flex flex-row items-center sm:mt-2 lg:mt-4">
+        <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" class=" sm:mr-0.5 lg:mr-1" />
         <HouseTypeLabel :sort="house.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
         <span class="sm:ml-2 lg:ml-4"></span>
         <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
@@ -25,7 +25,7 @@
           <!-- 内容 -->
           <div class="flex lg:flex-row sm:flex-col">
             <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
-              <div>产权类型：
+              <div class="flex flex-row">产权类型：
                 <HouseTypeLabel :sort="house.type" :class-name="'font-normal'"></HouseTypeLabel>
               </div>
               <div>建筑类型：<span v-if="house.buildType">{{ buildType[house.buildType].title }}</span><span v-else>暂无数据</span></div>
@@ -34,13 +34,16 @@
               <div>品&nbsp;&nbsp;牌&nbsp;&nbsp;商：<span v-if="house.brandId"><a :href="house.brandId.link" target="_blank">{{ house.brandId.name }}</a></span><span v-else>暂无数据</span></div>
               <div>装修类型：<span v-if="house.decorationType">{{ decorationType[house.decorationType].title }}</span><span v-else>暂无数据</span></div>
               <div>装修标准：<span v-if="house.decorationStandard">{{ house.decorationStandard }}元/㎡</span><span v-else>暂无数据</span></div>
-              <div>项目地址：<span v-if="house.address">{{ house.address }}</span><span v-else>暂无数据</span></div>
+              <div>项目地址：<span v-if="house.address" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ house.address }}</span><span v-else>暂无数据</span></div>
             </div>
-            <div class="sm:w-full lg:w-1/2">
+            <div class="sm:mt-4 sm:w-full lg:w-1/2">
               <div class="w-full h-[220px] mx-auto mt-2">
                 <line-echart :option="scoreOption" />
               </div>
             </div>
+          </div>
+          <div class="lg:hidden mt-4 bg-[#D6E6FF] w-full h-[50px] flex flex-row items-center justify-center rounded" @click="openClue('6')">
+            <span class="text-[#015EEA] text-[16px] font-medium">订阅楼盘</span>
           </div>
         </div>
         <!-- 销售信息 -->
@@ -64,7 +67,7 @@
               <div>开盘时间：<span v-if="house.openTime">{{ house.openTime.split('T')[0] }}</span><span v-else>暂无数据</span>
                 <button class="text-fjBlue-100 font-medium lg:text-[16px] ml-4 lg:w-[91px] lg:h-[17px]" @click="openClue('9')">[开盘提醒我]</button>
               </div>
-              <div>售楼地址：<span v-if="house.saleAddress">预计{{ house.saleAddress }}</span><span v-else>暂无数据</span></div>
+              <div>售楼地址：<span v-if="house.saleAddress" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">预计{{ house.saleAddress }}</span><span v-else>暂无数据</span></div>
             </div>
           </div>
           <!-- 楼栋列表详情 -->
@@ -133,14 +136,12 @@
         <!-- 楼盘分析 -->
         <div class="w-full p-4 mt-4 shadow">
           <!-- 标题 -->
-          <div class="w-full pb-[1px] border-b border-fjBlue-100">
-            <span class="text-lg font-bold border-b-[6px] border-fjBlue-100 flex">楼盘解析
-              <button class="ml-2 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
+          <div class="w-full pb-[1px] border-b border-fjBlue-100 flex flex-row items-end">
+            <span class="text-lg font-bold border-b-[6px] border-fjBlue-100">楼盘解析</span>
+            <button class=" sm:hidden align-baseline ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
                 <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                 <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
-              </button>
-            </span>
-            
+            </button>
           </div>
           
           <!-- 内容 -->
@@ -155,6 +156,9 @@
               <span class="">项目缺点：<a :href="`tel:${phoneNum},${house.number}%23`">请咨询客服了解<span class="text-fjRed-100">[{{house.name}}]</span>缺点信息</a></span>
             </div>
           </div>
+          <div class="lg:hidden mt-4 bg-[#D6E6FF] w-full h-[50px] flex flex-row items-center justify-center rounded"  @click="openClue('10')">
+            <span class="text-[#015EEA] text-[16px] font-medium">了解周边配套及规划</span>
+          </div>
         </div>
         <!-- 价格信息 -->
         <div class="w-full p-4 mt-4 shadow">
@@ -165,24 +169,28 @@
           <div class="w-full h-80">
             <line-echart :option="option" :chart-id="'priceChart'" />
           </div>
+          <div class="lg:hidden mt-4 bg-[#D6E6FF] w-full h-[50px] flex flex-row items-center justify-center rounded"  @click="openClue('2')">
+            <span class="text-[#015EEA] text-[16px] font-medium">价格波动通知我</span>
+          </div>
         </div>
       </div>
       <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
         <!-- 广告位 -->
         <div>
-          <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-[306px] h-[358px]">
+          <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('4')">
         </div>
         <div>
-          <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]">
+          <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('5')">
         </div>
         <div>
-          <img src="~/assets/img/clue/ad.png" alt="广告" class="w-[306px] h-[358px]">
+          <img v-if="activities[0]" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
         </div>
       </div>
     </div>
     <!-- 推荐楼盘 -->
     <reomend-house />
-    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="cityId" :look="lookTime"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :city="cityId" :look="lookTime" :activity-id="activityId" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -193,6 +201,7 @@ import { Breadcrumb } from '~/types/app';
 import { getDataResult } from '~/utils/response/util';
 import LineEchart from '~/components/echart/LineEchart.vue';
 import ReomendHouse from '~/components/house/RecomendHouse.vue'
+import { ActivityApi, ActivityModel } from '~/api/clue/activity';
 const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfoMation',
@@ -201,6 +210,20 @@ export default Vue.extend({
     ReomendHouse
   },
   async asyncData ({ $axios, params, store, req }) {
+    const activityParam = {
+      data: {
+        cityId:store.state.app.cityId
+      }
+    }
+    const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
+    let activities;
+    if (activityResult.code === 200) {
+      const result:ActivityModel[] = getDataResult(activityResult);
+      if (result) {
+        activities = result;
+      }
+    }
+    
     const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
@@ -268,6 +291,8 @@ export default Vue.extend({
 
     // 获取楼盘详情
     let house: any;
+    let cityId: any;
+    let lookTime: any;
     const scoreOption = {
       title: {
         text: '',
@@ -312,6 +337,8 @@ export default Vue.extend({
       const result = await $axios.$post(HouseApi.GetProject, param)
       if (result.code === 200) {
         house = getDataResult(result);
+        lookTime = house.lookTime;
+        cityId = house.sysCityByCityId.id;
         getPrice(house);
         scoreOption.title.text = `综合评分`;
         scoreOption.legend.data = [house.name];
@@ -339,7 +366,7 @@ export default Vue.extend({
     }
 
     return {
-      house, option, scoreOption
+       cityId, lookTime, house, option, scoreOption, activities
     }
   },
   data() {
@@ -349,6 +376,8 @@ export default Vue.extend({
     const option: any = {};
     let house: any;
     return {
+      activityId: '',
+      openActivity: false,
       clueType,
       opening,
       colors,
@@ -421,8 +450,14 @@ export default Vue.extend({
     }
   },
   methods: {
+    openActivityClue(type: string, id: string) {
+      this.activityId = id;
+      this.clueType = type;
+      this.openActivity = true;
+    },
     isOpen() {
       this.opening = false;
+      this.openActivity = false;
     },
     openClue(type: string) {
       this.clueType = type;
