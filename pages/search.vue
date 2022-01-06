@@ -3,7 +3,7 @@
     <div class="flex flex-row items-center w-full pt-4">
       <input v-model="searchText" type="text" class="mx-auto w-3/4 px-4 h-7 text-sm rounded-2xl bg-[#ededed] outline-none " placeholder="请输入搜索项目">
     </div>
-    <div class="flex flex-col w-full mb-2 space-y-2 overflow-hidden text-black min-h-[320px]">
+    <div class="flex flex-col items-center w-full mb-2 space-y-2 overflow-hidden text-black min-h-[320px]">
       <div v-for="item in list" :key="item.id" class="flex flex-row overflow-hidden">
         <a :href="`/house/${item.id}.html`" target="_blank" :title="item.name" class="flex flex-row w-full h-6 px-5 overflow-hidden justify-items-center">
           <!-- 项目名称 区域 -->
@@ -31,7 +31,23 @@
         <span class="w-full px-4 text-lg font-bold text-black">搜索历史</span>
         <a v-for="(item, index) in getHotProject" v-show="index < 5" :key="item.id" class="inline-block p-1 m-2 text-black border" target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a>
       </div> -->
+      <div class="container flex flex-col items-center mt-2">
+        <div class="w-full h-[80px] bg-cover rounded-md bg-bimg pl-[30px] pt-[4px]">
+          <div>
+            <div class="text-[20px] font-bold text-white italic">线上<span class="mx-4">“<span class="text-[#ECF000]">0</span>接触”</span>找房</div>
+            <div class="text-[10px] tracking-[8px] text-white italic">足不出户换新房安全更安心</div>
+            <button class="bg-[#ECF000] rounded-3xl font-bold h-[26px] w-[91px] text-fjBlue-100 text-[12px] mt-[2px] italic " @click="helpUser">马上看房</button>
+          </div>
+        </div>
+        <div class="mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
+          <div class="text-[20px] font-bold text-white">看房专车免费接送</div>
+          <button class="bg-white rounded-3xl font-bold h-[32px] w-[130px] text-fjBlue-100 text-[14px] mt-[8px]" @click="openActivityClue('4')">立即预约</button>
+        </div>
+      </div>
+
     </div>
+    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :city-id="''"  @isOpen="isOpen" />
+    <ClueLeaveClue v-show="openActivity" class="absolute z-[60] w-full h-full" :city="''" :project-id="''" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -51,6 +67,10 @@ export default Vue.extend({
       searchText: '',
       list: [],
       timeout,
+      openingHelp: false,
+      openActivity: false,
+      activityId: '',
+      clueType: '',
     }
   },
   computed: {
@@ -73,6 +93,18 @@ export default Vue.extend({
     this.URL_SET('');
   },
   methods: {
+    helpUser() {
+      this.openingHelp = true;
+    },
+    isOpen() {
+      this.openActivity = false;
+      this.openingHelp = false;
+    },
+    openActivityClue(type: string, id: string) {
+      this.activityId = id;
+      this.clueType = type;
+      this.openActivity = true;
+    },
     search() {
       if (this.timeout) {
         clearTimeout(this.timeout);
