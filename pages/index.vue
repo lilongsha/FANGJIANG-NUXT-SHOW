@@ -153,7 +153,7 @@
           <div v-show="menuShow.isShow" class="w-3/5 h-full ml-4 transition-all bg-black bg-opacity-80 rounded-2xl">
             <!-- 区域 -->
             <div v-show="menuShow.flag === 1" class="grid grid-flow-row grid-cols-5 gap-4 m-8 text-center text-white">
-              <a v-for="area in areas" :key="area.id" rel="nofollow" class="overflow-hidden text-base text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,areaId-${area.id}`" target="_blank">{{ area.name }}</a>
+              <a v-for="area in areas" :key="area.id" class="overflow-hidden text-base text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,areaId-${area.id}`" target="_blank">{{ area.name }}</a>
             </div>
             <!-- 商圈 -->
             <div v-show="menuShow.flag === 2" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
@@ -182,7 +182,7 @@
               </div>
               <div v-show="!showTrading" class="w-2/3 h-full ml-2">
                 <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center">
-                  <a v-for="trading in tradings" :key="trading.id" rel="nofollow" class="h-6 overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,tradingId-${trading.id}`" target="_blank">{{ trading.name }}</a>
+                  <a v-for="trading in tradings" :key="trading.id" class="h-6 overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,tradingId-${trading.id}`" target="_blank">{{ trading.name }}</a>
                 </div>
                 <AppLoading ref="loadingTrading" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
               </div>
@@ -214,7 +214,7 @@
               </div>
               <div v-show="!showMetroStation" class="static w-2/3 h-full ml-2">
                 <div class="grid w-full grid-flow-row grid-cols-3 gap-2 overflow-auto text-center text-white">
-                  <a v-for="metroStation in metroStations" :key="metroStation.id" rel="nofollow" class="overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,stationId-${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
+                  <a v-for="metroStation in metroStations" :key="metroStation.id" class="overflow-hidden text-xs text-white border-blue-500 rounded-xl whitespace-nowrap opacity-60 hover:opacity-100" :href="`/house/list/p1,stationId-${metroStation.id}`" target="_blank">{{ metroStation.name }}</a>
                 </div>
                 <AppLoading ref="loadingMetroStation" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
               </div>
@@ -244,7 +244,7 @@
     <!-- 移动端功能栏 -->
     <div class="w-full h-24 p-4 mt-4 lg:hidden">
       <div class="flex flex-row justify-around w-full h-full shadow">
-        <a rel="nofollow" href="/house/list">
+        <a href="/house/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/02.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">新房</span>
@@ -256,13 +256,13 @@
             <span class="text-sm text-black">资讯</span>
           </div>
         </a>
-        <a rel="nofollow" href="/video">
+        <a href="/video">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/04.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">视频</span>
           </div>
         </a>
-        <a rel="nofollow" href="/calculator/home">
+        <a href="/calculator/home">
           <div class="flex flex-col items-center justify-center h-full text-center">
             <img src="~/assets/img/index/01.png" alt="" class="w-8 h-8">
             <span class="text-sm text-black">计算器</span>
@@ -281,7 +281,7 @@
       </div>
       <!-- 图片盒子 -->
       <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden">
-        <a v-for="item in recommendProjects" :key="item.id" rel="nofollow" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
+        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
           <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full" @mouseover="selectRecommendKey = item.id">
           <div v-show="selectRecommendKey === item.id" class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
@@ -326,12 +326,12 @@
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a rel="nofollow" href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
-        <div class="text-right sm:w-full lg:w-[1128px]"><a rel="nofollow" href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
+        <div class="text-right sm:w-full lg:w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
       <div class="sm:pb-2 grid lg:grid-cols-4 lg:grid-rows-1 gap-2 w-[full-8] lg:mx-4 mt-8 lg:h-112 overflow-hidden">
-        <a v-for="item in hotProjects" :key="item.id" rel="nofollow" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+        <a v-for="item in hotProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="w-full sm:h-3/5 lg:h-7/10">
             <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" width="100%" height="100%" class="object-cover w-full h-full">
           </div>
@@ -424,12 +424,12 @@
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a rel="nofollow" href="/video" target="_blank" class="text-black hover:text-fjBlue-100">视频看房</a></div>
-        <div class="text-right sm:w-full lg:w-[1128px]"><a rel="nofollow" href="/video" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/video" target="_blank" class="text-black hover:text-fjBlue-100">视频看房</a></div>
+        <div class="text-right sm:w-full lg:w-[1128px]"><a href="/video" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
       <div class="grid gap-2 mt-8 overflow-hidden sm:pb-2 sm:grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 lg:mx-4 lg:h-60">
-        <a v-for="item in topData" :key="item.id" rel="nofollow" :href="`/video/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
+        <a v-for="item in topData" :key="item.id" :href="`/video/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="relative w-full sm:h-60 lg:h-full group">
             <div class="absolute bottom-0 flex flex-col justify-center object-cover w-full h-10 px-2 text-white transition-all bg-black lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 bg-opacity-40 lg:group-hover:h-full">
               <p class="text-[18px]">{{ item.title }}</p>
