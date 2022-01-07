@@ -125,7 +125,7 @@
           <!-- 信息 -->
           <div class="flex flex-row w-full h-6 text-sm">
             <h1 v-if="item.sysAreaByAreaId" class="w-24">[{{ item.sysAreaByAreaId.name }}]</h1>
-            <h1 class="w-full" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.address }}</h1>
+            <h1 class="w-full" style="overflow: hidden;text-overflow: ellipsis;white-space:nowrap;">{{ item.address }}</h1>
           </div>
           <div class="flex flex-row justify-between w-full h-4 mb-1">
             <!-- 价格 -->
