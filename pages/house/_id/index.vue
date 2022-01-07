@@ -249,7 +249,19 @@
                 </div>
               </div>
             </div>
+          
           </div>
+          <div class="lg:hidden">
+            <div class="text-[17px] font-bold text-[#333333]">余房查询</div>
+            <div>
+              <div class="relative flex flex-col items-center">
+                <img src="~/assets/img/clue/surplus.png" alt="余房查询">
+                <span class="text-[#EB670C] text-[16px] absolute bottom-[75px] "  @click="openClue('16')">登录查看在售房源</span>
+                <button class=" w-full bg-[#EB670C] h-[50px] text-white text-[17px]"  @click="openClue('16')">登录查询</button>
+              </div>
+            </div>
+          </div>
+          
         </div>
         <!-- 测试右侧sticky -->
         <div class="lg:flex lg:flex-row">
@@ -305,10 +317,7 @@
                   <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
                 </div>
               </div>
-              <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('7')">
-                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
-                <span class="text-[#015EEA] text-[16px] font-medium ml-2">新动态通知我</span>
-              </div>
+              <ClueButtonClue :name="'新动态通知我'" @clickButton="openClue('7')"/>
             </div>
             <!-- house question -->
             <div id="question" ref="question" class="content-1 sm:px-2">
@@ -365,10 +374,11 @@
                   </button>
               </div>
               <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
-              <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('10')">
+              <!-- <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('10')">
                 <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                 <span class="text-[#015EEA] text-[16px] font-medium ml-2">了解配套</span>
-              </div>
+              </div> -->
+              <ClueButtonClue :name="'了解配套'" @clickButton="openClue('10')"/>
             </div>
             <!-- house price -->
             <div id="price" ref="price" class="flex flex-col items-center bg-white content-1 sm:px-2">
@@ -380,10 +390,11 @@
               <div class="w-full sm:h-56 lg:h-80">
                 <line-echart :option="option" />
               </div>
-               <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('2')">
+               <!-- <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('2')">
                 <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                 <span class="text-[#015EEA] text-[16px] font-medium ml-2">价格波动通知我</span>
-              </div>
+              </div> -->
+              <ClueButtonClue :name="'价格波动通知我'" @clickButton="openClue('2')"/>
             </div>      
           </div>
           <div class="lg:w-1/4">
