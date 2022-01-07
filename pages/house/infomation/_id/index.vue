@@ -183,7 +183,7 @@
           <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('5')">
         </div>
         <div>
-          <img v-if="activities && activities.length > 0" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
+          <img v-if="activities" :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities.id)">
         </div>
       </div>
     </div>
@@ -210,25 +210,29 @@ export default Vue.extend({
     ReomendHouse
   },
   async asyncData ({ $axios, params, store, req }) {
-    const activityParam = {
-      data: {
-        cityId:store.state.app.cityId
-      }
-    }
-    const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
-    let activities;
-    if (activityResult.code === 200) {
-      const result:ActivityModel[] = getDataResult(activityResult);
-      if (result) {
-        activities = result;
-      }
-    }
     
     const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
+    }
+
+    // 获取楼盘相关活动
+    const activityParam = {
+      data: {
+        projectId: id
+      }
+    }
+    let activities;
+    if (activityParam.data.projectId) {
+      const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
+      if (activityResult.code === 200 && activityResult.data) {
+        const result:ActivityModel = getDataResult(activityResult);
+        if (result) {
+          activities = result;
+        }
+      }
     }
 
     // 获取价格
