@@ -42,9 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="lg:hidden mt-4 bg-[#D6E6FF] w-full h-[50px] flex flex-row items-center justify-center rounded" @click="openClue('6')">
-            <span class="text-[#015EEA] text-[16px] font-medium">订阅楼盘</span>
-          </div>
+          <ClueButtonClue :name="'订阅楼盘'" @clickButton="openClue('6')"/>
         </div>
         <!-- 销售信息 -->
         <div class="w-full p-4 mt-4 shadow">
@@ -156,9 +154,7 @@
               <span class="">项目缺点：<a :href="`tel:${phoneNum},${house.number}%23`">请咨询客服了解<span class="text-fjRed-100">[{{house.name}}]</span>缺点信息</a></span>
             </div>
           </div>
-          <div class="lg:hidden mt-4 bg-[#D6E6FF] w-full h-[50px] flex flex-row items-center justify-center rounded"  @click="openClue('10')">
-            <span class="text-[#015EEA] text-[16px] font-medium">了解周边配套及规划</span>
-          </div>
+          <ClueButtonClue :name="'了解周边配套及规划'" @clickButton="openClue('10')"/>
         </div>
         <!-- 价格信息 -->
         <div class="w-full p-4 mt-4 shadow">
@@ -169,9 +165,7 @@
           <div class="w-full h-80">
             <line-echart :option="option" :chart-id="'priceChart'" />
           </div>
-          <div class="lg:hidden mt-4 bg-[#D6E6FF] w-full h-[50px] flex flex-row items-center justify-center rounded"  @click="openClue('2')">
-            <span class="text-[#015EEA] text-[16px] font-medium">价格波动通知我</span>
-          </div>
+          <ClueButtonClue :name="'价格波动通知我'" @clickButton="openClue('2')"/>
         </div>
       </div>
       <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">

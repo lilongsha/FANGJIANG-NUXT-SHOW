@@ -109,6 +109,11 @@ export default Vue.extend({
         this.action = '订阅该楼盘';
         this.operation = '立即订阅';
         this.description = '降价涨价消息早知道。立即订阅，价格一波动立刻通知您，帮您找准买房好时机，让您不错过最低价！';
+      }else if (this.clueType === '16') {
+        this.title = '余房查询';
+        this.action = '了解该楼盘剩余房源';
+        this.operation = '余房查询';
+        this.description = '帮您及时了解楼盘信息，不要错过心仪房号。';
       }else if (this.clueType === '10') {
         this.title = '周边配套信息';
         this.action = '了解该楼盘周边信息';
