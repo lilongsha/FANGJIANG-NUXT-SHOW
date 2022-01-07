@@ -401,7 +401,7 @@
               <!-- ad -->
               <div class="lg:mt-9 sm:hidden">
                 <!-- <img class="w-[306px] h-[298px]" src="~/assets/img/clue/ad.png" alt="广告" @click="openClue('15')"> -->
-                <img v-if="activities[0]" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
+                <img v-if="activities && activities.length > 0 " :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
               </div>
             </div>
           </div>

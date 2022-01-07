@@ -798,12 +798,12 @@
               </div>
             </a>
           </div>
-          <div v-show="index === 0 && activities[0]" class="relative lg:my-4 sm:px-2">
+          <div v-if="index === 0 && activities && activities.length > 0" class="relative lg:my-4 sm:px-2">
             <img v-if="activities[0]" class="sm:h-[40px] flex flex-row items-center justify-center bg-cover lg:h-[100px] w-full" :src="activities[0].headImg">
             <span v-if="activities[0]" class="sm:text-[20px] sm:mt-[-10px] absolute top-1/2 lg:mt-[-31.5px]  lg:text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15', activities[0].id)">{{activities[0].title}}</span>
             <span class="absolute right-2 top-2 text-white tracking-[8px]">广告</span>
           </div>
-          <div v-show="index === 1 && activities[1]" class="relative lg:my-4 sm:px-2">
+          <div v-if="index === 1 && activities && activities.length > 0" class="relative lg:my-4 sm:px-2">
             <img v-if="activities[1]" class="sm:h-[40px] flex flex-row items-center justify-center bg-cover lg:h-[100px] w-full" :src="activities[1].headImg">
             <span v-if="activities[1]"  class=" sm:text-[20px] absolute top-1/2 mt-[-31.5px] lg:text-[42px] text-white font-bold text-shadow-xl tracking-[6px] w-full text-center" @click="openActivityClue('15',activities[1].id )">{{activities[1].title}}</span>
             <span class="absolute right-2 top-2 text-white tracking-[8px]">广告</span>

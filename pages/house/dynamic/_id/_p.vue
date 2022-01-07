@@ -74,7 +74,7 @@
           <img src="~/assets/img/clue/groupAd.png" alt="组团砍价，参与拼团" class="w-[306px] h-[358px]" @click="openActivityClue('5')">
         </div>
         <div>
-          <img v-if="activities[0]" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
+          <img v-if="activities && activities.length > 0" :src="activities[0].headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
         </div>
     </div>
     </div>
