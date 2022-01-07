@@ -59,9 +59,9 @@
         <img src="~/assets/img/clue/ding.png" alt="" class="lg:w-5 lg:h-5 sm:w-3 sm:h-3">
         <span class="text-[#333333] lg:text-[20px] sm:text-xs font-normal">设置订阅楼盘，楼盘信息早知道</span>
       </div>
-      <div class="flex flex-row items-center">
+      <div class="flex flex-row items-center" @click="openClue('6')">
         <input type="text" class="placeholder-[#999999] bg-[#F5F5F5] lg:w-[266px] lg:h-[45px] sm:h-[35px] sm:w-[85px] sm:text-[10px] lg:pl-5 -mr-1" placeholder="请输入手机号">
-        <button class="text-white lg:text-[20px] sm:text-xs font-medium bg-fjRed-100 lg:w-[156px] lg:h-[46px] sm:w-[90px] sm:h-[35px]" @click="openClue('6')">订阅楼盘信息</button>
+        <button class="text-white lg:text-[20px] sm:text-xs font-medium bg-fjRed-100 lg:w-[156px] lg:h-[46px] sm:w-[90px] sm:h-[35px]">订阅楼盘信息</button>
       </div>
     </div>
     </div>
