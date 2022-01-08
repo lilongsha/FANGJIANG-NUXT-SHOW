@@ -65,7 +65,7 @@
       <!-- content -->
       <div class="flex flex-row w-full mt-8">
         <!-- list -->
-        <div class="flex flex-row sm:w-full lg:w-2/3">
+        <div class="flex flex-row sm:w-full lg:w-full">
           <!-- sort menu -->
           <div class="sticky flex flex-col w-1/4 h-112 top-20">
             <div class="sm:w-[120px] flex flex-row items-center">
