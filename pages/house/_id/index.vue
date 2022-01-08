@@ -257,7 +257,7 @@
               <div class="relative flex flex-col items-center">
                 <img src="~/assets/img/clue/surplus.png" alt="余房查询">
                 <span class="text-[#EB670C] text-[16px] absolute bottom-[75px] "  @click="openClue('16')">登录查看在售房源</span>
-                <button class=" w-full bg-[#EB670C] h-[50px] text-white text-[17px]"  @click="openClue('16')">登录查询</button>
+                <button class=" -mt-1 w-full bg-[#EB670C] h-[50px] text-white text-[17px] rounded"  @click="openClue('16')">登录查询</button>
               </div>
             </div>
           </div>
