@@ -2,9 +2,12 @@ const dev = process.env.NODE_ENV !== 'production'
 const scriptUrl = [
   { src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar' }
 ];
+let baseURL = 'http://localhost:9000/';
 if (!dev) {
   scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
+  baseURL = 'https://api.fangjiang.com/';
 }
+// baseURL = 'https://api.fangjiang.com/';
 export default {
   hooks: {
     'render:route': (_url, result) => {
@@ -69,7 +72,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://www.fangjiang.com/api/', // Used as fallback if no runtime config is provided
+    baseURL, // Used as fallback if no runtime config is provided
     // baseURL: 'http://localhost:9000/', // Used as fallback if no runtime config is provided
   },
 
@@ -116,6 +119,6 @@ export default {
     // 打包样式
     extractCSS: true,
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20211208223'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20220110'
   }
 }

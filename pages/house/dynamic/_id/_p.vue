@@ -68,13 +68,13 @@
     <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
         <!-- 广告位 -->
         <div>
-          <img src="~/assets/img/clue/busAd.png" alt="看房专车免费接送" class="w-[306px] h-[358px]" @click="openActivityClue('4')">
+          <img src="~/assets/img/clue/busAd.png" alt="看房专车免费接送" class="w-[302px] h-[354px]" @click="openActivityClue('4')">
         </div>
         <div>
-          <img src="~/assets/img/clue/groupAd.png" alt="组团砍价，参与拼团" class="w-[306px] h-[358px]" @click="openActivityClue('5')">
+          <img src="~/assets/img/clue/groupAd.png" alt="组团砍价，参与拼团" class="w-[302px] h-[294px]" @click="openActivityClue('5')">
         </div>
         <div>
-          <img v-if="activities" :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities.id)">
+          <img v-if="activities" :src="activities.headImg" alt="广告" class="w-[302px] h-[294px]" @click="openActivityClue('15', activities.id)">
         </div>
     </div>
     </div>

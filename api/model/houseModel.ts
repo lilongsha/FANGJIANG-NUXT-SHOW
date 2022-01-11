@@ -59,7 +59,7 @@ export interface ProjectModel {
   commission?: string;
   commissionMode?: string;
   hBuildsById?: string;
-  hLayoutsById?: string;
+  hLayoutsById?: any;
   hLicensesById?: string;
   hDeveloperByDeveloperId?: string;
   brandId?: string;
@@ -67,7 +67,7 @@ export interface ProjectModel {
   sysCityByCityId?: string;
   sysAreaByAreaId?: string;
   sandImg?: string;
-  firstImg?: string;
+  firstImg?: any;
   estateCompanyById?: string;
   hResourcesById?: string;
   sysTradingAreasById?: string;

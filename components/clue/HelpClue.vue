@@ -39,7 +39,7 @@
                     <div class="flex items-center"><button class=" w-[78px] h-[34px] bg-[#F5F9FF] text-black focus:border focus:border-fjBlue-100 focus:text-fjBlue-100 rounded" @click="handleChange('桥西区')">桥西区</button></div>
                     <div class="flex items-center"><button class=" w-[78px] h-[34px] bg-[#F5F9FF] text-black focus:border focus:border-fjBlue-100 focus:text-fjBlue-100 rounded" @click="handleChange('开发区')">开发区</button></div>
                 </div>
-                <ClueLeaveClue v-show="step === 4" class="absolute z-[60] w-full h-full" :city="cityId"  :project-id="projectId" :clue-type="'3'" :demand="value.toString()" @isOpen="$emit('isOpen')" />
+                <ClueLeaveClue v-show="step === 4" class="absolute z-[60] w-full h-full" :city="cityId"  :activity-id="activityId"  :look="look" :project-id="projectId" :clue-type="'3'" :demand="value.toString()" @isOpen="$emit('isOpen')" />
                 <div class=" mt-6 text-fjBlue-100 text-[14px]">
                     <span class="w-full lg:hidden">
                         <Select v-model="value"
@@ -95,7 +95,17 @@ export default {
         type: String,
         required: false,
         default: '130100',
-    }
+    },
+    activityId: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    look: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   emits: ['isOpen'],
   data () {
