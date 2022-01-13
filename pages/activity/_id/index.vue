@@ -1,14 +1,14 @@
 <template>
-  <div class="min-h-screen w-full relative">
-    <img :src="activity.headImg" width="100%" class="absolute top-0 left-0 z-0  w-full">
+  <div class="relative w-full min-h-screen">
+    <img :src="activity.headImg" width="100%" class="absolute top-0 left-0 z-0 w-full">
     <div class="relative top-0 left-0 text-center w-full pt-[70px] px-5 flex flex-col items-center">
       <span class="text-[38px] text-white font-extrabold">{{ activity.title}}</span>
       <!-- <span class="text-white text-[22px] tracking-widest mt-4">{{ activity.description }}</span> -->
-      <div class="mt-6 flex flex-col">
+      <div class="flex flex-col mt-6">
         <span v-for="(item, index) in activity.projectEntities" :key="index" class="text-[14px] text-white">用户<span>{{ item.lookTime }}</span>领取了<span class="text-[#FFEA00]">{{ item.name }}</span>优惠</span>
       </div>
-      <img src="~/assets/img/clue/slice.png" alt="房匠优势" width="100%" class="mt-20 w-full object-cover">
-      <div class="mt-8 w-full rounded-lg relative flex flex-col items-center">
+      <img src="~/assets/img/clue/slice.png" alt="房匠优势" width="100%" class="object-cover w-full mt-20">
+      <div class="relative flex flex-col items-center w-full mt-8 rounded-lg shadow-lg">
         <div class="absolute top-[-20px] px-4 rounded-[6px] flex flex-row h-10 items-center bg-gradient-to-b space-x-4 from-[#FF5723] to-[#FF0013]">
           <img src="~/assets/img/clue/circle.png" alt="" height="100%" class="h-[16px] object-cover">
           <span class="text-[#FFF9EF] text-[16px] ">
@@ -25,10 +25,10 @@
           <div v-for="(item, index) in activity.projectEntities" :key="index" class="flex flex-col items-center">
             <div class="flex flex-row w-full">
               <img v-if="item.firstImg && item.firstImg.address" :src="item.firstImg.address" alt="楼盘首图" class="w-2/5 h-24 rounded-[8px]">
-              <div class="ml-4 w-full relative overflow-hidden">
+              <div class="relative w-full ml-4 overflow-hidden">
                   <div class="w-full text-left">
                     <span class="text-[#333333] text-[16px] w-full mt-0">{{item.name}}</span>
-                    <span class="text-right absolute top-1 right-0">
+                    <span class="absolute right-0 text-right top-1">
                       <span v-if="item.saleState === '1'" class="border border-[#333333] rounded-full px-2">在售</span>
                       <span v-if="item.saleState === '2'" class="border border-[#333333] rounded-full px-2">待售</span>
                       <span v-if="item.saleState === '3'" class="border border-[#333333] rounded-full px-2">售罄</span>
@@ -101,7 +101,12 @@
                     <span class="text-[14px] text-[#FF0614]">{{item.price}}<span class="text-[12px] text-black">元/㎡</span></span>
                   </div>
                   <div class="space-x-2 text-left">
-                    <span v-for ="(label, e) in item.sysDictDetailBeans" :key="e"  class=" rounded text-[8px] bg-[#FB3E48] px-1 text-white">{{label.value}}</span>
+                    <!-- <span v-for ="(label, e) in item.sysDictDetailBeans" :key="e"  class=" rounded text-[8px] bg-[#FB3E48] px-1 text-white">{{label.value}}</span> -->
+                    <span v-for="(label, e) in item.sysDictDetailBeans" :key="e"
+                    ><span v-if="e < 3" class="rounded text-[8px] bg-[#FB3E48] px-1 text-white">{{
+                      label.value
+                    }}</span></span
+                  >
                   </div>
               </div>
             </div>
@@ -120,24 +125,24 @@
           <button :class="step === '4' ?'text-white bg-gradient-to-b from-[#FF782E] to-[#FD4721] h-full rounded-full' : 'text-fjYellow-100'" class="px-3 py-2 text-[16px] " @click="clickButton('4')">免费专车</button>
           <button  :class="step === '3' ?'text-white bg-gradient-to-b from-[#FF782E] to-[#FD4721] h-full rounded-full' : 'text-fjYellow-100'" class="px-3 py-2 text-[16px] "  @click="clickButton('3')">预约看房</button>
         </div>
-        <div class="w-full text-left mt-4">
+        <div class="w-full mt-4 text-left">
           <span class="text-[#FF0614] text-[12px] flex-none text-left leading-tight">已帮助1200人找到理想房源，省心安心买好房。让您买房变得简单——做您买房路上的自己人。</span>
         </div>
-        <div class="w-full text-left mt-1 space-x-1">
+        <div class="w-full mt-1 space-x-1 text-left">
           <span class="text-white text-[8px] bg-[#FF0614] px-1 rounded">低价购房</span>
           <span class="text-white text-[8px] bg-[#FF0614] px-1 rounded">优质房源</span>
         </div>
-        <div class="mt-4 w-full" @click="helpOpen">
+        <div class="w-full mt-4" @click="helpOpen">
           <input type="text" class="px-4 w-full h-[35px] rounded-full border border-fjYellow-100 placeholder-[#999999] placeholder-[12px]" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;请输入手机号，方便经纪人联系您">
           <button class=" text-white text-[16px] mt-2 w-full bg-gradient-to-b from-[#FF782E] to-[#FD4721] rounded-full h-[35px]" >预约房产咨询师帮我找房</button>
         </div>
       </div>
-      <div class="w-full text-center mt-4">
+      <div class="w-full mt-4 text-center">
         <span class="text-white text-[12px]">河北房匠网络科技有限公司      冀ICP备19024434号</span>
       </div>
     </div>
-    <div class="fixed bottom-0 w-full bg-white px-5 py-2 flex flex-row">
-      <div class=" w-1/6 text-left flex flex-col items-center" @click="helpOpen">
+    <div class="fixed bottom-0 flex flex-row w-full px-5 py-2 bg-white shadow-lg">
+      <div class="flex flex-col items-center w-1/6 text-left " @click="helpOpen">
         <img src="~/assets/img/clue/help.png" class="w-[22px] h-[22px]" alt="帮我找房">
         <span class="text-[#333333] text-[12px]">帮我找房</span>
       </div>
