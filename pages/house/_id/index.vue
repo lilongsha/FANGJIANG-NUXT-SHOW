@@ -241,7 +241,7 @@
                       </div>
                       <div class="flex flex-shrink-0 w-full text-gray-700 sm:flex-col lg:flex-row">
                         <span class="sm:w-full lg:w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
-                        <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap">{{ item.description }}</span>
+                        <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap" style="overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{ item.description }}</span>
                       </div>
                       <div v-if="item.labels" class="flex flex-row w-full mt-2 sm:space-x-1 lg:space-x-2">
                         <span v-for="(label, index1) in item.labels.split(',')" v-show="index1 < 3" :key="index1" class="whitespace-nowrap sm:px-1 lg:px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
