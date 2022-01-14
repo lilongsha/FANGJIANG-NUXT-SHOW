@@ -1,7 +1,29 @@
 <template>
-  <div class="w-full sm:pb-4">
-    <div class="sm:h-10 lg:h-24"></div>
-    <div class="mx-auto lg:flex lg:flex-row lg:container sm:px-4">
+  <div class="w-full mx-auto sm:pb-4 lg:container">
+    <div class="sm:hidden lg:h-24"></div>
+    <div class="w-full lg:pt-10 sm:hidden">
+      <!-- name and saleState -->
+      <div class="flex flex-row items-end w-full">
+        <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
+        <HouseStateLabel :state="house.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
+      </div>
+      <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
+    </div>
+    <!-- house menu -->
+    <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white">
+      <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all">
+        <!--  @click="go(item.value)" -->
+        <a :href="'/house/' + house.id + '.html?topFlag=' + item.value">{{ item.title }}</a>
+        
+      </div>
+      <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
+        <div class="sm:hidden absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
+          <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
+          {{ phoneNum }} 转 {{ house.number }}
+        </div>
+      </a>
+    </div>
+    <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
       <div class="lg:w-[70%]">
         <div class="sm:h-60 lg:h-[580px]">
           <video class="w-full h-full" :src="videoItem.videoAddress" :poster="videoItem.photoAddress" controls></video>
@@ -135,7 +157,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Api as VideoApi } from '@/api/model/videoModel'
-import { Api as HouseApi } from '~/api/model/houseModel';
+import { Api as HouseApi, houseMenu, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
 export default Vue.extend({
   name: "VideoDetail",
@@ -144,6 +166,8 @@ export default Vue.extend({
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
     }
+
+    const topFlag: string = 'video';
 
     // 修改初始数据
     const getRooms = (rooms: any[]) => {
@@ -203,9 +227,10 @@ export default Vue.extend({
       }
     }
 
-    return { videoItem, videoList, house }
+    return { videoItem, videoList, house, houseMenu, phoneNum, topFlag }
   },
   data() {
+    const topFlag: string = 'video';
     let videoItem:any;
     let videoList:any;
     let house: any;
@@ -213,6 +238,7 @@ export default Vue.extend({
       videoItem,
       videoList,
       house,
+      topFlag,
     }
   },
   head() {

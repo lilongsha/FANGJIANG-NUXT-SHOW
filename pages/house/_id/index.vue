@@ -13,6 +13,16 @@
           </div>
           <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
         </div>
+        <!-- house menu -->
+        <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-28 text-white">
+          <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
+          <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
+            <div class="sm:hidden absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
+              <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
+              {{ phoneNum }} 转 {{ house.number }}
+            </div>
+          </a>
+        </div>
         <!-- carousel -->
         <div class="flex flex-row sm:w-screen sm:overflow-hidden lg:w-full mt-8 sm:h-80 lg:h-[547px]">
           <!-- Carousel w-1280-567 -->
@@ -188,13 +198,7 @@
             </div>
           </div>
         </div>
-        <!-- house menu -->
-        <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-gray-200 sm:mt-4 lg:mt-14 sm:top-[95px] lg:top-28 text-[#333333]">
-          <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
-          <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
-            <div class="sm:hidden absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4">{{ phoneNum }} 转 {{ house.number }}</div>
-          </a>
-        </div>
+        
         <!-- house layout -->
         <div id="layout" ref="layout" class="w-full sm:px-2 lg:h-[532px] m2-8">
           <!-- h-36px -->
@@ -447,13 +451,24 @@ export default Vue.extend({
     LineEchart,
     RecomendHouse,
   },
-  async asyncData ({ $axios, params, store, req }) {
+  async asyncData ({ $axios, params, store, req, query }) {
     
     const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
+    }
+
+    const flag = 'layout';
+    let topFlag;
+    if (query && query.topFlag && String(query.topFlag)) {
+      topFlag = String(query.topFlag) || flag || 'layout';
+      // const el = document.getElementById(topFlag);
+      // if (el){
+      //   el.scrollIntoView({ behavior: 'smooth' });
+      // }
+      
     }
 
     // 获取楼盘相关活动
@@ -660,10 +675,11 @@ export default Vue.extend({
     const opening: boolean = false;
     
 
-    return { activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
+    return { topFlag, flag, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile }
   },
   data () {
+    const flag: string = 'layout';
     const clueType: string = '';
     const opening: boolean = false;
     const id: string = '';
@@ -690,6 +706,7 @@ questionTotal, option, phoneNum, isMobile }
     const option: any = {};
     let isMobile: any;
     return {
+      flag,
       activityId: '',
       openActivity: false,
       clueType,
@@ -783,7 +800,16 @@ questionTotal, option, phoneNum, isMobile }
       return hotProject.slice(0, 4);
     }
   },
+  watch: {
+    // flag() {this.topFlag = this.flag || 'layout'},
+    topFlag() {},
+  },
   mounted() {
+    if (this.topFlag) {
+      this.go(this.topFlag);
+    }
+    
+    
     window.addEventListener('scroll', this.handleScroll);
     MapLoader().then(AMap => {
       this.map = new AMap.Map("aroundMap", {
