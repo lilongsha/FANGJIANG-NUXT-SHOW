@@ -11,10 +11,10 @@
         <span class="mt-5 text-[#999999] text-[18px]">{{ project.aliasName }}</span>
       </div>
       <!-- house menu -->
-      <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-28 text-white">
-        <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub' : topFlag == item.value }" class="sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all">
+      <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white">
+        <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub-ing' : topFlag == item.value }" class="menu-sub sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all">
           <!--  @click="go(item.value)" -->
-          <a :href="'/house/' + project.id + '.html?topFlag=' + item.value">{{ item.title }}</a>
+          <a :href="'/house/' + project.id + '.html?topFlag=' + item.value" class="hover:text-white">{{ item.title }}</a>
           
         </div>
         <a class="sm:hidden" :href="`tel:${phoneNum},${project.number}%23`">
@@ -100,7 +100,7 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, route, store, req }) {
-    const topFlag: string = 'discuss';
+    const topFlag: string = 'question';
     const userAgent = req?.headers['user-agent'] || '';
     let pageNum = 1;
     let p = route.params?.p;
@@ -160,7 +160,7 @@ export default Vue.extend({
     }
   },
   data () {
-    const topFlag: string = 'discuss';
+    const topFlag: string = 'question';
     const pageParam = {
       pageSize: 10,
       pageNum: 0,
@@ -298,4 +298,11 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
 }
+.menu .menu-sub {
+  @apply hover:bg-[#017af0] text-white;
+}
+.menu .menu-sub-ing {
+  @apply bg-[#0033d8] hover:bg-[#0033d8];
+}
+
 </style>
