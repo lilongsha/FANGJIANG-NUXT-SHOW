@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:pb-4 lg:container">
     <div class="sm:hidden lg:h-24"></div>
-    <div class="w-full lg:pt-10 sm:hidden">
+    <div class="w-full lg:pt-2 sm:hidden">
       <!-- name and saleState -->
       <div class="flex flex-row items-end w-full">
         <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
@@ -37,6 +37,24 @@
             <div class="mx-1 w-full border-b border-dashed border-[#DDD]"></div>
             <div class="mt-2 text-xl font-bold text-[#333]">{{ videoItem.title }}</div>
             <div class="mt-2 text-[#999]">{{ videoItem.description }}</div>
+          </div>
+        </div>
+        <div v-if="lastData.length > 0" class="box">
+          <div class="title">
+            <span>其他视频</span>
+            <a :href="'/video/list/p1,sort-' + videoItem.sort">查看更多</a>
+          </div>
+          <div class="content">
+            <div v-for="item in lastData" :key="item.id" class="item group">
+              <a :href="`/video/${item.id}.html`">
+                <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+                  <p class="text-[18px]">{{ item.title }}</p>
+                  <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+                </div>
+                <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
+                <img :src="item.photoAddress">
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -149,8 +167,39 @@
             </a>
           </div>
         </div>
+        <div id="news" class="mt-3 shadow p-2 bg-[#F5F5F5]">
+          <span class="text-2xl font-bold text-[#333]">热门资讯</span>
+          <div class="w-full h-[270px]">
+            <div v-if="newsTop.length > 3" class="w-full h-1/2 pb-[2px]">
+              <a v-if="newsTop[3]" :href="`/info/${newsTop[3].id}.html`" class="block w-full h-full">
+                <div class="flex flex-col w-full h-full overflow-hidden border-b-2 border-[#DDDDDD]">
+                  <span class="text-black text-[18px] mt-5 inline-block">{{ newsTop[3].title }}</span>
+                  <div class="text-[#999999] text-[12px] mt-2">{{ newsTop[3].description }}</div>
+                </div>
+              </a>
+            </div>
+            <div v-if="newsTop.length > 4" class="w-full h-1/2 pb-[2px]">
+              <a v-if="newsTop[4]" :href="`/info/${newsTop[4].id}.html`" class="block w-full h-full">
+                <div class="flex flex-col w-full h-full overflow-hidden">
+                  <span class="text-black text-[18px] mt-5 inline-block">{{ newsTop[4].title }}</span>
+                  <div class="text-[#999999] text-[12px] mt-2">{{ newsTop[4].description }}</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="sm:hidden mt-3 shadow bg-[#F5F5F5] rounded-md">
+          <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-full h-full" @click="openClue('4')">
+        </div>
+        <div class="lg:hidden">
+          <div class="mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
+            <div class="text-[20px] font-bold text-white">看房专车免费接送</div>
+            <button class="bg-white rounded-3xl font-bold h-[32px] w-[130px] text-fjBlue-100 text-[14px] mt-[8px]" @click="openClue('4')">立即预约</button>
+          </div>
+        </div>
       </div>
     </div>
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="house.sysCityByCityId.id" :look="house.lookTime"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
@@ -159,9 +208,10 @@ import Vue from 'vue'
 import { Api as VideoApi } from '@/api/model/videoModel'
 import { Api as HouseApi, houseMenu, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
+import { Api } from '~/api/model/newsModel';
 export default Vue.extend({
   name: "VideoDetail",
-  async asyncData({ $axios, params }) {
+  async asyncData({ $axios, params, store }) {
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
@@ -226,19 +276,69 @@ export default Vue.extend({
         house.roomAreas = getRoomArea(house.hLayoutsById);
       }
     }
+    // 热门资讯
+    const newsParam: any = {
+      data: {
+        cityId: store.state.app.cityId,
+      },
+      page: {
+        pageNum: 0,
+        pageSize: 5,
+      },
+      sort: {
+        desc: ['orderNum', 'createTime'],
+      },
+    }
+    let newsTop: any[] = [];
+    const topResult = await $axios.$post(Api.GetNewsByCity, newsParam);
+    if (topResult.code === 200) {
+      newsTop = getDataResult(topResult);
+    }
 
-    return { videoItem, videoList, house, houseMenu, phoneNum, topFlag }
+    // 按照当前视频类型，获取视频
+    const cityId = store.state.app.cityId;
+    const sort = videoItem.sort;
+
+    const videoParam: any = {
+      data: {
+        cityId,
+        sort,
+      },
+      page: {
+        pageNum: 0,
+        pageSize: 9,
+      },
+    }
+    const videoResult:any = await $axios.$post(VideoApi.ByPage, videoParam);
+    let lastData:any;
+    if (videoResult.code === 200) {
+     lastData = getDataResult(videoResult)
+    }
+    return { videoItem, videoList, house, houseMenu, phoneNum, topFlag, newsTop, lastData }
   },
   data() {
     const topFlag: string = 'video';
     let videoItem:any;
     let videoList:any;
     let house: any;
+    let lastData:any;
+    let projectData:any;
+    let roomData:any;
+    let compareData:any;
+    let policyData:any;
     return {
       videoItem,
       videoList,
       house,
       topFlag,
+      newsTop: [],
+      clueType: '4',
+      opening: false,
+      lastData,
+      projectData,
+      roomData,
+      compareData,
+      policyData,
     }
   },
   head() {
@@ -276,6 +376,54 @@ export default Vue.extend({
     };
   },
   methods: {
+    openClue(type: string) {
+      this.clueType = type;
+      this.opening = true;
+    },
+    isOpen() {
+      this.opening = false;
+    },
   }
 })
 </script>
+<style scoped>
+.box {
+  @apply flex sm:w-full sm:px-0 lg:container flex-col lg:h-[260px] mx-auto sm:mt-4 sm:mb-2 lg:mt-14;
+}
+
+.box .title {
+  @apply h-8 flex flex-row justify-between items-center w-full;
+}
+
+.box .title span {
+  @apply text-2xl font-bold text-[#333];
+}
+
+.box .title a {
+  @apply text-[#999] block sm:text-[12px];
+}
+
+.content {
+  @apply flex sm:flex-col sm:px-0 lg:flex-row sm:space-y-4 mt-4 lg:grid lg:grid-cols-3 lg:justify-items-center lg:gap-4;
+}
+
+.content .item {
+  @apply sm:w-full sm:h-48 lg:w-56 lg:h-full;
+}
+
+.content .item a {
+  @apply w-full h-full block relative;
+}
+
+.content .item a img {
+  @apply w-full h-full object-cover;
+}
+
+.content .item a div {
+  @apply bg-black absolute bottom-0 w-full object-cover flex flex-col px-2 bg-opacity-40 text-white;
+}
+
+.content .item a .play {
+  @apply absolute top-1/2 left-1/2 w-10 h-10 -ml-5 -mt-5;
+}
+</style>
