@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full min-h-screen">
     <img :src="activity.headImg" width="100%" class="absolute top-0 left-0 z-0 w-full">
-    <div class="relative top-0 left-0 text-center w-full pt-[70px] px-5 flex flex-col items-center">
+    <div class="relative top-0 left-0 text-center w-full pt-[70px] pb-[24px] px-5 flex flex-col items-center">
       <span class="text-[38px] text-white font-extrabold">{{ activity.title}}</span>
       <!-- <span class="text-white text-[22px] tracking-widest mt-4">{{ activity.description }}</span> -->
       <div class="flex flex-col mt-6">
@@ -26,12 +26,12 @@
             <div class="flex flex-row w-full">
               <img v-if="item.firstImg && item.firstImg.address" :src="item.firstImg.address" alt="楼盘首图" class="w-2/5 h-24 rounded-[8px]">
               <div class="relative w-full ml-4 overflow-hidden">
-                  <div class="w-full text-left">
-                    <span class="text-[#333333] text-[16px] w-full mt-0">{{item.name}}</span>
-                    <span class="absolute right-0 text-right top-1">
-                      <span v-if="item.saleState === '1'" class="border border-[#333333] rounded-full px-2">在售</span>
-                      <span v-if="item.saleState === '2'" class="border border-[#333333] rounded-full px-2">待售</span>
-                      <span v-if="item.saleState === '3'" class="border border-[#333333] rounded-full px-2">售罄</span>
+                  <div class="flex flex-row items-center justify-between w-full text-left">
+                    <span class="text-[#333333] text-[16px] mt-0">{{item.name}}</span>
+                    <span class="text-[12px]">
+                      <span v-if="item.saleState === '1'" class="border border-[#333333] rounded-full px-1">在售</span>
+                      <span v-if="item.saleState === '2'" class="border border-[#333333] rounded-full px-1">待售</span>
+                      <span v-if="item.saleState === '3'" class="border border-[#333333] rounded-full px-1">售罄</span>
                     </span>
                   </div>
                   <div>
@@ -59,8 +59,8 @@
                       NjgyQkKYWsBsAAAARnRFWHRUaHVtYjo6VVJJAGZpbGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3Zp
                       ZXcyXzlfMTYzMTU5MjMzNzY3ODc4MzRfNzlfWzBdjI0y0QAAAABJRU5ErkJggg==" ></image>
                       </svg>
-                      <span class="overflow-hidden text-[#666666] text-[8px]">{{ minRoom }}/{{ maxRoom }}室</span>
-                      <span class="ml-2 overflow-hidden text-[#666666] text-[8px]">{{ minArea }}/{{ maxArea }}㎡</span>
+                      <span class="overflow-hidden text-[#666666] text-[12px]">{{ minRoom }}-{{ maxRoom }}室</span>
+                      <span class="ml-2 overflow-hidden text-[#666666] text-[12px]">{{ minArea }}-{{ maxArea }}㎡</span>
                     </div>
                     <div class="flex flex-row items-center">
                       <svg version="1.1" class="w-4 h-4 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -94,7 +94,7 @@
                       bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                       eTPfkgAAAABJRU5ErkJggg==" ></image>
                       </svg>
-                      <span v-if="item.address" class="text-[#666666] text-[8px]" style="overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{ item.address }}</span>
+                      <span v-if="item.address" class="text-[#666666] text-[12px]" style="overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{ item.address }}</span>
                     </div>
                   </div>
                   <div class="text-left">
@@ -103,7 +103,7 @@
                   <div class="space-x-2 text-left">
                     <!-- <span v-for ="(label, e) in item.sysDictDetailBeans" :key="e"  class=" rounded text-[8px] bg-[#FB3E48] px-1 text-white">{{label.value}}</span> -->
                     <span v-for="(label, e) in item.sysDictDetailBeans" :key="e"
-                    ><span v-if="e < 3" class="rounded text-[8px] bg-[#FB3E48] px-1 text-white">{{
+                    ><span v-if="e < 3" class="rounded text-[12px] bg-[#FB3E48] px-1 text-white">{{
                       label.value
                     }}</span></span
                   >
@@ -133,7 +133,7 @@
           <span class="text-white text-[8px] bg-[#FF0614] px-1 rounded">优质房源</span>
         </div>
         <div class="w-full mt-4" @click="helpOpen">
-          <input type="text" class="px-4 w-full h-[35px] rounded-full border border-fjYellow-100 placeholder-[#999999] placeholder-[12px]" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;请输入手机号，方便经纪人联系您">
+          <input type="text" disabled class="px-4 w-full h-[35px] rounded-full border border-fjYellow-100 placeholder-[#999999] placeholder-[12px]" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;请输入手机号，方便经纪人联系您">
           <button class=" text-white text-[16px] mt-2 w-full bg-gradient-to-b from-[#FF782E] to-[#FD4721] rounded-full h-[35px]" >预约房产咨询师帮我找房</button>
         </div>
       </div>
@@ -146,13 +146,13 @@
         <img src="~/assets/img/clue/help.png" class="w-[22px] h-[22px]" alt="帮我找房">
         <span class="text-[#333333] text-[12px]">帮我找房</span>
       </div>
-      <div class="ml-4 mr-2 bg-gradient-to-b space-x-2 from-[#FF782E] to-[#FD4721] rounded-full px-2 flex flex-row items-center" @click="clickOpen()">
+      <div class="ml-2 mr-2 bg-gradient-to-b space-x-1 from-[#FF782E] to-[#FD4721] rounded-full px-2 flex flex-row items-center" @click="clickOpen()">
         <img src="~/assets/img/clue/car.png" alt="专车看房">
-        <span class="text-white text-[14px]">预约专车看房</span>
+        <span class="text-white text-[13px]">预约专车看房</span>
       </div>
-      <div class="text-right bg-gradient-to-b space-x-2 from-[#FE8088] to-[#FF0614] rounded-full px-2 flex flex-row items-center" @click="clickOpen()">
+      <div class="text-right bg-gradient-to-b space-x-1 from-[#FE8088] to-[#FF0614] rounded-full px-2 flex flex-row items-center" @click="clickOpen()">
         <img src="~/assets/img/clue/hui.png" alt="更多优惠">
-        <span class="text-white text-[14px]">获取更多优惠</span>
+        <span class="text-white text-[13px]">获取更多优惠</span>
       </div>
     </div>
     <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :city-id="activity.cityByCityId.id" :activity-id="activity.id"  @isOpen="closeOpen" />
