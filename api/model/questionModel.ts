@@ -1,6 +1,6 @@
 export enum Api {
-  GetQuestions = '/nhouse-server/question/getQuestions', // projectId
-  GetQuestion = '/nhouse-server/question/getQuestion', // id
+  GetQuestions = '/customer-server/question/getQuestions', // projectId
+  GetQuestion = '/customer-server/question/getQuestion', // id
 }
 
 export async function getQuestions($axios: any, projectId: string, pageSize = 2, pageNum = 0) {

@@ -1,6 +1,6 @@
 export enum Api {
-  GetDynamicNews = '/nhouse-server/dynamicNews/getDynamicNews',
-  GetDynamicNew = '/nhouse-server/dynamicNews/getDynamicNew',
+  GetDynamicNews = '/customer-server/dynamicNews/getDynamicNews',
+  GetDynamicNew = '/customer-server/dynamicNews/getDynamicNew',
 }
 
 // 1: 楼盘开盘 2：工程进度 3：项目封顶 4：项目交房 5：优惠活动 6：加推楼栋 7：在售楼栋 8：楼栋售罄 9：特价信息

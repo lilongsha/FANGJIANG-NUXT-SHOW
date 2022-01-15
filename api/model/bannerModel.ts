@@ -18,5 +18,5 @@ export interface BannerByCondition {
 }
 
 export enum Api {
-  GetBanners = '/nhouse-server/banner/getBanners',
+  GetBanners = '/customer-server/banner/getBanners',
 }

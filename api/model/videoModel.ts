@@ -1,6 +1,6 @@
 export enum Api {
-  Index = '/nhouse-server/video/index',
-  ByPage = '/nhouse-server/video/byPage',
-  Detail = '/nhouse-server/video/detail',
-  GetTop = '/nhouse-server/video/getTop'
+  Index = '/customer-server/video/index',
+  ByPage = '/customer-server/video/byPage',
+  Detail = '/customer-server/video/detail',
+  GetTop = '/customer-server/video/getTop'
 }

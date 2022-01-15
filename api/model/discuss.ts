@@ -1,4 +1,4 @@
 export enum Api {
-  GetQuestion = '/nhouse-server/question/getQuestion',
-  GetQuestions = '/nhouse-server/question/getQuestions',
+  GetQuestion = '/customer-server/question/getQuestion',
+  GetQuestions = '/customer-server/question/getQuestions',
 }

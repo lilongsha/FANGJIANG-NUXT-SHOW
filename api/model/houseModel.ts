@@ -85,10 +85,10 @@ export interface HotProjectByCondition {
 }
 
 export enum Api {
-  GetRecommendByCityId = '/nhouse-server/recommendProject/getByCityId',
-  Search = '/nhouse-server/project/search',
-  GetByCityIdAndOrder = '/nhouse-server/project/searchByCondition',
-  GetProject = '/nhouse-server/project/getProject',
+  GetRecommendByCityId = '/customer-server/recommendProject/getByCityId',
+  Search = '/customer-server/project/search',
+  GetByCityIdAndOrder = '/customer-server/project/searchByCondition',
+  GetProject = '/customer-server/project/getProject',
 }
 
 export const phoneNum: string = '400-750-8888'
@@ -158,12 +158,20 @@ export const saleState: any[] = [
   {title: '售罄',  },
 ]
 
+// export const houseMenu: any[] = [
+//   {title: '楼盘户型', value: 'layout'},
+//   {title: '楼盘动态', value: 'dynamic'},
+//   {title: '热门问题', value: 'question'},
+//   {title: '楼盘周边', value: 'around'},
+//   {title: '价格走势', value: 'price'},
+// ]
 export const houseMenu: any[] = [
-  {title: '楼盘户型', value: 'layout'},
+  {title: '楼盘首页', value: 'house'},
+  {title: '楼盘详情', value: 'infomation'},
   {title: '楼盘动态', value: 'dynamic'},
-  {title: '热门问题', value: 'question'},
-  {title: '楼盘周边', value: 'around'},
-  {title: '价格走势', value: 'price'},
+  {title: '楼盘问答', value: 'discuss'},
+  {title: '楼盘资讯', value: 'info'},
+  {title: '楼盘视频', value: 'video'},
 ]
 
 // 1毛坯；2简装；3精装；4毛坯与简装；5毛坯与精装
