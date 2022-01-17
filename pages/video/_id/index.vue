@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:pb-4 lg:container">
     <div class="sm:hidden lg:h-24"></div>
-    <div class="w-full lg:pt-2 sm:hidden">
+    <div v-if="house" class="w-full lg:pt-2 sm:hidden">
       <!-- name and saleState -->
       <div class="flex flex-row items-end w-full">
         <a :href="`/house/${house.id}.html`" class=" hover:text-black text-[#333333] text-[34px] font-bold">{{ house.name }}</a>
@@ -10,7 +10,7 @@
       <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
     </div>
     <!-- house menu -->
-    <AppBar :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
+    <AppBar v-if="house" :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
     <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
       <div class="lg:w-[70%]">
         <div class="sm:h-60 lg:h-[580px]">
@@ -191,7 +191,8 @@
         </div>
       </div>
     </div>
-    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="house.sysCityByCityId.id" :look="house.lookTime"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-if="house" v-show="opening" class="absolute z-[60] w-full h-full" :city="cityId" :look="house.lookTime"  :project-id="house.id" :clue-type="clueType" @isOpen="isOpen" />
+    <ClueLeaveClue v-else v-show="opening" class="absolute z-[60] w-full h-full" :city="cityId" :clue-type="clueType" @isOpen="isOpen" />
   </div>
 </template>
 
