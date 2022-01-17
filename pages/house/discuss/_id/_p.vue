@@ -5,25 +5,13 @@
       <div class="w-full lg:pt-10 sm:hidden">
         <!-- name and saleState -->
         <div class="flex flex-row items-end w-full">
-          <span class="text-[#333333] text-[34px] font-bold">{{ project.name }}</span>
+          <a :href="`/house/${project.id}.html`" class=" hover:text-black text-[#333333] text-[34px] font-bold">{{ project.name }}</a>
           <HouseStateLabel :state="project.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
         </div>
         <span class="mt-5 text-[#999999] text-[18px]">{{ project.aliasName }}</span>
       </div>
       <!-- house menu -->
-      <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white">
-        <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub-ing' : topFlag == item.value }" class="menu-sub sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all">
-          <!--  @click="go(item.value)" -->
-          <a :href="'/house/' + project.id + '.html?topFlag=' + item.value" class="hover:text-white">{{ item.title }}</a>
-          
-        </div>
-        <a class="sm:hidden" :href="`tel:${phoneNum},${project.number}%23`">
-          <div class="sm:hidden absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
-            <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
-            {{ phoneNum }} 转 {{ project.number }}
-          </div>
-        </a>
-      </div>
+      <AppBar :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
       <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8">
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">

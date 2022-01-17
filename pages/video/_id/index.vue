@@ -4,25 +4,13 @@
     <div class="w-full lg:pt-2 sm:hidden">
       <!-- name and saleState -->
       <div class="flex flex-row items-end w-full">
-        <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
+        <a :href="`/house/${house.id}.html`" class=" hover:text-black text-[#333333] text-[34px] font-bold">{{ house.name }}</a>
         <HouseStateLabel :state="house.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
       </div>
       <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
     </div>
     <!-- house menu -->
-    <div ref="menu" class="menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white">
-      <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub-ing' : topFlag == item.value }" class="menu-sub sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all">
-        <!--  @click="go(item.value)" -->
-        <a :href="'/house/' + house.id + '.html?topFlag=' + item.value" class="hover:text-white">{{ item.title }}</a>
-        
-      </div>
-      <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
-        <div class="sm:hidden absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
-          <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
-          {{ phoneNum }} 转 {{ house.number }}
-        </div>
-      </a>
-    </div>
+    <AppBar :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
     <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
       <div class="lg:w-[70%]">
         <div class="sm:h-60 lg:h-[580px]">
@@ -39,13 +27,13 @@
             <div class="mt-2 text-[#999]">{{ videoItem.description }}</div>
           </div>
         </div>
-        <div v-if="lastData.length > 0" class="box">
+        <div class="box">
           <div class="title">
-            <span>其他视频</span>
-            <a :href="'/video/list/p1,sort-' + videoItem.sort">查看更多</a>
+            <span>相关视频</span>
+            <!-- <a :href="'/video/list/p1,sort-' + videoItem.sort">查看更多</a> -->
           </div>
           <div class="content">
-            <div v-for="item in lastData" :key="item.id" class="item group">
+            <div v-for="(item, index) in videoList" v-show="index < 9" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
                   <p class="text-[18px]">{{ item.title }}</p>
@@ -149,9 +137,9 @@
             </div>
           </a>
         </div>
-        <div class="mt-3 shadow p-2 bg-[#F5F5F5]">
-          <span class="text-2xl font-bold text-[#333]">相关视频</span>
-          <div v-for="item in videoList" :key="item.id" class="mt-5 ">
+        <div v-if="lastData.length > 0" class="mt-3 shadow p-2 bg-[#F5F5F5]">
+          <span class="text-2xl font-bold text-[#333]">其他视频</span>
+          <div v-for="(item, index) in lastData" v-show="index < 3 || showMore" :key="item.id" class="mt-5 ">
             <a :href="`/video/${item.id}`" class="block">
               <div class="flex flex-row">
                 <div class="w-1/2">
@@ -166,6 +154,10 @@
               </div>
             </a>
           </div>
+        </div>
+        <div class="text-center w-full bg-[#F5F5F5]">
+          <button v-if="!showMore" class="text-fjBlue-100" @click="clickShow(true)">展开&nbsp;&nbsp;↓&nbsp;&nbsp;</button>
+          <button v-if="showMore" class=" text-fjBlue-100" @click="clickShow(false)">合并&nbsp;&nbsp;↑&nbsp;&nbsp;</button>
         </div>
         <div id="news" class="mt-3 shadow p-2 bg-[#F5F5F5]">
           <span class="text-2xl font-bold text-[#333]">热门资讯</span>
@@ -327,6 +319,7 @@ export default Vue.extend({
     let compareData:any;
     let policyData:any;
     return {
+      showMore: false,
       videoItem,
       videoList,
       house,
@@ -376,6 +369,9 @@ export default Vue.extend({
     };
   },
   methods: {
+    clickShow(is: boolean) {
+      this.showMore = is;
+    },
     openClue(type: string) {
       this.clueType = type;
       this.opening = true;

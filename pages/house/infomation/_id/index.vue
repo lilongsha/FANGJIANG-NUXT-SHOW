@@ -4,7 +4,7 @@
     <div class="w-full h-24 px-4">
       <!-- name -->
       <div class="w-full sm:flex sm:flex-col">
-        <span class="font-bold sm:text-xl lg:text-3xl">{{ house.name }}</span>
+        <a :href="`/house/${house.id}.html`" style="color: inherit" class="font-bold sm:text-xl lg:text-3xl">{{ house.name }}</a>
         <span v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</span>
       </div>
       <div class="flex flex-row items-center sm:mt-2 lg:mt-4">

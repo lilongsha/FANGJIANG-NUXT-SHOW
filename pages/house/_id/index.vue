@@ -14,15 +14,7 @@
           <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
         </div>
         <!-- house menu -->
-        <div ref="menu" class="menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white">
-          <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-sub-ing' : topFlag == item.value }" class="menu-sub sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
-          <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
-            <div class="sm:hidden absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
-              <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
-              {{ phoneNum }} 转 {{ house.number }}
-            </div>
-          </a>
-        </div>
+        <AppBar :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
         <!-- carousel -->
         <div class="flex flex-row sm:w-screen sm:overflow-hidden lg:w-full mt-8 sm:h-80 lg:h-[547px]">
           <!-- Carousel w-1280-567 -->
@@ -451,7 +443,7 @@ export default Vue.extend({
     LineEchart,
     RecomendHouse,
   },
-  async asyncData ({ $axios, params, store, req, query }) {
+  async asyncData ({ $axios, params, store, req }) {
     
     const userAgent = req?.headers['user-agent'] || '';
 
@@ -460,16 +452,16 @@ export default Vue.extend({
       id = id.split('.')[0];
     }
 
-    const flag = 'layout';
-    let topFlag;
-    if (query && query.topFlag && String(query.topFlag)) {
-      topFlag = String(query.topFlag) || flag || 'layout';
-      // const el = document.getElementById(topFlag);
-      // if (el){
-      //   el.scrollIntoView({ behavior: 'smooth' });
-      // }
+    // const flag = 'layout';
+    // let topFlag;
+    // if (query && query.topFlag && String(query.topFlag)) {
+    //   topFlag = String(query.topFlag) || flag || 'layout';
+    //   // const el = document.getElementById(topFlag);
+    //   // if (el){
+    //   //   el.scrollIntoView({ behavior: 'smooth' });
+    //   // }
       
-    }
+    // }
 
     // 获取楼盘相关活动
     const activityParam = {
@@ -675,7 +667,7 @@ export default Vue.extend({
     const opening: boolean = false;
     
 
-    return { topFlag, flag, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
+    return { activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile }
   },
   data () {
@@ -805,12 +797,12 @@ questionTotal, option, phoneNum, isMobile }
     topFlag() {},
   },
   mounted() {
-    if (this.topFlag) {
-      this.go(this.topFlag);
-    }
+    // if (this.topFlag) {
+    //   this.go(this.topFlag);
+    // }
     
     
-    window.addEventListener('scroll', this.handleScroll);
+    // window.addEventListener('scroll', this.handleScroll);
     MapLoader().then(AMap => {
       this.map = new AMap.Map("aroundMap", {
         zoom: 11,
@@ -952,33 +944,33 @@ questionTotal, option, phoneNum, isMobile }
       const anchor:any = this.$el.querySelector('#' + el)
       anchor.scrollIntoView({ behavior: 'smooth' })
     },
-    handleScroll() {
-      const layoutTop = (this as any).$refs.layout.getBoundingClientRect().top
-      const dynamicTop = (this as any).$refs.dynamic.getBoundingClientRect().top
-      const questionTop = (this as any).$refs.question.getBoundingClientRect().top;
-      const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
-      const priceTop = (this as any).$refs.price.getBoundingClientRect().top;
-      // 150 距离顶部的距离
-      let top = 200;
-      if(this.isMobile) {
-        top = 150;
-      }
-      if (layoutTop < top ) {
-        this.topFlag = 'layout'
-      }
-      if (dynamicTop < top ) {
-        this.topFlag = 'dynamic'
-      }
-      if (questionTop < top ) {
-        this.topFlag = 'question'
-      }
-      if (aoroundTop < top ) {
-        this.topFlag = 'around';
-      }
-      if (priceTop < top ) {
-        this.topFlag = 'price'
-      }
-    },
+    // handleScroll() {
+    //   const layoutTop = (this as any).$refs.layout.getBoundingClientRect().top
+    //   const dynamicTop = (this as any).$refs.dynamic.getBoundingClientRect().top
+    //   const questionTop = (this as any).$refs.question.getBoundingClientRect().top;
+    //   const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
+    //   const priceTop = (this as any).$refs.price.getBoundingClientRect().top;
+    //   // 150 距离顶部的距离
+    //   let top = 200;
+    //   if(this.isMobile) {
+    //     top = 150;
+    //   }
+    //   if (layoutTop < top ) {
+    //     this.topFlag = 'layout'
+    //   }
+    //   if (dynamicTop < top ) {
+    //     this.topFlag = 'dynamic'
+    //   }
+    //   if (questionTop < top ) {
+    //     this.topFlag = 'question'
+    //   }
+    //   if (aoroundTop < top ) {
+    //     this.topFlag = 'around';
+    //   }
+    //   if (priceTop < top ) {
+    //     this.topFlag = 'price'
+    //   }
+    // },
     scrollLayoutRight() {
       let times = 288;
       if (this.isMobile) {
