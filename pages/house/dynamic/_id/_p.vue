@@ -150,12 +150,11 @@ export default Vue.extend({
     ])
 
     let project: any;
-    let city: any;
+    const city: any = store.state.app.cityId;
     let lookTime: any;
     if (resultProject.code === 200) {
       project = getDataResult(resultProject);
       lookTime = project.lookTime;
-      city = project.sysCityByCityId.id;
     }
     
     const { content, page } = getPageResult(resultDynamic);

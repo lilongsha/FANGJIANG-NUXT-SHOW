@@ -640,11 +640,10 @@ export default Vue.extend({
     }
     const result = await $axios.$post(HouseApi.GetProject, param)
     let house: any;
-    let cityId: string = '';
+    const cityId: string = store.state.app.cityId;
     let lookTime: number = 0;
     if (result.code === 200) {
       house = getDataResult(result);
-      cityId = house.sysCityByCityId.id;
       lookTime = house.lookTime
       const breadcrumb: Breadcrumb[] = [];
       breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })

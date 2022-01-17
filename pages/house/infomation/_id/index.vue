@@ -289,7 +289,7 @@ export default Vue.extend({
 
     // 获取楼盘详情
     let house: any;
-    let cityId: any;
+    const cityId: any = store.state.app.cityId;
     let lookTime: any;
     const scoreOption = {
       title: {
@@ -336,7 +336,6 @@ export default Vue.extend({
       if (result.code === 200) {
         house = getDataResult(result);
         lookTime = house.lookTime;
-        cityId = house.sysCityByCityId.id;
         getPrice(house);
         scoreOption.title.text = `综合评分`;
         scoreOption.legend.data = [house.name];

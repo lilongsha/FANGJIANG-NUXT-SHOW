@@ -155,8 +155,8 @@
         <span class="text-white text-[13px]">获取更多优惠</span>
       </div>
     </div>
-    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :city-id="activity.cityByCityId.id" :activity-id="activity.id"  @isOpen="closeOpen" />
-    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="activity.cityByCityId.id" :activity-id="activity.id" :project-id="projectId" :clue-type="'15'" :look="lookTime" @isOpen="closeOpen" />
+    <ClueHelpClue v-show="openingHelp" class="absolute z-[60] w-full h-full"  :city-id="cityId" :activity-id="activity.id"  @isOpen="closeOpen" />
+    <ClueLeaveClue v-show="opening" class="absolute z-[60] w-full h-full" :city="cityId" :activity-id="activity.id" :project-id="projectId" :clue-type="'15'" :look="lookTime" @isOpen="closeOpen" />
   </div>
 </template>
 <script lang="ts">
@@ -168,6 +168,7 @@ export default Vue.extend({
   name: 'Activity',
   components: {},
   async asyncData ({ $axios, params, store }){
+    const cityId = store.state.app.cityId;
     let id = params.id;
     // let id = '1475652301300568064'
     if (id.endsWith('.html')) {
@@ -220,7 +221,7 @@ export default Vue.extend({
     
     await store.commit('app/TITLE_SET', activity.title)
     
-    return { id, activity, maxRoom, maxArea, minRoom, minArea }
+    return { cityId, id, activity, maxRoom, maxArea, minRoom, minArea }
   },
   data () {
     const activity: any = {};
