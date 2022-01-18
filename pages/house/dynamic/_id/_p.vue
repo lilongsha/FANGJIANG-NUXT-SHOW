@@ -10,7 +10,7 @@
       <span class="mt-5 text-[#999999] text-[18px]">{{ project.aliasName }}</span>
     </div>
     <!-- house menu -->
-    <AppBar :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
+    <AppBar :current="'dynamic'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">
     <div class="lg:w-3/4 sm:w-full">
     <div class="flex flex-row sm:w-full lg:w-full">
@@ -162,6 +162,16 @@ export default Vue.extend({
     pageParam.pageNum = page.number + 1;
     let dynamics: any[] = [];
     dynamics = content;
+    let max;
+    if (dynamics) {
+      for (let i = 0; i< dynamics.length; i++) {
+        if ((dynamics[i + 1]?.createTime || '') > (dynamics[i]?.createTime || '')) {
+          max = dynamics[i + 1];
+          dynamics[i+1] = dynamics[i]
+          dynamics[i] = max
+        }
+      }
+    }
 
     const breadcrumb: Breadcrumb[] = [];
     breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })

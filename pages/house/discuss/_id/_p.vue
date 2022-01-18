@@ -11,7 +11,7 @@
         <span class="mt-5 text-[#999999] text-[18px]">{{ project.aliasName }}</span>
       </div>
       <!-- house menu -->
-      <AppBar :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
+      <AppBar :current="'discuss'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
       <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8">
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
@@ -122,6 +122,16 @@ export default Vue.extend({
     pageParam.pageNum = page.number + 1;
     let questions: any[] = [];
     questions = content;
+    let max;
+    if (questions) {
+      for (let i = 0; i< questions.length; i++) {
+        if ((questions[i + 1]?.createTime || '') > (questions[i]?.createTime || '')) {
+          max = questions[i + 1];
+          questions[i+1] = questions[i]
+          questions[i] = max
+        }
+      }
+    }
 
     const breadcrumb: Breadcrumb[] = [];
     breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })

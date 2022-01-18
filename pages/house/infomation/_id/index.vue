@@ -14,6 +14,7 @@
         <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
       </div>
     </div>
+    <AppBar :current="'infomation'" :house="house" :class-name="'mb-2 menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">
       <div class="sm:w-full lg:w-3/4 lg:pr-4">
         <!-- 基本信息 -->
