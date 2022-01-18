@@ -65,7 +65,7 @@ export interface ProjectModel {
   brandId?: string;
   sysProvinceByProvinceId?: string;
   sysCityByCityId?: string;
-  sysAreaByAreaId?: string;
+  sysAreaByAreaId?: any;
   sandImg?: string;
   firstImg?: any;
   estateCompanyById?: string;
@@ -172,6 +172,7 @@ export const houseMenu: any[] = [
   {title: '楼盘问答', value: 'discuss'},
   {title: '楼盘资讯', value: 'info'},
   {title: '楼盘视频', value: 'video'},
+  {title: '历史价格', value: 'price'},
 ]
 
 // 1毛坯；2简装；3精装；4毛坯与简装；5毛坯与精装
