@@ -1,14 +1,7 @@
 <template>
   <div class="mx-auto sm:w-screen sm:px-2 lg:container">
     <div id="list" class="w-full sm:h-10 lg:h-24"></div>
-    <div class="w-full lg:pt-10 sm:hidden">
-      <!-- name and saleState -->
-      <div class="flex flex-row items-end w-full">
-        <a :href="`/house/${project.id}.html`" class=" hover:text-black text-[#333333] text-[34px] font-bold">{{ project.name }}</a>
-        <HouseStateLabel :state="project.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
-      </div>
-      <span class="mt-5 text-[#999999] text-[18px]">{{ project.aliasName }}</span>
-    </div>
+    <AppTitle :house="project" />
     <!-- house menu -->
     <AppBar :current="'dynamic'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">
@@ -83,8 +76,10 @@
         <div>
           <img src="~/assets/img/clue/groupAd.png" alt="组团砍价，参与拼团" class="w-[302px] h-[294px]" @click="openActivityClue('5')">
         </div>
-        <div>
-          <img v-if="activities" :src="activities.headImg" alt="广告" class="w-[302px] h-[294px]" @click="openActivityClue('15', activities.id)">
+        <div v-if="activities" class="relative" @click="openActivityClue('15', activities.id)">
+          <img v-if="activities" :src="activities.headImg" alt="广告" class="w-[302px] h-[294px]">
+          <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
+          <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities.description }}</span>
         </div>
     </div>
     </div>

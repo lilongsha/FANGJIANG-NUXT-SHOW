@@ -1,14 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:pb-4 lg:container">
     <div class="sm:hidden lg:h-24"></div>
-    <div v-if="house" class="w-full lg:pt-2 sm:hidden">
-      <!-- name and saleState -->
-      <div class="flex flex-row items-end w-full">
-        <a :href="`/house/${house.id}.html`" class=" hover:text-black text-[#333333] text-[34px] font-bold">{{ house.name }}</a>
-        <HouseStateLabel :state="house.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
-      </div>
-      <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
-    </div>
+    <AppTitle id="top" :house="house" class="-mt-10"/>
     <!-- house menu -->
     <AppBar v-if="house" :current="'video'" :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
     <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
@@ -372,6 +365,11 @@ export default Vue.extend({
   methods: {
     clickShow(is: boolean) {
       this.showMore = is;
+      if (!is) {
+        const anchor:any = this.$el.querySelector('#top')
+        anchor.scrollIntoView({ behavior: 'smooth' })
+      }
+      
     },
     openClue(type: string) {
       this.clueType = type;
@@ -408,11 +406,11 @@ export default Vue.extend({
 }
 
 .content {
-  @apply flex sm:flex-col sm:px-0 lg:flex-row sm:space-y-4 mt-4 lg:grid lg:grid-cols-3 lg:justify-items-center lg:gap-4;
+  @apply flex sm:flex-col sm:px-0 sm:space-y-4 mt-4 lg:grid lg:grid-cols-3 lg:flex-row lg:justify-items-stretch lg:content-between lg:gap-8;
 }
 
 .content .item {
-  @apply sm:w-full sm:h-48 lg:w-56 lg:h-full;
+  @apply sm:w-full sm:h-48 lg:w-[278px] lg:h-[195px];
 }
 
 .content .item a {

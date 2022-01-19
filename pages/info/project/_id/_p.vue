@@ -1,13 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:w-screen sm:px-2 sm:pb-2 lg:container">
     <div class="lg:h-24 sm:h-10"></div>
-    <div class="w-full lg:pt-10 sm:hidden">
-      <div class="flex flex-row items-end w-full">
-        <a :href="`/house/${house.id}.html`" style="color: inherit" class="text-[#333333] text-[34px] font-bold">{{ house.name }}</a>
-        <HouseStateLabel :state="house.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
-      </div>
-      <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
-    </div>
+    <AppTitle :house="house" />
     <AppBar :current="'info'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
       <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部资讯</span>
@@ -100,7 +94,6 @@
             <img :src="activities.headImg" alt="" class="rounded w-[278px] h-[270px]">
             <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
             <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities.description }}</span>
-            <div class="absolute lg:bottom-4 lg:w-full text-center text-white text-[20px]"><span class="p-2 rounded-md bg-fjYellow-100">立即报名</span></div>
           </div>
         </div>
       </div>

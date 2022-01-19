@@ -5,14 +5,7 @@
     <div class="w-full pb-7 bg-[#f6f9fe]">
       <div class="lg:mx-auto sm:w-full lg:container">
         <!-- name and title -->
-        <div class="w-full lg:pt-10 sm:hidden">
-          <!-- name and saleState -->
-          <div class="flex flex-row items-end w-full">
-            <span class="text-[#333333] text-[34px] font-bold">{{ house.name }}</span>
-            <HouseStateLabel :state="house.saleState" :class-name="'px-1 my-auto font-normal text-white rounded-sm ml-7'" />
-          </div>
-          <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
-        </div>
+        <AppTitle :house="house" />
         <!-- house menu -->
         <AppBar :current="'house'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
         <!-- carousel -->
@@ -411,7 +404,6 @@
                   <img :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]">
                   <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
                   <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities.description }}</span>
-                  <div class="absolute lg:bottom-4 lg:w-full text-center text-white text-[20px]"><span class="p-2 rounded-md bg-fjYellow-100">立即报名</span></div>
                 </div>
               </div>
             </div>
