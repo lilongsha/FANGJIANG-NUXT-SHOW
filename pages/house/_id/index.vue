@@ -407,8 +407,12 @@
               </div>
               <!-- ad -->
               <div class="lg:mt-9 sm:hidden">
-                <!-- <img class="w-[306px] h-[298px]" src="~/assets/img/clue/ad.png" alt="广告" @click="openClue('15')"> -->
-                <img v-if="activities " :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities.id)">
+                <div v-if="activities " class="relative" @click="openActivityClue('15', activities.id)">
+                  <img :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]">
+                  <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
+                  <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities.description }}</span>
+                  <div class="absolute lg:bottom-4 lg:w-full text-center text-white text-[20px]"><span class="p-2 rounded-md bg-fjYellow-100">立即报名</span></div>
+                </div>
               </div>
             </div>
           </div>
