@@ -133,11 +133,21 @@
             </a>
           </div>
         </div>
-        <div v-if="activities && activities.length > 0">
-          <img :src="activities[0].headImg" alt="活动" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
+        <div v-if="activities && activities.length > 0"  class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[0].id)">
+          <div class="relative">
+            <img :src="activities[0].headImg" alt="活动" class="w-[306px] h-[358px]">
+            <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities[0].title }}</span>
+            <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities[0].description }}</span>
+            <div class="absolute lg:bottom-4 lg:w-full text-center text-white text-[20px]"><span class="p-2 rounded-md bg-fjYellow-100">立即报名</span></div>
+          </div>
         </div>
-        <div v-if="activities && activities.length > 1">
-          <img :src="activities[1].headImg" alt="活动" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[1].id)">
+        <div v-if="activities && activities.length > 1" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities[1].id)">
+          <div class="relative">
+            <img :src="activities[1].headImg" alt="活动" class="w-[306px] h-[358px]">
+            <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities[1].title }}</span>
+            <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities[1].description }}</span>
+            <div class="absolute lg:bottom-4 lg:w-full text-center text-white text-[20px]"><span class="p-2 rounded-md bg-fjYellow-100">立即报名</span></div>
+          </div>
         </div>
       </div>
     </div>
