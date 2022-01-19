@@ -125,17 +125,17 @@ export default Vue.extend({
     }
 
     return {
-      title: `${city}新房视频-房匠网`,
+      title: `${city}房匠视频看房_楼盘视频_房产视频-${city}房匠网`,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频,${city}新房网`
+          content: `房匠视频看房,${city}视频看房,${city}楼盘视频,${city}新房视频`
         },
         {
           hid: 'description',
           name: 'description',
-          content: `房匠网提供${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.`
+          content: `${city}房匠网为您提供最专业的楼盘视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`
         },
       ],
     };

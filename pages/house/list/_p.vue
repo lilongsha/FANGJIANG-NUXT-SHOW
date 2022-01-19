@@ -1161,14 +1161,14 @@ export default Vue.extend({
     // if (!area) {
     //   area = city;
     // }
-    let title = `${city}新房_${city}楼盘_${city}买房-房匠网`;
-    let keywords = `${city}新房,${city}楼盘,${city}买房购房,${city}房价,${city}新房网`;
-    let content1 = `房匠网为您提供;${city}新房,${city}楼盘,${city}买房相关信息,房匠网-让买房变得简单!`;
+    let title = `${city}新楼盘_${city}新房_${city}买房网-${city}房匠网`;
+    let keywords = `${city}新房,${city}新楼盘,${city}新房房价,${city}买房网,${city}买房`;
+    let content1 = `${city}房匠网为您提供优质的${city}新房、${city}新开楼盘、${city}房价信息。${city}新房楼盘上房匠网-让您购房变得简单!`;
     let local = city;
     if (area && area !== '') {
       title = `${city}${area}新房_${city}${area}楼盘_${city}${area}买房-房匠网`;
-      keywords = `${city}${area}新房,${city}${area}楼盘,${city}${area}买房购房,${city}${area}房价,${city}${area}新房网`
-      content1 = `房匠网为您提供;${city}${area}新房,${city}${area}楼盘,${city}${area}买房相关信息,房匠网-让买房变得简单!`
+      keywords = `${city}新房,${city}新楼盘,${city}新房房价,${city}买房网,${city}买房,${city}${area}新房网`
+      content1 = `${city}房匠网为您提供优质的${city}新房、${city}新开楼盘、${city}房价信息。${city}新房楼盘上房匠网-让您购房变得简单!`
       local = local + area;
     }
     return {

@@ -187,15 +187,15 @@ export default Vue.extend({
     const houseCityName: string = this.project.sysCityByCityId.name || '';
     const houseProvinceName: string = this.project.sysProvinceByProvinceId.name;
     const latLng: string = this.project.latitude + '' + this.project.longitude;
-    const title: string = `${houseCityName}${houseAreaName}${this.project.name}楼盘怎么样？好不好？${this.project.name}业主论坛 - 房匠`;
-    const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${houseName}楼盘问答频道作为${houseName}业主论坛，拥有大量业主与售楼处互动信息及专家点评。让您全面了解${houseCityName}${houseAreaName}${houseName}怎么样？评价好不好？请关注房匠网.`;
+    const title: string = `【${houseCityName}${houseAreaName}${houseName}楼盘怎么样】业主论坛 - 房匠网`;
+    const description: string = `房匠网为您解答${houseName}怎么样，${houseName}业主论坛拥有大量业主与售楼处互动信息及专家点评。让您全面了解${houseCityName}${houseAreaName}${houseName}好不好？关注房匠网。`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.project.firstImg?.address;
     const sandImgAddress: string = this.project.sandImg?.address;
     const pubTime: string = this.project.createTime.split('.')[0];
     let upTime: string = this.project.updateTime || this.project.createTime;
     upTime = upTime.split('.')[0];
-    const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}楼盘怎么样,${houseName}好不好,${houseName}业主论坛`;
+    const keyword: string = `${houseName}怎么样,${houseName}好不好,${houseName}业主论坛`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
     if (this.project.latitude && this.project.longitude) {

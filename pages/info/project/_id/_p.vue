@@ -256,11 +256,29 @@ export default Vue.extend({
       new2, new3, new7,
     }
   },
-  // head() {
-  //   const houseName = this.house.name;
-  //   const houseCityName: string = this.house.sysCityByCityId.name || '';
-  //   const title:string = `【${houseName}_${houseCityName}${houseName}楼盘】详细信息|售楼处电话|开发商详情-房匠网`;
-  // },
+  head() {
+    const houseName = this.house.name;
+    const houseCityName: string = this.house.sysCityByCityId.name || '';
+    const title:string = `【${houseName}资讯】最新资讯-房匠网`;
+    const description: string = `${houseCityName}房匠为您提供${houseName}实时资讯，包括实探楼盘、开盘咨询、楼市政策等，了解更多关于${houseName}楼盘资讯，关注房匠网`;
+    const keyword: string = `${houseName}资讯,${houseName}最新资讯`;
+    return {
+      title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keyword
+        },
+      ],
+    }
+  },
   methods: {
     changeType(type: string) {
       this.type = type;

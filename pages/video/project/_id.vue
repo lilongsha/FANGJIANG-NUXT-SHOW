@@ -177,11 +177,35 @@ export default Vue.extend({
     return { params, videos, house, type: '0', video1, video2, video3, cityId, activities }
   },
   data () {
+    let house: any;
     const clueType: string = '';
     const type: String = '0';
     const activityId: string = '';
     const opening: boolean = false;
-    return { type, video1:[], video2: [], video3: [], opening, activityId, clueType }
+    return { type, video1:[], video2: [], video3: [], opening, activityId, clueType, house }
+  },
+  head() {
+    const houseName = this.house.name;
+    const houseCityName: string = this.house.sysCityByCityId.name || '';
+    const title:string = `【${houseName}视频】最新视频-房匠网`;
+    const description: string = `${houseCityName}房匠为您提供${houseName}楼盘视频，包括楼盘实拍、样板间赏析、楼盘对比等，了解${houseName}楼盘视频，关注房匠网。`;
+    const keyword: string = `${houseName}视频,${houseName}楼盘视频,${houseName}样板间视频`;
+    return {
+      title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keyword
+        },
+      ],
+    }
   },
   methods: {
     changeType(type: string) {

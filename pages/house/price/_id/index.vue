@@ -148,6 +148,29 @@ export default Vue.extend({
       house,
     }
   },
+  head() {
+    const houseName = this.house.name;
+    const houseCityName: string = this.house.sysCityByCityId.name || '';
+    const title:string = `【${houseCityName}${houseName}价格走势】最新房价_开盘价多少钱一平-房匠网`;
+    const description: string = `房匠网为您提供${houseCityName}${houseName}价格走势最新消息,${houseName}多少钱一平？分析房价走势,成交价格记录,了解${houseName}最新房价走势，关注房匠网。`;
+    const keyword: string = `${houseName}房价,${houseName}房价走势,${houseName}价格,${houseName}多少钱一平`;
+    return {
+      title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: keyword
+        },
+      ],
+    }
+  },
   computed: {
     getHotProject() {
       // const that = this;
