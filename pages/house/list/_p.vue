@@ -1164,12 +1164,12 @@ export default Vue.extend({
     let title = `${city}新楼盘_${city}新房_${city}买房网-${city}房匠网`;
     let keywords = `${city}新房,${city}新楼盘,${city}新房房价,${city}买房网,${city}买房`;
     let content1 = `${city}房匠网为您提供优质的${city}新房、${city}新开楼盘、${city}房价信息。${city}新房楼盘上房匠网-让您购房变得简单!`;
-    let local = city;
+    // let local = city;
     if (area && area !== '') {
       title = `${city}${area}新房_${city}${area}楼盘_${city}${area}买房-房匠网`;
-      keywords = `${city}新房,${city}新楼盘,${city}新房房价,${city}买房网,${city}买房,${city}${area}新房网`
-      content1 = `${city}房匠网为您提供优质的${city}新房、${city}新开楼盘、${city}房价信息。${city}新房楼盘上房匠网-让您购房变得简单!`
-      local = local + area;
+      keywords = `${city}${area}新房,${city}${area}新楼盘,${city}${area}新房房价,${city}${area}买房网,${city}${area}买房,${city}${area}新房网`
+      content1 = `${city}房匠网为您提供优质的${city}${area}新房、${city}${area}新开楼盘、${city}${area}房价信息。${city}${area}新房楼盘上房匠网-让您购房变得简单!`
+      // local = local + area;
     }
     return {
       title,
@@ -1187,7 +1187,7 @@ export default Vue.extend({
       ],
       script: [
         {
-          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${local}新房_${local}楼盘_${local}买房-房匠网","images":[""],"description": "房匠网为您提供;${local}新房,${local}楼盘,${local}买房相关信息,房匠网-让买房变得简单!","upDate":"2021-12-08T18:00:00"}`,
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${title}","images":[""],"description": "${content1}","upDate":"2021-12-08T18:00:00"}`,
           type: 'application/ld+json',
         }
       ],
@@ -1526,6 +1526,8 @@ export default Vue.extend({
           }
         }
       })
+      path = path.substring(0, path.length - 1)
+      path = path + '.html'
       return path;
     },
     getClearUrl(value: fieldType) {

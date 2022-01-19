@@ -124,18 +124,47 @@ export default Vue.extend({
       city = city.substring(city.length - 1);
     }
 
+    const tdk = [
+      {
+        t: `${city}楼盘实拍_楼盘实拍-${city}房匠网`,
+        d: `${city}房匠网为您提供最专业的楼盘视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`,
+        k: `${city}楼盘实拍,楼盘实拍,${city}视频看房`,
+      },
+      {
+        t: `${city}楼盘样板间_楼盘样板间-${city}房匠网`,
+        d: `${city}房匠网为您提供最专业的楼盘视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`,
+        k: `${city}楼盘样板间,楼盘样板间,${city}视频看房`,
+      },
+      {
+        t: `${city}楼盘对比_楼盘对比-${city}房匠网`,
+        d: `${city}房匠网为您提供最专业的楼盘视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`,
+        k: `${city}楼盘对比,楼盘对比,${city}视频看房`,
+      },
+      {
+        t: `${city}楼市政策_楼市政策_${city}房匠网`,
+        d: `${city}房匠网为您提供最专业的楼市政策视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`,
+        k: `${city}楼市政策,楼市政策,${city}视频看房`,
+      },
+    ]
+
+    let type: number = Number(this.sort) || 1;
+    type = type - 1;
+    const title = tdk[type].t;
+    const description = tdk[type].d;
+    const keywords = tdk[type].k;
+
     return {
-      title: `${city}房匠视频看房_楼盘视频_房产视频-${city}房匠网`,
+      title,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `房匠视频看房,${city}视频看房,${city}楼盘视频,${city}新房视频`
+          content: keywords,
         },
         {
           hid: 'description',
           name: 'description',
-          content: `${city}房匠网为您提供最专业的楼盘视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`
+          content: description
         },
       ],
     };

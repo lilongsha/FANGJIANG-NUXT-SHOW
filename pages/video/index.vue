@@ -139,24 +139,25 @@ export default Vue.extend({
     const pubTime: string = this.topData[0].createTime.split('.')[0];
     let upTime: string = this.topData[0].updateTime || this.topData[0].createTime;
     upTime = upTime.split('.')[0];
-
+    const description = `${city}房匠网为您提供最专业的楼盘视频,新房视频，让您通过视频了解${city}楼盘实拍、楼盘样板间赏析、楼盘对比视频，房匠视频让您足不出户了解${city}新房信息。`;
+    const title = `${city}房匠视频看房_楼盘视频_房产视频-${city}房匠网`
     return {
-      title: `${city}新房视频-房匠`,
+      title: `${city}房匠视频看房_楼盘视频_房产视频-${city}房匠网`,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频,${city}新房`
+          content: `房匠视频看房,${city}视频看房,${city}楼盘视频,${city}新房视频`
         },
         {
           hid: 'description',
           name: 'description',
-          content: `房匠网提供${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.`
+          content: description
         },
       ],
       script: [
         {
-          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${city}新房视频-房匠网","images":[""],"description": "房匠网提供${city}新房视频,${city}楼盘视频,${city}样板间视频,${city}房价视频等最新信息.房匠网房源多,信息全,价透明,做您买房路上的自己人.","pubDate":"${pubTime}","upDate":"${upTime}"}`,
+          innerHTML: `{"@context":"https://zhanzhang.baidu.com/contexts/cambrian.jsonld","@id":"https://www.fangjiang.com","appid":"1713124212115293","title":"${title}","description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`,
           type: 'application/ld+json',
         }
       ],
