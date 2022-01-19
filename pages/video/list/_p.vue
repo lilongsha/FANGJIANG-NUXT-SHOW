@@ -170,7 +170,7 @@ export default Vue.extend({
       anchor.scrollIntoView({ behavior: 'smooth' })
     },
     itemRender (page: any, type: any, originalElement: any) {
-      const path = `/video/list/p${page},sort-${this.sort}`;
+      const path = `/video/list/p${page},sort-${this.sort}.html`;
       if (originalElement.data) {
         Object.assign(originalElement.data, {
           attrs: {
