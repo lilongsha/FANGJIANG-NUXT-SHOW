@@ -64,7 +64,7 @@
             </div>
             <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
               <div>开盘时间：<span v-if="house.openTime">{{ house.openTime.split('T')[0] }}</span><span v-else>暂无数据</span>
-                <button class="text-fjBlue-100 font-medium lg:text-[16px] ml-4 lg:w-[91px] lg:h-[17px]" @click="openClue('9')">[开盘提醒我]</button>
+                <button class="text-fjBlue-100 font-medium lg:text-[16px] ml-4" @click="openClue('9')">[开盘提醒我]</button>
               </div>
               <div>售楼地址：<span v-if="house.saleAddress" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">预计{{ house.saleAddress }}</span><span v-else>暂无数据</span></div>
             </div>
@@ -177,8 +177,10 @@
         <div>
           <img src="~/assets/img/clue/groupAd.png" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('5')">
         </div>
-        <div>
-          <img v-if="activities" :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('15', activities.id)">
+        <div v-if="activities" class="relative" @click="openActivityClue('15', activities.id)">
+          <img :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]">
+          <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
+          <span class="absolute lg:top-[80px] lg:w-full text-center text-white text-[18px] ">{{ activities.description }}</span>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:pb-4 lg:container">
     <div class="sm:hidden lg:h-24"></div>
-    <AppTitle id="top" :house="house" class="-mt-10"/>
+    <AppTitle :house="house" class="-mt-10"/>
     <!-- house menu -->
     <AppBar v-if="house" :current="'video'" :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
     <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="lg:w-[30%] lg:pl-6">
-        <div v-if="house" class="shadow p-2 bg-[#F5F5F5]">
+        <div v-if="house" id="top" class="shadow p-2 bg-[#F5F5F5]">
           <span class="text-2xl font-bold text-[#333]">相关楼盘</span>
           <a :href="`/house/${house.id}.html`" class="block w-full h-full">
             <div class="flex flex-row w-full mt-2 h-28">
@@ -216,7 +216,7 @@ export default Vue.extend({
         })
       }
       const roomArray = Object.keys(roomObj)
-      const result: string = roomArray.toString().replace(',', '室/')
+      const result: string = roomArray.toString().replace(',', '/')
       if (result) {
         return result + '室'
       }
@@ -233,7 +233,7 @@ export default Vue.extend({
       }
       const areaArray = Object.keys(areaObj)
       if (areaArray.length > 0) {
-        return '建面约' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
+        return '建面' + areaArray[0] + '-' + areaArray[areaArray.length - 1] + '㎡'
       }
       return '暂无数据'
     }
