@@ -22,7 +22,7 @@
       <div class="lg:w-3/4 sm:w-full">
         <div >
           <div v-if="type === '0'" class="content">
-            <div v-for="(item, index) in videos" v-show="index < 12" :key="item.id" class="item group">
+            <div v-for="(item, index) in videos" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
                   <p class="text-[18px]">{{ item.title }}</p>
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div v-if="type === '1'" class="content">
-            <div v-for="(item, index) in video1" v-show="index < 12" :key="item.id" class="item group">
+            <div v-for="(item, index) in video1" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
                   <p class="text-[18px]">{{ item.title }}</p>
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div v-if="type === '2'" class="content">
-            <div v-for="(item, index) in video2" v-show="index < 12" :key="item.id" class="item group">
+            <div v-for="(item, index) in video2" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
                   <p class="text-[18px]">{{ item.title }}</p>
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div v-if="type === '3'" class="content">
-            <div v-for="(item, index) in video3" v-show="index < 12" :key="item.id" class="item group">
+            <div v-for="(item, index) in video3" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
                   <p class="text-[18px]">{{ item.title }}</p>
@@ -153,8 +153,6 @@ export default Vue.extend({
 
         const breadcrumb: Breadcrumb[] = [];
         breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: '新房', href: '/house/list' })
-        breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id })
         breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
         breadcrumb.push({ title: '楼盘视频', href: '' })
         store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)

@@ -9,7 +9,7 @@
       <span class="mt-5 text-[#999999] text-[18px]">{{ house.aliasName }}</span>
     </div>
     <AppBar :current="'price'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
-    <div class="sm:px-2 lg:mt-8 shadow-lg lg:flex flex-row">
+    <div class="flex-row shadow-lg sm:px-2 lg:mt-8 lg:flex">
       <div class="sm:w-full lg:w-3/4 sm:h-56 lg:pr-10 ">
         <div class="lg:text-[22px] sm:text-[18px] my-4 border-l-fjBlue-100 border-l-8 px-4">{{ house.name }}历史价格走势</div>
         <EchartLineEchart :option="option" class="border-t border-t-[#DDDDDD] object-center lg:h-[340px]" />
@@ -19,7 +19,7 @@
         <div class="border-t border-t-[#DDDDDD]">
           <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" style="color: inherit" class="w-full lg:py-6 sm:py-2 flex flex-row space-x-2 border-b border-dashed border-b-[#DDDDDD]">
             <div class="w-2/5"><img v-if="item.firstImg" :src="item.firstImg.address" alt="项目首图" class="w-[126px] h-[84px]"></div>
-            <div class="w-3/5 flex flex-col gap-y-2">
+            <div class="flex flex-col w-3/5 gap-y-2">
               <span class="text-[16px] font-bold text-[#333333]">{{ item.name }}</span>
               <span class="text-[14px]">{{ item.sysAreaByAreaId.name }}</span>
               <span class="text-[18px] text-[#DA1111]">{{ item.price }}<span v-if="item.price" class="text-[14px] text-[#000000] text-opacity-30">元/㎡起</span><span v-else class="text-[14px] text-[#000000] text-opacity-20">暂无数据</span></span>
@@ -126,8 +126,6 @@ export default Vue.extend({
 
         const breadcrumb: Breadcrumb[] = [];
         breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: '新房', href: '/house/list' })
-        breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id })
         breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
         breadcrumb.push({ title: '历史价格', href: '' })
         store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)

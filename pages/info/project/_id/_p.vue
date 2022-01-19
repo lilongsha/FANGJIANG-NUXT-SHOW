@@ -18,7 +18,7 @@
       <span class="text-coolGray-400">|</span>
       <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼市政策</span>
     </div>
-    <div class="lg:flex lg:flex-row w-full lg:mt-8 sm:mt-2">
+    <div class="w-full lg:flex lg:flex-row lg:mt-8 sm:mt-2">
       <div class="lg:w-3/4 sm:w-full">
         <div class="w-full">
           <div v-if="type === '0'" class="lg:space-y-[28px] sm:space-y-2">
@@ -26,8 +26,8 @@
               <div class="w-2/5">
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
-              <div class="lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2 relative w-3/5">
-                <div class="lg:w-2/3 sm:w-full overflow-hidden">
+              <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
+                <div class="overflow-hidden lg:w-2/3 sm:w-full">
                   <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
                   <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                     {{ item.description }}
@@ -42,8 +42,8 @@
               <div class="w-2/5">
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
-              <div class="lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2 relative w-3/5">
-                <div class="lg:w-2/3 sm:w-full overflow-hidden">
+              <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
+                <div class="overflow-hidden lg:w-2/3 sm:w-full">
                   <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
                   <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                     {{ item.description }}
@@ -58,8 +58,8 @@
               <div class="w-2/5">
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
-              <div class="lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2 relative w-3/5">
-                <div class="lg:w-2/3 sm:w-full overflow-hidden">
+              <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
+                <div class="overflow-hidden lg:w-2/3 sm:w-full">
                   <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
                   <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                     {{ item.description }}
@@ -74,8 +74,8 @@
               <div class="w-2/5">
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
-              <div class="lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2 relative w-3/5">
-                <div class="lg:w-2/3 sm:w-full overflow-hidden">
+              <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
+                <div class="overflow-hidden lg:w-2/3 sm:w-full">
                   <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
                   <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                     {{ item.description }}
@@ -106,7 +106,7 @@
       </div>
     </div>
     <!-- pagination -->
-    <div class="sm:w-full lg:container mt-4">
+    <div class="mt-4 sm:w-full lg:container">
       <div class="text-center sm:w-full lg:w-3/4">
         <a-pagination
           v-if="isMobile"
@@ -210,8 +210,6 @@ export default Vue.extend({
 
         const breadcrumb: Breadcrumb[] = [];
         breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: '新房', href: '/house/list' })
-        breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id })
         breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
         breadcrumb.push({ title: '楼盘资讯', href: '' })
         store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
