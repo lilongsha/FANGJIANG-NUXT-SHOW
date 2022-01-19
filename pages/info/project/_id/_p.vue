@@ -301,7 +301,7 @@ export default Vue.extend({
       this.opening = false;
     },
     itemRender (page: any, type: any, originalElement: any) {
-      const path = `/house/discuss/${this.params}/p${page}`;
+      const path = `/info/project/${this.params}/p${page}`;
       if (originalElement.data) {
         Object.assign(originalElement.data, {
           attrs: {
