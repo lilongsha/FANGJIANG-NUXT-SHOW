@@ -24,3 +24,11 @@ export interface AppState {
   title: string;
   url: string;
 }
+
+export interface LoginBack {
+  accessToken?: string;
+  expiresIn?: string;
+  refreshToken?: string;
+  scope?: any[];
+  tokenType?: string;
+}

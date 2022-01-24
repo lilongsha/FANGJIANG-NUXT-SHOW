@@ -1,4 +1,4 @@
-import { AppState, Breadcrumb } from "../types/app";
+import { AppState, Breadcrumb, LoginBack } from "../types/app";
 
 const state = ():AppState =>({
   province: '',
@@ -15,7 +15,30 @@ const state = ():AppState =>({
   url: '',
 })
 
+const back = ():LoginBack => ({
+  accessToken: '',
+  expiresIn: '',
+  refreshToken: '',
+  scope: [],
+  tokenType: '',
+})
+
 const mutations = {
+  AccessToken(back: LoginBack, access: string):void {
+    back.accessToken = access;
+  },
+  ExpiresIn(back: LoginBack, expiresIn: string):void {
+    back.expiresIn = expiresIn;
+  },
+  RefreshToken(back: LoginBack, refresh: string):void {
+    back.refreshToken = refresh;
+  },
+  Scope(back: LoginBack, scope: any[]):void {
+    back.scope = scope;
+  },
+  TokenType(back: LoginBack, tokenType: string):void {
+    back.tokenType = tokenType;
+  },
   BREADCRUMB_ADD(state: AppState, item: Breadcrumb):void {
     if (item.href && item.href !== '/') {
       state.breadcrumbItems.push(item)
@@ -93,6 +116,7 @@ const actions = {
 }
 
 export default {
+  back,
  namespaced:true,
  state,
  mutations,

@@ -1,3 +1,5 @@
+// import { Api } from "./api/user/userApi";
+
 const dev = process.env.NODE_ENV !== 'production'
 const scriptUrl = [
   { src: 'https://webapi.amap.com/maps?v=2.0&key=373bc52968224086cc848f3981e30d07&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar' }
@@ -70,6 +72,40 @@ export default {
     '@nuxt/content',
   ],
 
+  // router: {
+  //   middleware: ['auth']
+  // },
+
+  // auth: {
+  //   strategies: {
+  //     social: {
+  //       scheme: 'oauth2',
+  //       endpoints: {
+  //         // authorization: Cookies.get('Access_Token') + ' ' + Cookies.get('Token_Type'),
+  //         authorization: '',
+  //         token: Api.Token,
+  //         userInfo: Api.GetCurInfo,
+  //         logout: Api.SignOut
+  //       },
+  //       token: {
+  //         property: 'access_token',
+  //         type: 'Bearer',
+  //         maxAge: 1800
+  //       },
+  //       refreshToken: {
+  //         property: 'refresh_token',
+  //         maxAge: 60 * 60 * 24 * 30
+  //       },
+  //       responseType: 'code',
+  //       grantType: 'password',
+  //       redirectUri: 'http://localhost:3000',
+  //       scope: ['all'],
+  //       clientId: 'wxca0366e35f20f36a',
+  //       logoutRedirectUri: 'http://localhost:3000',
+  //     }
+  //   }
+  // },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL, // Used as fallback if no runtime config is provided
@@ -119,6 +155,6 @@ export default {
     // 打包样式
     extractCSS: true,
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20220111'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20220120'
   }
 }

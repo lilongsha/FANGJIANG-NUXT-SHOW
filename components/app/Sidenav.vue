@@ -1,5 +1,5 @@
 <template>
-<div class="">
+<div v-if="!isHidden" class="">
   <div :class="getIsHome? 'bg-index-menu': 'bg-white'" class="fixed z-50 flex flex-row w-full h-20 sm:hidden">
     <!-- <div class="">
       <sidenav-left />
@@ -88,7 +88,10 @@ export default Vue.extend({
     },
     getIsHome() {
       return this.$route.path === '/'
-    }
+    },
+    isHidden() {
+      return this.$route.path.includes('/login');
+    },
   },
   methods: {
     goSearch() {

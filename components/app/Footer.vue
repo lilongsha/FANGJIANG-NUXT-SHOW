@@ -58,7 +58,7 @@ export default Vue.extend({
   },
   computed: {
     getIsMap() {
-      return this.$route.path === '/map' || this.$route.path.includes('/activity/');
+      return this.$route.path === '/map' || this.$route.path.includes('/activity/') || this.$route.path.includes('/login');
     },
     getHotProject() {
       return this.$store.state.app.hotProject;
