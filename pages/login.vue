@@ -100,7 +100,8 @@ import {encrypt} from '~/utils/crypto/cryptojs';
 
 export default Vue.extend({
   name:'Login',
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, route }) {
+    const path = route.query?.redirect || '';
     const codeResult = await $axios.$post(Api.getCode);
     let keyCode;
     let img;
@@ -113,6 +114,7 @@ export default Vue.extend({
       keyCode,
       img,
       loginType: '1',
+      path,
     }
   },
   data() {
@@ -137,6 +139,7 @@ export default Vue.extend({
       msg: '',
       password: '',
       checked: true,
+      path: ''
     }
   },
   watch: {
@@ -216,8 +219,7 @@ export default Vue.extend({
             }
             
           }
-          const lastPath = Cookies.get('Path')
-          this.$router.push(lastPath)
+          this.$router.push(this.path)
         }
       } else {
         message.error({ content: '请正确填写信息', duration: 3});
@@ -331,8 +333,7 @@ export default Vue.extend({
               Cookies.set('Avatar', userInfo.avatar)
             }
           }
-          const lastPath = Cookies.get('Path')
-          this.$router.push(lastPath)
+          this.$router.push(this.path)
         }
       } else {
         message.error({ content: '请正确填写信息', duration: 3});

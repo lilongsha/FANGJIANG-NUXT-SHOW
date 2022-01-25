@@ -206,7 +206,7 @@ export default Vue.extend({
     LineEchart,
     ReomendHouse
   },
-  async asyncData ({ $axios, params, store, req }) {
+  async asyncData ({ $axios, params, store, req, route, redirect }) {
     
     const userAgent = req?.headers['user-agent'] || '';
 
@@ -352,29 +352,41 @@ export default Vue.extend({
               }
           })
       }
-      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      const result = await $axios.$post(HouseApi.GetProject, param)
-      if (result.code === 200) {
-        favorite = result.data?.favorite
-        house = getDataResult(result);
-        lookTime = house.lookTime;
-        getPrice(house);
-        scoreOption.title.text = `综合评分`;
-        scoreOption.legend.data = [house.name];
-        scoreOption.series[0].data = [{
-          value: [house.locationScore, house.educationScore, house.medicalScore, house.trafficScore, house.matchingScore],
-          name: house.name
-        }]
+      let result;
+      try {
+        if (tokenType && accessToken) {
+          $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+        }
+        result = await $axios.$post(HouseApi.GetProject, param)
+        if (result.code === 200) {
+          favorite = result.data?.favorite
+          house = getDataResult(result);
+          lookTime = house.lookTime;
+          getPrice(house);
+          scoreOption.title.text = `综合评分`;
+          scoreOption.legend.data = [house.name];
+          scoreOption.series[0].data = [{
+            value: [house.locationScore, house.educationScore, house.medicalScore, house.trafficScore, house.matchingScore],
+            name: house.name
+          }]
 
-        const breadcrumb: Breadcrumb[] = [];
-        breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: '新房', href: '/house/list' })
-        breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id })
-        breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
-        breadcrumb.push({ title: '详情信息', href: '' })
-        store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+          const breadcrumb: Breadcrumb[] = [];
+          breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+          breadcrumb.push({ title: '新房', href: '/house/list' })
+          breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id })
+          breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
+          breadcrumb.push({ title: '详情信息', href: '' })
+          store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
 
+        }
+      } catch (error) {
+        console.log(result)
+        if (result.code === 401) {
+          // router.push('/login?redirect='+ route.path)
+          redirect('/login?redirect='+ route.path)
+        }
       }
+      
     }
 
     await getHouse();

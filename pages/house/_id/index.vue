@@ -2,7 +2,7 @@
   <div class="sm:w-screen">
     <div class="w-full sm:h-4 lg:h-24"></div>
     <!-- house content -->
-    <div class="w-full pb-7 bg-[#f6f9fe]">
+    <div v-if="house" class="w-full pb-7 bg-[#f6f9fe]">
       <div class="lg:mx-auto sm:w-full lg:container">
         <!-- name and title -->
         <AppTitle :house="house" :favorite="favorite" />
@@ -439,7 +439,7 @@ export default Vue.extend({
     LineEchart,
     RecomendHouse,
   },
-  async asyncData ({ $axios, params, store, req }) {
+  async asyncData ({ $axios, params, store, req, redirect, route }) {
     
     const userAgent = req?.headers['user-agent'] || '';
 
@@ -650,26 +650,38 @@ export default Vue.extend({
         }
       })
     }
-    if (tokenType && accessToken) {
-      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-    }
-    const result = await $axios.$post(HouseApi.GetProject, param)
     let house: any;
     let favorite;
+    let result;
     const cityId: string = store.state.app.cityId;
     let lookTime: number = 0;
-    if (result.code === 200) {
-      favorite = result.data?.favorite
-      house = getDataResult(result);
-      lookTime = house.lookTime
-      const breadcrumb: Breadcrumb[] = [];
-      breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-      breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
-      breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id, icon: 'area' })
-      store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
-      getPrice(house);
-      await getHouseInfo();
+    try {
+      if (tokenType && accessToken) {
+        $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+      }
+      result = await $axios.$post(HouseApi.GetProject, param)
+      if (result.code === 200) {
+        favorite = result.data?.favorite
+        house = getDataResult(result);
+        lookTime = house.lookTime
+        const breadcrumb: Breadcrumb[] = [];
+        breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+        breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
+        breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id, icon: 'area' })
+        store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+        getPrice(house);
+        await getHouseInfo();
+      }
+    } catch (error) {
+      console.log(result)
+      if (result.code === 401) {
+        // router.push('/login?redirect='+ route.path)
+        redirect('/login?redirect='+ route.path)
+      }
     }
+    
+    
+    
     
     let isMobile: any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
@@ -747,27 +759,28 @@ questionTotal, option, phoneNum, isMobile, favorite }
       buildType,
       isMobile,
       option,
-      favorite: ''
+      favorite: '',
+      lookTime: 0
     }
   },
   head() {
-    const houseName: string = this.house.name;
-    const houseAreaName: string = this.house.sysAreaByAreaId.name || '';
-    const houseCityName: string = this.house.sysCityByCityId.name || '';
-    const houseProvinceName: string = this.house.sysProvinceByProvinceId.name;
-    const latLng: string = this.house.latitude + '' + this.house.longitude;
+    const houseName: string = this.house?.name;
+    const houseAreaName: string = this.house?.sysAreaByAreaId.name || '';
+    const houseCityName: string = this.house?.sysCityByCityId.name || '';
+    const houseProvinceName: string = this.house?.sysProvinceByProvinceId.name;
+    const latLng: string = this.house?.latitude + '' + this.house?.longitude;
     const title: string = `【${houseName}_${houseCityName}${houseName}楼盘详情】售楼处电话_开发商详情-房匠网`;
     const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${houseName}详情、售楼处电话、开盘时间、项目介绍、交房时间、地址、绿化率、物业费等楼盘信息，关注房匠网。`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
-    const firstImgAddress: string = this.house.firstImg?.address;
-    const sandImgAddress: string = this.house.sandImg?.address;
-    const pubTime: string = this.house.createTime.split('.')[0];
-    let upTime: string = this.house.updateTime || this.house.createTime;
+    const firstImgAddress: string = this.house?.firstImg?.address;
+    const sandImgAddress: string = this.house?.sandImg?.address;
+    const pubTime: string = this.house?.createTime.split('.')[0];
+    let upTime: string = this.house?.updateTime || this.house?.createTime || '';
     upTime = upTime.split('.')[0];
     const keyword: string = `${houseName}详情,${houseName}售楼处电话,${houseName}售楼处地址,${houseName}开发商`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
-    if (this.house.latitude && this.house.longitude) {
+    if (this.house?.latitude && this.house?.longitude) {
       location = `province=${houseProvinceName};city=${houseCityName};coord=${latLng}`;
     } else {
       location = `province=${houseProvinceName};city=${houseCityName};`;
@@ -823,7 +836,7 @@ questionTotal, option, phoneNum, isMobile, favorite }
     MapLoader().then(AMap => {
       this.map = new AMap.Map("aroundMap", {
         zoom: 11,
-        center: [this.house.longitude, this.house.latitude],
+        center: [this.house?.longitude, this.house?.latitude],
         scrollWheel:false,
       })
       const that = this;
@@ -840,9 +853,9 @@ questionTotal, option, phoneNum, isMobile, favorite }
         });
         const marker = new AMap.Marker({
             icon: "https://fangjiang-saas-dev.oss-cn-beijing.aliyuncs.com/app/around/blue-logo.png",
-            position: [that.house.longitude, that.house.latitude]
+            position: [that.house?.longitude, that.house?.latitude]
         });
-        const content = '<span>' + that.house.name + '</span>'
+        const content = '<span>' + that.house?.name + '</span>'
         marker.setLabel({
             offset: new AMap.Pixel(0, 0),
             content,
@@ -916,7 +929,7 @@ questionTotal, option, phoneNum, isMobile, favorite }
       }
     },
     getHouseType() {
-      const layouts: any[] = this.house.hLayoutsById;
+      const layouts: any[] = this.house?.hLayoutsById;
       // 获取主力户型
       if (!layouts || layouts.length < 1) {
         this.layoutLabel = '暂无数据'

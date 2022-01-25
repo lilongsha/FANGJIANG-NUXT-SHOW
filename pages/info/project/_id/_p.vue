@@ -133,7 +133,7 @@ import { ActivityApi } from '~/api/clue/activity';
 export default Vue.extend({
   name: 'InfoList',
   components: {},
-  async asyncData({  $axios, store, route, req }){
+  async asyncData({  $axios, store, route, req, redirect }){
     const userAgent = req?.headers['user-agent'] || '';
     let isMobile: any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
@@ -214,19 +214,30 @@ export default Vue.extend({
           }
         })
       }
-      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      const result = await $axios.$post(HouseApi.GetProject, param)
-      if (result.code === 200) {
-        favorite = result.data?.favorite
-        house = getDataResult(result);
+      let result;
+      try {
+        if (tokenType && accessToken) {
+          $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+        }
+        result = await $axios.$post(HouseApi.GetProject, param)
+        if (result.code === 200) {
+          favorite = result.data?.favorite
+          house = getDataResult(result);
 
-        const breadcrumb: Breadcrumb[] = [];
-        breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
-        breadcrumb.push({ title: '楼盘资讯', href: '' })
-        store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+          const breadcrumb: Breadcrumb[] = [];
+          breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+          breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
+          breadcrumb.push({ title: '楼盘资讯', href: '' })
+          store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+        }
+        $axios.setHeader('Authorization', '')
+      } catch (error) {
+        if (result.code === 401) {
+          redirect('/login?redirect='+ route.path)
+        }
       }
-      $axios.setHeader('Authorization', '')
+      
+      
     }
     await getHouse();
      // 相关活动

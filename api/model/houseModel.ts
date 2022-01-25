@@ -225,7 +225,7 @@ export function getHouseType(house: any) {
   return result;
 }
 
-export async function getProject($axios: any, projectId: string, req: any) {
+export async function getProject($axios: any, projectId: string, req: any, route: any, redirect: any) {
   const param: any = {
     data: {
       id: projectId,
@@ -247,10 +247,18 @@ export async function getProject($axios: any, projectId: string, req: any) {
       }
     })
   }
-  if(tokenType + ' ' + accessToken) {
-    $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+  let result;
+  try {
+    if(tokenType + ' ' + accessToken) {
+      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+    }
+    result = await $axios.$post(Api.GetProject, param)
+  } catch (error) {
+    if (result.code === 401) {
+      redirect('/login?redirect='+ route.path)
+    }
   }
-  return await $axios.$post(Api.GetProject, param)
+  return result;
 }
 
 export const projectTypeShow: any[] = [

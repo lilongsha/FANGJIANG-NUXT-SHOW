@@ -80,7 +80,7 @@ export default Vue.extend({
   name: 'DiscussList',
   components: {
   },
-  async asyncData({ $axios, route, store, req }) {
+  async asyncData({ $axios, route, store, req, redirect }) {
     const topFlag: string = 'question';
     const userAgent = req?.headers['user-agent'] || '';
     let pageNum = 1;
@@ -101,7 +101,7 @@ export default Vue.extend({
     }
 
     const [resultProject, resultQuestions] = await  Promise.all([
-      getProject($axios, id, req),
+      getProject($axios, id, req, route, redirect),
       getQuestions($axios, id, pageParam.pageSize, pageParam.pageNum - 1)
     ])
 

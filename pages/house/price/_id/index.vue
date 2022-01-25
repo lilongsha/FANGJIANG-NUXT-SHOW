@@ -43,7 +43,7 @@ import { getDataResult } from '~/utils/response/util';
 export default Vue.extend({
   name: 'PriceList',
   components: {},
-  async asyncData({ $axios, store, route, req }){
+  async asyncData({ $axios, store, route, req, redirect }){
     let params = route.params?.id;
     if (params) {
       if (params.endsWith('.html')) {
@@ -131,20 +131,31 @@ export default Vue.extend({
           }
         })
       }
-      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      const result = await $axios.$post(HouseApi.GetProject, param)
-      if (result.code === 200) {
-        favorite = result.data.favorite
-        house = getDataResult(result);
+      let result;
+      try {
+        if (tokenType && accessToken) {
+          $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+          result = await $axios.$post(HouseApi.GetProject, param)
+          if (result.code === 200) {
+            favorite = result.data.favorite
+            house = getDataResult(result);
 
-        const breadcrumb: Breadcrumb[] = [];
-        breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
-        breadcrumb.push({ title: '历史价格', href: '' })
-        store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
-        getPrice(house)
+            const breadcrumb: Breadcrumb[] = [];
+            breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+            breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
+            breadcrumb.push({ title: '历史价格', href: '' })
+            store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+            getPrice(house)
+          }
+          $axios.setHeader('Authorization', '')
+        }
+      } catch (error) {
+        if (result.code === 401) {
+          redirect('/login?redirect='+ route.path)
+        }
       }
-      $axios.setHeader('Authorization', '')
+      
+      
     }
     await getHouse();
     const cityId = store.state.app.cityId;

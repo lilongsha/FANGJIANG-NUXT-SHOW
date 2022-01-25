@@ -23,14 +23,13 @@ export enum CurrentApi {
 }
 
 export async function refreshToken ($axios: any, refreshParam: any) {
+    $axios.setHeader('Authorization', 'Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==')
     const param = {
-        data: {
-            grant_type: refreshParam.grant_type,
-            refresh_token: refreshParam.refresh_token,
-            client_id: refreshParam.client_id,
-            client_secret: refreshParam.client_secret,
-            scope: refreshParam.scope
-        }
+        grant_type: 'refresh_token',
+        refresh_token: refreshParam.refresh_token,
+        client_id: 'postman',
+        client_secret: 'fangjiangwang',
+        scope: 'all'
     }
     return await $axios.$post(Api.PostRefreshToken, param)
 }

@@ -100,7 +100,7 @@ export default Vue.extend({
   name: 'DiscussList',
   components: {
   },
-  async asyncData({ $axios, store, req, route }) {
+  async asyncData({ $axios, store, req, route, redirect }) {
 
     const topFlag: string = 'dynamic';
     
@@ -140,7 +140,7 @@ export default Vue.extend({
     }
 
     const [resultProject,  resultDynamic] = await  Promise.all([
-      getProject($axios, id, req),
+      getProject($axios, id, req, route, redirect ),
       getDynamicNews($axios, id, pageParam.pageSize, pageParam.pageNum - 1)
     ])
 

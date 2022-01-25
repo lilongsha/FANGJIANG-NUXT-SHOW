@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="text-right">
-          <img v-if="favorite === '1' || isFavorite === '1'" class="h-8 w-9" src="~/assets/svg/favorite.svg" @click="deleteFav">
+          <img v-if="isFavorite === '1'" class="h-8 w-9" src="~/assets/svg/favorite.svg" @click="deleteFav">
           <img v-else class="h-8 w-9" src="~/assets/svg/fav.svg" @click="addFav">
         </div>
       </div>
@@ -40,10 +40,10 @@ export default Vue.extend({
       default: ''
     }
   },
-  asyncData(){},
   data() {
+    const isFavorite = this.favorite;
     const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
-    return { colors, isFavorite: '' }
+    return { colors, isFavorite }
   },
   methods: {
     async addFav() {
@@ -58,13 +58,22 @@ export default Vue.extend({
       if (tokenType && accessToken) {
         this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
       }
-      const result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
-      if (result.code === 200) {
-        message.success({ content: '关注成功', duration: 3})
-        this.isFavorite = '1'
-      } else {
-        message.error({ content: '关注失败', duration: 3})
+      let result;
+      try {
+        result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
+        if (result.code === 200) {
+          message.success({ content: '关注成功', duration: 3})
+          this.isFavorite = '1'
+        }
+      } catch (error) {
+        if (result.code === 401) {
+          this.$router.push('/login?redirect='+ this.$route.path)
+        }else {
+          message.error({ content: '关注失败', duration: 3})
+        }
       }
+      
+      this.$axios.setHeader('Authorization', '')
     },
     async deleteFav() {
       const accessToken = Cookies.get('Access_Token')
