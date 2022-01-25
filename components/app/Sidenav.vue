@@ -1,6 +1,6 @@
 <template>
 <div v-if="!isHidden" class="">
-  <div :class="getIsHome? 'bg-index-menu': 'bg-white'" class="fixed z-50 flex flex-row w-full h-20 sm:hidden">
+  <div :class="getIsHome? 'bg-index-menu': 'bg-white'" class="fixed flex flex-row w-full h-20 z-[60] sm:hidden">
     <!-- <div class="">
       <sidenav-left />
     </div> -->
