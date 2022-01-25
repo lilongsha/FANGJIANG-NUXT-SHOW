@@ -627,24 +627,7 @@
         </a>
         <div class="flex flex-row items-center justify-end w-full">
           <span>我的关注</span>
-          <img src="~/assets/img/clue/heart.png" alt="">
-          <!-- <svg
-            class="w-2 h-2 transition-all rotate-180 text-fjRed-100"
-            fill="currentColor"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1821"
-            width="128"
-            height="128"
-          >
-            <path
-              d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-              p-id="1822"
-              data-spm-anchor-id="a313x.7781069.0.i0"
-              class="selected"
-            ></path>
-          </svg> -->
+          <img src="~/assets/img/clue/heart.png" alt="" @click="selectFav">
         </div>
       </div>
       <!-- 主体 -->
@@ -670,7 +653,8 @@
                   </div>
                   </div>
                   <div class="text-right">
-                    <img src="~/assets/img/list/white.png" alt="">
+                    <img v-if="isFavorite.includes(item.id)" src="~/assets/img/list/red.png" alt="" @click.stop="deleteFav(item)">
+                    <img v-else src="~/assets/img/list/white.png" alt="" @click.stop="addFav(item)">
                   </div>
                 </div>
                 <div class="sm:mt-1 sm:text-[12px] lg:text-[16px] flex flex-row">
@@ -849,6 +833,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
+// @ts-ignore
+import * as Cookies from 'js-cookie';
+import { message } from 'ant-design-vue';
 import { Api as AreaApi, AreaByCondition, AreaModel } from '~/api/model/areaModel';
 import { BaseListResult, BasePageResult } from '~/api/model/baseModel';
 import { Api as MetroLineApi, MetroLineByCondition, MetroLineModel } from '~/api/model/metroLineModel';
@@ -856,6 +843,7 @@ import { Api as TradingAreaApi, TradingAreaByCondition, TradingAreaModel } from 
 import { Api as HouseApi, priceList, totalPriceList, acreageList, houseType, projectType, saleState, phoneNum } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
 import { ActivityApi, ActivityModel } from '~/api/clue/activity';
+import { CurrentApi } from '~/api/user/userApi';
 type fieldType = 'areaId'|'tradingId'|'stationId'|'price'|'lowPrice'|'highPrice'|'totalPrice'|'lowTotalPrice'|'highTotalPrice'|'acreage'|'lowAcreage'|'heightAcreage'|'houseType'|'projectType'|'saleState'|'sortType';
 const fields: string[] = [
   'areaId', 
@@ -1001,6 +989,9 @@ export default Vue.extend({
 
     let projectList: any;
     let total: number = 0;
+    let favorite;
+    let projectResult: any;
+    let isFavorite;
 
     const getList = async () => {
       // this.activity()
@@ -1049,11 +1040,12 @@ export default Vue.extend({
         },
         sort,
       };
-      const result: BasePageResult<any> = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
-      if (result.code === 200) {
-        projectList = getDataResult(result)
-        // console.log('projectList', projectList);
-        total = result.data.page.totalElements;
+      projectResult = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
+      if (projectResult.code === 200) {
+        favorite = projectResult.data?.favorite;
+        isFavorite = projectResult.data?.favorite;
+        projectList = getDataResult(projectResult)
+        total = projectResult.data.page.totalElements;
       }
     }
 
@@ -1074,8 +1066,11 @@ export default Vue.extend({
       projectType,
       saleState,
       projectList,
+      favorite,
       total,
       isMobile,
+      projectResult,
+      isFavorite,
     }
   },
   data () {
@@ -1107,6 +1102,7 @@ export default Vue.extend({
     const selectMenuLine: string = '';
     const selectMenuPrice: string = '1';
     const curPath: string = '';
+    const isFavorite:any[] = [];
     return {
       cityId: '',
       lookTime: 0,
@@ -1120,6 +1116,7 @@ export default Vue.extend({
       curPath,
       areas,
       projectList,
+      favorite: [],
       locationType: '1', // 1: 区域 2:商圈 3: 地铁
       select: {
         areaId,
@@ -1145,7 +1142,8 @@ export default Vue.extend({
       phoneNum,
       selectMenuM,
       selectMenuLine,
-      selectMenuPrice
+      selectMenuPrice,
+      isFavorite,
     }
   },
   head() {
@@ -1206,6 +1204,85 @@ export default Vue.extend({
     }
   },
   methods: {
+    async selectFav() {
+      
+    },
+    async addFav(house: any) {
+      // 阻止冒泡
+      const evt =  window.event;
+      if (evt && evt.preventDefault) {
+          evt.preventDefault();
+          evt.stopPropagation ? evt.stopPropagation() : (evt.cancelBubble = true);
+      }
+
+      const accessToken = Cookies.get('Access_Token')
+      const tokenType = Cookies.get('Token_Type')
+      const houseId: string = house.id
+      const param =  {
+        data: {
+          projectId: houseId
+        }
+      }
+      if (tokenType && accessToken) {
+        this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+      }
+      let result;
+      try {
+        result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
+        if (result.code === 200) {
+          message.success({ content: '关注成功', duration: 3})
+          this.isFavorite.push(house.id)
+        }
+      } catch (error) {
+        if (result.code === 401) {
+          this.$router.push('/login?redirect='+ this.$route.path)
+        }else {
+          message.error({ content: '关注失败', duration: 3})
+        }
+      }
+      this.$axios.setHeader('Authorization', '')
+      return false;
+      
+    },
+    async deleteFav(house: any) {
+      const evt =  window.event;
+      if (evt && evt.preventDefault) {
+          evt.preventDefault();
+          evt.stopPropagation ? evt.stopPropagation() : (evt.cancelBubble = true);
+      }
+      
+      const accessToken = Cookies.get('Access_Token')
+      const tokenType = Cookies.get('Token_Type')
+      const houseId: string = house.id
+      const param =  {
+        data: {
+          projectId: houseId
+        }
+      }
+      if (tokenType && accessToken) {
+        this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+      }
+      let result;
+      try {
+        result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
+        if (result.code === 200) {
+          message.success({ content: '取消关注', duration: 3})
+          for (let index = 0; index < this.isFavorite.length; index++) {
+            if (this.isFavorite[index] === house.id) {
+              this.isFavorite.splice(index, 1)
+            }
+          }
+        }
+      } catch (error) {
+        if (result.code === 401) {
+          this.$router.push('/login?redirect='+ this.$route.path)
+        }else {
+          message.error({ content: '取消失败', duration: 3})
+        }
+      }
+      this.$axios.setHeader('Authorization', '')
+      return false;
+    },
     re (e: Event) {
         e.stopPropagation();
     },

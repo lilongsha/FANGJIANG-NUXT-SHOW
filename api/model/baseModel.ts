@@ -29,6 +29,7 @@ export interface BasePageResult<T extends any> {
       totalPages: number;
       totalElements: number;
     };
+    favorite?: any[]
     content: T[];
   }
 }
