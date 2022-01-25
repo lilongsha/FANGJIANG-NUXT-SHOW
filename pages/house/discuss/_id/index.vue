@@ -103,7 +103,7 @@ export default Vue.extend({
   components: {
     ReomendHouse,
   },
-  async asyncData({ $axios, route, store }) {
+  async asyncData({ $axios, route, store, req }) {
     
 
     let question: any = {};
@@ -155,7 +155,7 @@ export default Vue.extend({
 
     let project: any;
     const getProjectData = async (id: string) => {
-      const resultProject = await getProject($axios, id)
+      const resultProject = await getProject($axios, id, req)
       if (resultProject.code === 200) {
         project = getDataResult(resultProject);
       }

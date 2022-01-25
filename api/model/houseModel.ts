@@ -225,11 +225,30 @@ export function getHouseType(house: any) {
   return result;
 }
 
-export async function getProject($axios: any, projectId: string) {
+export async function getProject($axios: any, projectId: string, req: any) {
   const param: any = {
     data: {
       id: projectId,
     },
+  }
+  let accessToken;
+  let tokenType;
+  const cookie = ' ' + req.headers.cookie
+  const arr = cookie.split(';')
+  if (arr && arr.length > 0) {
+    arr[0] = arr[0] + ' ';
+    arr.forEach((e) => {
+      const i = e.split('=')
+      if (i[0] === ' Access_Token') {
+          accessToken = i[1];
+      }
+      if(i[0] === ' Token_Type') {
+          tokenType = i[1]
+      }
+    })
+  }
+  if(tokenType + ' ' + accessToken) {
+    $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
   }
   return await $axios.$post(Api.GetProject, param)
 }

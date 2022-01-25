@@ -626,8 +626,8 @@
           </div>
         </a>
         <div class="flex flex-row items-center justify-end w-full">
-          <!-- <span>我的关注</span>
-          <img src="~/assets/img/clue/heart.png" alt=""> -->
+          <span>我的关注</span>
+          <img src="~/assets/img/clue/heart.png" alt="">
           <!-- <svg
             class="w-2 h-2 transition-all rotate-180 text-fjRed-100"
             fill="currentColor"
@@ -658,7 +658,9 @@
               </div>
               <!-- 右边内容 -->
               <div class="h-full sm:w-2/3 lg:w-[920px] sm:pl-2 lg:pl-6">
-                <div class="flex flex-row items-center lg:h-11">
+                
+                <div class="flex flex-row items-center justify-between lg:h-11">
+                  <div class="flex flex-row ">
                   <!-- title -->
                   <h1 class="h-full mb-0 sm:pb-0 sm:text-[16px] lg:text-[28px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
                   <div class="h-full sm:pt-1 sm:text-[12px] sm:ml-2 lg:pt-3 lg:text-[14px] lg:ml-4">
@@ -666,9 +668,10 @@
                     <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
                     <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
                   </div>
-                  <!-- <div class="ml-2 lg:hidden">
-                    <button class="font-medium text-white bg-fjRed-100 text-[12px]" @click.stop="openClue('6', item.id)">订阅楼盘</button>
-                  </div> -->
+                  </div>
+                  <div class="text-right">
+                    <img src="~/assets/img/list/white.png" alt="">
+                  </div>
                 </div>
                 <div class="sm:mt-1 sm:text-[12px] lg:text-[16px] flex flex-row">
                   <!-- 类型 -->

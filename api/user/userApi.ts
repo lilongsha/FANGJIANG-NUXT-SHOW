@@ -1,5 +1,6 @@
 export enum Api {
     Token = '/customer-oauth-server/oauth/token',
+    PostRefreshToken = '/customer-oauth-server/oauth/token',
     GetUserName = '/customer-oauth-server/auth/getUserName',
     SignOut = '/customer-oauth-server/auth/signOut',
     getCode = '/customer-oauth-server/auth/code',
@@ -17,4 +18,19 @@ export enum Api {
 
 export enum CurrentApi {
     SelectFavorite = '/customer-server/project/selectFavorite',
+    DeleteFavorite = '/customer-server/project/deleteFavorite', // projectId
+    AddFavoriteProject = '/customer-server/project/addFavoriteProject', // projectId
+}
+
+export async function refreshToken ($axios: any, refreshParam: any) {
+    const param = {
+        data: {
+            grant_type: refreshParam.grant_type,
+            refresh_token: refreshParam.refresh_token,
+            client_id: refreshParam.client_id,
+            client_secret: refreshParam.client_secret,
+            scope: refreshParam.scope
+        }
+    }
+    return await $axios.$post(Api.PostRefreshToken, param)
 }

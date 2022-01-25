@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:w-screen sm:pb-2 lg:container">
     <div class="lg:h-24 sm:h-10"></div>
-    <AppTitle :house="house" />
+    <AppTitle :house="house" :favorite="favorite" />
     <AppBar :current="'price'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex-row shadow-lg sm:px-2 lg:mt-8 lg:flex">
       <div class="sm:w-full lg:w-3/4 sm:h-56 lg:pr-10 ">
@@ -43,7 +43,7 @@ import { getDataResult } from '~/utils/response/util';
 export default Vue.extend({
   name: 'PriceList',
   components: {},
-  async asyncData({ $axios, store, route }){
+  async asyncData({ $axios, store, route, req }){
     let params = route.params?.id;
     if (params) {
       if (params.endsWith('.html')) {
@@ -108,14 +108,33 @@ export default Vue.extend({
     }
     // 相关楼盘
     let house: any;
+    let favorite;
     const getHouse = async () => {
       const param: any = {
         data: {
           id: params,
         }
       }
+      let accessToken;
+      let tokenType;
+      const cookie = ' ' + req.headers.cookie
+      const arr = cookie.split(';')
+      if (arr && arr.length > 0) {
+        arr[0] = arr[0] + ' ';
+        arr.forEach((e) => {
+          const i = e.split('=')
+          if (i[0] === ' Access_Token') {
+              accessToken = i[1];
+          }
+          if(i[0] === ' Token_Type') {
+              tokenType = i[1]
+          }
+        })
+      }
+      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
       const result = await $axios.$post(HouseApi.GetProject, param)
       if (result.code === 200) {
+        favorite = result.data.favorite
         house = getDataResult(result);
 
         const breadcrumb: Breadcrumb[] = [];
@@ -125,6 +144,7 @@ export default Vue.extend({
         store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
         getPrice(house)
       }
+      $axios.setHeader('Authorization', '')
     }
     await getHouse();
     const cityId = store.state.app.cityId;
@@ -132,6 +152,7 @@ export default Vue.extend({
       house,
       option,
       cityId,
+      favorite,
     }
   },
   data(){

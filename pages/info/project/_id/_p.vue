@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:w-screen sm:px-2 sm:pb-2 lg:container">
     <div class="lg:h-24 sm:h-10"></div>
-    <AppTitle :house="house" />
+    <AppTitle :house="house" :favorite="favorite" />
     <AppBar :current="'info'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
       <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部资讯</span>
@@ -191,14 +191,33 @@ export default Vue.extend({
       }
     }
     let house: any;
+    let favorite;
     const getHouse = async () => {
       const param: any = {
         data: {
           id: params,
         }
       }
+      let accessToken;
+      let tokenType;
+      const cookie = ' ' + req.headers.cookie
+      const arr = cookie.split(';')
+      if (arr && arr.length > 0) {
+        arr[0] = arr[0] + ' ';
+        arr.forEach((e) => {
+          const i = e.split('=')
+          if (i[0] === ' Access_Token') {
+              accessToken = i[1];
+          }
+          if(i[0] === ' Token_Type') {
+              tokenType = i[1]
+          }
+        })
+      }
+      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
       const result = await $axios.$post(HouseApi.GetProject, param)
       if (result.code === 200) {
+        favorite = result.data?.favorite
         house = getDataResult(result);
 
         const breadcrumb: Breadcrumb[] = [];
@@ -207,6 +226,7 @@ export default Vue.extend({
         breadcrumb.push({ title: '楼盘资讯', href: '' })
         store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
       }
+      $axios.setHeader('Authorization', '')
     }
     await getHouse();
      // 相关活动
@@ -224,7 +244,7 @@ export default Vue.extend({
       }
     }
     const cityId = store.state.app.cityId;
-    return { params, news, isMobile, house, new2, new3, new7, activities, cityId, pageParam }
+    return { params, news, isMobile, house, new2, new3, new7, activities, cityId, pageParam, favorite }
   },
   data () {
     let house: any;
@@ -246,7 +266,10 @@ export default Vue.extend({
       pageParam,
       params: '',
       news,
-      new2, new3, new7,
+      new2,
+      new3,
+      new7,
+      favorite: '',
     }
   },
   head() {

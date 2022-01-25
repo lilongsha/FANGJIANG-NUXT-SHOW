@@ -80,6 +80,7 @@
       <div class="flex flex-row items-center justify-center h-full text-lg" :class="getIsHome? 'text-white': 'text-black'">
         <span class="text-base"></span>
         <!-- 登录/注册 -->
+        <button @click="clickLogin">登录</button>
       </div>
     </div>
   </div>
@@ -87,6 +88,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+// @ts-ignore
+import * as Cookies from 'js-cookie';
 import { BasePageResult } from '~/api/model/baseModel';
 import { Api as HouseApi } from '~/api/model/houseModel';
 import { getDataResult } from '~/utils/response/util';
@@ -121,6 +124,12 @@ export default Vue.extend({
     },
   },
   methods: {
+    clickLogin() {
+      const path = this.$route.path;
+      Cookies.set('Path', path, { expires: 7, })
+      this.$router.push('/login')
+      
+    },
     search() {
       if (this.timeout) {
         clearTimeout(this.timeout);

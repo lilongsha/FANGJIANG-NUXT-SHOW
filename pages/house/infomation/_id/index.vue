@@ -329,14 +329,33 @@ export default Vue.extend({
         }
       ]
     };
+    let favorite;
     const getHouse = async () => {
       const param: any = {
         data: {
           id,
         }
       }
+      let accessToken;
+      let tokenType;
+      const cookie = ' ' + req.headers.cookie
+      const arr = cookie.split(';')
+      if (arr && arr.length > 0) {
+          arr[0] = arr[0] + ' ';
+          arr.forEach((e) => {
+              const i = e.split('=')
+              if (i[0] === ' Access_Token') {
+                  accessToken = i[1];
+              }
+              if(i[0] === ' Token_Type') {
+                  tokenType = i[1]
+              }
+          })
+      }
+      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
       const result = await $axios.$post(HouseApi.GetProject, param)
       if (result.code === 200) {
+        favorite = result.data?.favorite
         house = getDataResult(result);
         lookTime = house.lookTime;
         getPrice(house);
@@ -366,7 +385,7 @@ export default Vue.extend({
     }
 
     return {
-       cityId, lookTime, house, option, scoreOption, activities
+       cityId, lookTime, house, option, scoreOption, activities, favorite,
     }
   },
   data() {
@@ -388,6 +407,7 @@ export default Vue.extend({
       showBuild,
       option,
       house,
+      favorite: '',
     }
   },
   head() {

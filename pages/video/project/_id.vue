@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:w-screen sm:px-2 sm:pb-2 lg:container">
     <div class="lg:h-24 sm:h-10"></div>
-    <AppTitle :house="house" />
+    <AppTitle :house="house" :favorite="favorite" />
     <AppBar :current="'video'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
       <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部视频</span>
@@ -97,7 +97,7 @@ import { ActivityApi } from '~/api/clue/activity';
 export default Vue.extend({
   name: 'VideoList',
   components: {},
-  async asyncData({ $axios, store, route }){
+  async asyncData({ $axios, store, route, req }){
     // 视频
     let params = route.params?.id;
     if (params) {
@@ -134,14 +134,34 @@ export default Vue.extend({
     }
     // 相关楼盘
     let house: any;
+    let favorite 
     const getHouse = async () => {
       const param: any = {
         data: {
           id: params,
         }
       }
+      let accessToken;
+      let tokenType;
+      const cookie = ' ' + req.headers.cookie
+      const arr = cookie.split(';')
+      if (arr && arr.length > 0) {
+        arr[0] = arr[0] + ' ';
+        arr.forEach((e) => {
+          const i = e.split('=')
+          if (i[0] === ' Access_Token') {
+              accessToken = i[1];
+          }
+          if(i[0] === ' Token_Type') {
+              tokenType = i[1]
+          }
+        })
+      }
+      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
       const result = await $axios.$post(HouseApi.GetProject, param)
+      
       if (result.code === 200) {
+        favorite = result.data.favorite
         house = getDataResult(result);
 
         const breadcrumb: Breadcrumb[] = [];
@@ -150,6 +170,7 @@ export default Vue.extend({
         breadcrumb.push({ title: '楼盘视频', href: '' })
         store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
       }
+      $axios.setHeader('Authorization', '')
     }
     await getHouse();
     // 相关活动
@@ -167,7 +188,7 @@ export default Vue.extend({
       }
     }
     const cityId = store.state.app.cityId;
-    return { params, videos, house, type: '0', video1, video2, video3, cityId, activities }
+    return { params, videos, house, type: '0', video1, video2, video3, cityId, activities, favorite }
   },
   data () {
     let house: any;
@@ -175,7 +196,7 @@ export default Vue.extend({
     const type: String = '0';
     const activityId: string = '';
     const opening: boolean = false;
-    return { type, video1:[], video2: [], video3: [], opening, activityId, clueType, house }
+    return { type, video1:[], video2: [], video3: [], opening, activityId, clueType, house, favorite: '' }
   },
   head() {
     const houseName = this.house.name;

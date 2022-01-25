@@ -149,74 +149,78 @@ export default Vue.extend({
       this.loginType = type;
     },
     async clickLogin() {
-      this.LoginParams.password = this.password;
-      this.LoginParams.key = this.codeResult.data.key;
-      const pass = encrypt(this.LoginParams.password)
-      this.LoginParams.password = pass;
-      this.$axios.setHeader('Authorization','Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==');
-      const result = await this.$axios.$get(Api.Token, {params:this.LoginParams});
-      // let userInfo;
-      if (result.code === 200) {
-        const that = this;
-        const store = that.$store;
-        await store.commit('app/AccessToken', result.data.access_token)
-        await store.commit('app/ExpiresIn', result.data.expires_in)
-        await store.commit('app/RefreshToken', result.data.refresh_token)
-        await store.commit('app/Scope', result.data.scope)
-        await store.commit('app/TokenType', result.data.token_type)
-        if (this.checked) {
-          Cookies.set('Access_Token', result.data.access_token, { expires: 7, })
-          Cookies.set('Token_Type', result.data.token_type, { expires: 7, })
-          Cookies.set('ExpiresIn', result.data.expires_in, { expires: 7, })
-          Cookies.set('RefreshToken', result.data.refresh_token, { expires: 7, })
-          Cookies.set('Scope', result.data.scope, { expires: 7, })
-        } else {
-          Cookies.set('Access_Token', result.data.access_token)
-          Cookies.set('Token_Type', result.data.token_type)
-          Cookies.set('ExpiresIn', result.data.expires_in)
-          Cookies.set('RefreshToken', result.data.refresh_token)
-          Cookies.set('Scope', result.data.scope)
-        }
-        
-        const token = Cookies.get('Access_Token')
-        const tokenType = Cookies.get('Token_Type')
-        this.$axios.setHeader('Authorization',tokenType + ' ' +token);
-        const s = await this.$axios.$post(Api.GetCurInfo)
-        if (s.code === 200) {
-          const userInfo = s.data.content;
+      if (this.password && this.LoginParams.username && this.LoginParams.code) {
+        this.LoginParams.password = this.password;
+        this.LoginParams.key = this.codeResult.data.key;
+        const pass = encrypt(this.LoginParams.password)
+        this.LoginParams.password = pass;
+        this.$axios.setHeader('Authorization','Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==');
+        const result = await this.$axios.$get(Api.Token, {params:this.LoginParams});
+        // let userInfo;
+        if (result.code === 200) {
+          const that = this;
+          const store = that.$store;
+          await store.commit('app/AccessToken', result.data.access_token)
+          await store.commit('app/ExpiresIn', result.data.expires_in)
+          await store.commit('app/RefreshToken', result.data.refresh_token)
+          await store.commit('app/Scope', result.data.scope)
+          await store.commit('app/TokenType', result.data.token_type)
           if (this.checked) {
-            Cookies.set('UserName', userInfo.username, { expires: 7, })
-            Cookies.set('Gender', userInfo.gender, { expires: 7, })
-            Cookies.set('UserId', userInfo.id, { expires: 7, })
-            Cookies.set('State', userInfo.state, { expires: 7, })
-            Cookies.set('RealName', userInfo.realName, { expires: 7, })
-            Cookies.set('ProvinceId', userInfo.provinceId, { expires: 7, })
-            Cookies.set('PhoneOk', userInfo.phoneOk, { expires: 7, })
-            Cookies.set('Password', userInfo.password, { expires: 7, })
-            Cookies.set('NickName', userInfo.nickName, { expires: 7, })
-            Cookies.set('MessageOk', userInfo.messageOk, { expires: 7, })
-            Cookies.set('CityId', userInfo.cityId, { expires: 7, })
-            Cookies.set('AreaId', userInfo.areaId, { expires: 7, })
-            Cookies.set('Avatar', userInfo.avatar, { expires: 7, })
+            Cookies.set('Access_Token', result.data.access_token, { expires: 7, })
+            Cookies.set('Token_Type', result.data.token_type, { expires: 7, })
+            Cookies.set('ExpiresIn', result.data.expires_in, { expires: 7, })
+            Cookies.set('RefreshToken', result.data.refresh_token, { expires: 7, })
+            Cookies.set('Scope', result.data.scope, { expires: 7, })
           } else {
-            Cookies.set('UserName', userInfo.username)
-            Cookies.set('Gender', userInfo.gender)
-            Cookies.set('UserId', userInfo.id)
-            Cookies.set('State', userInfo.state)
-            Cookies.set('RealName', userInfo.realName)
-            Cookies.set('ProvinceId', userInfo.provinceId)
-            Cookies.set('PhoneOk', userInfo.phoneOk)
-            Cookies.set('Password', userInfo.password)
-            Cookies.set('NickName', userInfo.nickName)
-            Cookies.set('MessageOk', userInfo.messageOk)
-            Cookies.set('CityId', userInfo.cityId)
-            Cookies.set('AreaId', userInfo.areaId)
-            Cookies.set('Avatar', userInfo.avatar)
+            Cookies.set('Access_Token', result.data.access_token)
+            Cookies.set('Token_Type', result.data.token_type)
+            Cookies.set('ExpiresIn', result.data.expires_in)
+            Cookies.set('RefreshToken', result.data.refresh_token)
+            Cookies.set('Scope', result.data.scope)
           }
           
+          const token = Cookies.get('Access_Token')
+          const tokenType = Cookies.get('Token_Type')
+          this.$axios.setHeader('Authorization',tokenType + ' ' +token);
+          const s = await this.$axios.$post(Api.GetCurInfo)
+          if (s.code === 200) {
+            const userInfo = s.data.content;
+            if (this.checked) {
+              Cookies.set('UserName', userInfo.username, { expires: 7, })
+              Cookies.set('Gender', userInfo.gender, { expires: 7, })
+              Cookies.set('UserId', userInfo.id, { expires: 7, })
+              Cookies.set('State', userInfo.state, { expires: 7, })
+              Cookies.set('RealName', userInfo.realName, { expires: 7, })
+              Cookies.set('ProvinceId', userInfo.provinceId, { expires: 7, })
+              Cookies.set('PhoneOk', userInfo.phoneOk, { expires: 7, })
+              Cookies.set('Password', userInfo.password, { expires: 7, })
+              Cookies.set('NickName', userInfo.nickName, { expires: 7, })
+              Cookies.set('MessageOk', userInfo.messageOk, { expires: 7, })
+              Cookies.set('CityId', userInfo.cityId, { expires: 7, })
+              Cookies.set('AreaId', userInfo.areaId, { expires: 7, })
+              Cookies.set('Avatar', userInfo.avatar, { expires: 7, })
+            } else {
+              Cookies.set('UserName', userInfo.username)
+              Cookies.set('Gender', userInfo.gender)
+              Cookies.set('UserId', userInfo.id)
+              Cookies.set('State', userInfo.state)
+              Cookies.set('RealName', userInfo.realName)
+              Cookies.set('ProvinceId', userInfo.provinceId)
+              Cookies.set('PhoneOk', userInfo.phoneOk)
+              Cookies.set('Password', userInfo.password)
+              Cookies.set('NickName', userInfo.nickName)
+              Cookies.set('MessageOk', userInfo.messageOk)
+              Cookies.set('CityId', userInfo.cityId)
+              Cookies.set('AreaId', userInfo.areaId)
+              Cookies.set('Avatar', userInfo.avatar)
+            }
+            
+          }
+          const lastPath = Cookies.get('Path')
+          this.$router.push(lastPath)
         }
-        const lastPath = Cookies.get('Path')
-        this.$router.push(lastPath)
+      } else {
+        message.error({ content: '请正确填写信息', duration: 3});
       }
     },
     async clickImg() {

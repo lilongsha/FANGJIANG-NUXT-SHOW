@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto sm:w-screen sm:px-2 lg:container">
     <div id="list" class="w-full sm:h-10 lg:h-24"></div>
-    <AppTitle :house="project" />
+    <AppTitle :house="project" :favorite="favorite" />
     <!-- house menu -->
     <AppBar :current="'dynamic'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">
@@ -140,14 +140,16 @@ export default Vue.extend({
     }
 
     const [resultProject,  resultDynamic] = await  Promise.all([
-      getProject($axios, id),
+      getProject($axios, id, req),
       getDynamicNews($axios, id, pageParam.pageSize, pageParam.pageNum - 1)
     ])
 
     let project: any;
     const city: any = store.state.app.cityId;
     let lookTime: any;
+    let favorite;
     if (resultProject.code === 200) {
+      favorite = resultProject.data.favorite;
       project = getDataResult(resultProject);
       lookTime = project.lookTime;
     }
@@ -194,6 +196,7 @@ export default Vue.extend({
       phoneNum,
       houseMenu,
       topFlag,
+      favorite
     }
   },
   data () {

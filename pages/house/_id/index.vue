@@ -5,7 +5,7 @@
     <div class="w-full pb-7 bg-[#f6f9fe]">
       <div class="lg:mx-auto sm:w-full lg:container">
         <!-- name and title -->
-        <AppTitle :house="house" />
+        <AppTitle :house="house" :favorite="favorite" />
         <!-- house menu -->
         <AppBar :current="'house'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
         <!-- carousel -->
@@ -634,11 +634,32 @@ export default Vue.extend({
         id,
       }
     }
+    let accessToken;
+    let tokenType;
+    const cookie = ' ' + req.headers.cookie
+    const arr = cookie.split(';')
+    if (arr && arr.length > 0) {
+      arr[0] = arr[0] + ' ';
+      arr.forEach((e) => {
+        const i = e.split('=')
+        if (i[0] === ' Access_Token') {
+            accessToken = i[1];
+        }
+        if(i[0] === ' Token_Type') {
+            tokenType = i[1]
+        }
+      })
+    }
+    if (tokenType && accessToken) {
+      $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+    }
     const result = await $axios.$post(HouseApi.GetProject, param)
     let house: any;
+    let favorite;
     const cityId: string = store.state.app.cityId;
     let lookTime: number = 0;
     if (result.code === 200) {
+      favorite = result.data?.favorite
       house = getDataResult(result);
       lookTime = house.lookTime
       const breadcrumb: Breadcrumb[] = [];
@@ -663,7 +684,7 @@ export default Vue.extend({
     
 
     return { activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
-questionTotal, option, phoneNum, isMobile }
+questionTotal, option, phoneNum, isMobile, favorite }
   },
   data () {
     const flag: string = 'layout';
@@ -726,6 +747,7 @@ questionTotal, option, phoneNum, isMobile }
       buildType,
       isMobile,
       option,
+      favorite: ''
     }
   },
   head() {
