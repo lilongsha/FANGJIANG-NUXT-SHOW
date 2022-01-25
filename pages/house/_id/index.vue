@@ -672,8 +672,8 @@ export default Vue.extend({
         getPrice(house);
         await getHouseInfo();
       }
+      $axios.setHeader('Authorization', '')
     } catch (error) {
-      console.log(result)
       if (result.code === 401) {
         // router.push('/login?redirect='+ route.path)
         redirect('/login?redirect='+ route.path)

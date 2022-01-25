@@ -219,8 +219,10 @@ export default Vue.extend({
             }
             
           }
+          this.$axios.setHeader('Authorization', '')
           this.$router.push(this.path)
         }
+        this.$axios.setHeader('Authorization', '')
       } else {
         message.error({ content: '请正确填写信息', duration: 3});
       }
@@ -333,8 +335,10 @@ export default Vue.extend({
               Cookies.set('Avatar', userInfo.avatar)
             }
           }
+          this.$axios.setHeader('Authorization', '')
           this.$router.push(this.path)
         }
+        this.$axios.setHeader('Authorization', '')
       } else {
         message.error({ content: '请正确填写信息', duration: 3});
       }

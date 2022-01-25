@@ -84,13 +84,23 @@ export default Vue.extend({
           projectId: houseId
         }
       }
-      this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      const result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
-      if (result.code === 200) {
-        message.success({ content: '取消关注', duration: 3})
-        this.isFavorite = '0'
-      } else {
-        message.error({ content: '取消失败', duration: 3})
+      if (tokenType && accessToken) {
+        this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+      }
+      let result;
+      try {
+        result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
+        if (result.code === 200) {
+          message.success({ content: '取消关注', duration: 3})
+          this.isFavorite = '0'
+        }
+        this.$axios.setHeader('Authorization', '')
+      } catch (error) {
+        if (result.code === 401) {
+          this.$router.push('/login?redirect='+ this.$route.path)
+        }else {
+          message.error({ content: '取消失败', duration: 3})
+        }
       }
     }
   }

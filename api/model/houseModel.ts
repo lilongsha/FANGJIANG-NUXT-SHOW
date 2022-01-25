@@ -253,6 +253,7 @@ export async function getProject($axios: any, projectId: string, req: any, route
       $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
     }
     result = await $axios.$post(Api.GetProject, param)
+    $axios.setHeader('Authorization', '')
   } catch (error) {
     if (result.code === 401) {
       redirect('/login?redirect='+ route.path)

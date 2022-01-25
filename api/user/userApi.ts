@@ -31,5 +31,7 @@ export async function refreshToken ($axios: any, refreshParam: any) {
         client_secret: 'fangjiangwang',
         scope: 'all'
     }
-    return await $axios.$post(Api.PostRefreshToken, param)
+    const result = await $axios.$post(Api.PostRefreshToken, param)
+    $axios.setHeader('Authorization', '')
+    return result
 }

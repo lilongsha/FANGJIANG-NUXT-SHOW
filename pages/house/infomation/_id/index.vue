@@ -379,8 +379,8 @@ export default Vue.extend({
           store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
 
         }
+        $axios.setHeader('Authorization', '')
       } catch (error) {
-        console.log(result)
         if (result.code === 401) {
           // router.push('/login?redirect='+ route.path)
           redirect('/login?redirect='+ route.path)
