@@ -97,7 +97,7 @@ import { ActivityApi } from '~/api/clue/activity';
 export default Vue.extend({
   name: 'VideoList',
   components: {},
-  async asyncData({ $axios, store, route, req, redirect }){
+  async asyncData({ $axios, store, route, redirect }){
     // 视频
     let params = route.params?.id;
     if (params) {
@@ -141,22 +141,8 @@ export default Vue.extend({
           id: params,
         }
       }
-      let accessToken;
-      let tokenType;
-      const cookie = ' ' + req.headers.cookie
-      const arr = cookie.split(';')
-      if (arr && arr.length > 0) {
-        arr[0] = arr[0] + ' ';
-        arr.forEach((e) => {
-          const i = e.split('=')
-          if (i[0] === ' Access_Token') {
-              accessToken = i[1];
-          }
-          if(i[0] === ' Token_Type') {
-              tokenType = i[1]
-          }
-        })
-      }
+      const accessToken = store.state.app.accessToken;
+      const tokenType = store.state.app.tokenType
       let result;
       try {
         if (tokenType && accessToken) {
@@ -173,11 +159,13 @@ export default Vue.extend({
           breadcrumb.push({ title: '楼盘视频', href: '' })
           store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
         }
-        $axios.setHeader('Authorization', '')
+        
       } catch (error) {
-        if (result.code === 401) {
+        if (result?.code === 401) {
           redirect('/login?redirect='+ route.path)
         }
+      } finally {
+        $axios.setHeader('Authorization', '')
       }
       
       

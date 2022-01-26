@@ -23,8 +23,6 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-// @ts-ignore
-import * as Cookies from 'js-cookie';
 import { message } from 'ant-design-vue';
 import { CurrentApi } from '~/api/user/userApi';
 export default Vue.extend({
@@ -37,7 +35,7 @@ export default Vue.extend({
     favorite: {
       type: String,
       required: false,
-      default: ''
+      default: '0'
     }
   },
   data() {
@@ -47,8 +45,8 @@ export default Vue.extend({
   },
   methods: {
     async addFav() {
-      const accessToken = Cookies.get('Access_Token')
-      const tokenType = Cookies.get('Token_Type')
+      const accessToken = this.$store.state.app.accessToken;
+      const tokenType = this.$store.state.app.tokenType
       const houseId: string = this.house.id
       const param =  {
         data: {
@@ -57,27 +55,30 @@ export default Vue.extend({
       }
       if (tokenType && accessToken) {
         this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      }
-      let result;
-      try {
-        result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
-        if (result.code === 200) {
-          message.success({ content: '关注成功', duration: 3})
-          this.isFavorite = '1'
+        let result;
+        try {
+          result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
+          if (result.code === 200) {
+            message.success({ content: '关注成功', duration: 3})
+            this.isFavorite = '1'
+          }
+        } catch (error) {
+          if (result?.code === 401) {
+            this.$router.push('/login?redirect='+ this.$route.path)
+          }else {
+            message.error({ content: '关注失败', duration: 3})
+          }
+        } finally {
+            this.$axios.setHeader('Authorization', '')
         }
-      } catch (error) {
-        if (result.code === 401) {
-          this.$router.push('/login?redirect='+ this.$route.path)
-        }else {
-          message.error({ content: '关注失败', duration: 3})
-        }
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path + '.html')
       }
       
-      this.$axios.setHeader('Authorization', '')
     },
     async deleteFav() {
-      const accessToken = Cookies.get('Access_Token')
-      const tokenType = Cookies.get('Token_Type')
+      const accessToken = this.$store.state.app.accessToken;
+      const tokenType = this.$store.state.app.tokenType
       const houseId: string = this.house.id
       const param =  {
         data: {
@@ -86,22 +87,27 @@ export default Vue.extend({
       }
       if (tokenType && accessToken) {
         this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      }
-      let result;
-      try {
-        result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
-        if (result.code === 200) {
-          message.success({ content: '取消关注', duration: 3})
-          this.isFavorite = '0'
+        let result;
+        try {
+          result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
+          if (result.code === 200) {
+            message.success({ content: '取消关注', duration: 3})
+            this.isFavorite = '0'
+          }
+          
+        } catch (error) {
+          if (result?.code === 401) {
+            this.$router.push('/login?redirect='+ this.$route.path + '.html')
+          }else {
+            message.error({ content: '取消失败', duration: 3})
+          }
+        } finally {
+          this.$axios.setHeader('Authorization', '')
         }
-        this.$axios.setHeader('Authorization', '')
-      } catch (error) {
-        if (result.code === 401) {
-          this.$router.push('/login?redirect='+ this.$route.path)
-        }else {
-          message.error({ content: '取消失败', duration: 3})
-        }
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path + '.html')
       }
+      
     }
   }
 

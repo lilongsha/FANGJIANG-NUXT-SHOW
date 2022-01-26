@@ -140,7 +140,7 @@ export default Vue.extend({
     }
 
     const [resultProject,  resultDynamic] = await  Promise.all([
-      getProject($axios, id, req, route, redirect ),
+      getProject($axios, id, store, route, redirect ),
       getDynamicNews($axios, id, pageParam.pageSize, pageParam.pageNum - 1)
     ])
 

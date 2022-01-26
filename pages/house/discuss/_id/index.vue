@@ -1,9 +1,11 @@
 <template>
   <div class="mx-auto sm:w-screen sm:px-2 lg:container">
-    <div class="w-full sm:h-10 lg:h-32"></div>
-    <div class="sm:text-xl lg:text-4xl">{{ question.content }}</div>
+    <div class="w-full sm:h-10 lg:h-20"></div>
+    <AppTitle :house="project"  :favorite="favorite"/>
+    <AppBar :current="'discuss'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
+    <div class="sm:text-xl lg:text-4xl lg:mt-2">{{ question.content }}</div>
     <!-- 左侧推荐楼盘 -->
-    <div class="sticky flex flex-col float-right w-1/3 sm:hidden top-28">
+    <div class="flex flex-col float-right w-1/3 sm:hidden top-28">
       <div class="w-full mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -103,7 +105,7 @@ export default Vue.extend({
   components: {
     ReomendHouse,
   },
-  async asyncData({ $axios, route, store, req, redirect }) {
+  async asyncData({ $axios, route, store, redirect }) {
     
 
     let question: any = {};
@@ -154,9 +156,11 @@ export default Vue.extend({
     }
 
     let project: any;
+    let favorite: any;
     const getProjectData = async (id: string) => {
-      const resultProject = await getProject($axios, id, req, route, redirect)
+      const resultProject = await getProject($axios, id, store, route, redirect)
       if (resultProject.code === 200) {
+        favorite = resultProject.data.favorite;
         project = getDataResult(resultProject);
       }
     }
@@ -171,6 +175,7 @@ export default Vue.extend({
       question,
       questions,
       project,
+      favorite,
     }
   },
   data() {
@@ -181,6 +186,7 @@ export default Vue.extend({
       id,
       question,
       project,
+      favorite: ''
     }
   },
   head() {

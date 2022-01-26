@@ -23,6 +23,14 @@ export interface AppState {
   test?: any;
   title: string;
   url: string;
+  userId: string;
+  accessToken?: string,
+  expiresIn?: string,
+  refreshToken?: string,
+  scope: any[],
+  tokenType?: string,
+  nickName?: string,
+  avatar?: string,
 }
 
 export interface LoginBack {
@@ -31,4 +39,6 @@ export interface LoginBack {
   refreshToken?: string;
   scope?: any[];
   tokenType?: string;
+  nickName?: string;
+  avatar?: string;
 }

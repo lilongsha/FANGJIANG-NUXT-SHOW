@@ -13,6 +13,14 @@ const state = ():AppState =>({
   test: [],
   title: '',
   url: '',
+  userId: '',
+  accessToken: '',
+  expiresIn: '',
+  refreshToken: '',
+  scope: [],
+  tokenType: '',
+  nickName: '',
+  avatar: '',
 })
 
 const back = ():LoginBack => ({
@@ -21,23 +29,34 @@ const back = ():LoginBack => ({
   refreshToken: '',
   scope: [],
   tokenType: '',
+  nickName: '',
+  avatar: '',
 })
 
 const mutations = {
-  AccessToken(back: LoginBack, access: string):void {
-    back.accessToken = access;
+  UserId(state: AppState, userId: string):void {
+    state.userId = userId;
   },
-  ExpiresIn(back: LoginBack, expiresIn: string):void {
-    back.expiresIn = expiresIn;
+  NickName(state: AppState, nickName: string):void {
+    state.nickName = nickName;
   },
-  RefreshToken(back: LoginBack, refresh: string):void {
-    back.refreshToken = refresh;
+  Avatar(state: AppState, avatar: string):void {
+    state.avatar = avatar;
   },
-  Scope(back: LoginBack, scope: any[]):void {
-    back.scope = scope;
+  AccessToken(state: AppState, access: string):void {
+    state.accessToken = access;
   },
-  TokenType(back: LoginBack, tokenType: string):void {
-    back.tokenType = tokenType;
+  ExpiresIn(state: AppState, expiresIn: string):void {
+    state.expiresIn = expiresIn;
+  },
+  RefreshToken(state: AppState, refresh: string):void {
+    state.refreshToken = refresh;
+  },
+  Scope(state: AppState, scope: any[]):void {
+    state.scope = scope;
+  },
+  TokenType(state: AppState, tokenType: string):void {
+    state.tokenType = tokenType;
   },
   BREADCRUMB_ADD(state: AppState, item: Breadcrumb):void {
     if (item.href && item.href !== '/') {

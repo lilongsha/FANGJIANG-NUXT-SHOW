@@ -634,22 +634,8 @@ export default Vue.extend({
         id,
       }
     }
-    let accessToken;
-    let tokenType;
-    const cookie = ' ' + req.headers.cookie
-    const arr = cookie.split(';')
-    if (arr && arr.length > 0) {
-      arr[0] = arr[0] + ' ';
-      arr.forEach((e) => {
-        const i = e.split('=')
-        if (i[0] === ' Access_Token') {
-            accessToken = i[1];
-        }
-        if(i[0] === ' Token_Type') {
-            tokenType = i[1]
-        }
-      })
-    }
+    const accessToken = store.state.app.accessToken;
+    const tokenType = store.state.app.tokenType
     let house: any;
     let favorite;
     let result;
@@ -659,6 +645,7 @@ export default Vue.extend({
       if (tokenType && accessToken) {
         $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
       }
+      $axios.setHeader('Authorization', '')
       result = await $axios.$post(HouseApi.GetProject, param)
       if (result.code === 200) {
         favorite = result.data?.favorite
@@ -672,12 +659,14 @@ export default Vue.extend({
         getPrice(house);
         await getHouseInfo();
       }
-      $axios.setHeader('Authorization', '')
+      
     } catch (error) {
-      if (result.code === 401) {
+      if (result?.code === 401) {
         // router.push('/login?redirect='+ route.path)
         redirect('/login?redirect='+ route.path)
       }
+    } finally {
+      $axios.setHeader('Authorization', '')
     }
     
     

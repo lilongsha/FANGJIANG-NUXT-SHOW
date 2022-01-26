@@ -1,10 +1,10 @@
 <template>
   <div @mouseleave="noAction">
-    <div v-show="!nickName" class="flex flex-row items-center">
+    <div v-show="!userId" class="flex flex-row items-center">
       <a-icon class="svgClass" type="user" />
       <button class="ml-2" @click="clickLogin">登录</button>
     </div>
-    <div v-show="nickName" class="flex flex-row items-center" @mouseover="showAction" @click="showAction">
+    <div v-show="userId" class="flex flex-row items-center" @mouseover="showAction" @click="showAction">
       <img :src="avatar" alt="" class="w-[32px] h-[32px] rounded-full">
       <span class="ml-1 text-[18px]">{{ nickName }}</span>
       <svg
@@ -36,21 +36,29 @@
 <script>
 import Vue from 'vue'
 import * as Cookies from 'js-cookie';
+import { message } from 'ant-design-vue';
 export default Vue.extend({
     name: 'Avatar',
     components: {},
     data() {
-      const nickName = Cookies.get('NickName');
-      const avatar = Cookies.get('Avatar')
+      const nickName = this.$store.state.app.nickName;
+      const avatar = this.$store.state.app.avatar;
+      const userId = this.$store.state.app.userId;
       return {
         nickName,
         avatar,
         isShow: false,
+        userId,
       }
     },
     methods: {
       clickLogin() {
         const path = this.$route.path;
+        
+        // if (path === '/house/list') {
+        //   path = path + 'p1'
+        // }
+        console.log('path', path)
         this.$router.push('/login?redirect=' + path)
         
       },
@@ -60,7 +68,7 @@ export default Vue.extend({
       noAction() {
         this.isShow = false;
       },
-      loginOut() {
+      async loginOut() {
         Cookies.remove('CityId')
         Cookies.remove('MessageOk')
         Cookies.remove('Password')
@@ -79,6 +87,16 @@ export default Vue.extend({
         Cookies.remove('RefreshToken')
         Cookies.remove('ProvinceId')
         Cookies.remove('Token_Type')
+        await this.$store.commit('app/AccessToken', '')
+        await this.$store.commit('app/ExpiresIn', '')
+        await this.$store.commit('app/RefreshToken', '')
+        await this.$store.commit('app/Scope', [])
+        await this.$store.commit('app/TokenType', '')
+        await this.$store.commit('app/UserId', '')
+        await this.$store.commit('app/Avatar', '')
+        await this.$store.commit('app/NickName', '')
+        this.$router.go(0)
+        message.success({ content: '退出成功', duration: 3 })
       }
     }
 })

@@ -40,10 +40,43 @@ const getRoomArea = (rooms: any[]) => {
 
 export const actions = {
   async nuxtServerInit (store: any, context: any) {
+    let accessToken;
+    let tokenType;
+    let nickName;
+    let avatar;
+    let userId;
+    const cookie = ' ' + context.req.headers.cookie
+    const arr = cookie.split(';')
+    if (arr && arr.length > 0) {
+      arr[0] = arr[0] + ' ';
+      arr.forEach((e) => {
+        const i = e.split('=')
+        if (i[0] === ' Access_Token') {
+            accessToken = i[1];
+        }
+        if(i[0] === ' Token_Type') {
+            tokenType = i[1]
+        }
+        if(i[0] === ' NickName') {
+          nickName = i[1]
+        }
+        if(i[0] === ' Avatar') {
+          avatar = i[1]
+        }
+        if(i[0] === ' UserId') {
+          userId = i[1]
+        }
+      })
+    }
     await store.commit('app/PROVINCE_SET', '河北省')
     await store.commit('app/PROVINCE_ID_SET', '130000')
     await store.commit('app/CITY_SET', '石家庄市')
     await store.commit('app/CITY_ID_SET', '130100')
+    await store.commit('app/UserId', userId)
+    await store.commit('app/NickName', nickName)
+    await store.commit('app/Avatar', avatar)
+    await store.commit('app/AccessToken', accessToken)
+    await store.commit('app/TokenType', tokenType)
     const hotProjectParam: any = {
       data: {
         cityId: store.state.app.cityId

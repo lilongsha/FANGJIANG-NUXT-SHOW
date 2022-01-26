@@ -152,6 +152,9 @@ export default Vue.extend({
       this.loginType = type;
     },
     async clickLogin() {
+      try {
+        
+      
       if (this.password && this.LoginParams.username && this.LoginParams.code) {
         this.LoginParams.password = this.password;
         this.LoginParams.key = this.codeResult.data.key;
@@ -159,6 +162,7 @@ export default Vue.extend({
         this.LoginParams.password = pass;
         this.$axios.setHeader('Authorization','Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==');
         const result = await this.$axios.$get(Api.Token, {params:this.LoginParams});
+        this.$axios.setHeader('Authorization','');
         // let userInfo;
         if (result.code === 200) {
           const that = this;
@@ -182,12 +186,16 @@ export default Vue.extend({
             Cookies.set('Scope', result.data.scope)
           }
           
-          const token = Cookies.get('Access_Token')
-          const tokenType = Cookies.get('Token_Type')
+          const token = this.$store.state.app.accessToken;
+          const tokenType = this.$store.state.app.tokenType
           this.$axios.setHeader('Authorization',tokenType + ' ' +token);
           const s = await this.$axios.$post(Api.GetCurInfo)
+          this.$axios.setHeader('Authorization','');
           if (s.code === 200) {
             const userInfo = s.data.content;
+            await store.commit('app/UserId', userInfo.id)
+            await store.commit('app/Avatar', userInfo.avatar)
+            await store.commit('app/NickName', userInfo.nickName)
             if (this.checked) {
               Cookies.set('UserName', userInfo.username, { expires: 7, })
               Cookies.set('Gender', userInfo.gender, { expires: 7, })
@@ -225,6 +233,11 @@ export default Vue.extend({
         this.$axios.setHeader('Authorization', '')
       } else {
         message.error({ content: '请正确填写信息', duration: 3});
+      }
+      } catch (error) {
+        
+      } finally {
+        this.$axios.setHeader('Authorization', '')
       }
     },
     async clickImg() {
@@ -265,6 +278,9 @@ export default Vue.extend({
       }, 1000)
     },
     async mobileLogin() {
+      try {
+        
+      
       if (this.isTrue && this.phoneCode) {
       
         const mobile = this.mobile;
@@ -297,14 +313,18 @@ export default Vue.extend({
             Cookies.set('RefreshToken', result.data.refresh_token)
             Cookies.set('Scope', result.data.scope)
           }
-          const token = Cookies.get('Access_Token')
-          const tokenType = Cookies.get('Token_Type')
+          const token = this.$store.state.app.accessToken;
+          const tokenType = this.$store.state.app.tokenType
           this.$axios.setHeader('Authorization',tokenType + ' ' +token);
           const s = await this.$axios.$post(Api.GetCurInfo)
+          this.$axios.setHeader('Authorization','');
           if (s.code === 200) {
             // const user = encrypt(JSON.stringify(s.data))
             // Cookies.set('User', user)
             const userInfo = s.data.content;
+            await store.commit('app/UserId', userInfo.id)
+            await store.commit('app/Avatar', userInfo.avatar)
+            await store.commit('app/NickName', userInfo.nickName)
             if (this.checked) {
               Cookies.set('UserName', userInfo.username, { expires: 7, })
               Cookies.set('Gender', userInfo.gender, { expires: 7, })
@@ -341,6 +361,12 @@ export default Vue.extend({
         this.$axios.setHeader('Authorization', '')
       } else {
         message.error({ content: '请正确填写信息', duration: 3});
+      }
+
+      } catch (error) {
+        
+      } finally {
+        this.$axios.setHeader('Authorization', '')
       }
     },
     mobileChange() {

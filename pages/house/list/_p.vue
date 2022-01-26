@@ -653,7 +653,7 @@
                   </div>
                   </div>
                   <div class="text-right">
-                    <img v-if="isFavorite.includes(item.id)" src="~/assets/img/list/red.png" alt="" @click.stop="deleteFav(item)">
+                    <img v-if="isFavorite && isFavorite.includes(item.id)" src="~/assets/img/list/red.png" alt="" @click.stop="deleteFav(item)">
                     <img v-else src="~/assets/img/list/white.png" alt="" @click.stop="addFav(item)">
                   </div>
                 </div>
@@ -833,8 +833,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// @ts-ignore
-import * as Cookies from 'js-cookie';
 import { message } from 'ant-design-vue';
 import { Api as AreaApi, AreaByCondition, AreaModel } from '~/api/model/areaModel';
 import { BaseListResult, BasePageResult } from '~/api/model/baseModel';
@@ -869,7 +867,7 @@ export default Vue.extend({
   name: 'Home',
   components: {
   },
-  async asyncData({ $axios, store, route, req }) {
+  async asyncData({ $axios, store, route, req, redirect }) {
     const activityParam = {
       data: {
         cityId:store.state.app.cityId
@@ -1040,13 +1038,27 @@ export default Vue.extend({
         },
         sort,
       };
-      projectResult = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
-      if (projectResult.code === 200) {
-        favorite = projectResult.data?.favorite;
-        isFavorite = projectResult.data?.favorite;
-        projectList = getDataResult(projectResult)
-        total = projectResult.data.page.totalElements;
+      try {
+        const accessToken = store.state.app.accessToken;
+        const tokenType = store.state.app.tokenType
+        if (tokenType && accessToken) {
+          $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+        }
+        projectResult = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
+        if (projectResult.code === 200) {
+          favorite = projectResult.data?.favorite;
+          isFavorite = projectResult.data?.favorite;
+          projectList = getDataResult(projectResult)
+          total = projectResult.data.page.totalElements;
+        }
+      } catch (error) {
+        if (projectResult?.code === 401) {
+          redirect('/login?redirect=' + route.path)
+        }
+      } finally {
+        $axios.setHeader('Authorization', '')
       }
+      
     }
 
     await getList();
@@ -1215,8 +1227,8 @@ export default Vue.extend({
           evt.stopPropagation ? evt.stopPropagation() : (evt.cancelBubble = true);
       }
 
-      const accessToken = Cookies.get('Access_Token')
-      const tokenType = Cookies.get('Token_Type')
+      const accessToken = this.$store.state.app.accessToken;
+      const tokenType = this.$store.state.app.tokenType
       const houseId: string = house.id
       const param =  {
         data: {
@@ -1225,23 +1237,28 @@ export default Vue.extend({
       }
       if (tokenType && accessToken) {
         this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      }
-      let result;
-      try {
-        result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
-        if (result.code === 200) {
-          message.success({ content: '关注成功', duration: 3})
-          this.isFavorite.push(house.id)
+        let result;
+        try {
+          result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
+          if (result.code === 200) {
+            message.success({ content: '关注成功', duration: 3})
+            this.isFavorite.push(house.id)
+          }
+        } catch (error) {
+          if (result?.code === 401) {
+            this.$router.push('/login?redirect=' + this.$route.path)
+          }else {
+            message.error({ content: '关注失败', duration: 3})
+          }
+        } finally{
+          this.$axios.setHeader('Authorization', '')
         }
-      } catch (error) {
-        if (result.code === 401) {
-          this.$router.push('/login?redirect='+ this.$route.path)
-        }else {
-          message.error({ content: '关注失败', duration: 3})
-        }
+        return false;
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path)
+        return false
       }
-      this.$axios.setHeader('Authorization', '')
-      return false;
+      
       
     },
     async deleteFav(house: any) {
@@ -1251,8 +1268,8 @@ export default Vue.extend({
           evt.stopPropagation ? evt.stopPropagation() : (evt.cancelBubble = true);
       }
       
-      const accessToken = Cookies.get('Access_Token')
-      const tokenType = Cookies.get('Token_Type')
+      const accessToken = this.$store.state.app.accessToken;
+      const tokenType = this.$store.state.app.tokenType
       const houseId: string = house.id
       const param =  {
         data: {
@@ -1261,27 +1278,33 @@ export default Vue.extend({
       }
       if (tokenType && accessToken) {
         this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      }
-      let result;
-      try {
-        result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
-        if (result.code === 200) {
-          message.success({ content: '取消关注', duration: 3})
-          for (let index = 0; index < this.isFavorite.length; index++) {
-            if (this.isFavorite[index] === house.id) {
-              this.isFavorite.splice(index, 1)
+        let result;
+        try {
+          result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
+          if (result.code === 200) {
+            message.success({ content: '取消关注', duration: 3})
+            for (let index = 0; index < this.isFavorite.length; index++) {
+              if (this.isFavorite[index] === house.id) {
+                this.isFavorite.splice(index, 1)
+              }
             }
           }
+        } catch (error) {
+          if (result?.code === 401) {
+            this.$router.push('/login?redirect=' + this.$route.path)
+          }else {
+            message.error({ content: '取消失败', duration: 3})
+          }
+        } finally {
+          this.$axios.setHeader('Authorization', '')
         }
-      } catch (error) {
-        if (result.code === 401) {
-          this.$router.push('/login?redirect='+ this.$route.path)
-        }else {
-          message.error({ content: '取消失败', duration: 3})
-        }
+        
+        return false;
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path)
+        return false
       }
-      this.$axios.setHeader('Authorization', '')
-      return false;
+      
     },
     re (e: Event) {
         e.stopPropagation();
@@ -1463,6 +1486,11 @@ export default Vue.extend({
       };
       this.$nuxt.$loading.start();
       try {
+        const accessToken = this.$store.state.app.accessToken;
+        const tokenType = this.$store.state.app.tokenType
+        if (tokenType && accessToken) {
+          this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+        }
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.GetByCityIdAndOrder, param);
         if (result.code === 200) {
           this.projectList = getDataResult(result)
@@ -1471,6 +1499,7 @@ export default Vue.extend({
         }
       } catch (e) {}
       finally {
+        this.$axios.setHeader('Authorization', '')
         this.$nuxt.$loading.finish();
       }
     },

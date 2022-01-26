@@ -225,39 +225,27 @@ export function getHouseType(house: any) {
   return result;
 }
 
-export async function getProject($axios: any, projectId: string, req: any, route: any, redirect: any) {
+export async function getProject($axios: any, projectId: string, store: any, route: any, redirect: any) {
   const param: any = {
     data: {
       id: projectId,
     },
   }
-  let accessToken;
-  let tokenType;
-  const cookie = ' ' + req.headers.cookie
-  const arr = cookie.split(';')
-  if (arr && arr.length > 0) {
-    arr[0] = arr[0] + ' ';
-    arr.forEach((e) => {
-      const i = e.split('=')
-      if (i[0] === ' Access_Token') {
-          accessToken = i[1];
-      }
-      if(i[0] === ' Token_Type') {
-          tokenType = i[1]
-      }
-    })
-  }
+  const accessToken =store.state.app.accessToken;
+  const tokenType = store.state.app.tokenType
   let result;
   try {
     if(tokenType + ' ' + accessToken) {
       $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
     }
     result = await $axios.$post(Api.GetProject, param)
-    $axios.setHeader('Authorization', '')
+    
   } catch (error) {
-    if (result.code === 401) {
+    if (result?.code === 401) {
       redirect('/login?redirect='+ route.path)
     }
+  } finally {
+    $axios.setHeader('Authorization', '')
   }
   return result;
 }

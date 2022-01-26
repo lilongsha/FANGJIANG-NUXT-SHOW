@@ -101,7 +101,7 @@ export default Vue.extend({
     }
 
     const [resultProject, resultQuestions] = await  Promise.all([
-      getProject($axios, id, req, route, redirect),
+      getProject($axios, id, store, route, redirect),
       getQuestions($axios, id, pageParam.pageSize, pageParam.pageNum - 1)
     ])
 

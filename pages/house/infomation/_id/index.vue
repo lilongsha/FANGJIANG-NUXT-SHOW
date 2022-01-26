@@ -1,8 +1,8 @@
 <template>
   <div class="mx-auto sm:w-full sm:px-2 lg:container">
-    <div class="w-full sm:h-12 lg:h-32"></div>
-    <div class="w-full h-24 px-4">
-      <!-- name -->
+    <div class="w-full sm:h-12 lg:h-20"></div>
+    <!-- <div class="w-full h-24 px-4">
+      
       <div class="w-full sm:flex sm:flex-col">
         <a :href="`/house/${house.id}.html`" style="color: inherit" class="font-bold sm:text-xl lg:text-3xl">{{ house.name }}</a>
         <span v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</span>
@@ -13,7 +13,8 @@
         <span class="sm:ml-2 lg:ml-4"></span>
         <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
       </div>
-    </div>
+    </div> -->
+    <AppTitle :house="house"  :favorite="favorite" class="mb-4" />
     <AppBar :current="'infomation'" :house="house" :class-name="'mb-2 menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">
       <div class="sm:w-full lg:w-3/4 lg:pr-4">
@@ -336,22 +337,8 @@ export default Vue.extend({
           id,
         }
       }
-      let accessToken;
-      let tokenType;
-      const cookie = ' ' + req.headers.cookie
-      const arr = cookie.split(';')
-      if (arr && arr.length > 0) {
-          arr[0] = arr[0] + ' ';
-          arr.forEach((e) => {
-              const i = e.split('=')
-              if (i[0] === ' Access_Token') {
-                  accessToken = i[1];
-              }
-              if(i[0] === ' Token_Type') {
-                  tokenType = i[1]
-              }
-          })
-      }
+      const accessToken = store.state.app.accessToken;
+      const tokenType = store.state.app.tokenType
       let result;
       try {
         if (tokenType && accessToken) {
@@ -379,12 +366,13 @@ export default Vue.extend({
           store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
 
         }
-        $axios.setHeader('Authorization', '')
+        
       } catch (error) {
-        if (result.code === 401) {
-          // router.push('/login?redirect='+ route.path)
+        if (result?.code === 401) {
           redirect('/login?redirect='+ route.path)
         }
+      } finally {
+        $axios.setHeader('Authorization', '')
       }
       
     }

@@ -43,7 +43,7 @@ import { getDataResult } from '~/utils/response/util';
 export default Vue.extend({
   name: 'PriceList',
   components: {},
-  async asyncData({ $axios, store, route, req, redirect }){
+  async asyncData({ $axios, store, route, redirect }){
     let params = route.params?.id;
     if (params) {
       if (params.endsWith('.html')) {
@@ -115,44 +115,33 @@ export default Vue.extend({
           id: params,
         }
       }
-      let accessToken;
-      let tokenType;
-      const cookie = ' ' + req.headers.cookie
-      const arr = cookie.split(';')
-      if (arr && arr.length > 0) {
-        arr[0] = arr[0] + ' ';
-        arr.forEach((e) => {
-          const i = e.split('=')
-          if (i[0] === ' Access_Token') {
-              accessToken = i[1];
-          }
-          if(i[0] === ' Token_Type') {
-              tokenType = i[1]
-          }
-        })
-      }
+      const accessToken = store.state.app.accessToken;
+      const tokenType = store.state.app.tokenType
       let result;
       try {
         if (tokenType && accessToken) {
           $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-          result = await $axios.$post(HouseApi.GetProject, param)
-          if (result.code === 200) {
-            favorite = result.data.favorite
-            house = getDataResult(result);
-
-            const breadcrumb: Breadcrumb[] = [];
-            breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-            breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
-            breadcrumb.push({ title: '历史价格', href: '' })
-            store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
-            getPrice(house)
-          }
-          $axios.setHeader('Authorization', '')
         }
+        result = await $axios.$post(HouseApi.GetProject, param)
+        if (result.code === 200) {
+          favorite = result.data.favorite
+          house = getDataResult(result);
+
+          const breadcrumb: Breadcrumb[] = [];
+          breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+          breadcrumb.push({ title: house.name, href: `/house/${house.id}.html` })
+          breadcrumb.push({ title: '历史价格', href: '' })
+          store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+          getPrice(house)
+        }
+        
+        
       } catch (error) {
-        if (result.code === 401) {
+        if (result?.code === 401) {
           redirect('/login?redirect='+ route.path)
         }
+      } finally {
+        $axios.setHeader('Authorization', '')
       }
       
       
