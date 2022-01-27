@@ -323,7 +323,8 @@
               <div class="w-full m2-8">
                 <div v-for="(item,index) in questionList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
                   <!-- question Title -->
-                  <div class="w-full mb-4">
+                  <div class="flex items-center w-full mb-4">
+                    <span class="bg-[#DA1111] px-1 py-1 text-[14px] rounded mr-2 text-white">问</span>
                     <a :href="`/house/discuss/${item.id}.html`" target="_blank">
                       <span class="text-black sm:text-sm lg:text-lg hover:border-b border-fjBlue-100">{{ item.content }}</span>
                     </a>
@@ -332,23 +333,43 @@
                   <div v-if="item.answerEntities && item.answerEntities.length > 0">
                     <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
                       <div class="overflow-hidden sm:w-3/5 lg:w-3/4">
-                        <span class="sm:text-xs">{{ answer.content }}</span>
+                        <div class="flex flex-row items-center lg:space-x-4 sm:space-x-2">
+                          <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full">
+                          <div class="lg:space-y-3 sm:space-y-1">
+                            <div class="sm:text-xs text-[#666666] text-[20px]">{{ answer.author }}</div>
+                            <div class="sm:text-xs text-[#666666] text-[18px]">{{ answer.content }}</div>
+                            <div class="sm:text-xs text-[#999999]">{{ answer.createTime.split('T')[0] }}</div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="flex flex-row items-center justify-end sm:w-2/5 lg:w-1/4">
-                        <svg t="1632970194001" class="w-3 h-3" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3415" width="128" height="128"><path d="M598.354747 67.542626c-48.148687 0-90.130101 32.905051-98.960808 79.437576 0 0-14.312727 72.882424-21.798787 99.090101-12.308687 43.196768-55.363232 90.944646-86.522829 106.188283-23.531313 11.636364-110.99798 11.765657-116.350707 11.765656H155.707475c-32.762828 0-59.384242 26.479192-59.384243 59.384243v475.022222c0 32.762828 26.479192 59.384242 59.384243 59.384242h548.033939c88.126061 0 163.025455-64.452525 176.135758-151.647676l45.873131-305.713132c10.834747-71.809293-44.8-136.274747-117.423838-136.274747H673.254141s20.066263-66.469495 30.228687-178.669899c5.081212-56.837172-35.167677-110.99798-94.280404-117.152323-3.620202-0.54303-7.227475-0.814545-10.847677-0.814546zM333.705051 898.288485V421.533737c38.917172-2.534141 66.999596-8.016162 83.574949-16.316767 43.726869-21.669495 99.633131-81.040808 117.281616-143.088485 7.899798-27.681616 21.39798-96.155152 23.001212-104.184243 3.47798-17.92 20.596364-31.159596 40.649697-31.159596 1.603232 0 3.206465 0.129293 4.822627 0.271516 28.211717 2.947879 43.326061 29.698586 41.32202 52.686868-9.360808 103.912727-27.823838 166.503434-28.082425 166.904243l-23.130505 76.489697h215.182223c17.519192 0 33.564444 7.356768 45.071515 20.596363 11.507071 13.239596 16.316768 30.228687 13.640404 47.618586L821.294545 797.052121c-8.830707 58.569697-58.181818 101.094141-117.423838 101.094142h-370.165656v0.142222z m-177.997576 0v-475.022222h118.626262v475.022222H155.707475z m0 0" p-id="3416"></path></svg>
-                        <span class="sm:mr-2 lg:mr-6">{{ answer.likeNum }}</span>
-                        <span class="sm:text-xs">{{ answer.createTime.split('T')[0] }}</span>
+
+                      <div class="flex flex-row items-end justify-end sm:w-2/5 lg:w-1/4 text-[#999999]">
+                        <div class="lg:px-3 sm:px-1 border border-[#DDDDDD] flex flex-row items-center rounded-full space-x-2" @click="clickDiscuss(item.id)">
+                          <img src="~/assets/img/answer.png" alt="">
+                          <span>{{ item.answerEntities.length }}</span>
+                        </div>
+                        <div class=" lg:ml-4 sm:ml-2 flex flex-row items-center border border-[#DDDDDD] rounded-full space-x-2 lg:px-3 sm:px-1" @click="agreeAnswer(answer.id)">
+                          <img src="~/assets/img/disagree.png" alt="">
+                          <span>{{ answer.likeNum }}</span>
+                        </div>
                       </div>
                     </div>
-                    <div v-if="item.answerEntities.length > 2">
+                    <!-- <div v-if="item.answerEntities.length > 2">
                       <div v-if="showMoreId !== item.id" class="w-full text-center sm:text-xs" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
                       <div v-else class="w-full text-center sm:text-xs" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
-                    </div>
+                    </div> -->
+                  </div>
+                  <div v-else class="text-right">
+                    <button class="px-6 border py-1 border-fjBlue-100 text-[16px] rounded-full" @click="addAnswer">立即回答</button>
                   </div>
                   <!-- question Time -->
-                  <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
-                  <div v-else class="text-gray-400 sm:text-xs lg:text-sm">{{ item.createTime.split('T')[0] }}</div>
+                  <!-- <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
+                  <div v-else class="text-gray-400 sm:text-xs lg:text-sm">{{ item.createTime.split('T')[0] }}</div> -->
                 </div>
+              </div>
+              <!-- 立即提问 -->
+              <div class="w-full rounded-lg border border-[#999999] text-center lg:py-4 sm:py-2">
+                <span class="text-[#999999] lg:text-[22px] sm:text-[18px]" @click="addQuestion">立即提问</span>
               </div>
             </div>
             <!-- house around -->
@@ -363,10 +384,6 @@
                   </button>
               </div>
               <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
-              <!-- <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('10')">
-                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
-                <span class="text-[#015EEA] text-[16px] font-medium ml-2">了解配套</span>
-              </div> -->
               <ClueButtonClue :name="'了解配套'" @clickButton="openClue('10')"/>
             </div>
             <!-- house price -->
@@ -684,7 +701,7 @@ export default Vue.extend({
     const opening: boolean = false;
     
 
-    return { activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
+    return { accessToken, tokenType, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile, favorite }
   },
   data () {
@@ -749,7 +766,9 @@ questionTotal, option, phoneNum, isMobile, favorite }
       isMobile,
       option,
       favorite: '',
-      lookTime: 0
+      lookTime: 0,
+      tokenType: '',
+      accessToken: ''
     }
   },
   head() {
@@ -857,6 +876,51 @@ questionTotal, option, phoneNum, isMobile, favorite }
     this.getHouseType();
   },
   methods: {
+    agreeAnswer(id: string) {
+      if (this.accessToken && this.tokenType) {
+        try {
+          this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
+          console.log(id)
+        } catch (error) {
+          
+        } finally {
+          this.$axios.setHeader('Authorization', '')
+        }
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path)
+      }
+    },
+    clickDiscuss(id: string) {
+      this.$router.push('/house/discuss/' + id + '.html')
+    },
+    addAnswer() {
+      if (this.accessToken && this.tokenType) {
+        try {
+          this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
+
+        } catch (error) {
+          
+        } finally {
+          this.$axios.setHeader('Authorization', '')
+        }
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path)
+      }
+    },
+    addQuestion() {
+      if (this.accessToken && this.tokenType) {
+        try {
+          this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
+
+        } catch (error) {
+          
+        } finally {
+          this.$axios.setHeader('Authorization', '')
+        }
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path)
+      }
+    },
     openActivityClue(type: string, id: string) {
       this.activityId = id;
       this.clueType = type;
