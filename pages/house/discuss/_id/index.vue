@@ -5,7 +5,7 @@
     <AppBar :current="'discuss'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="sm:text-xl lg:text-4xl lg:mt-2">{{ question.content }}</div>
     <!-- 左侧推荐楼盘 -->
-    <div class="flex flex-col float-right w-1/3 sm:hidden top-28">
+    <div class="flex flex-col float-right w-1/3 ml-4 sm:hidden top-28">
       <div class="w-full mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -82,7 +82,7 @@
       </div>
     </div>
     <!-- 其它资讯 -->
-    <div class="w-2/3 mt-2 pb-[6px] border-b border-fjBlue-100 pr-2">
+    <div class="w-7/12 mt-2 pb-[6px] border-b border-fjBlue-100 pr-4">
       <span class="border-b-8 border-fjBlue-100">热门问答</span>
     </div>
     <div class="flex flex-row sm:w-full lg:w-2/3 sm:mt-2 lg:mt-4">
