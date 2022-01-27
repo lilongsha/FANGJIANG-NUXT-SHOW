@@ -1,6 +1,7 @@
 export enum Api {
   GetQuestions = '/customer-server/question/getQuestions', // projectId
   GetQuestion = '/customer-server/question/getQuestion', // id
+  Add = '/customer-server/close/question/add',
 }
 
 export async function getQuestions($axios: any, projectId: string, pageSize = 2, pageNum = 0) {

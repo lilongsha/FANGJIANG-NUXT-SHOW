@@ -90,7 +90,9 @@ export default Vue.extend({
       return this.$route.path === '/'
     },
     isHidden() {
-      return this.$route.path.includes('/login');
+      const login = this.$route.path.includes('/login');
+      const search = this.$route.path.includes('pcsearch') 
+      return login || search;
     },
   },
   methods: {
