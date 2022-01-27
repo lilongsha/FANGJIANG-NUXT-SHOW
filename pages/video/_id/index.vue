@@ -1,12 +1,12 @@
 <template>
   <div class="w-full mx-auto sm:pb-4 lg:container">
     <div class="sm:hidden lg:h-24"></div>
-    <AppTitle :house="house" class="-mt-10"/>
+    <AppTitle v-if="house" :house="house" class="-mt-10"/>
     <!-- house menu -->
     <AppBar v-if="house" :current="'video'" :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
     <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
       <div class="lg:w-[70%]">
-        <div class="sm:h-60 lg:h-[580px]">
+        <div id="top" class="sm:h-60 lg:h-[580px]">
           <video class="w-full h-full" :src="videoItem.videoAddress" :poster="videoItem.photoAddress" controls></video>
         </div>
         <div class="mt-4 w-full bg-[#F5F5F5] pb-10 shadow">
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="lg:w-[30%] lg:pl-6">
-        <div v-if="house" id="top" class="shadow p-2 bg-[#F5F5F5]">
+        <div v-if="house" class="shadow p-2 bg-[#F5F5F5]">
           <span class="text-2xl font-bold text-[#333]">相关楼盘</span>
           <a :href="`/house/${house.id}.html`" class="block w-full h-full">
             <div class="flex flex-row w-full mt-2 h-28">
