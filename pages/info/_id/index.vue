@@ -62,8 +62,8 @@
               <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
             </div>
             <div class="flex flex-row items-end justify-between px-2 h-9">
-              <div v-if="item.labels" class="flex flex-row items-end space-x-2">
-                <span v-for="(label, index) in (item.labels.split(','))" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
+              <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="flex flex-row items-end space-x-2">
+                <span v-for="(label, index) in (item.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label.value">{{ label.value }}</span>
               </div>
               <div>
                 <div>
@@ -141,8 +141,8 @@
               <span class="ml-2 overflow-hidden text-gray-400" :title="item.roomAreas">{{ item.roomAreas }}</span>
             </div>
             <div class="flex flex-row items-end justify-between h-9">
-              <div v-if="item.labels" class="flex flex-row items-center">
-                <span v-for="(label, index) in (item.labels.split(','))" v-show="index < 2" :key="index" class="px-0.5 mr-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
+              <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="flex flex-row items-center">
+                <span v-for="(label, index) in (item.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-0.5 mr-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label.value">{{ label.value }}</span>
               </div>
               <div>
                 <div>

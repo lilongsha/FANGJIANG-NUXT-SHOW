@@ -118,8 +118,8 @@
               </div>
             </div>
             <div class="flex flex-row items-end justify-between px-2 h-9">
-              <div v-if="house.labels" class="flex flex-row items-end space-x-2">
-                <span v-for="(label, index) in (house.labels.split(','))" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label }}</span>
+              <div v-if="house.sysDictDetailBeans && house.sysDictDetailBeans.length > 0" class="flex flex-row items-end space-x-2">
+                <span v-for="(label, index) in (house.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label.value">{{ label.value }}</span>
               </div>
               <div>
                 <div>

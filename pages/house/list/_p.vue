@@ -757,8 +757,8 @@
                         <span v-else class="text-xs">暂无数据</span>
                       </div>
                     </div>
-                    <div v-if="item.labels" class="lg:mt-4">
-                      <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="sm:text-[12px] lg:text-[14px] rounded sm:px-1 lg:px-2 lg:py-1 sm:mr-1 lg:mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
+                    <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="lg:mt-4">
+                      <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="sm:text-[12px] lg:text-[14px] rounded sm:px-1 lg:px-2 lg:py-1 sm:mr-1 lg:mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
                     </div>
                   </div>
                   <div class="sm:w-0 sm:overflow-hidden sm:hidden lg:w-2/5 text-[14px] text-right">

@@ -94,8 +94,8 @@
                 <span v-else class="text-[14px]">暂无数据</span>
               </div>
             </div>
-            <div v-if="item.labels" class="flex flex-row items-center space-x-2 lg:mt-2">
-              <span v-for="(item1, index) in item.labels.split(',')" :key="index" class="text-[12px] rounded px-1 lg:py-1 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1 }}</span>
+            <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="flex flex-row items-center space-x-2 lg:mt-2">
+              <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="text-[12px] rounded px-1 lg:py-1 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
             </div>
             <div class="lg:mt-2">
               <a :href="`tel:${phoneNum},${item.number}%23`">

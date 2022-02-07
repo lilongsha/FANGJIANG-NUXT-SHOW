@@ -11,7 +11,8 @@
             <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" class=" sm:mr-0.5 lg:mr-1" />
             <HouseTypeLabel :sort="house.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
             <span class="sm:ml-2 lg:ml-4"></span>
-            <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
+            <span v-if="house.sysDictDetailBeans && house.sysDictDetailBeans.length > 0"><span v-for="(item, index) in house.sysDictDetailBeans" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item.value }}</span></span>
+            
           </div>
         </div>
         <div class="text-right">

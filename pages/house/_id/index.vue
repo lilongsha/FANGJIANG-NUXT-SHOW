@@ -132,8 +132,8 @@
             <HouseStateLabel :state="house.saleState" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm'" />
             <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100 h-[15px]'" />
           </div>
-          <div class="w-full space-x-1">
-            <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item }}</span>
+          <div v-if="house.sysDictDetailBeans && house.sysDictDetailBeans.length > 0" class="w-full space-x-1">
+            <span v-for="(item, index) in house.sysDictDetailBeans" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item.value }}</span>
           </div>
           <div class="flex flex-row items-center w-full mt-2 text-[16px]">
             <span>参考价格：</span>
@@ -228,9 +228,9 @@
                         <span class="sm:w-full lg:w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
                         <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap" style="overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{ item.description }}</span>
                       </div>
-                      <div v-if="item.labels" class="flex flex-row w-full mt-2 sm:space-x-1 lg:space-x-2">
-                        <span v-for="(label, index1) in item.labels.split(',')" v-show="index1 < 3" :key="index1" class="whitespace-nowrap sm:px-1 lg:px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
-                          {{ label }}
+                      <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="flex flex-row w-full mt-2 sm:space-x-1 lg:space-x-2">
+                        <span v-for="(label, index1) in item.sysDictDetailBeans" v-show="index1 < 3" :key="index1" class="whitespace-nowrap sm:px-1 lg:px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
+                          {{ label.value }}
                         </span>
                       </div>
                     </div>
@@ -321,7 +321,7 @@
               </div>
               <!-- content -->
               <div class="w-full m2-8">
-                <div v-for="(item,index) in questionList" :key="index" class="w-full mb-4 border-b border-gray-300 border-dashed">
+                <div v-for="(item,index) in questionList" :key="index" class="w-full mb-4">
                   <!-- question Title -->
                   <div class="flex items-center w-full mb-4">
                     <span class="bg-[#DA1111] px-1 py-1 text-[14px] rounded mr-2 text-white">问</span>
@@ -360,7 +360,7 @@
                     </div> -->
                   </div>
                   <div v-else class="text-right">
-                    <button class="px-6 border py-1 border-fjBlue-100 text-[16px] rounded-full" @click="addAnswer">立即回答</button>
+                    <button class="px-8 border py-1 border-fjBlue-100 text-fjBlue-100 text-[16px] rounded-full" @click="addAnswer">立即回答</button>
                   </div>
                   <!-- question Time -->
                   <!-- <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
