@@ -97,10 +97,14 @@ import * as Cookies from 'js-cookie';
 import { message } from 'ant-design-vue';
 import { Api } from '~/api/user/userApi';
 import {encrypt} from '~/utils/crypto/cryptojs';
+import { Breadcrumb } from '~/types/app';
 
 export default Vue.extend({
   name:'Login',
-  async asyncData({ $axios, route }) {
+  async asyncData({ $axios, route, store }) {
+    const breadcrumb: Breadcrumb[] = [];
+    breadcrumb.splice(0)
+    store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
     const path = route.query?.redirect || '';
     const codeResult = await $axios.$post(Api.getCode);
     let keyCode;
