@@ -58,7 +58,6 @@ export default Vue.extend({
         // if (path === '/house/list') {
         //   path = path + 'p1'
         // }
-        console.log('path', path)
         this.$router.push('/login?redirect=' + path)
         
       },

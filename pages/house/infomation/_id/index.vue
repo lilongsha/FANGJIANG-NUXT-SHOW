@@ -1,19 +1,6 @@
 <template>
   <div class="mx-auto sm:w-full sm:px-2 lg:container">
     <div class="w-full sm:h-12 lg:h-20"></div>
-    <!-- <div class="w-full h-24 px-4">
-      
-      <div class="w-full sm:flex sm:flex-col">
-        <a :href="`/house/${house.id}.html`" style="color: inherit" class="font-bold sm:text-xl lg:text-3xl">{{ house.name }}</a>
-        <span v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</span>
-      </div>
-      <div class="flex flex-row items-center sm:mt-2 lg:mt-4">
-        <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" class=" sm:mr-0.5 lg:mr-1" />
-        <HouseTypeLabel :sort="house.type" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></HouseTypeLabel>
-        <span class="sm:ml-2 lg:ml-4"></span>
-        <span v-for="(item, index) in house.labels.split(',')" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs sm:mr-0.5 lg:mr-1">{{ item }}</span>
-      </div>
-    </div> -->
     <AppTitle :house="house"  :favorite="favorite" class="mb-4" />
     <AppBar :current="'infomation'" :house="house" :class-name="'mb-2 menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">
