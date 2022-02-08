@@ -348,16 +348,18 @@
                           <img src="~/assets/img/answer.png" alt="">
                           <span>{{ item.answerEntities.length }}</span>
                         </div>
-                        <div class=" lg:ml-4 sm:ml-2 flex flex-row items-center border border-[#DDDDDD] rounded-full space-x-2 lg:px-3 sm:px-1" @click="agreeAnswer(answer.id)">
-                          <img src="~/assets/img/disagree.png" alt="">
-                          <span>{{ answer.likeNum }}</span>
+                        <div class=" lg:ml-4 sm:ml-2 flex flex-row items-center border border-[#DDDDDD] rounded-full space-x-2 lg:px-3 sm:px-1" @click="agreeAnswer(answer.id)"> 
+                          <img v-if="agree.includes(answer.id)" src="~/assets/img/agree.png" alt="">
+                          <img v-else src="~/assets/img/disagree.png" alt="">
+                          <span v-if="agree.includes(answer.id)">{{ answer.likeNum + 1 }}</span>
+                          <span v-else>{{ answer.likeNum }}</span>
                         </div>
                       </div>
                     </div>
-                    <!-- <div v-if="item.answerEntities.length > 2">
+                    <div v-if="item.answerEntities.length > 2">
                       <div v-if="showMoreId !== item.id" class="w-full text-center sm:text-xs" @click="showMore(item.id)">展开更多({{ item.answerEntities.length }})</div>
                       <div v-else class="w-full text-center sm:text-xs" @click="showMore('')">合并更多({{ item.answerEntities.length }})</div>
-                    </div> -->
+                    </div>
                   </div>
                   <div v-else class="text-right">
                     <button class="px-8 border py-1 border-fjBlue-100 text-fjBlue-100 text-[16px] rounded-full" @click="addAnswer">立即回答</button>
@@ -449,6 +451,7 @@ import LineEchart from '~/components/echart/LineEchart.vue'
 import RecomendHouse from '~/components/house/RecomendHouse.vue'
 import { Breadcrumb } from '~/types/app';
 import { ActivityApi, ActivityModel } from '~/api/clue/activity';
+import { AnswerApi } from '~/api/user/userApi';
 const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfo',
@@ -661,8 +664,9 @@ export default Vue.extend({
     try {
       if (tokenType && accessToken) {
         $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+      } else {
+        $axios.setHeader('Authorization', '')
       }
-      $axios.setHeader('Authorization', '')
       result = await $axios.$post(HouseApi.GetProject, param)
       if (result.code === 200) {
         favorite = result.data?.favorite
@@ -768,7 +772,8 @@ questionTotal, option, phoneNum, isMobile, favorite }
       favorite: '',
       lookTime: 0,
       tokenType: '',
-      accessToken: ''
+      accessToken: '',
+      agree: ['']
     }
   },
   head() {
@@ -876,11 +881,22 @@ questionTotal, option, phoneNum, isMobile, favorite }
     this.getHouseType();
   },
   methods: {
-    agreeAnswer(id: string) {
+    async agreeAnswer(id: string) {
       if (this.accessToken && this.tokenType) {
+        if (this.agree.includes(id)) {
+          return
+        }
         try {
           this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
-          console.log(id)
+          const param = {
+            data: {
+              id,
+            }
+          }
+          const result = await this.$axios.$post(AnswerApi.Agree, param)
+          if (result.code === 200) {
+            this.agree.push(id)
+          }
         } catch (error) {
           
         } finally {
