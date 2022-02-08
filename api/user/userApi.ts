@@ -22,6 +22,13 @@ export enum CurrentApi {
     AddFavoriteProject = '/customer-server/project/addFavoriteProject', // projectId
 }
 
+export enum AnswerApi {
+    Agree = '/customer-server/close/answer/agree', // id
+    Add = '/customer-server/close/answer/add',
+    update = '/customer-server/close/answer/update',
+    myAnswer = '/customer-server/close/answer/myAnswer'
+}
+
 export async function refreshToken ($axios: any, refreshParam: any) {
     $axios.setHeader('Authorization', 'Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==')
     const param = {
