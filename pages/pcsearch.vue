@@ -1,11 +1,12 @@
 <template>
   <div class="w-full h-full sm:hidden pb-20">
+    <div class="h-10"></div>
     <div class="flex flex-row items-center justify-center w-full py-16 bg-fjBlue-100 bg-opacity-10">
       <div class="w-[900px]">
         <div class="flex flex-row items-center justify-between px-6">
           <span class="text-[22px]" :class="type === '1' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('1')">全网搜索</span>
           <span class="text-[22px]" :class="type === '2' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('2')">新房</span>
-          <span class="text-[22px]" :class="type === '3' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('3')">二手房</span>
+          <!-- <span class="text-[22px]" :class="type === '3' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('3')">二手房</span> -->
           <span class="text-[22px]" :class="type === '4' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('4')">资讯</span>
           <span class="text-[22px]" :class="type === '5' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('5')">视频</span>
           <span class="text-[14px] text-[#333333]">大家都在搜:
@@ -16,10 +17,10 @@
           <input v-model="search" class="rounded-l-[4px] w-4/5 h-full border shadow border-fjBlue-100 text-[24px] px-4" type="text">
           <button class="rounded ml-[-6px] w-1/5 h-full text-white border border-fjBlue-100 bg-fjBlue-100 text-[20px]" @click="clickSearch">搜索</button>
           <div v-show="type === '1'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[56px]"></div>
-          <div v-show="type === '2'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[192px]"></div>
+          <div v-show="type === '2'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[220px]"></div>
           <div v-show="type === '3'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[300px]"></div>
-          <div v-show="type === '4'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[420px]"></div>
-          <div v-show="type === '5'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[532px]"></div>
+          <div v-show="type === '4'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[356px]"></div>
+          <div v-show="type === '5'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[500px]"></div>
         </div>
       </div>
     </div>
@@ -200,14 +201,14 @@
         </div>
         <div class="w-1/3 bg-coolGray-100 pt-[24px] px-8 pb-10 ml-4">
           <!-- 品牌商 -->
-          <div v-if="brands && brands.length > 0" class="">
+          <!-- <div v-if="brands && brands.length > 0" class="">
             <div class="w-full border-b border-b-[#999999]">
               <div class="w-[100px] text-left py-2 text-[#333333] text-[24px] border-b-4 border-b-fjBlue-100">品牌馆</div>
             </div>
             <div class="py-8">
               <img v-for="item in brands" :key="item.id" src="" alt="" class="w-full h-[194px]" @click="clickBrand(item.id)">
             </div>
-          </div>
+          </div> -->
           <!-- 第一个视频 -->
           <div v-if="videos[0]" class="mb-8">
             <div class="w-full border-b border-b-[#999999]">

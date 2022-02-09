@@ -9,7 +9,7 @@ if (!dev) {
   scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
   baseURL = 'https://api.fangjiang.com/';
 }
-baseURL = 'https://api.fangjiang.com/';
+// baseURL = 'https://api.fangjiang.com/';
 export default {
   hooks: {
     'render:route': (_url, result) => {
