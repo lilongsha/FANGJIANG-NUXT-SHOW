@@ -45,6 +45,7 @@ export const actions = {
     let nickName;
     let avatar;
     let userId;
+    let userName;
     const cookie = ' ' + context.req.headers.cookie
     const arr = cookie.split(';')
     if (arr && arr.length > 0) {
@@ -66,6 +67,9 @@ export const actions = {
         if(i[0] === ' UserId') {
           userId = i[1]
         }
+        if(i[0] === ' UserName') {
+          userName = i[1]
+        }
       })
     }
     await store.commit('app/PROVINCE_SET', '河北省')
@@ -73,6 +77,7 @@ export const actions = {
     await store.commit('app/CITY_SET', '石家庄市')
     await store.commit('app/CITY_ID_SET', '130100')
     await store.commit('app/UserId', userId)
+    await store.commit('app/UserName', userName)
     await store.commit('app/NickName', nickName)
     await store.commit('app/Avatar', avatar)
     await store.commit('app/AccessToken', accessToken)

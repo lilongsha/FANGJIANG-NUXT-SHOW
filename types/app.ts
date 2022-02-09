@@ -24,6 +24,7 @@ export interface AppState {
   title: string;
   url: string;
   userId: string;
+  userName: string;
   accessToken?: string,
   expiresIn?: string,
   refreshToken?: string,

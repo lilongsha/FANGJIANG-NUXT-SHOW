@@ -198,6 +198,7 @@ export default Vue.extend({
           if (s.code === 200) {
             const userInfo = s.data.content;
             await store.commit('app/UserId', userInfo.id)
+            await store.commit('app/UserName', userInfo.userName)
             await store.commit('app/Avatar', userInfo.avatar)
             await store.commit('app/NickName', userInfo.nickName)
             if (this.checked) {
@@ -327,6 +328,7 @@ export default Vue.extend({
             // Cookies.set('User', user)
             const userInfo = s.data.content;
             await store.commit('app/UserId', userInfo.id)
+            await store.commit('app/UserName', userInfo.userName)
             await store.commit('app/Avatar', userInfo.avatar)
             await store.commit('app/NickName', userInfo.nickName)
             if (this.checked) {

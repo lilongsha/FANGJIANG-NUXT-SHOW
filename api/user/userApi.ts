@@ -26,7 +26,11 @@ export enum AnswerApi {
     Agree = '/customer-server/close/answer/agree', // id
     Add = '/customer-server/close/answer/add',
     update = '/customer-server/close/answer/update',
-    myAnswer = '/customer-server/close/answer/myAnswer'
+    myAnswer = '/customer-server/close/answer/myAnswer',
+    GetAnswers = '/customer-server/answer/getAnswers', // questionId
+}
+export enum QuestionApi {
+    Add = '/customer-server/close/question/add'
 }
 
 export async function refreshToken ($axios: any, refreshParam: any) {

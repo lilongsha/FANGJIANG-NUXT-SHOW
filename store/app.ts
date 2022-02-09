@@ -14,6 +14,7 @@ const state = ():AppState =>({
   title: '',
   url: '',
   userId: '',
+  userName: '',
   accessToken: '',
   expiresIn: '',
   refreshToken: '',
@@ -36,6 +37,9 @@ const back = ():LoginBack => ({
 const mutations = {
   UserId(state: AppState, userId: string):void {
     state.userId = userId;
+  },
+  UserName(state: AppState, userName: string):void {
+    state.userName = userName;
   },
   NickName(state: AppState, nickName: string):void {
     state.nickName = nickName;
