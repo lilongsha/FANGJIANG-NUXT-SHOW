@@ -362,7 +362,7 @@
                     </div>
                   </div>
                   <div v-else class="text-right">
-                    <button class="px-8 border py-1 border-fjBlue-100 text-fjBlue-100 text-[16px] rounded-full" @click="addAnswer">立即回答</button>
+                    <button class="px-8 border py-1 border-fjBlue-100 text-fjBlue-100 text-[16px] rounded-full" @click="addAnswer(item.id)">立即回答</button>
                   </div>
                   <!-- question Time -->
                   <!-- <div v-if="item.updateBy" class="text-gray-400 sm:text-xs lg:text-sm">{{ item.updateTime.split('T')[0] }}</div>
@@ -370,8 +370,8 @@
                 </div>
               </div>
               <!-- 立即提问 -->
-              <div class="w-full rounded-lg border border-[#999999] text-center lg:py-4 sm:py-2">
-                <span class="text-[#999999] lg:text-[22px] sm:text-[18px]" @click="addQuestion">立即提问</span>
+              <div class="w-full rounded-lg border border-[#999999] text-center lg:py-4 sm:py-2" @click="addQuestion">
+                <button class="text-[#999999] lg:text-[22px] sm:text-[18px]">立即提问</button>
               </div>
             </div>
             <!-- house around -->
@@ -909,30 +909,16 @@ questionTotal, option, phoneNum, isMobile, favorite }
     clickDiscuss(id: string) {
       this.$router.push('/house/discuss/' + id + '.html')
     },
-    addAnswer() {
+    addAnswer(id: string) {
       if (this.accessToken && this.tokenType) {
-        try {
-          this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
-
-        } catch (error) {
-          
-        } finally {
-          this.$axios.setHeader('Authorization', '')
-        }
+        this.$router.push('/house/discuss/'+ id + '.html')
       } else {
         this.$router.push('/login?redirect=' + this.$route.path)
       }
     },
     addQuestion() {
       if (this.accessToken && this.tokenType) {
-        try {
-          this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
-
-        } catch (error) {
-          
-        } finally {
-          this.$axios.setHeader('Authorization', '')
-        }
+        this.$router.push('/house/discuss/' + this.id + '/p1')
       } else {
         this.$router.push('/login?redirect=' + this.$route.path)
       }

@@ -10,6 +10,7 @@
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
           <!-- 标题内容 -->
           <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100">{{ project.name }}问答</div>
+          <button class="lg:py-2 sm:py-1 lg:px-6 sm:px-4 text-white bg-fjBlue-100 rounded-[4px] lg:text-[16px] sm:text-[14px] lg:mb-4 sm:mb-1" @click="clickAdd">我要提问</button>
         </div>
         <!-- content -->
         <div class="w-full mt-8">
@@ -66,6 +67,7 @@
         />
       </div>
     </div>
+    <QuestionAddQuestion v-show="isShow" :project-id="project.id" @clickClose="clickClose" />
   </div>
 </template>
 
@@ -175,6 +177,7 @@ export default Vue.extend({
       showMoreId,
       isMobile,
       project,
+      isShow: false,
     }
   },
   head() {
@@ -280,6 +283,12 @@ export default Vue.extend({
       }
       
       return originalElement;
+    },
+    clickAdd() {
+      this.isShow = true;
+    },
+    clickClose() {
+      this.isShow = false;
     }
   }
 })
