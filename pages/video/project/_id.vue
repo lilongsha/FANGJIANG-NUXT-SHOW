@@ -240,7 +240,7 @@ export default Vue.extend({
 }
 
 .content .item {
-  @apply sm:w-full sm:h-48 lg:w-[298px] lg:h-[215px];
+  @apply sm:w-full sm:h-48 lg:w-[298px] lg:h-[215px] lg:mb-4;
 }
 
 .content .item a {
