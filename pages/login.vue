@@ -250,6 +250,7 @@ export default Vue.extend({
       if (codeResult.code === 200) {
         this.keyCode = codeResult.data.key;
         this.img = codeResult.data.codeUrl;
+        this.codeResult.data.key = codeResult.data.key;
       }
     },
     async post() {
