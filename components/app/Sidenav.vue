@@ -1,6 +1,6 @@
 <template>
 <div v-if="!isHidden" class="">
-  <div :class="getIsHome? 'bg-index-menu': 'bg-white'" class="fixed flex flex-row w-full h-20 z-[60] sm:hidden">
+  <div :class="(getIsHome? 'bg-index-menu ': 'bg-white ') + (getIsUserInfo? 'bg-[#F5F5F5] ' : ' ')" class="fixed flex flex-row w-full h-20 z-[60] sm:hidden">
     <!-- <div class="">
       <sidenav-left />
     </div> -->
@@ -88,6 +88,9 @@ export default Vue.extend({
     },
     getIsHome() {
       return this.$route.path === '/'
+    },
+    getIsUserInfo() {
+      return this.$route.path.includes('/userInfo')
     },
     isHidden() {
       const login = this.$route.path.includes('/login');

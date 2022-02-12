@@ -26,9 +26,9 @@
       </svg>
     </div>
     <div v-show="isShow" class="absolute z-[60] w-[120px] flex flex-col px-2 py-1 bg-white top-14 right-4 shadow-lg rounded" @mouseleave="noAction">
-      <button class="hover:text-fjBlue-100 border-b border-b-[#F5F5F5] text-[#333333] text-[16px] px-2 py-2 font-medium">个人信息</button>
-      <button class="hover:text-fjBlue-100 border-b border-b-[#F5F5F5] text-[#333333] text-[16px] px-2 py-2 font-medium">浏览记录</button>
-      <button class="hover:text-fjBlue-100 border-b border-b-[#F5F5F5] text-[#333333] text-[16px] px-2 py-2 font-medium">我的收藏</button>
+      <button class="hover:text-fjBlue-100 border-b border-b-[#F5F5F5] text-[#333333] text-[16px] px-2 py-2 font-medium" @click="clickUser('1')">个人信息</button>
+      <button class="hover:text-fjBlue-100 border-b border-b-[#F5F5F5] text-[#333333] text-[16px] px-2 py-2 font-medium" @click="clickUser('4')">我的问答</button>
+      <button class="hover:text-fjBlue-100 border-b border-b-[#F5F5F5] text-[#333333] text-[16px] px-2 py-2 font-medium" @click="clickUser('3')">我的收藏</button>
       <button class="hover:text-fjBlue-100 text-[#333333] text-[16px] px-2 py-2 font-normal" @click="loginOut">退出登录</button>
     </div>
   </div>
@@ -52,6 +52,9 @@ export default Vue.extend({
       }
     },
     methods: {
+      clickUser(type) {
+        this.$router.push('/userInfo?redirect=' + type)
+      },
       clickLogin() {
         const path = this.$route.path;
         
@@ -94,7 +97,12 @@ export default Vue.extend({
         await this.$store.commit('app/UserId', '')
         await this.$store.commit('app/Avatar', '')
         await this.$store.commit('app/NickName', '')
-        this.$router.go(0)
+        if (this.$route.path.includes('/userInfo')) {
+          this.$router.push('/')
+        } else {
+          this.$router.go(0)
+        }
+        this.userId = ''
         message.success({ content: '退出成功', duration: 3 })
       }
     }

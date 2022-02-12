@@ -14,6 +14,8 @@ export enum Api {
     GetCurInfo = '/customer-server/customer/getCurInfo',
     UpdateInfo = '/customer-server/customer/updateInfo',
     ForgetPwd = '/customer-server/customer/forgetPwd',
+    UploadAvatar = '/customer-server/file/uploadAvatar',
+    Update = '/customer-server/customer/update', // 修改密码
 }
 
 export enum CurrentApi {
@@ -30,7 +32,8 @@ export enum AnswerApi {
     GetAnswers = '/customer-server/answer/getAnswers', // questionId
 }
 export enum QuestionApi {
-    Add = '/customer-server/close/question/add'
+    Add = '/customer-server/close/question/add',
+    MyQuestion = '/customer-server/close/question/myQuestion',
 }
 
 export async function refreshToken ($axios: any, refreshParam: any) {
@@ -45,4 +48,15 @@ export async function refreshToken ($axios: any, refreshParam: any) {
     const result = await $axios.$post(Api.PostRefreshToken, param)
     $axios.setHeader('Authorization', '')
     return result
+}
+
+export async function uploadUserImg($axios: any, formData: any) {
+      const result = await $axios.$post(
+        {
+          url: Api.UploadAvatar,
+          data: formData,
+          config: { headers: { 'Content-Type': 'multipart/form-data;charset=UTF-8' } },
+        },
+      );
+      return result;
 }

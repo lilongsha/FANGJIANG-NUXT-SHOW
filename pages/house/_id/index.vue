@@ -671,7 +671,7 @@ export default Vue.extend({
       if (result.code === 200) {
         favorite = result.data?.favorite
         house = getDataResult(result);
-        lookTime = house.lookTime
+        lookTime = house?.lookTime
         const breadcrumb: Breadcrumb[] = [];
         breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
         breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
