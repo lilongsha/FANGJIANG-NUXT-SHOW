@@ -703,6 +703,9 @@ export default Vue.extend({
       return ''
     },
     async clickPass() {
+      if (!this.test(this.newPassword)) {
+        message.info({ content: '密码格式不对。密码要数字加大写字母，共8位', duration: 3 })
+      }else 
       if (this.oldPassword && this.newPassword && this.passwordOk && (this.passwordOk === this.newPassword)) {
         const old = encrypt(this.oldPassword)
         const newP = encrypt(this.newPassword);
@@ -720,7 +723,7 @@ export default Vue.extend({
             message.success({ content: '修改密码成功', duration: 3 })
           } 
         } catch (error) {
-          message.error({ content: '密码要字母加数据，共8位', duration: 3 })
+          message.error({ content: '密码错误，或者新密码格式不对。密码格式不对。密码要数字加大写字母，共8位', duration: 3 })
         } finally {
           this.$axios.setHeader('Authorization', '')
         }
@@ -730,6 +733,10 @@ export default Vue.extend({
       } else {
         message.info({ content: '请正确填写信息', duration: 3 })
       }
+    },
+    test(a: string) {
+      const s = /(?!^\d+$)(?!^[a-zA-Z]+$)^[0-9A-Z]{8}$/
+      return s.test(a)
     },
     customRequest(options: any) {
       const formData = new FormData();
