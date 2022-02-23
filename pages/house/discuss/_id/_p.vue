@@ -285,7 +285,14 @@ export default Vue.extend({
       return originalElement;
     },
     clickAdd() {
-      this.isShow = true;
+      const accessToken = this.$store.state.app.accessToken;
+      const tokenType = this.$store.state.app.tokenType
+      if (accessToken && tokenType) {
+        this.isShow = true;
+      } else {
+        this.$router.push('/login?redirect=' + this.$route.path)
+      }
+      
     },
     clickClose() {
       this.isShow = false;

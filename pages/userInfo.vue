@@ -1,5 +1,5 @@
 <template>
-<div class="w-full h-full"> 
+<div class="w-full h-full sm:hidden"> 
   <div class="w-full h-screen fixed z-[-1] bg-[#F5F5F5]"></div>
   <div class="sm:w-full lg:mx-auto lg:container ">
     <div class="lg:h-20"></div>
@@ -704,7 +704,7 @@ export default Vue.extend({
     },
     async clickPass() {
       if (!this.test(this.newPassword)) {
-        message.info({ content: '密码格式不对。密码要数字加大写字母，共8位', duration: 3 })
+        message.info({ content: '密码格式不对。密码要数字加一位大写和一位小写字母，共8位', duration: 3 })
       }else 
       if (this.oldPassword && this.newPassword && this.passwordOk && (this.passwordOk === this.newPassword)) {
         const old = encrypt(this.oldPassword)
@@ -723,7 +723,7 @@ export default Vue.extend({
             message.success({ content: '修改密码成功', duration: 3 })
           } 
         } catch (error) {
-          message.error({ content: '密码错误，或者新密码格式不对。密码格式不对。密码要数字加大写字母，共8位', duration: 3 })
+          message.error({ content: '密码错误，或密码格式错误.数字加两位位字母，一位大写，共八位', duration: 3 })
         } finally {
           this.$axios.setHeader('Authorization', '')
         }
@@ -735,7 +735,7 @@ export default Vue.extend({
       }
     },
     test(a: string) {
-      const s = /(?!^\d+$)(?!^[a-zA-Z]+$)^[0-9A-Z]{8}$/
+      const s = /(?!^\d+$)(?!^[a-zA-Z]+$)^[0-9A-Za-z]{8}$/
       return s.test(a)
     },
     customRequest(options: any) {

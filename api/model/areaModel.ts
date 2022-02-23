@@ -17,7 +17,8 @@ export enum Api {
 export enum LocationApi {
   GetAllProvinces = '/sys-server/province/getAllProvinces',
   GetAllCitiesByProvinceId = '/sys-server/city/getAllCitiesByProvinceId',
-  GetAllAreasByCityId = '/sys-server/area/getAllAreasByCityId'
+  GetAllAreasByCityId = '/sys-server/area/getAllAreasByCityId',
+  GetCityById = '/sys-server/city/getCityById',
 }
 
 // SYS_AREA_MISS_ID(4013, "区级参数错误：编号"),
