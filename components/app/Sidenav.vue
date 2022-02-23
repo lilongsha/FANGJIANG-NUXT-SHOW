@@ -94,9 +94,9 @@ export default Vue.extend({
     },
     isHidden() {
       const login = this.$route.path.includes('/login');
-      // const search = this.$route.path.includes('/pcsearch') 
+      const phoneInfo = this.$route.path.includes('/PhoneUserInfo') 
       const brand = this.$route.path.includes('/brand') 
-      return login || brand;
+      return login || brand || phoneInfo;
     },
   },
   methods: {
