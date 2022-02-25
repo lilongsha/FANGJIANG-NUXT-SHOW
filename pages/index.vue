@@ -285,10 +285,11 @@
           <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full" @mouseover="selectRecommendKey = item.id">
           <div v-show="selectRecommendKey === item.id" class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
-            <div>
+            <div v-if="item.price">
               <span class="text-fjRed-100 ">{{ item.price }}</span>
               <span class="text-sm">元/㎡</span>
             </div>
+            <div v-else>暂无数据</div>
           </div>
           <div class="w-3/5 h-full px-2 lg:hidden">
             <!-- 标题 -->
@@ -407,10 +408,11 @@
                 <span v-for="(label, index) in (item.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label">{{ label.value }}</span>
               </div>
               <div>
-                <div>
+                <div v-if="item.price">
                   <span class="text-2xl font-bold text-fjRed-100">{{ item.price }}</span>
                   <span class="text-xs text-gray-400">元/㎡</span>
                 </div>
+                <div v-else class="text-xs text-gray-400">暂无数据</div>
               </div>
             </div>
           </div>

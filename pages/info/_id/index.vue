@@ -66,10 +66,11 @@
                 <span v-for="(label, index) in (item.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label.value">{{ label.value }}</span>
               </div>
               <div>
-                <div>
+                <div v-if="item.price">
                   <span class="text-2xl font-bold text-fjRed-100">{{ item.price }}</span>
                   <span class="text-xs text-gray-400">元/㎡</span>
                 </div>
+                <div v-else class="text-xs text-gray-400">暂无价格</div>
               </div>
             </div>
           </a>
@@ -145,10 +146,11 @@
                 <span v-for="(label, index) in (item.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-0.5 mr-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label.value">{{ label.value }}</span>
               </div>
               <div>
-                <div>
+                <div v-if="item.price">
                   <span class="text-lg font-bold text-fjRed-100">{{ item.price }}</span>
                   <span class="text-xs text-gray-400">元/㎡</span>
                 </div>
+                <div v-else class="text-xs text-gray-400">暂无数据</div>
               </div>
             </div>
           </a>

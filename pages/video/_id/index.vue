@@ -122,10 +122,11 @@
                 <span v-for="(label, index) in (house.sysDictDetailBeans)" v-show="index < 2" :key="index" class="px-1 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap" :title="label.value">{{ label.value }}</span>
               </div>
               <div>
-                <div>
+                <div v-if="house.price">
                   <span class="text-2xl font-bold text-fjRed-100">{{ house.price }}</span>
                   <span class="text-xs text-gray-400">元/㎡</span>
                 </div>
+                <div v-else class="text-xs text-gray-400">暂无价格</div>
               </div>
             </div>
           </a>
