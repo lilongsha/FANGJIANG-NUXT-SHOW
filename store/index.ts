@@ -46,6 +46,7 @@ export const actions = {
     let avatar;
     let userId;
     let userName;
+    let gender;
     const cookie = ' ' + context.req.headers.cookie
     const arr = cookie.split(';')
     if (arr && arr.length > 0) {
@@ -70,6 +71,9 @@ export const actions = {
         if(i[0] === ' UserName') {
           userName = i[1]
         }
+        if(i[0] === ' Gender') {
+          gender = i[1]
+        }
       })
     }
     await store.commit('app/PROVINCE_SET', '河北省')
@@ -82,6 +86,7 @@ export const actions = {
     await store.commit('app/Avatar', avatar)
     await store.commit('app/AccessToken', accessToken)
     await store.commit('app/TokenType', tokenType)
+    await store.commit('app/Gender', gender)
     const hotProjectParam: any = {
       data: {
         cityId: store.state.app.cityId
@@ -188,6 +193,9 @@ export const actions = {
         await store.commit('app/TITLE_SET', '视频')
         await store.commit('app/URL_SET', '')
         break;
+      default:
+        await store.commit('app/BREADCRUMB_RE_SET')
+        await store.commit('app/URL_SET', '')
     }
   }
 }

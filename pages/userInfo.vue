@@ -34,11 +34,11 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-y-8 justify-items-start">
               <div class="flex flex-col  lg:space-y-4 sm:space-y-2 text-[#666666] text-[18px]">
                 <div>昵称</div>
-                <div><input v-model="nickName" class="smallIn" type="text"></div>
+                <div><input v-model="nickName" class="smallIn" type="text" autocomplete="off"></div>
               </div>
               <div class="flex flex-col place-self-end  lg:space-y-4 sm:space-y-2 text-[#666666] text-[18px]">
                 <div>真实姓名</div>
-                <div><input v-model="realName" class="smallIn" type="text"></div>
+                <div><input v-model="realName" class="smallIn" type="text" autocomplete="off"></div>
               </div>
               <div class="flex flex-col lg:space-y-4 sm:space-y-2 text-[#666666] text-[18px]">
                 <div>性别</div>
@@ -114,15 +114,15 @@
           <div class="grid grid-cols-1 lg:gap-y-8 justify-items-start sm:gap-y-4">
             <div class="flex flex-col  lg:space-y-4 sm:space-y-2 text-[#666666] text-[18px]">
               <div>旧密码</div>
-              <div><input v-model="oldPassword" type="password" class="smallIn placeholder-[#999999]" placeholder="请输入旧密码"></div>
+              <div><input v-model="oldPassword" autocomplete="off" type="password" class="smallIn placeholder-[#999999]" placeholder="请输入旧密码"></div>
             </div>
             <div class="flex flex-col  lg:space-y-4 sm:space-y-2 text-[#666666] text-[18px]">
               <div>新密码</div>
-              <div><input v-model="newPassword" type="password" class="smallIn placeholder-[#999999]" placeholder="请输入新密码"></div>
+              <div><input v-model="newPassword" autocomplete="off" type="password" class="smallIn placeholder-[#999999]" placeholder="请输入新密码"></div>
             </div>
             <div class="flex flex-col  lg:space-y-4 sm:space-y-2 text-[#666666] text-[18px]">
               <div>确认新密码</div>
-              <div><input v-model="passwordOk" type="password" class="smallIn placeholder-[#999999]" placeholder="确认输入的新密码"></div>
+              <div><input v-model="passwordOk" autocomplete="off" type="password" class="smallIn placeholder-[#999999]" placeholder="确认输入的新密码"></div>
             </div>
             <div class="text-center lg:w-[180px] lg:h-[50px] bg-fjBlue-100 text-white lg:text-[22px] rounded-md sm:h-[30px] sm:w-[90px]" >
               <button class="w-full h-full" @click="clickPass">保存</button>
@@ -262,7 +262,7 @@
                 <div v-for="answer in item.answerEntities" :key="answer.id" class="lg:mt-8 lg:pb-10 border-b border-b-[#DDDDDD] w-full flex flex-row">
                   <div class="overflow-hidden w-3/4">
                     <div class="flex flex-row items-center lg:space-x-6 sm:space-x-2">
-                      <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full">
+                      <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full flex-shrink-0">
                       <div class="lg:space-y-3 sm:space-y-1">
                         <div class="sm:text-xs text-[#666666] text-[20px]">{{ answer.author }}</div>
                         <div class="sm:text-xs text-[#666666] text-[18px]">{{ answer.content }}</div>
@@ -298,6 +298,7 @@ import Vue from 'vue'
 // @ts-ignore
 import * as Cookies from 'js-cookie';
 import { message, Select, Upload } from 'ant-design-vue';
+import moment from 'moment';
 import { AnswerApi, Api, CurrentApi, QuestionApi } from '~/api/user/userApi';
 import { Breadcrumb } from '~/types/app';
 import { getDataResult, getPageResult } from '~/utils/response/util';
@@ -545,6 +546,7 @@ export default Vue.extend({
       nickName: '',
       realName: '',
       city: '',
+      area: '',
       messageOk: '1',
       phoneOk: '1',
       newPassword:'',
@@ -750,8 +752,9 @@ export default Vue.extend({
       )
       .then(async (res: any) => {
           options.onSuccess(res, options.file);
-          this.userInfo.avatar = res.data;
-          this.avatar = res.data
+          const date = moment();
+          this.userInfo.avatar = res.data + '&date=' + date;
+          this.avatar = res.data + '&date=' + date;
           await this.$store.commit('app/Avatar', this.userInfo.avatar)
           Cookies.set('Avatar', this.userInfo.avatar, { expires: 7, })
         })
@@ -787,6 +790,7 @@ export default Vue.extend({
           await this.$store.commit('app/UserName', this.userInfo.username)
           await this.$store.commit('app/Avatar', this.userInfo.avatar)
           await this.$store.commit('app/NickName', this.userInfo.nickName)
+          await this.$store.commit('app/Gender', this.userInfo.gender)
           Cookies.set('UserName', this.userInfo.username, { expires: 7, })
           Cookies.set('Gender', this.userInfo.gender, { expires: 7, })
           Cookies.set('UserId', this.userInfo.id, { expires: 7, })
@@ -862,6 +866,8 @@ export default Vue.extend({
       const result = await this.$axios.$post(LocationApi.GetAllAreasByCityId, param);
       if (result.code === 200) {
         const cities = getDataResult(result);
+        this.areaOptions.splice(0);
+        this.area = '';
         if (cities && cities.length > 0) {
           cities.forEach((city: any) => {
             this.areaOptions.push({ value: city.id, label: city.name })
@@ -882,6 +888,9 @@ export default Vue.extend({
       const result = await this.$axios.$post(LocationApi.GetAllCitiesByProvinceId, param);
       if (result.code === 200) {
         const cities = getDataResult(result);
+        this.cityOptions.splice(0);
+        this.city = '';
+        this.area = '';
         if (cities && cities.length > 0) {
           cities.forEach((city: any) => {
             this.cityOptions.push({ value: city.id, label: city.name })
@@ -909,10 +918,10 @@ export default Vue.extend({
     @apply lg:w-[300px] lg:h-[50px] border border-[#DDDDDD] lg:text-[20px] text-[#333333] rounded-lg px-4 flex flex-row items-center;
   }
   .avatarClass {
-    @apply w-full h-full;
+    @apply lg:w-[168px] lg:h-[168px] sm:w-[80px] sm:h-[80px];
   }
   .avatarClass >>> *{
-    @apply w-full h-full rounded-full;
+    @apply lg:w-[168px] lg:h-[168px] sm:w-[80px] sm:h-[80px] rounded-full;
   }
   .avatarClass >>> .ant-upload {
     @apply p-0 bg-[#DDDDDD];

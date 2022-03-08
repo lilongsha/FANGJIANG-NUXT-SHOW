@@ -97,6 +97,7 @@ export default Vue.extend({
         await this.$store.commit('app/UserId', '')
         await this.$store.commit('app/Avatar', '')
         await this.$store.commit('app/NickName', '')
+        await this.$store.commit('app/Gender', '')
         if (this.$route.path.includes('/userInfo')) {
           this.$router.push('/')
         } else {

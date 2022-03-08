@@ -11,6 +11,7 @@ export interface Location {
 }
 
 export interface AppState {
+  gender?: string,
   province?: string;
   provinceId?: string;
   city?: string;

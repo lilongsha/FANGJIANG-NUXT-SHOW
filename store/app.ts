@@ -1,6 +1,7 @@
 import { AppState, Breadcrumb, LoginBack } from "../types/app";
 
 const state = ():AppState =>({
+  gender: '',
   province: '',
   provinceId: '',
   city: '',
@@ -35,6 +36,9 @@ const back = ():LoginBack => ({
 })
 
 const mutations = {
+  Gender(state: AppState, gender: string):void {
+    state.gender = gender;
+  },
   UserId(state: AppState, userId: string):void {
     state.userId = userId;
   },
