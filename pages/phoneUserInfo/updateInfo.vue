@@ -34,14 +34,35 @@
         <div class="col-span-3 text-[#333333] text-[16px]"><input v-model="gender" type="text" class="bg-[#F3F5FF]"></div>
       </div>
       <div class="grid grid-cols-4 items-center text-[#666666] mt-6 pb-4 border-b border-b-[#EDEDED]">
+        <div class="">省份</div>
+        <div class="col-span-3 text-[#333333] text-[16px]">
+          <Select v-model="userInfo.provinceId"
+            placeholder=""
+            :options="provinceOptions"
+            class="selectClass"
+            @change="changeProvince"
+          />
+        </div>
+      </div>
+      <div class="grid grid-cols-4 items-center text-[#666666] mt-6 pb-4 border-b border-b-[#EDEDED]">
         <div class="">城市</div>
         <div class="col-span-3 text-[#333333] text-[16px]">
-          <!-- <input v-model="cityName" type="text" class="bg-[#F3F5FF]"> -->
           <Select v-model="userInfo.cityId"
             placeholder=""
             :options="cityOptions"
             class="selectClass"
             @change="changeCity"
+          />
+        </div>
+      </div>
+      <div class="grid grid-cols-4 items-center text-[#666666] mt-6 pb-4 border-b border-b-[#EDEDED]">
+        <div class="">地区</div>
+        <div class="col-span-3 text-[#333333] text-[16px]">
+          <Select v-model="userInfo.areaId"
+            placeholder=""
+            :options="areaOptions"
+            class="selectClass"
+            @change="changeArea"
           />
         </div>
       </div>
@@ -95,6 +116,7 @@ import Vue from 'vue';
 // @ts-ignore
 import * as Cookies from 'js-cookie';
 import { message, Upload, Select } from 'ant-design-vue';
+import moment from 'moment';
 import { Api } from '~/api/user/userApi';
 import { LocationApi } from '~/api/model/areaModel';
 import { getDataResult } from '~/utils/response/util';
@@ -118,6 +140,17 @@ export default Vue.extend({
     const accessToken = store.state.app.accessToken;
 
     // 个人信息
+    // const userInfo = {
+    //   id: store.state.app.userId,
+    //   gender: store.state.app.gender,
+    //   nickName: store.state.app.nickName,
+    //   avatar: store.state.app.avatar,
+    //   cityId: store.state.app.cityId,
+    //   provinceId: store.state.app.provinceId,
+    //   realName: store.state.app.realName,
+    //   areaId: store.state.app.areaId,
+    //   username: store.state.app.username,
+    // };
     let userInfo;
     try {
       $axios.setHeader('Authorization', tokenType + ' ' +accessToken)
@@ -135,6 +168,25 @@ export default Vue.extend({
       gender ='女';
     } else if (userInfo.gender === '0') {
       gender = '男';
+    }
+
+    // 省
+    const provinceOptions: Option[] = [];
+    try {
+      const param = {
+        data: {},
+      };
+      const result = await $axios.$post(LocationApi.GetAllProvinces, param);
+      if (result.code === 200) {
+        const provinces = getDataResult(result);
+        if (provinces && provinces.length > 0) {
+          provinces.forEach((item: any) => {
+            provinceOptions.push({ value: item.id, label: item.name });
+          })
+        }
+      }
+    } catch (error) {
+      
     }
 
      // 市
@@ -156,7 +208,34 @@ export default Vue.extend({
       }
     }
 
+
+
+    // 区
+    const areaOptions: Option[] = [];
+    if (userInfo.cityId) {
+      const param = {
+        data: {
+          id: userInfo.cityId
+        }
+      }
+      const result = await $axios.$post(LocationApi.GetAllAreasByCityId, param);
+      if (result.code === 200) {
+        const areas = getDataResult(result);
+        if (areas && areas.length > 0) {
+          areas.forEach((city: any) => {
+            areaOptions.push({ value: city.id, label: city.name })
+          })
+        }
+      }
+    }
+
+    console.log(store.state.app.avatar)
+
     return {
+      tokenType,
+      accessToken,
+      provinceOptions,
+      areaOptions,
       type,
       userInfo,
       fromPath,
@@ -172,7 +251,13 @@ export default Vue.extend({
     }
   },
   data() {
+    let areaOptions: any;
+    let provinceOptions: any;
+    let cityOptions: any;
     return {
+      areaOptions,
+      provinceOptions,
+      cityOptions,
       msg: '',
       isTime: false,
       newPhone: '',
@@ -305,6 +390,7 @@ export default Vue.extend({
       await this.$store.commit('app/UserId', '')
       await this.$store.commit('app/Avatar', '')
       await this.$store.commit('app/NickName', '')
+      await this.$store.commit('app/Gender', '')
       if (this.$route.path.includes('/PhoneUserInfo')) {
         this.$router.push('/')
       } else {
@@ -324,16 +410,16 @@ export default Vue.extend({
         data: {
           gender: this.userInfo.gender,
           nickName: this.userInfo.nickName,
-          messageOk: this.userInfo.messageOk,
+          // messageOk: this.userInfo.messageOk,
           avatar: this.userInfo.avatar,
           cityId: this.userInfo.cityId,
-          phoneOk: this.userInfo.phoneOk,
+          // phoneOk: this.userInfo.phoneOk,
           provinceId: this.userInfo.provinceId,
-          realName: this.userInfo.realName,
-          password: this.userInfo.password,
+          // realName: this.userInfo.realName,
+          // password: this.userInfo.password,
           areaId: this.userInfo.areaId,
           id: this.userInfo.id,
-          username: this.userInfo.username,
+          // username: this.userInfo.username,
         }
       }
       try {
@@ -345,18 +431,19 @@ export default Vue.extend({
           await this.$store.commit('app/UserName', this.userInfo.username)
           await this.$store.commit('app/Avatar', this.userInfo.avatar)
           await this.$store.commit('app/NickName', this.userInfo.nickName)
-          Cookies.set('UserName', this.userInfo.username)
-          Cookies.set('Gender', this.userInfo.gender)
-          Cookies.set('UserId', this.userInfo.id)
-          Cookies.set('RealName', this.userInfo.realName)
-          Cookies.set('ProvinceId', this.userInfo.provinceId)
-          Cookies.set('PhoneOk', this.userInfo.phoneOk)
-          Cookies.set('Password', this.userInfo.password)
-          Cookies.set('NickName', this.userInfo.nickName)
-          Cookies.set('MessageOk', this.userInfo.messageOk)
-          Cookies.set('CityId', this.userInfo.cityId)
-          Cookies.set('AreaId', this.userInfo.areaId)
-          Cookies.set('Avatar', this.userInfo.avatar)
+          await this.$store.commit('app/Gender', this.userInfo.gender)
+          Cookies.set('UserName', this.userInfo.username, { expires: 7, })
+          Cookies.set('Gender', this.userInfo.gender, { expires: 7, })
+          Cookies.set('UserId', this.userInfo.id, { expires: 7, })
+          Cookies.set('RealName', this.userInfo.realName, { expires: 7, })
+          Cookies.set('ProvinceId', this.userInfo.provinceId, { expires: 7, })
+          Cookies.set('PhoneOk', this.userInfo.phoneOk, { expires: 7, })
+          Cookies.set('Password', this.userInfo.password, { expires: 7, })
+          Cookies.set('NickName', this.userInfo.nickName, { expires: 7, })
+          Cookies.set('MessageOk', this.userInfo.messageOk, { expires: 7, })
+          Cookies.set('CityId', this.userInfo.cityId, { expires: 7, })
+          Cookies.set('AreaId', this.userInfo.areaId, { expires: 7, })
+          Cookies.set('Avatar', this.userInfo.avatar, { expires: 7, })
           this.$router.go(0)
         }
 
@@ -365,8 +452,52 @@ export default Vue.extend({
         this.$axios.setHeader('Authorization', '')
       }
     },
-    changeCity(value: string) {
+    async changeCity(value: string) {
       this.userInfo.cityId = value || '';
+      if (this.userInfo.cityId) {
+        const param = {
+          data: {
+            id: this.userInfo.cityId
+          }
+        }
+        const result = await this.$axios.$post(LocationApi.GetAllAreasByCityId, param);
+        if (result.code === 200) {
+          const areas = getDataResult(result);
+          this.areaOptions.splice(0);
+          this.userInfo.areaId = '';
+          if (areas && areas.length > 0) {
+            areas.forEach((area: any) => {
+              this.areaOptions.push({ value: area.id, label: area.name })
+            })
+          }
+        }
+      }
+    },
+    // 选择省
+    async changeProvince(value: string) {
+      this.userInfo.provinceId = value;
+      if (this.userInfo.provinceId) {
+        const param = {
+          data: {
+            id: this.userInfo.provinceId
+          }
+        }
+        const result = await this.$axios.$post(LocationApi.GetAllCitiesByProvinceId, param);
+        if (result.code === 200) {
+          const cities = getDataResult(result);
+          this.cityOptions.splice(0);
+          this.userInfo.cityId = '';
+          this.userInfo.areaId = '';
+          if (cities && cities.length > 0) {
+            cities.forEach((city: any) => {
+              this.cityOptions.push({ value: city.id, label: city.name })
+            })
+          }
+        }
+      }
+    },
+    changeArea(value: string) {
+      this.userInfo.areaId = value;
     },
     clickBack() {
       if (this.type === 'updatePassword' || this.type === 'updatePhone') {
@@ -387,7 +518,8 @@ export default Vue.extend({
       )
       .then(async (res: any) => {
           options.onSuccess(res, options.file);
-          this.userInfo.avatar = res.data;
+          const date = moment();
+          this.userInfo.avatar = res.data + '&date=' + date;
           await this.$store.commit('app/Avatar', this.userInfo.avatar)
           Cookies.set('Avatar', this.userInfo.avatar, { expires: 7, })
           message.success('上传成功');
@@ -403,16 +535,19 @@ export default Vue.extend({
 </script>
 <style scoped>
   .avatarClass {
-    @apply w-full h-full;
+    @apply w-[80px] h-[80px];
   }
   .avatarClass >>> *{
-    @apply w-full h-full rounded-full;
+    @apply w-[80px] h-[80px] rounded-full;
   }
   .avatarClass >>> .ant-upload {
     @apply p-0 bg-[#DDDDDD];
   }
   .avatarClass >>> .sss {
     @apply object-center w-[50px] h-10;
+  }
+  .selectClass {
+    @apply w-[100%];
   }
   .selectClass >>> .ant-select-selection {
     @apply bg-[#F3F5FF];
