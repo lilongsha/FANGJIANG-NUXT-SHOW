@@ -5,7 +5,7 @@
       <AppTitle :house="project"  :favorite="favorite"/>
       <!-- house menu -->
       <AppBar :current="'discuss'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
-      <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8">
+      <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8  min-h-[500px]">
         <!-- h-36px -->
         <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
           <!-- 标题内容 -->

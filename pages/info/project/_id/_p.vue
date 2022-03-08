@@ -13,7 +13,7 @@
       <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼市政策</span>
     </div>
     <div class="w-full lg:flex lg:flex-row lg:mt-8 sm:mt-2">
-      <div class="lg:w-3/4 sm:w-full">
+      <div class="lg:w-3/4 sm:w-full min-h-[500px]">
         <div class="w-full">
           <div v-if="type === '0'" class="lg:space-y-[28px] sm:space-y-2">
             <a v-for="(item, index) in news" v-show="index < 10" :key="item.id" :href="`/info/${item.id}.html`" class="sm:h-24 flex flex-row bg-[#F5F5F5]">

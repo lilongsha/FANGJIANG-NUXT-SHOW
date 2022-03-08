@@ -13,7 +13,7 @@
       <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼盘对比</span>
     </div>
     <div class="w-full lg:flex lg:flex-row">
-      <div class="lg:w-3/4 sm:w-full">
+      <div class="lg:w-3/4 sm:w-full min-h-[500px]">
         <div >
           <div v-if="type === '0'" class="content">
             <div v-for="(item, index) in videos" v-show="index < 50" :key="item.id" class="item group">

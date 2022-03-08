@@ -4,7 +4,7 @@
     <AppTitle :house="project" :favorite="favorite" />
     <!-- house menu -->
     <AppBar :current="'dynamic'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
-    <div class="flex flex-row w-full">
+    <div class="flex flex-row w-full min-h-[500px]">
     <div class="lg:w-3/4 sm:w-full">
     <div class="flex flex-row sm:w-full lg:w-full">
       <div class="sm:w-full lg:w-full lg:pr-4 sm:mt-2 lg:mt-8">

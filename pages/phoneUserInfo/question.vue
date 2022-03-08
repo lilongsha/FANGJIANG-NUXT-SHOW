@@ -16,7 +16,7 @@
             <div v-for="answer in item.answerEntities" :key="answer.id" class="lg:mt-8 pb-2 border-b border-b-[#DDDDDD] w-full flex flex-row">
               <div class="overflow-hidden w-3/4">
                 <div class="flex flex-row items-center lg:space-x-6 sm:space-x-2">
-                  <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full">
+                  <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full flex-shrink-0">
                   <div class="lg:space-y-3 sm:space-y-1">
                     <div class="sm:text-xs text-[#666666] text-[20px]">{{ answer.author }}</div>
                     <div class="sm:text-xs text-[#666666] text-[18px]">{{ answer.content }}</div>
