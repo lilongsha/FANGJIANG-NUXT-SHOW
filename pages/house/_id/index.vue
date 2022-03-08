@@ -332,7 +332,7 @@
                   <!-- question Content -->
                   <div v-if="item.answerEntities && item.answerEntities.length > 0">
                     <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
-                      <div class="overflow-hidden w-3/4">
+                      <div class="w-3/4 overflow-hidden">
                         <div class="flex flex-row items-center lg:space-x-4 sm:space-x-2">
                           <img :src="answer.avatar" alt="" class="flex-shrink-0 lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full ">
                           <div class="lg:space-y-3 sm:space-y-1">
@@ -460,7 +460,7 @@ export default Vue.extend({
     RecomendHouse,
   },
   async asyncData ({ $axios, params, store, req, redirect, route }) {
-    
+    const start = new Date().getTime();
     const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
@@ -703,7 +703,10 @@ export default Vue.extend({
     }
     const clueType: string = '';
     const opening: boolean = false;
-    
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房详情首页调用接口使用时间：", end - start)
 
     return { accessToken, tokenType, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile, favorite }

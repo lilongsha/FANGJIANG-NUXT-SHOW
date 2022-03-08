@@ -174,6 +174,8 @@ export default Vue.extend({
     HouseContent,
   },
   async asyncData({ $axios, route, store }) {
+    const start = new Date().getTime();
+
     let newsTop: any[] = [];
     const getNewsTop = async () => {
       const newsParam: any = {
@@ -227,7 +229,10 @@ export default Vue.extend({
       getNewsTop(),
       getNews()
     ])
-    
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("资讯详情调用接口使用时间：", end - start)
 
     return {
       id,

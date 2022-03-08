@@ -195,7 +195,7 @@ export default Vue.extend({
     ReomendHouse
   },
   async asyncData ({ $axios, params, store, req, route, redirect }) {
-    
+    const start = new Date().getTime();
     const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
@@ -370,6 +370,10 @@ export default Vue.extend({
         // 跳转移动端页面
         option.yAxis.show = false;
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房详情信息调用接口使用时间：", end - start)
 
     return {
        cityId, lookTime, house, option, scoreOption, activities, favorite,

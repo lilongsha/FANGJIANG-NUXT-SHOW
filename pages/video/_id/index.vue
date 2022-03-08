@@ -199,6 +199,8 @@ import { Api } from '~/api/model/newsModel';
 export default Vue.extend({
   name: "VideoDetail",
   async asyncData({ $axios, params, store }) {
+    const start = new Date().getTime();
+
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
@@ -301,6 +303,11 @@ export default Vue.extend({
     if (videoResult.code === 200) {
      lastData = getDataResult(videoResult)
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("视频详情调用接口使用时间：", end - start)
+
     return { videoItem, videoList, house, houseMenu, phoneNum, topFlag, newsTop, lastData, cityId }
   },
   data() {

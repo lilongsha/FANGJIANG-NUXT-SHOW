@@ -186,6 +186,7 @@ const fields: string[] = [
 export default Vue.extend({
   name: 'InfoList',
   async asyncData({ $axios, route, store, req }) {
+    const start = new Date().getTime();
 
     const activityParam = {
       data: {
@@ -298,6 +299,10 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("资讯列表调用接口使用时间：", end - start)
     
     return {
       activities,

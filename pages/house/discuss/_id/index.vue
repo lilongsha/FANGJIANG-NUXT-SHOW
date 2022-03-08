@@ -8,7 +8,7 @@
         <span class="bg-[#DA1111] px-1 lg:py-1 text-[14px] rounded sm:mr-2 lg:mr-5 text-white h-6">问</span>
         {{ question.content }}
       </div>
-      <div class="lg:mt-6 sm:mt-4 flex flex-row items-center justify-between">
+      <div class="flex flex-row items-center justify-between lg:mt-6 sm:mt-4">
         <div v-if="question.updateTime">{{ question.updateTime.split('T')[0] }}</div>
         <div v-else>{{ question.createTime.split('T')[0] }}</div>
         <button class="bg-fjBlue-100 text-white rounded-md text-[16px] lg:px-6 lg:py-3 sm:px-4 sm:py-2 sm:text-[14px]" @click="scrollTo">我要回答</button>
@@ -46,7 +46,7 @@
     </div>
     <!-- pagination -->
     <div class="sm:w-full lg:container lg:mt-5 sm:mt-2">
-      <div class="text-right w-full">
+      <div class="w-full text-right">
         <a-pagination
           v-if="isMobile"
           size="small"
@@ -89,6 +89,8 @@ export default Vue.extend({
   name: 'DiscussDetail',
   components: {},
   async asyncData({ $axios, route, store, redirect, req }) {
+    const start = new Date().getTime();
+
     const accessToken = store.state.app.accessToken;
     const tokenType = store.state.app.tokenType
     const currId = store.state.app.nickName
@@ -170,6 +172,9 @@ export default Vue.extend({
       getQuestion()
     ])
     
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("问答详情调用接口使用时间：", end - start)
 
     return {
       id,

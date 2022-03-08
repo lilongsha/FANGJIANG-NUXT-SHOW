@@ -98,6 +98,8 @@ export default Vue.extend({
   name: 'VideoList',
   components: {},
   async asyncData({ $axios, store, route, redirect }){
+    const start = new Date().getTime();
+
     // 视频
     let params = route.params?.id;
     if (params) {
@@ -185,6 +187,11 @@ export default Vue.extend({
         activities = activityResult.data.content;
       }
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房视频详情调用接口使用时间：", end - start)
+
     const cityId = store.state.app.cityId;
     return { params, videos, house, type: '0', video1, video2, video3, cityId, activities, favorite }
   },

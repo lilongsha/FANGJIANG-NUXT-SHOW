@@ -134,6 +134,8 @@ export default Vue.extend({
   name: 'InfoList',
   components: {},
   async asyncData({  $axios, store, route, req, redirect }){
+    const start = new Date().getTime();
+    
     const userAgent = req?.headers['user-agent'] || '';
     let isMobile: any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
@@ -242,6 +244,11 @@ export default Vue.extend({
         activities = activityResult.data.content;
       }
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房资讯详情调用接口使用时间：", end - start)
+
     const cityId = store.state.app.cityId;
     return { params, news, isMobile, house, new2, new3, new7, activities, cityId, pageParam, favorite }
   },

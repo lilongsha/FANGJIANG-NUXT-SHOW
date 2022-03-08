@@ -661,11 +661,11 @@
                   <!-- 类型 -->
                   <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" class="flex-shrink-0" />
                   <!-- 面积 -->
-                  <span v-if="item.hLayoutsById.length > 0" class=" text-gray-400 flex-shrink-0">|</span>
-                  <span v-if="getRoomArea(item.hLayoutsById)" class="text-gray-400 flex-shrink-0">{{ getRoomArea(item.hLayoutsById) }}</span>
+                  <span v-if="item.hLayoutsById.length > 0" class="flex-shrink-0 text-gray-400 ">|</span>
+                  <span v-if="getRoomArea(item.hLayoutsById)" class="flex-shrink-0 text-gray-400">{{ getRoomArea(item.hLayoutsById) }}</span>
                   <!-- 开盘时间 -->
-                  <span v-if="item.openTime" class="text-gray-400 flex-shrink-0">|</span>
-                  <span class="text-gray-400 flex-shrink-0" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
+                  <span v-if="item.openTime" class="flex-shrink-0 text-gray-400">|</span>
+                  <span class="flex-shrink-0 text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
                 </div>
                 <!-- 右中内容 -->
                 <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
@@ -868,6 +868,7 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, store, route, req, redirect }) {
+    const start = new Date().getTime();
     const activityParam = {
       data: {
         cityId:store.state.app.cityId
@@ -1063,6 +1064,9 @@ export default Vue.extend({
 
     await getList();
 
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房列表调用接口使用时间：", end - start)
     return {
       activities,
       curPath,

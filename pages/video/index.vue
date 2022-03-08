@@ -93,6 +93,8 @@ import { Api as VideoApi } from '@/api/model/videoModel'
 export default Vue.extend({
   name: "Video",
   async asyncData({ $axios, store }) {
+    const start = new Date().getTime();
+    
     const cityId = store.state.app.cityId;
 
     const param: any = {
@@ -114,6 +116,11 @@ export default Vue.extend({
       policyData = result.data.SORT_POLICY.content;
     }
     const curIndex = 0;
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("视频首页调用接口使用时间：", end - start)
+
     return { topData, projectData, roomData, compareData, policyData, curIndex }
   },
   data() {

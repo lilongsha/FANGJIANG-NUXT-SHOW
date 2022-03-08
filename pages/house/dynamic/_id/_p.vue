@@ -101,6 +101,7 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, store, req, route, redirect }) {
+    const start = new Date().getTime();
 
     const topFlag: string = 'dynamic';
     
@@ -183,6 +184,10 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房动态调用接口使用时间：", end - start)
 
     return {
       pageParam,

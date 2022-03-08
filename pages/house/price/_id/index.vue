@@ -44,6 +44,8 @@ export default Vue.extend({
   name: 'PriceList',
   components: {},
   async asyncData({ $axios, store, route, redirect }){
+    const start = new Date().getTime();
+    
     let params = route.params?.id;
     if (params) {
       if (params.endsWith('.html')) {
@@ -147,6 +149,11 @@ export default Vue.extend({
       
     }
     await getHouse();
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("新房价格详情调用接口使用时间：", end - start)
+
     const cityId = store.state.app.cityId;
     return {
       house,

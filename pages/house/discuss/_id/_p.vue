@@ -83,6 +83,7 @@ export default Vue.extend({
   components: {
   },
   async asyncData({ $axios, route, store, req, redirect }) {
+    const start = new Date().getTime();
     const topFlag: string = 'question';
     const userAgent = req?.headers['user-agent'] || '';
     let pageNum = 1;
@@ -143,6 +144,10 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("问答列表调用接口使用时间：", end - start)
 
     return {
       pageParam,

@@ -49,6 +49,8 @@ import { Api as VideoApi } from '@/api/model/videoModel'
 export default Vue.extend({
   name: "Video",
   async asyncData({ $axios, store, route, req }) {
+    const start = new Date().getTime();
+    
     const userAgent = req?.headers['user-agent'] || '';
     let query:any;
     let params = route.params?.p;
@@ -104,6 +106,11 @@ export default Vue.extend({
     } else {
       isMobile = false;
     }
+
+    const end = new Date().getTime();
+    // eslint-disable-next-line no-console
+    console.log("视频列表调用接口使用时间：", end - start)
+
     return { cityId, list, sort, isMobile, total, pageNum };
   },
   data() {
