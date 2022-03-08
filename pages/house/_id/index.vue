@@ -332,9 +332,9 @@
                   <!-- question Content -->
                   <div v-if="item.answerEntities && item.answerEntities.length > 0">
                     <div v-for="(answer, index1) in item.answerEntities" v-show="index1 < 2 || item.id === showMoreId" :key="index1" class="flex flex-row w-full mb-2 transition-all">
-                      <div class="overflow-hidden sm:w-3/5 lg:w-3/4">
+                      <div class="overflow-hidden w-3/4">
                         <div class="flex flex-row items-center lg:space-x-4 sm:space-x-2">
-                          <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full">
+                          <img :src="answer.avatar" alt="" class="flex-shrink-0 lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full ">
                           <div class="lg:space-y-3 sm:space-y-1">
                             <div class="sm:text-xs text-[#666666] text-[20px]">{{ answer.author }}</div>
                             <div class="sm:text-xs text-[#666666] text-[18px]">{{ answer.content }}</div>

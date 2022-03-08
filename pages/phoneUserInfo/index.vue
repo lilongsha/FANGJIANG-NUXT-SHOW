@@ -5,7 +5,7 @@
         <div class="flex flex-row space-x-3"><img src="~/assets/img/userInfo/message.png" alt="" class="w-[19px] h-[17px]"><img src="~/assets/img/userInfo/set.png" alt="" class="w-[20px] h-[17px]" @click="clickSet"></div>
       </div>
       <div class="mt-6 flex flex-row items-center">
-        <div class="rounded-full h-[64px] w-[64px]"><img :src="userInfo.avatar" alt="" class="rounded-full h-[64px] w-[64px]"></div>
+        <div class="rounded-full h-[64px] w-[64px]"><img :src="userInfo.avatar" alt="" class="rounded-full h-[64px] w-[64px] flex-shrink-0"></div>
         <div class="ml-5">
           <div class="text-[#333333] text-[20px] font-normal">{{ userInfo.nickName }}</div>
           <div class="text-[#999999] text-[12px]" @click="updateInfo">编辑个人资料 ></div>
