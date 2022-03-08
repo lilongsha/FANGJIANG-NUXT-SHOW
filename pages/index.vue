@@ -622,12 +622,14 @@ import { Api as MetroLineApi, MetroLineByCondition, MetroStationByCondition, Met
 import { Api as ProjectApi, RecommendProjectByCondition } from '@/api/model/houseModel';
 import { Api as NewsApi } from '@/api/model/newsModel';
 import { BaseListResult, BasePageResult } from '@/api/model/baseModel';
-import { getDataResult } from '@/utils/response/util';
+import { getDataResult, getListResult } from '@/utils/response/util';
 import { Api as VideoApi } from '@/api/model/videoModel'
 
 export default Vue.extend({
   name: 'Home',
   async asyncData({ $axios, store }) {
+    
+    const start = new Date().getTime();
     // banner
     const bannerData: BannerByCondition = {
       cityId: store.state.app.cityId,
@@ -782,14 +784,6 @@ export default Vue.extend({
       }
     }
 
-    await Promise.all([
-      getHotProject(),
-      getRecommendProjectResult(),
-      getMetroLinesResult(),
-      getAreasResult(),
-      getBannerResult(),
-    ])
-
     // 获取资讯 最新 7: 实探楼盘 4: 房贷利率 3: 楼市政策
     const getNews0 = async () => {
       const newsParam: any = {
@@ -806,39 +800,55 @@ export default Vue.extend({
       }
       return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
     }
-    const getNews7 = async () => {
-      const newsParam: any = {
-        data: {
-          cityId: store.state.app.cityId,
-          sort: "7",
-        },
-        page: {
-          pageNum: 0,
-          pageSize: 8,
-        },
-        sort: {
-          desc: ['lookTimes'],
-        },
-      }
-      return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
-    }
-    const getNews4 = async () => {
-      const newsParam: any = {
-        data: {
-          cityId: store.state.app.cityId,
-          sort: "4",
-        },
-        page: {
-          pageNum: 0,
-          pageSize: 8,
-        },
-        sort: {
-          desc: ['lookTimes'],
-        },
-      }
-      return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
-    }
-    const getNews3 = async () => {
+    // const getNews7 = async () => {
+    //   const newsParam: any = {
+    //     data: {
+    //       cityId: store.state.app.cityId,
+    //       sort: "7",
+    //     },
+    //     page: {
+    //       pageNum: 0,
+    //       pageSize: 8,
+    //     },
+    //     sort: {
+    //       desc: ['lookTimes'],
+    //     },
+    //   }
+    //   return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
+    // }
+    // const getNews4 = async () => {
+    //   const newsParam: any = {
+    //     data: {
+    //       cityId: store.state.app.cityId,
+    //       sort: "4",
+    //     },
+    //     page: {
+    //       pageNum: 0,
+    //       pageSize: 8,
+    //     },
+    //     sort: {
+    //       desc: ['lookTimes'],
+    //     },
+    //   }
+    //   return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
+    // }
+    // const getNews3 = async () => {
+    //   const newsParam: any = {
+    //     data: {
+    //       cityId: store.state.app.cityId,
+    //       sort: "3",
+    //     },
+    //     page: {
+    //       pageNum: 0,
+    //       pageSize: 8,
+    //     },
+    //     sort: {
+    //       desc: ['lookTimes'],
+    //     },
+    //   }
+    //   return await $axios.$post(NewsApi.GetNewsByCity, newsParam);
+    // }
+    const getNewTop = async () => {
       const newsParam: any = {
         data: {
           cityId: store.state.app.cityId,
@@ -861,26 +871,41 @@ export default Vue.extend({
       4: [],
     };
     const getNews = async () => {
-      const [news7, news4, news3, news0] = await Promise.all([
-        getNews7(),
-        getNews4(),
-        getNews3(),
-        getNews0(),
+      const [top, news0] = await Promise.all([
+        // getNews7(),
+        // getNews4(),
+        // getNews3(),
+        getNewTop(),
+        getNews0()
       ])
-      if (news7.code === 200) {
-        newsObj[1] = getDataResult(news7);
-      }
-      if (news4.code === 200) {
-        newsObj[2] = getDataResult(news4);
-      }
-      if (news3.code === 200) {
-        newsObj[3] = getDataResult(news3);
+      // if (news7.code === 200) {
+      //   newsObj[1] = getDataResult(news7);
+      // }
+      // if (news4.code === 200) {
+      //   newsObj[2] = getDataResult(news4);
+      // }
+      // if (news3.code === 200) {
+      //   newsObj[3] = getDataResult(news3);
+      // }
+      if (top.code === 200) {
+        const all: object[] = getListResult(top);
+        all.forEach((entity: any) => {
+          if (entity) {
+            if (entity.sort === '7') {
+              newsObj[1].push(entity as never);
+            } else if (entity.sort === '4') {
+              newsObj[2].push(entity as never);
+            } else if (entity.sort === '3') {
+              newsObj[3].push(entity as never);
+            }
+          }
+        })
       }
       if (news0.code === 200) {
         newsObj[4] = getDataResult(news0);
       }
     }
-    await getNews();
+    // await getNews();
 
     let topData:any;
     const getTopVideo = async () => {
@@ -894,7 +919,20 @@ export default Vue.extend({
         topData = result.data.content;
       }
     }
-    await getTopVideo();
+
+    await Promise.all([
+      getHotProject(),
+      getRecommendProjectResult(),
+      getMetroLinesResult(),
+      getAreasResult(),
+      getBannerResult(),
+      getNews(),
+      getTopVideo()
+    ])
+
+    const end = new Date().getTime()
+    // eslint-disable-next-line no-console
+    console.log("首页调用接口使用时间：", end - start)
 
     return {
       banners,

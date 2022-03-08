@@ -2,6 +2,7 @@ export enum Api {
   GetNewsByCity = '/customer-server/news/getNewsByCity',
   GetNewsByProject = '/customer-server/news/getNewsByProject',
   GetNews = '/customer-server/news/getNews',
+  GetNewsByIndex = '/customer-server/news/getNewsByIndex',
 }
 
 export const NEWS_SORT = [
