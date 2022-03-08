@@ -657,15 +657,15 @@
                     <img v-else src="~/assets/img/list/white.png" alt="" @click.stop="addFav(item)">
                   </div>
                 </div>
-                <div class="sm:mt-1 sm:text-[12px] lg:text-[16px] flex flex-row">
+                <div class="sm:mt-1 sm:text-[12px] lg:text-[16px] flex flex-row justify-between">
                   <!-- 类型 -->
-                  <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" />
+                  <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" class="flex-shrink-0" />
                   <!-- 面积 -->
-                  <span v-if="item.hLayoutsById.length > 0" class="ml-2 text-gray-400">|</span>
-                  <span v-if="getRoomArea(item.hLayoutsById)" class="ml-2 text-gray-400">{{ getRoomArea(item.hLayoutsById) }}</span>
+                  <span v-if="item.hLayoutsById.length > 0" class=" text-gray-400 flex-shrink-0">|</span>
+                  <span v-if="getRoomArea(item.hLayoutsById)" class="text-gray-400 flex-shrink-0">{{ getRoomArea(item.hLayoutsById) }}</span>
                   <!-- 开盘时间 -->
-                  <span v-if="item.openTime" class="ml-2 text-gray-400">|</span>
-                  <span class="ml-2 text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
+                  <span v-if="item.openTime" class="text-gray-400 flex-shrink-0">|</span>
+                  <span class="text-gray-400 flex-shrink-0" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
                 </div>
                 <!-- 右中内容 -->
                 <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
