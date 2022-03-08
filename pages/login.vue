@@ -1,7 +1,7 @@
 .<template>
-<div class="flex flex-row items-end justify-end w-screen h-screen">
-  <img src="~/assets/img/login/bj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover sm:hidden">
-  <img src="~/assets/img/login/phonebj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover lg:hidden">
+<div class="flex flex-row items-end justify-end w-screen h-screen lg:bg-login-bg sm:bg-login-phone bg-auto bg-fixed bg-no-repeat" style="background-size: 100%">
+  <!-- <img src="~/assets/img/login/bj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover sm:hidden"> -->
+  <!-- <img src="~/assets/img/login/phonebj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover lg:hidden"> -->
   <div class="relative w-full h-full mx-auto lg:container">
   
   <div class="lg:hidden sm:mt-[60px]">
@@ -26,10 +26,10 @@
           <div><input v-model="mobile" type="text"  class="text-[20px] text-[#666666]" @change="mobileChange"></div>
         </div>
         <div class="w-full lg:mt-[50px] sm:mt-8 sm:pb-2 lg:pb-4 flex flex-row items-center justify-between sm:space-x-2 border-b border-b-[#DDDDDD]">
-          <div><img src="~/assets/img/login/code.png" alt="" class="w-6 h-7"></div>
+          <div class="flex-shrink-0"><img src="~/assets/img/login/code.png" alt="" class="w-6 h-7"></div>
           <div class="ml-4"><input v-model="phoneCode" type="text" class="text-[20px] text-[#666666]"></div>
           <div class="">
-            <button v-if="isTime" class="text-[#999999] text-[18px] sm:text-16px" >{{ msg }}</button>
+            <button v-if="isTime" class="text-[#999999] text-[18px] sm:text-16px lg:w-[90px] sm:w-[80px]" >{{ msg }}</button>
             <button v-else :disabled="!isTrue" class="text-[18px] sm:text-[16px] font-normal" :class="isTrue ? 'text-[#015EEA]' : 'text-[#999999]' " @click="post">获取验证码</button>
           </div>
         </div>
@@ -87,6 +87,7 @@
   </div>
       
   </div>
+  <AppLoading ref="loading" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
 </div>
   
 </template>
@@ -158,7 +159,7 @@ export default Vue.extend({
     async clickLogin() {
       try {
         
-      
+      this.$nuxt.$loading.start()
       if (this.password && this.LoginParams.username && this.LoginParams.code) {
         this.LoginParams.password = this.password;
         this.LoginParams.key = this.codeResult.data.key;
@@ -201,6 +202,7 @@ export default Vue.extend({
             await store.commit('app/UserName', userInfo.userName)
             await store.commit('app/Avatar', userInfo.avatar)
             await store.commit('app/NickName', userInfo.nickName)
+            await store.commit('app/Gender', userInfo.gender)
             if (this.checked) {
               Cookies.set('UserName', userInfo.username, { expires: 7, })
               Cookies.set('Gender', userInfo.gender, { expires: 7, })
@@ -240,9 +242,10 @@ export default Vue.extend({
         message.error({ content: '请正确填写信息', duration: 3});
       }
       } catch (error) {
-        
+        message.error({ content: '登录失败， 请重试', duration: 3});
       } finally {
         this.$axios.setHeader('Authorization', '')
+        this.$nuxt.$loading.finish()
       }
     },
     async clickImg() {
@@ -286,7 +289,7 @@ export default Vue.extend({
     async mobileLogin() {
       try {
         
-      
+      this.$nuxt.$loading.start()
       if (this.isTrue && this.phoneCode) {
       
         const mobile = this.mobile;
@@ -332,6 +335,7 @@ export default Vue.extend({
             await store.commit('app/UserName', userInfo.userName)
             await store.commit('app/Avatar', userInfo.avatar)
             await store.commit('app/NickName', userInfo.nickName)
+            await store.commit('app/Gender', userInfo.gender)
             if (this.checked) {
               Cookies.set('UserName', userInfo.username, { expires: 7, })
               Cookies.set('Gender', userInfo.gender, { expires: 7, })
@@ -371,9 +375,10 @@ export default Vue.extend({
       }
 
       } catch (error) {
-        
+         message.error({ content: '登录失败，请重试', duration: 3});
       } finally {
         this.$axios.setHeader('Authorization', '')
+        this.$nuxt.$loading.finish()
       }
     },
     mobileChange() {
