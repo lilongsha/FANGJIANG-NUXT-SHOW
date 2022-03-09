@@ -1,7 +1,7 @@
 export enum ActivityApi {
-    GetByCity = '/clue-server/clueActivity/getByCity',
-    GetByProjectId = '/clue-server/clueActivity/getByProjectId',
-    GetById = '/clue-server/clueActivity/getById',
+    GetByCity = '/customer-server/clueActivity/getByCity',
+    GetByProjectId = '/customer-server/clueActivity/getByProjectId',
+    GetById = '/customer-server/clueActivity/getById',
 }
 
 export interface ActivityModel {

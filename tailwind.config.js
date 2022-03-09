@@ -37,6 +37,9 @@ module.exports = {
     },
     fontFamily: {},
     extend: {
+      transitionTimingFunction: {
+        'fj-ease-in-out': 'cubic-bezier(0.4, 0, 0.1, 1)',
+      },
       backgroundImage: _theme => ({
         'login-phone': "url('~/assets/img/login/phonebj.png')",
         'login-bg': "url('~/assets/img/login/bj.png')",

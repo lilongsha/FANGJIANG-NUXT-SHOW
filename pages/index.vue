@@ -1,8 +1,7 @@
 <template>
   <div class="w-full">
     <!-- 轮播图功能区域定位 -->
-    <div class="absolute z-10 flex flex-row w-full h-64 top-28 sm:hidden">
-      <div class="w-1/3"></div>
+    <div class="container absolute z-10 flex flex-row w-full h-64 mx-auto top-28 sm:hidden left-[50%] ml-[-30%]">
       <!-- 轮播图功能区域 -->
       <div class="container h-full mx-auto">
         <!-- 菜单 -->
@@ -222,15 +221,12 @@
           </div>
         </div>
       </div>
-      <div class="w-1/3"></div>
     </div>
     <!-- banner 轮播图 -->
     <div class="w-full h-[450px] overflow-hidden sm:hidden">
     <a-carousel class="w-full h-[450px]" dot-position="right" effect="fade" autoplay>
-      <div>
+      <div v-for="item in banners" :key="item.id" >
         <img
-          v-for="item in banners"
-          :key="item.id" 
           class="object-cover w-full h-[450px]"
           height="450px"
           width="100%"
@@ -280,8 +276,8 @@
         <div class="ml-2 font-bold text-black sm:text-lg lg:text-xl">推荐楼盘</div>
       </div>
       <!-- 图片盒子 -->
-      <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden">
-        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="selectRecommendKey === item.id ? 'select-recommend' : '' " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
+      <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden lg:relative">
+        <a v-for="item in recommendProjects" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" :class="(selectRecommendKey === item.id ? 'select-recommend' : 'unselect-recommend') " class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-out lg:transition-all lg:duration-500 lg:relative">
           <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full" @mouseover="selectRecommendKey = item.id">
           <div v-show="selectRecommendKey === item.id" class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
             <span>{{ item.name }}</span>
@@ -1097,6 +1093,9 @@ export default Vue.extend({
 
 .select-recommend {
   @apply lg:w-2/3;
+}
+.unselect-recommend {
+  @apply lg:w-1/10 ease-in;
 }
 
 .process-select {
