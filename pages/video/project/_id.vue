@@ -107,36 +107,40 @@ export default Vue.extend({
         params = params.split('.')[0];
       }
     }
-    const result = await $axios.$post(VideoApi.ByProject, { data: { id:params }})
     let videos;
-    const video1 = [];
-    const video2 = [];
-    const video3 = [];
-    if (result.code === 200 && result.data.content) {
-      videos = getDataResult(result);
-      let max;
-      if (videos) {
-        for (let i = 0; i< videos.length; i++) {
-          if ((videos[i + 1]?.createTime || '') > (videos[i]?.createTime || '')) {
-            max = videos[i + 1];
-            videos[i+1] = videos[i]
-            videos[i] = max
+    const video1: any[] = [];
+    const video2: any[] = [];
+    const video3: any[] = [];
+
+    const getVideo = async () => {
+      const result = await $axios.$post(VideoApi.ByProject, { data: { id:params }})
+      if (result.code === 200 && result.data.content) {
+        videos = getDataResult(result);
+        let max;
+        if (videos) {
+          for (let i = 0; i< videos.length; i++) {
+            if ((videos[i + 1]?.createTime || '') > (videos[i]?.createTime || '')) {
+              max = videos[i + 1];
+              videos[i+1] = videos[i]
+              videos[i] = max
+            }
+          }
+        }
+        for(let i = 0; i < videos.length; i++) {
+          if (videos[i].sort === '1') {
+            video1.push(videos[i]);
+          } else if (videos[i].sort === '2') {
+            video2.push(videos[i]);
+          } else if (videos[i].sort === '3') {
+            video3.push(videos[i]);
           }
         }
       }
-      for(let i = 0; i < videos.length; i++) {
-        if (videos[i].sort === '1') {
-          video1.push(videos[i]);
-        } else if (videos[i].sort === '2') {
-          video2.push(videos[i]);
-        } else if (videos[i].sort === '3') {
-          video3.push(videos[i]);
-        }
-      }
     }
+    
     // 相关楼盘
     let house: any;
-    let favorite 
+    let favorite;
     const getHouse = async () => {
       const param: any = {
         data: {
@@ -172,21 +176,29 @@ export default Vue.extend({
       
       
     }
-    await getHouse();
+    
     // 相关活动
-    const activityParam = {
-      data: {
-        projectId: params
-      }
-    }
     let activities;
-    if (activityParam.data.projectId) {
-      const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
+    const getActivity = async () => {
+      const activityParam = {
+        data: {
+          projectId: params
+        }
+      }
       
-      if (activityResult.code === 200 && activityResult.data) {
-        activities = activityResult.data.content;
+      if (activityParam.data.projectId) {
+        const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
+        if (activityResult.code === 200 && activityResult.data) {
+          activities = activityResult.data.content;
+        }
       }
     }
+
+    await Promise.all([
+      getVideo(),
+      getHouse(),
+      getActivity(),
+    ])
 
     const end = new Date().getTime();
     // eslint-disable-next-line no-console

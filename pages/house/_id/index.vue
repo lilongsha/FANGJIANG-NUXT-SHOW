@@ -467,36 +467,25 @@ export default Vue.extend({
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
     }
-
-    // const flag = 'layout';
-    // let topFlag;
-    // if (query && query.topFlag && String(query.topFlag)) {
-    //   topFlag = String(query.topFlag) || flag || 'layout';
-    //   // const el = document.getElementById(topFlag);
-    //   // if (el){
-    //   //   el.scrollIntoView({ behavior: 'smooth' });
-    //   // }
-      
-    // }
-
-    // 获取楼盘相关活动
-    const activityParam = {
-      data: {
-        projectId: id
-      }
-    }
     let activities;
-    if (activityParam.data.projectId) {
-      const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
-      if (activityResult.code === 200 && activityResult.data) {
-        const result:ActivityModel = getDataResult(activityResult);
-        if (result) {
-          activities = result;
+    const getActivity = async () => {
+      // 获取楼盘相关活动
+      const activityParam = {
+        data: {
+          projectId: id
+        }
+      }
+      
+      if (activityParam.data.projectId) {
+        const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
+        if (activityResult.code === 200 && activityResult.data) {
+          const result:ActivityModel = getDataResult(activityResult);
+          if (result) {
+            activities = result;
+          }
         }
       }
     }
-    
-    
 
     const getHouseInfo = async () => {
       await Promise.all([
@@ -658,38 +647,43 @@ export default Vue.extend({
     const tokenType = store.state.app.tokenType
     let house: any;
     let favorite;
-    let result;
+    let result: any;
     const cityId: string = store.state.app.cityId;
     let lookTime: number = 0;
-    try {
-      if (tokenType && accessToken) {
-        $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
-      } else {
+    const getProject = async () => {
+      try {
+        if (tokenType && accessToken) {
+          $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
+        }
+        
+        result = await $axios.$post(HouseApi.GetProject, param)
+        if (result.code === 200) {
+          favorite = result.data?.favorite
+          house = getDataResult(result);
+          lookTime = house?.lookTime
+          const breadcrumb: Breadcrumb[] = [];
+          breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
+          breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
+          breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id, icon: 'area' })
+          store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
+          getPrice(house);
+          await getHouseInfo();
+        }
+        
+      } catch (error) {
+        if (result?.code === 401) {
+          // router.push('/login?redirect='+ route.path)
+          redirect('/login?redirect='+ route.path)
+        }
+      } finally {
         $axios.setHeader('Authorization', '')
       }
-      result = await $axios.$post(HouseApi.GetProject, param)
-      if (result.code === 200) {
-        favorite = result.data?.favorite
-        house = getDataResult(result);
-        lookTime = house?.lookTime
-        const breadcrumb: Breadcrumb[] = [];
-        breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })
-        breadcrumb.push({ title: '新房', href: '/house/list', icon: 'list' })
-        breadcrumb.push({ title: house.sysAreaByAreaId.name, href: '/house/list?areaId=' + house.sysAreaByAreaId.id, icon: 'area' })
-        store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
-        getPrice(house);
-        await getHouseInfo();
-      }
-      
-    } catch (error) {
-      if (result?.code === 401) {
-        // router.push('/login?redirect='+ route.path)
-        redirect('/login?redirect='+ route.path)
-      }
-    } finally {
-      $axios.setHeader('Authorization', '')
     }
     
+    await Promise.all([
+      getActivity(),
+      getProject(),
+    ])
     
     
     

@@ -132,30 +132,32 @@ export default Vue.extend({
       }
     }
 
-    let answers = []
-    try {
-      if (id.endsWith('.html')) {
-        id = id.replace('.html', '');
-      }
-      const questionId = id;
-      const answerParam = {
-        data: {
-          questionId,
-        },
-        pageParam: {
-          pageNum: pageParams.pageNum,
-          pageSize: 10
+    let answers: any[] = []
+    const getAnswer = async () => {
+      try {
+        if (id.endsWith('.html')) {
+          id = id.replace('.html', '');
         }
+        const questionId = id;
+        const answerParam = {
+          data: {
+            questionId,
+          },
+          pageParam: {
+            pageNum: pageParams.pageNum,
+            pageSize: 10
+          }
+        }
+        const result = await $axios.$post(AnswerApi.GetAnswers, answerParam)
+        if (result.code === 200) {
+          const { content, page } = getPageResult(result)
+          answers = content;
+          pageParams.total = page.totalElements
+          pageParams.pageNum = page.number + 1
+        }
+      } catch (error) {
+        
       }
-      const result = await $axios.$post(AnswerApi.GetAnswers, answerParam)
-      if (result.code === 200) {
-        const { content, page } = getPageResult(result)
-        answers = content;
-        pageParams.total = page.totalElements
-        pageParams.pageNum = page.number + 1
-      }
-    } catch (error) {
-      
     }
 
     let project: any;
@@ -169,7 +171,8 @@ export default Vue.extend({
     }
 
     await Promise.all([
-      getQuestion()
+      getQuestion(),
+      getAnswer(),
     ])
     
     const end = new Date().getTime();

@@ -241,18 +241,11 @@ export default Vue.extend({
       return '暂无数据'
     }
 
-    const param: any = {
-      data: {
-        id,
-      }
-    }
     let house: any;
-    const result:any = await $axios.$post(VideoApi.Detail, param);
     let videoItem:any;
     let videoList:any;
-    if (result.code === 200) {
-      videoItem = result.data.detail.content;
-      videoList = result.data.list.content;
+
+    const getProject = async () => {
       if (videoItem.projectId) {
         const paramH: any = {
           data: {
@@ -265,44 +258,71 @@ export default Vue.extend({
         house.roomAreas = getRoomArea(house.hLayoutsById);
       }
     }
-    // 热门资讯
-    const newsParam: any = {
-      data: {
-        cityId: store.state.app.cityId,
-      },
-      page: {
-        pageNum: 0,
-        pageSize: 5,
-      },
-      sort: {
-        desc: ['orderNum', 'createTime'],
-      },
-    }
-    let newsTop: any[] = [];
-    const topResult = await $axios.$post(Api.GetNewsByCity, newsParam);
-    if (topResult.code === 200) {
-      newsTop = getDataResult(topResult);
-    }
-
-    // 按照当前视频类型，获取视频
-    const cityId = store.state.app.cityId;
-    const sort = videoItem.sort;
-
-    const videoParam: any = {
-      data: {
-        cityId,
-        sort,
-      },
-      page: {
-        pageNum: 0,
-        pageSize: 9,
-      },
-    }
-    const videoResult:any = await $axios.$post(VideoApi.ByPage, videoParam);
     let lastData:any;
-    if (videoResult.code === 200) {
-     lastData = getDataResult(videoResult)
+    const cityId = store.state.app.cityId;
+    // 同類型視頻
+    const getTypeVideo = async () => {
+      // 按照当前视频类型，获取视频
+      const videoParam: any = {
+        data: {
+          cityId,
+          sort: videoItem?.sort,
+        },
+        page: {
+          pageNum: 0,
+          pageSize: 9,
+        },
+      }
+      const videoResult:any = await $axios.$post(VideoApi.ByPage, videoParam);
+      
+      if (videoResult.code === 200) {
+        lastData = getDataResult(videoResult)
+      }
     }
+
+    const param: any = {
+      data: {
+        id,
+      }
+    }
+    
+    const getVideo = async () => {
+      const result:any = await $axios.$post(VideoApi.Detail, param);
+      if (result.code === 200) {
+        videoItem = result.data.detail.content;
+        videoList = result.data.list.content;
+        await Promise.all([
+          getProject(),
+          getTypeVideo(),
+        ])
+      }
+    }
+    
+    // 热门资讯
+    let newsTop: any[] = [];
+    const getNews = async () => {
+      const newsParam: any = {
+        data: {
+          cityId: store.state.app.cityId,
+        },
+        page: {
+          pageNum: 0,
+          pageSize: 5,
+        },
+        sort: {
+          desc: ['orderNum', 'createTime'],
+        },
+      }
+      const topResult = await $axios.$post(Api.GetNewsByCity, newsParam);
+      if (topResult.code === 200) {
+        newsTop = getDataResult(topResult);
+      }
+    }
+
+    await Promise.all([
+      getVideo(),
+      getNews(),
+    ])
 
     const end = new Date().getTime();
     // eslint-disable-next-line no-console

@@ -139,18 +139,6 @@ export default Vue.extend({
     const tokenType = store.state.app.tokenType;
     const accessToken = store.state.app.accessToken;
 
-    // 个人信息
-    // const userInfo = {
-    //   id: store.state.app.userId,
-    //   gender: store.state.app.gender,
-    //   nickName: store.state.app.nickName,
-    //   avatar: store.state.app.avatar,
-    //   cityId: store.state.app.cityId,
-    //   provinceId: store.state.app.provinceId,
-    //   realName: store.state.app.realName,
-    //   areaId: store.state.app.areaId,
-    //   username: store.state.app.username,
-    // };
     let userInfo;
     try {
       $axios.setHeader('Authorization', tokenType + ' ' +accessToken)
@@ -228,8 +216,6 @@ export default Vue.extend({
         }
       }
     }
-
-    console.log(store.state.app.avatar)
 
     return {
       tokenType,

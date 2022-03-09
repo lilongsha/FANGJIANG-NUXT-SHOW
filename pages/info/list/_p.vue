@@ -187,20 +187,24 @@ export default Vue.extend({
   name: 'InfoList',
   async asyncData({ $axios, route, store, req }) {
     const start = new Date().getTime();
-
-    const activityParam = {
-      data: {
-        cityId:store.state.app.cityId
-      }
-    }
-    const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
+    // 活动信息
     let activities;
-    if (activityResult.code === 200) {
-      const result:ActivityModel[] = getDataResult(activityResult);
-      if (result) {
-        activities = result;
+    const getActivity = async () => {
+      const activityParam = {
+        data: {
+          cityId:store.state.app.cityId
+        }
+      }
+      const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
+      if (activityResult.code === 200) {
+        const result:ActivityModel[] = getDataResult(activityResult);
+        if (result) {
+          activities = result;
+        }
       }
     }
+
+    
     
     let pageNum = 1;
     const userAgent = req?.headers['user-agent'] || '';
@@ -290,7 +294,11 @@ export default Vue.extend({
         total = newsTopResult.data.page.totalElements;
       }
     }
-    await getNews();
+
+    await Promise.all([
+      getActivity(),
+      getNews(),
+    ])
 
     let isMobile: any;
     if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {

@@ -165,33 +165,37 @@ export default Vue.extend({
       pageNum:pageNum - 1,
       total: 0
     }
-    const result = await $axios.$post(
-      NewsApi.GetNewsByProject, 
-      { 
-        data: { projectId: params, inMobile:isMobile }, 
-        sort: { desc: ['createTime']},
-        page: pageParam
-      }
-    );
     let news;
-    const new2 = [];
-    const new3 = [];
-    const new7 = [];
-    if (result.code === 200) {
-      const { content, page } = getPageResult(result);
-      news = content;
-      pageParam.total = page.totalElements;
-      pageParam.pageNum = page.number + 1;
-      for (let i = 0; i< news.length; i++) {
-        if (news[i].sort === '2') {
-          new2.push(news[i])
-        } else if (news[i].sort === '3') {
-          new3.push(news[i])
-        } else if (news[i].sort === '7') {
-          new7.push(news[i])
+    const new2: any[] = [];
+    const new3: any[] = [];
+    const new7: any[] = [];
+    
+    const getNews = async () => {
+      const result = await $axios.$post(
+        NewsApi.GetNewsByProject, 
+        { 
+          data: { projectId: params, inMobile:isMobile }, 
+          sort: { desc: ['createTime']},
+          page: pageParam
+        }
+      );
+      if (result.code === 200) {
+        const { content, page } = getPageResult(result);
+        news = content;
+        pageParam.total = page.totalElements;
+        pageParam.pageNum = page.number + 1;
+        for (let i = 0; i< news.length; i++) {
+          if (news[i].sort === '2') {
+            new2.push(news[i])
+          } else if (news[i].sort === '3') {
+            new3.push(news[i])
+          } else if (news[i].sort === '7') {
+            new7.push(news[i])
+          }
         }
       }
     }
+    
     let house: any;
     let favorite;
     const getHouse = async () => {
@@ -229,21 +233,30 @@ export default Vue.extend({
       
       
     }
-    await getHouse();
+
      // 相关活动
-    const activityParam = {
-      data: {
-        projectId: params
+     let activities;
+     const getActivity = async () => {
+       const activityParam = {
+        data: {
+          projectId: params
+        }
       }
-    }
-    let activities;
-    if (activityParam.data.projectId) {
-      const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
       
-      if (activityResult.code === 200 && activityResult.data) {
-        activities = activityResult.data.content;
+      if (activityParam.data.projectId) {
+        const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
+        
+        if (activityResult.code === 200 && activityResult.data) {
+          activities = activityResult.data.content;
+        }
       }
-    }
+     }
+    
+    await Promise.all([
+      getActivity(),
+      getNews(),
+      getHouse(),
+    ])
 
     const end = new Date().getTime();
     // eslint-disable-next-line no-console
