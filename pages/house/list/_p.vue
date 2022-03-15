@@ -13,7 +13,7 @@
             <div :class="select.areaId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '1'">
               <span>区域</span>
               <div v-show="select.areaId.length > 0" @click.stop="">
-                <a :href="getClearUrl('areaId')" class="flex flex-row items-center">
+                <a rel="nofollow" :href="getClearUrl('areaId')" class="flex flex-row items-center">
                   <span>({{ select.areaId.length }})</span>
                   <svg
                     t="1631524675623"
@@ -52,7 +52,7 @@
             <div :class="select.tradingId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '2'">
               <span>商圈</span>
               <div v-show="select.tradingId.length > 0" @click.stop="">
-                <a :href="getClearUrl('tradingId')" class="flex flex-row items-center">
+                <a rel="nofollow" :href="getClearUrl('tradingId')" class="flex flex-row items-center">
                   <span>({{ select.tradingId.length }})</span>
                   <svg
                     t="1631524675623"
@@ -91,7 +91,7 @@
             <div :class="select.stationId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '3'">
               <span>地铁</span>
               <div v-show="select.stationId.length > 0" @click.stop="">
-                <a :href="getClearUrl('stationId')" class="flex flex-row items-center">
+                <a rel="nofollow" :href="getClearUrl('stationId')" class="flex flex-row items-center">
                   <span>({{ select.stationId.length }})</span>
                   <svg
                     t="1631524675623"
@@ -133,13 +133,13 @@
           <!-- 区域 -->
           <div :class="locationType === '1' ? 'w-11/12' : 'h-0 w-0'" class="grid grid-flow-row grid-cols-12 gap-4 overflow-hidden transition-all auto-rows-auto">
             <div v-for="item in areas" :key="item.id">
-              <a :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'areaId')">{{ item.name }}</a>
+              <a rel="nofollow" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'areaId')">{{ item.name }}</a>
             </div>
           </div>
           <!-- 商圈 -->
           <div :class="locationType === '2' ? 'w-11/12' : 'h-0 w-0'" class="grid grid-flow-row grid-cols-8 gap-4 overflow-hidden transition-all auto-rows-auto">
             <div v-for="item in tradings" :key="item.id" >
-              <a :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'tradingId')">{{ item.name }}</a>
+              <a rel="nofollow" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'tradingId')">{{ item.name }}</a>
             </div>
           </div>
           <!-- 地铁 -->
@@ -147,7 +147,7 @@
             <div v-for="line in metroLines" :key="line.id" class="flex flex-row">
               <span class="w-1/12 mr-4 text-gray-600">{{ line.name }}</span>
               <div class="w-11/12 space-x-4">
-                <a v-for="station in line.stations" :key="station.id" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" :href="getUrl(station.id, 'stationId')">{{ station.name }}</a>
+                <a v-for="station in line.stations" :key="station.id" rel="nofollow" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" :href="getUrl(station.id, 'stationId')">{{ station.name }}</a>
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@
           <div class="w-1/12 text-xs font-semibold">单价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in priceList" :key="index" class="flex flex-row mr-4">
-              <a v-if="item.title !== null" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'price')">
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'price')">
                 <img v-if="select.price === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -180,7 +180,7 @@
           <div class="w-1/12 text-xs font-semibold">总价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in totalPriceList" :key="index" class="flex flex-row mr-4">
-              <a v-if="item.title !== null" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
                 <img v-if="select.totalPrice === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -201,7 +201,7 @@
           <div class="w-1/12 text-xs font-semibold">面积</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in acreageList" :key="index" class="flex flex-row mr-4">
-              <a v-if="item.title !== null" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
                 <img v-if="select.acreage === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -223,7 +223,7 @@
           <div class="w-1/12 text-xs font-semibold">户型</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row mr-4">
-              <a class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
+              <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
                 <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -238,7 +238,7 @@
           <div class="w-1/12 text-xs font-semibold">类型</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in projectType" :key="index" class="flex flex-row mr-4">
-              <a class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
+              <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
                 <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -254,7 +254,7 @@
           <!-- flex flex-row flex-wrap items-center w-11/12 h-full text-xs text-gray-500 -->
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in saleState" :key="index" class="flex flex-row mr-4">
-              <a class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
+              <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
                 <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -377,12 +377,12 @@
           </div>
           <div :class="locationType === '1' ? 'm-sub-menu' : 'm-sub-menu-hidden'">
             <div :class="locationType === '1' ? 'w-full h-full' : 'h-0 w-0'" class="m-sub-menu-div">
-              <a v-for="item in areas" :key="item.id" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''"  :href="getUrl(item.id, 'areaId')">{{ item.name }}</a>
+              <a v-for="item in areas" :key="item.id" rel="nofollow" :class="select['areaId'].includes(item.id) ? 'text-fjBlue-100' : ''"  :href="getUrl(item.id, 'areaId')">{{ item.name }}</a>
             </div>
           </div>
           <div :class="locationType === '2' ? 'm-sub-menu' : 'm-sub-menu-hidden'">
             <div :class="locationType === '2' ? 'w-full h-full' : 'h-0 w-0'" class="m-sub-menu-div">
-              <a v-for="item in tradings" :key="item.id" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'tradingId')">{{ item.name }}</a>
+              <a v-for="item in tradings" :key="item.id" rel="nofollow" :class="select.tradingId.includes(item.id) ? 'text-fjBlue-100' : ''" :href="getUrl(item.id, 'tradingId')">{{ item.name }}</a>
             </div>
           </div>
           <div :class="locationType === '3' ? 'm-sub-menu' : 'm-sub-menu-hidden'">
@@ -392,7 +392,7 @@
               </div>
               <div class="flex flex-col w-1/2">
                 <div v-for="line in metroLines" v-show="selectMenuLine === line.id" :key="line.id" class="w-full mr-4 text-gray-600 space-y-2 flex flex-col overflow-hidden max-h-[33vh] overflow-y-auto">
-                  <a v-for="station in line.stations" :key="station.id" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" :href="getUrl(station.id, 'stationId')">{{ station.name }}</a>
+                  <a v-for="station in line.stations" :key="station.id" rel="nofollow" :class="select.stationId.includes(station.id) ? 'text-fjBlue-100' : ''" :href="getUrl(station.id, 'stationId')">{{ station.name }}</a>
                 </div>
               </div>
             </div>
@@ -406,7 +406,7 @@
           </div>
           <div :class="selectMenuPrice === '1' ? 'm-sub-menu-col' : 'm-sub-menu-hidden'">
             <div v-for="(item, index) in priceList" :key="index">
-              <a v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'price')">
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'price')">
                 <img v-if="select.price === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -415,7 +415,7 @@
           </div>
           <div :class="selectMenuPrice === '2' ? 'm-sub-menu-col' : 'm-sub-menu-hidden'">
             <div v-for="(item, index) in totalPriceList" :key="index">
-              <a v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
                 <img v-if="select.totalPrice === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -427,7 +427,7 @@
         <div :class="selectMenuM !== '2' ? 'max-h-0' : 'max-h-[33vh]'" class="flex flex-row w-full px-2 overflow-hidden ease-linear" style="transition: max-height .5s;">
           <div class="w-full h-full space-y-2 text-sm text-gray-500">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row justify-center mr-4">
-              <a class="flex flex-row items-center justify-start w-14 whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
+              <a rel="nofollow" class="flex flex-row items-center justify-start w-14 whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
                 <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -442,7 +442,7 @@
             <div class="w-full my-2 font-bold"><span>面积</span></div>
             <div class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
               <div v-for="(item, index) in acreageList" :key="index">
-                <a v-if="item.title !== null" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
+                <a v-if="item.title !== null" rel="nofollow" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
                   <img v-if="select.acreage === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                   <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                   <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -455,7 +455,7 @@
             <div class="w-full my-2 font-bold"><span>类型</span></div>
             <div class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
               <div v-for="(item, index) in projectType" :key="index">
-                <a class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
+                <a rel="nofollow" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
                   <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                   <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                   <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -468,7 +468,7 @@
             <div class="w-full my-2 font-bold"><span>状态</span></div>
             <div class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
               <div v-for="(item, index) in saleState" :key="index">
-              <a class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
+              <a rel="nofollow" class="flex flex-row items-center whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
                 <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
@@ -481,10 +481,10 @@
         <div :class="selectMenuM !== '4' ? 'max-h-0' : 'max-h-[33vh]'" class="flex flex-row w-full px-2 overflow-hidden ease-linear" style="transition: max-height .5s;">
           <div class="w-full h-full space-y-2 text-gray-500">
             <div class="flex flex-col text-sm text-center">
-              <a :class="select.sortType === '1' ? 'text-fjBlue-100' : ''" :href="getSortUrl('1')">均价从高到底</a>
-              <a :class="select.sortType === '2' ? 'text-fjBlue-100' : ''" :href="getSortUrl('2')">均价从底到高</a>
-              <a :class="select.sortType === '3' ? 'text-fjBlue-100' : ''" :href="getSortUrl('3')">开盘时间顺序</a>
-              <a :class="select.sortType === '4' ? 'text-fjBlue-100' : ''" :href="getSortUrl('4')">开盘时间倒序</a>
+              <a rel="nofollow" :class="select.sortType === '1' ? 'text-fjBlue-100' : ''" :href="getSortUrl('1')">均价从高到底</a>
+              <a rel="nofollow" :class="select.sortType === '2' ? 'text-fjBlue-100' : ''" :href="getSortUrl('2')">均价从底到高</a>
+              <a rel="nofollow" :class="select.sortType === '3' ? 'text-fjBlue-100' : ''" :href="getSortUrl('3')">开盘时间顺序</a>
+              <a rel="nofollow" :class="select.sortType === '4' ? 'text-fjBlue-100' : ''" :href="getSortUrl('4')">开盘时间倒序</a>
             </div>
           </div>
         </div>
@@ -529,7 +529,7 @@
             </div>
           </div>
           <div class="w-1/3 p-2 text-center align-middle">
-            <a class="block w-full px-2 py-1 text-white rounded bg-fjBlue-100" href="/house/list">重置</a>
+            <a rel="nofollow" class="block w-full px-2 py-1 text-white rounded bg-fjBlue-100" href="/house/list">重置</a>
           </div>
         </div>
       </div>
@@ -661,11 +661,11 @@
                   <!-- 类型 -->
                   <HouseTypeLabel :sort="item.type" :class-name="'text-gray-400'" class="flex-shrink-0" />
                   <!-- 面积 -->
-                  <span v-if="item.hLayoutsById.length > 0" class="flex-shrink-0 lg:ml-2 text-gray-400 ">|</span>
-                  <span v-if="getRoomArea(item.hLayoutsById)" class="flex-shrink-0 lg:ml-2 text-gray-400">{{ getRoomArea(item.hLayoutsById) }}</span>
+                  <span v-if="item.hLayoutsById.length > 0" class="flex-shrink-0 text-gray-400 lg:ml-2 ">|</span>
+                  <span v-if="getRoomArea(item.hLayoutsById)" class="flex-shrink-0 text-gray-400 lg:ml-2">{{ getRoomArea(item.hLayoutsById) }}</span>
                   <!-- 开盘时间 -->
-                  <span v-if="item.openTime" class="flex-shrink-0 lg:ml-2 text-gray-400">|</span>
-                  <span class="flex-shrink-0 lg:ml-2 text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
+                  <span v-if="item.openTime" class="flex-shrink-0 text-gray-400 lg:ml-2">|</span>
+                  <span class="flex-shrink-0 text-gray-400 lg:ml-2" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
                 </div>
                 <!-- 右中内容 -->
                 <div class="flex flex-row w-full lg:mt-7 lg:h-[168px] text-[#999999]">
@@ -876,7 +876,7 @@ export default Vue.extend({
     }
     const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
     let activities;
-    if (activityResult.code === 200) {
+    if (activityResult?.code === 200) {
       const result:ActivityModel[] = getDataResult(activityResult);
       if (result) {
         activities = result;
@@ -903,7 +903,7 @@ export default Vue.extend({
     };
     const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
     let areas: any[] = [];
-    if (areaResult.code === 200) {
+    if (areaResult?.code === 200) {
       areas = getDataResult(areaResult);
     }
     // 获取商圈
@@ -918,7 +918,7 @@ export default Vue.extend({
     };
     const result:BaseListResult<TradingAreaModel>  = await $axios.$post(TradingAreaApi.GetAllTradingAreas, param);
     let tradings: any[] = [];
-    if (result.code === 200) {
+    if (result?.code === 200) {
       tradings = getDataResult(result);
     }
     // 获取地铁
@@ -930,7 +930,7 @@ export default Vue.extend({
     };
     const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
     let metroLines: MetroLineModel[] = [];
-    if (metroLineResult.code === 200) {
+    if (metroLineResult?.code === 200) {
       metroLines = getDataResult(metroLineResult);
     }
 
@@ -1046,7 +1046,7 @@ export default Vue.extend({
           $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
         }
         projectResult = await $axios.$post(HouseApi.GetByCityIdAndOrder, param);
-        if (projectResult.code === 200) {
+        if (projectResult?.code === 200) {
           favorite = projectResult.data?.favorite;
           isFavorite = projectResult.data?.favorite;
           projectList = getDataResult(projectResult)
@@ -1244,7 +1244,7 @@ export default Vue.extend({
         let result;
         try {
           result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({ content: '关注成功', duration: 3})
             this.isFavorite.push(house.id)
           }
@@ -1285,7 +1285,7 @@ export default Vue.extend({
         let result;
         try {
           result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({ content: '取消关注', duration: 3})
             for (let index = 0; index < this.isFavorite.length; index++) {
               if (this.isFavorite[index] === house.id) {
@@ -1496,7 +1496,7 @@ export default Vue.extend({
           this.$axios.setHeader('Authorization', tokenType + ' ' + accessToken)
         }
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.GetByCityIdAndOrder, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.projectList = getDataResult(result)
           this.pageNum = result.data.page.number + 1;
           this.total = result.data.page.totalElements;
