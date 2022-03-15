@@ -59,7 +59,7 @@ export default Vue.extend({
         let result;
         try {
           result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({ content: '关注成功', duration: 3})
             this.isFavorite = '1'
           }
@@ -91,7 +91,7 @@ export default Vue.extend({
         let result;
         try {
           result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({ content: '取消关注', duration: 3})
             this.isFavorite = '0'
           }

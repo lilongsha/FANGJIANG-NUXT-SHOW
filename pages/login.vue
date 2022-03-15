@@ -1,5 +1,5 @@
 .<template>
-<div class="flex flex-row items-end justify-end w-screen h-screen lg:bg-login-bg sm:bg-login-phone bg-auto bg-fixed bg-no-repeat" style="background-size: 100%">
+<div class="flex flex-row items-end justify-end w-screen h-screen bg-fixed bg-no-repeat bg-auto lg:bg-login-bg sm:bg-login-phone" style="background-size: 100%">
   <!-- <img src="~/assets/img/login/bj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover sm:hidden"> -->
   <!-- <img src="~/assets/img/login/phonebj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover lg:hidden"> -->
   <div class="relative w-full h-full mx-auto lg:container">
@@ -110,7 +110,7 @@ export default Vue.extend({
     const codeResult = await $axios.$post(Api.getCode);
     let keyCode;
     let img;
-    if (codeResult.code === 200) {
+    if (codeResult?.code === 200) {
       keyCode = codeResult.data.key;
       img = codeResult.data.codeUrl;
     }
@@ -159,89 +159,90 @@ export default Vue.extend({
     async clickLogin() {
       try {
         
-      this.$nuxt.$loading.start()
-      if (this.password && this.LoginParams.username && this.LoginParams.code) {
-        this.LoginParams.password = this.password;
-        this.LoginParams.key = this.codeResult.data.key;
-        const pass = encrypt(this.LoginParams.password)
-        this.LoginParams.password = pass;
-        this.$axios.setHeader('Authorization','Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==');
-        const result = await this.$axios.$get(Api.Token, {params:this.LoginParams});
-        this.$axios.setHeader('Authorization','');
-        // let userInfo;
-        if (result.code === 200) {
-          const that = this;
-          const store = that.$store;
-          await store.commit('app/AccessToken', result.data.access_token)
-          await store.commit('app/ExpiresIn', result.data.expires_in)
-          await store.commit('app/RefreshToken', result.data.refresh_token)
-          await store.commit('app/Scope', result.data.scope)
-          await store.commit('app/TokenType', result.data.token_type)
-          if (this.checked) {
-            Cookies.set('Access_Token', result.data.access_token, { expires: 7, })
-            Cookies.set('Token_Type', result.data.token_type, { expires: 7, })
-            Cookies.set('ExpiresIn', result.data.expires_in, { expires: 7, })
-            Cookies.set('RefreshToken', result.data.refresh_token, { expires: 7, })
-            Cookies.set('Scope', result.data.scope, { expires: 7, })
-          } else {
-            Cookies.set('Access_Token', result.data.access_token)
-            Cookies.set('Token_Type', result.data.token_type)
-            Cookies.set('ExpiresIn', result.data.expires_in)
-            Cookies.set('RefreshToken', result.data.refresh_token)
-            Cookies.set('Scope', result.data.scope)
-          }
-          
-          const token = this.$store.state.app.accessToken;
-          const tokenType = this.$store.state.app.tokenType
-          this.$axios.setHeader('Authorization',tokenType + ' ' +token);
-          const s = await this.$axios.$post(Api.GetCurInfo)
+        this.$nuxt.$loading.start()
+        if (this.password && this.LoginParams.username && this.LoginParams.code) {
+          this.LoginParams.password = this.password;
+          this.LoginParams.key = this.codeResult.data.key;
+          const pass = encrypt(this.LoginParams.password)
+          this.LoginParams.password = pass;
+          this.$axios.setHeader('Authorization','Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==');
+          const result = await this.$axios.$get(Api.Token, {params:this.LoginParams});
           this.$axios.setHeader('Authorization','');
-          if (s.code === 200) {
-            const userInfo = s.data.content;
-            await store.commit('app/UserId', userInfo.id)
-            await store.commit('app/UserName', userInfo.userName)
-            await store.commit('app/Avatar', userInfo.avatar)
-            await store.commit('app/NickName', userInfo.nickName)
-            await store.commit('app/Gender', userInfo.gender)
+          // let userInfo;
+          if (result?.code === 200) {
+            const that = this;
+            const store = that.$store;
+            await store.commit('app/AccessToken', result.data.access_token)
+            await store.commit('app/ExpiresIn', result.data.expires_in)
+            await store.commit('app/RefreshToken', result.data.refresh_token)
+            await store.commit('app/Scope', result.data.scope)
+            await store.commit('app/TokenType', result.data.token_type)
             if (this.checked) {
-              Cookies.set('UserName', userInfo.username, { expires: 7, })
-              Cookies.set('Gender', userInfo.gender, { expires: 7, })
-              Cookies.set('UserId', userInfo.id, { expires: 7, })
-              Cookies.set('State', userInfo.state, { expires: 7, })
-              Cookies.set('RealName', userInfo.realName, { expires: 7, })
-              Cookies.set('ProvinceId', userInfo.provinceId, { expires: 7, })
-              Cookies.set('PhoneOk', userInfo.phoneOk, { expires: 7, })
-              Cookies.set('Password', userInfo.password, { expires: 7, })
-              Cookies.set('NickName', userInfo.nickName, { expires: 7, })
-              Cookies.set('MessageOk', userInfo.messageOk, { expires: 7, })
-              Cookies.set('CityId', userInfo.cityId, { expires: 7, })
-              Cookies.set('AreaId', userInfo.areaId, { expires: 7, })
-              Cookies.set('Avatar', userInfo.avatar, { expires: 7, })
+              Cookies.set('Access_Token', result.data.access_token, { expires: 7, })
+              Cookies.set('Token_Type', result.data.token_type, { expires: 7, })
+              Cookies.set('ExpiresIn', result.data.expires_in, { expires: 7, })
+              Cookies.set('RefreshToken', result.data.refresh_token, { expires: 7, })
+              Cookies.set('Scope', result.data.scope, { expires: 7, })
             } else {
-              Cookies.set('UserName', userInfo.username)
-              Cookies.set('Gender', userInfo.gender)
-              Cookies.set('UserId', userInfo.id)
-              Cookies.set('State', userInfo.state)
-              Cookies.set('RealName', userInfo.realName)
-              Cookies.set('ProvinceId', userInfo.provinceId)
-              Cookies.set('PhoneOk', userInfo.phoneOk)
-              Cookies.set('Password', userInfo.password)
-              Cookies.set('NickName', userInfo.nickName)
-              Cookies.set('MessageOk', userInfo.messageOk)
-              Cookies.set('CityId', userInfo.cityId)
-              Cookies.set('AreaId', userInfo.areaId)
-              Cookies.set('Avatar', userInfo.avatar)
+              Cookies.set('Access_Token', result.data.access_token)
+              Cookies.set('Token_Type', result.data.token_type)
+              Cookies.set('ExpiresIn', result.data.expires_in)
+              Cookies.set('RefreshToken', result.data.refresh_token)
+              Cookies.set('Scope', result.data.scope)
             }
             
+            const token = this.$store.state.app.accessToken;
+            const tokenType = this.$store.state.app.tokenType
+            this.$axios.setHeader('Authorization',tokenType + ' ' +token);
+            const s = await this.$axios.$post(Api.GetCurInfo)
+            this.$axios.setHeader('Authorization','');
+            if (s.code === 200) {
+              const userInfo = s.data.content;
+              await store.commit('app/UserId', userInfo.id)
+              await store.commit('app/UserName', userInfo.userName)
+              await store.commit('app/Avatar', userInfo.avatar)
+              await store.commit('app/NickName', userInfo.nickName)
+              await store.commit('app/Gender', userInfo.gender)
+              if (this.checked) {
+                Cookies.set('UserName', userInfo.username, { expires: 7, })
+                Cookies.set('Gender', userInfo.gender, { expires: 7, })
+                Cookies.set('UserId', userInfo.id, { expires: 7, })
+                Cookies.set('State', userInfo.state, { expires: 7, })
+                Cookies.set('RealName', userInfo.realName, { expires: 7, })
+                Cookies.set('ProvinceId', userInfo.provinceId, { expires: 7, })
+                Cookies.set('PhoneOk', userInfo.phoneOk, { expires: 7, })
+                Cookies.set('Password', userInfo.password, { expires: 7, })
+                Cookies.set('NickName', userInfo.nickName, { expires: 7, })
+                Cookies.set('MessageOk', userInfo.messageOk, { expires: 7, })
+                Cookies.set('CityId', userInfo.cityId, { expires: 7, })
+                Cookies.set('AreaId', userInfo.areaId, { expires: 7, })
+                Cookies.set('Avatar', userInfo.avatar, { expires: 7, })
+              } else {
+                Cookies.set('UserName', userInfo.username)
+                Cookies.set('Gender', userInfo.gender)
+                Cookies.set('UserId', userInfo.id)
+                Cookies.set('State', userInfo.state)
+                Cookies.set('RealName', userInfo.realName)
+                Cookies.set('ProvinceId', userInfo.provinceId)
+                Cookies.set('PhoneOk', userInfo.phoneOk)
+                Cookies.set('Password', userInfo.password)
+                Cookies.set('NickName', userInfo.nickName)
+                Cookies.set('MessageOk', userInfo.messageOk)
+                Cookies.set('CityId', userInfo.cityId)
+                Cookies.set('AreaId', userInfo.areaId)
+                Cookies.set('Avatar', userInfo.avatar)
+              }
+              
+            }
+            this.$axios.setHeader('Authorization', '')
+            this.$router.push(this.path)
           }
           this.$axios.setHeader('Authorization', '')
-          this.$router.push(this.path)
+        } else {
+          message.error({ content: '请正确填写信息', duration: 3});
         }
-        this.$axios.setHeader('Authorization', '')
-      } else {
-        message.error({ content: '请正确填写信息', duration: 3});
-      }
       } catch (error) {
+        debugger;
         message.error({ content: '登录失败， 请重试', duration: 3});
       } finally {
         this.$axios.setHeader('Authorization', '')
@@ -250,7 +251,7 @@ export default Vue.extend({
     },
     async clickImg() {
       const codeResult = await this.$axios.$post(Api.getCode);
-      if (codeResult.code === 200) {
+      if (codeResult?.code === 200) {
         this.keyCode = codeResult.data.key;
         this.img = codeResult.data.codeUrl;
         this.codeResult.data.key = codeResult.data.key;
@@ -265,7 +266,7 @@ export default Vue.extend({
           }
         }
         const result = await this.$axios.$post(Api.SmsCode, param);
-        if (result.code === 200){
+        if (result?.code === 200){
           message.success({ content: '验证码已发送', duration: 3 });
           this.isTime = true;
           this.setTime();

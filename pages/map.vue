@@ -121,7 +121,7 @@ export default Vue.extend({
     };
     const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
     let areas: any[] = [];
-    if (areaResult.code === 200) {
+    if (areaResult?.code === 200) {
       areas = getDataResult(areaResult);
     }
 

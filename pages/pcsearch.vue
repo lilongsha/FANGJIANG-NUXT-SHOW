@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full sm:hidden pb-20">
+  <div class="w-full h-full pb-20 sm:hidden">
     <div class="h-10"></div>
     <div class="flex flex-row items-center justify-center w-full py-16 bg-fjBlue-100 bg-opacity-10">
       <div class="w-[900px]">
@@ -34,11 +34,11 @@
             <div class="lg:p-4 lg:mb-6 hover:bg-gray-100">
               <a :href="`/house/${item.id}.html`" target="_blank" class="w-full lg:h-[200px] flex flex-row">
                 <!-- 左边图片 -->
-                <div class="lg:h-full w-2/5 static">
+                <div class="static w-2/5 lg:h-full">
                   <img :src="getImg(item)" class="object-cover w-full h-full" :alt="item.name" />
                 </div>
                 <!-- 右边内容 -->
-                <div class="h-full w-3/5 lg:pl-6">
+                <div class="w-3/5 h-full lg:pl-6">
                   
                   <div class="flex flex-row items-center justify-between lg:h-11">
                     <div class="flex flex-row items-center">
@@ -101,7 +101,7 @@
                         bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                         eTPfkgAAAABJRU5ErkJggg==" ></image>
                         </svg>
-                        <span class="overflow-hidden whitespace-nowrap lg:mr-4 flex-shrink-0" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
+                        <span class="flex-shrink-0 overflow-hidden whitespace-nowrap lg:mr-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
                       </div>
                       <div class="flex flex-row items-center lg:mt-2">
                         <svg version="1.1" class="mr-1 text-gray-400 lg:w-4 lg:h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
@@ -162,7 +162,7 @@
           <div v-if="news && news.length > 0" class="border-b border-b-[#DDDDDD] pb-12 mb-12">
             <div v-for="item in news" :key="item.id" class="lg:h-[234px] bg-[#f5f5f5] flex flex-row flex-shrink-0">
               <div class="w-2/5 h-full">
-                <img :src="item.img" :title="item.title" :alt="item.title" class="w-full h-full object-cover" />
+                <img :src="item.img" :title="item.title" :alt="item.title" class="object-cover w-full h-full" />
               </div>
               <!-- news item info -->
               <div class="w-3/5 lg:pl-[27px] py-2 relative">
@@ -183,14 +183,14 @@
           <!-- 视频 -->
           <div v-if="videos && videos.length > 0" href="" class="">
             <div class="text-[#333333] text-[26px] font-medium">{{ search }}相关视频</div>
-            <div class="items-center justify-between grid grid-cols-3">
+            <div class="grid items-center justify-between grid-cols-3">
               <a v-for="(item, index) in videos" v-show="index != 1" :key="index" :href="`/video/${item.id}.html`" class="mt-5">
                 <div class="relative group">
                   <div class="absolute bottom-0 flex flex-col justify-center object-cover w-[270px] h-10 px-2 text-white transition-all bg-black lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 bg-opacity-40 lg:group-hover:h-full">
                     <p class="text-[18px]">{{ item.title }}</p>
                     <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
                   </div>
-                  <img class="absolute h-10 w-10 top-1/2 left-1/2 -mt-5 -ml-5 group-hover:hidden" src="~/assets/img/video/play.png"/>
+                  <img class="absolute w-10 h-10 -mt-5 -ml-5 top-1/2 left-1/2 group-hover:hidden" src="~/assets/img/video/play.png"/>
                   <img :src="item.photoAddress" alt="" class="bg-fjBlue-100 h-[158px] w-[270px]">
                 </div>
               </a>
@@ -217,7 +217,7 @@
             <a :href="`/video/${videos[0].id}.html`" class="">
               <!--  :href="`/video/project/${house.id}.html`" -->
               <div class="relative mt-8">
-                <img class="absolute h-10 w-10 top-1/2 left-1/2 -mt-5 -ml-5" src="~/assets/img/video/play.png"/>
+                <img class="absolute w-10 h-10 -mt-5 -ml-5 top-1/2 left-1/2" src="~/assets/img/video/play.png"/>
                 <img :src="videos[0].photoAddress" alt="" class="h-[178px] w-full">
               </div>
               <div>
@@ -392,7 +392,7 @@ export default Vue.extend({
         }
         if (this.type === '2') {
           result = await this.$axios.$post(SearchApi.Nhouse, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             this.length = result.data?.page.totalElements; 
             this.houses = result.data?.content;
             this.brands.splice(0);
@@ -401,7 +401,7 @@ export default Vue.extend({
           }
         } else if (this.type === '4') {
           result = await this.$axios.$post(SearchApi.News, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             this.length = result.data?.page.totalElements; 
             this.news = result.data?.content;
             this.brands.splice(0);
@@ -410,7 +410,7 @@ export default Vue.extend({
           }
         } else if (this.type === '5') {
           result = await this.$axios.$post(SearchApi.Videos, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             this.length = result.data?.page.totalElements; 
             this.videos = result.data?.content;
             this.brands.splice(0);
@@ -419,7 +419,7 @@ export default Vue.extend({
           }
         } else {
           result = await this.$axios.$post(SearchApi.All, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             const b = result.data?.brands?.content?.length || 0
             this.length = b + result.data?.houses1.page.totalElements + result.data?.news.page.totalElements + result.data?.videos.page.totalElements; 
             this.brands = result.data?.brands.content;

@@ -196,7 +196,7 @@ export default Vue.extend({
         }
       }
       const activityResult = await $axios.$post(ActivityApi.GetByCity, activityParam)
-      if (activityResult.code === 200) {
+      if (activityResult?.code === 200) {
         const result:ActivityModel[] = getDataResult(activityResult);
         if (result) {
           activities = result;
@@ -286,10 +286,10 @@ export default Vue.extend({
         getNewsTop(),
         getNewsList()
       ])
-      if (newsTopResult.code === 200) {
+      if (newsTopResult?.code === 200) {
         newsTop = getDataResult(newsTopResult);
       }
-      if (newsListResult.code === 200) {
+      if (newsListResult?.code === 200) {
         newsList = getDataResult(newsListResult);
         total = newsTopResult.data.page.totalElements;
       }
@@ -449,7 +449,7 @@ export default Vue.extend({
       this.$nuxt.$loading.start();
       try {
         const result = await this.$axios.$post(NewsApi.GetNewsByCity, newsParam);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.newsList.splice(0);
           this.newsList = getDataResult(result);
           this.total = result.data.page.totalElements;

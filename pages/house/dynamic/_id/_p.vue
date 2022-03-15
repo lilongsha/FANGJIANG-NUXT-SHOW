@@ -126,7 +126,7 @@ export default Vue.extend({
     let activities;
     if (activityParam.data.projectId) {
       const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
-      if (activityResult.code === 200 && activityResult.data) {
+      if (activityResult?.code === 200 && activityResult.data) {
         const result:ActivityModel = getDataResult(activityResult);
         if (result) {
           activities = result;

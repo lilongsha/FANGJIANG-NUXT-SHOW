@@ -173,7 +173,7 @@ export default Vue.extend({
     async projectId() {
         // if (this.projectId) {
         //     const result = await this.$axios.$post(HouseApi.GetProject, { data: { id: this.projectId } })
-        //     if (result.code === 200) {
+        //     if (result?.code === 200) {
         //         this.context = result.data.content.lookTime;
         //         this.intentionCity = result.data.content.sysCityByCityId.id;
         //         this.intentionProject = result.data.content.name;
@@ -243,7 +243,7 @@ export default Vue.extend({
     }
     // if (this.projectId) {
     //     const result = await this.$axios.$post(HouseApi.GetProject, { data: { id: this.projectId } })
-    //     if (result.code === 200) {
+    //     if (result?.code === 200) {
     //         this.context = result.data.content.lookTime;
     //         this.intentionCity = result.data.content.sysCityByCityId.id;
     //         this.intentionProject = this.projectId;
@@ -260,7 +260,7 @@ export default Vue.extend({
       if (this.phone) {
         const phone = this.phone;
         const result = await this.$axios.$post(Api.GetCode, { data: { phone } });
-        if (result.code === 200) {
+        if (result?.code === 200) {
           // this.notice = true;
           // this.noticeInfo = '验证码已发送';
           message.success({ content: '验证码已发送', duration: 3, icon: <a-icon type="check-circle" style="top: -4px;" /> });
@@ -307,7 +307,7 @@ export default Vue.extend({
           let result;
           try{
             result = await this.$axios.$post(Api.Add, param);
-            if (result.code === 200) {
+            if (result?.code === 200) {
               // this.notice = true;
               if (this.clueType === '2') {
                 message.success({ content: '您已成功订阅' + this.intentionProject + '房价变化提醒，稍后我们会有专业的房产顾问联系您！', duration: 3, icon: <a-icon type="fund" style="top: -4px;" /> });

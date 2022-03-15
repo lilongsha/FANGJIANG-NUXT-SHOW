@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full p-4">
-    <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row items-center justify-between">
       <div class="w-[10px] h-[17px]" @click="clickBack"><img src="~/assets/img/userInfo/back.png" alt=""></div>
       <div class="font-bold text-[20px] text-[#333333]">我的收藏</div>
       <div class="flex flex-row space-x-3"><img src="~/assets/img/userInfo/message.png" alt="" class="w-[19px] h-[17px]"></div>
@@ -11,8 +11,8 @@
           <div class="w-1/3">
             <img v-if="item.firstImg" :src="item.firstImg.address" alt="" class="w-full lg:h-[176px] sm:w-full sm:h-24">
           </div>
-          <div class="w-2/3 lg:ml-4 sm:ml-2 relative">
-            <div class="w-full flex flex-row items-center">
+          <div class="relative w-2/3 lg:ml-4 sm:ml-2">
+            <div class="flex flex-row items-center w-full">
               <div class="text-[#000000] lg:text-[20px] font-bold">{{ item.name }}</div>
               <div class="lg:ml-3 sm:ml-2">
                 <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
@@ -27,13 +27,13 @@
               <span v-if="item.hLayoutsById && item.hLayoutsById.length > 0" class="text-gray-400">|</span>
               <span v-if="getRoomArea(item.hLayoutsById)" class="text-gray-400">{{ getRoomArea(item.hLayoutsById) }}</span>
               <!-- 开盘时间 -->
-              <span v-if="item.openTime" class=" text-gray-400">|</span>
+              <span v-if="item.openTime" class="text-gray-400 ">|</span>
               <span class="text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
             </div>
             <div class="lg:mt-6 text-[#999999] text-[12px] lg:flex lg:flex-row">
-              <div class=" lg:w-3/5 h-full">
+              <div class="h-full  lg:w-3/5">
                 <div class="flex flex-row items-center">
-                  <svg version="1.1" class="mr-1 text-gray-400 w-4 h-4 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                  <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                       href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                   AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                   RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
@@ -64,10 +64,10 @@
                   bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                   eTPfkgAAAABJRU5ErkJggg==" ></image>
                   </svg>
-                  <span class="overflow-hidden whitespace-nowrap lg:mr-4 flex-shrink-0" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
+                  <span class="flex-shrink-0 overflow-hidden whitespace-nowrap lg:mr-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
                 </div>
                 <div class="flex flex-row items-center lg:mt-2">
-                  <svg version="1.1" class="mr-1 text-gray-400 w-4 h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                  <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                       href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                   AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                   RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
@@ -157,7 +157,7 @@ export default Vue.extend({
           }
         }
         const result = await $axios.$post(CurrentApi.SelectFavorite, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           const { content, page } = getPageResult(result)
           projectList = content;
           pageParamProject.total = page.totalElements

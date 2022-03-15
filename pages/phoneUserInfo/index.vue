@@ -4,7 +4,7 @@
         <div class="w-[10px] h-[17px]" @click="clickBack"><img src="~/assets/img/userInfo/back.png" alt=""></div>
         <div class="flex flex-row space-x-3"><img src="~/assets/img/userInfo/message.png" alt="" class="w-[19px] h-[17px]"><img src="~/assets/img/userInfo/set.png" alt="" class="w-[20px] h-[17px]" @click="clickSet"></div>
       </div>
-      <div class="mt-6 flex flex-row items-center">
+      <div class="flex flex-row items-center mt-6">
         <div class="rounded-full h-[64px] w-[64px]"><img :src="userInfo.avatar" alt="" class="rounded-full h-[64px] w-[64px] flex-shrink-0"></div>
         <div class="ml-5">
           <div class="text-[#333333] text-[20px] font-normal">{{ userInfo.nickName }}</div>
@@ -74,7 +74,7 @@ export default Vue.extend({
     try {
       $axios.setHeader('Authorization', tokenType + ' ' +accessToken)
       const result = await $axios.$post(Api.GetCurInfo)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         userInfo = result.data.content;
       }
     } catch (error) {
@@ -99,7 +99,7 @@ export default Vue.extend({
       }
       const result = await $axios.$post(CurrentApi.SelectFavorite, param)
       
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result)
         projectList = content;
         pageParamProject.total = page.totalElements // undefined
@@ -129,7 +129,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(QuestionApi.MyQuestion, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result)
         questions = content;
         pageParam.total = page.totalElements

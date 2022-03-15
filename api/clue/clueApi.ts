@@ -1,6 +1,6 @@
 export enum Api {
-    GetCode = '/clue-server/clue/getCode',
-    Add = '/clue-server/clue/add',
+    GetCode = '/customer-server/clue/getCode',
+    Add = '/customer-server/clue/add',
 }
 
 export interface clueModel {

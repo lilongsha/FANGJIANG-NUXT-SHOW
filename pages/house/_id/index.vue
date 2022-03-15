@@ -205,7 +205,7 @@
                 <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <div class="w-full h-full overflow-hidden relactive">
-                <div ref="layoutScroll" class="relative flex flex-row h-full p-2 text-white transition-all" :style="layoutRightString">
+                <div ref="layoutScroll" name="layoutScroll" class="relative flex flex-row h-full p-2 text-white transition-all" :style="layoutRightString" @touchstart="touchstart" @touchend="touchend" @touchmove="touchmove">
                   <div v-for="(item,index) in house.hLayoutsById" v-show="showDefaultLayout === '' || item.room == showDefaultLayout" :key="index" class="flex-shrink-0 h-full overflow-hidden transition-all shadow sm:mr-4 lg:mr-8 sm:w-48 lg:w-72">
                     <div class="overflow-hidden sm:h-32 lg:h-80">
                       <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
@@ -478,7 +478,7 @@ export default Vue.extend({
       
       if (activityParam.data.projectId) {
         const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
-        if (activityResult.code === 200 && activityResult.data) {
+        if (activityResult?.code === 200 && activityResult?.data) {
           const result:ActivityModel = getDataResult(activityResult);
           if (result) {
             activities = result;
@@ -506,7 +506,7 @@ export default Vue.extend({
         },
       }
       const result = await $axios.$post(NewsApi.GetNewsByProject, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result);
         newsList = content;
         totalNews = page.totalElements;
@@ -518,7 +518,7 @@ export default Vue.extend({
     let questionTotal: number = 0;
     const getQuestList = async () => {
       const result = await getQuestions($axios, id);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result);
         questionList = content;
         questionTotal = page.totalElements;
@@ -534,7 +534,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(ResourceApi.GetResourcesList, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         resourceSortList = getDataResult(result);
         if (resourceSortList && resourceSortList[0]) {
           await getFirstresourceList(resourceSortList[0].sort);
@@ -555,7 +555,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(DynamicApi.GetDynamicNews, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result);
         dynamicList = content;
         totalDynamic = page.totalElements;
@@ -576,7 +576,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(ResourceApi.GetResources, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         resourceList = getDataResult(result);
       }
     }
@@ -657,7 +657,7 @@ export default Vue.extend({
         }
         
         result = await $axios.$post(HouseApi.GetProject, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           favorite = result.data?.favorite
           house = getDataResult(result);
           lookTime = house?.lookTime
@@ -671,6 +671,8 @@ export default Vue.extend({
         }
         
       } catch (error) {
+        console.log(error);
+        console.log(result)
         if (result?.code === 401) {
           // router.push('/login?redirect='+ route.path)
           redirect('/login?redirect='+ route.path)
@@ -770,7 +772,9 @@ questionTotal, option, phoneNum, isMobile, favorite }
       lookTime: 0,
       tokenType: '',
       accessToken: '',
-      agree: ['']
+      agree: [''],
+      xStart: 0,
+      xEnd: 0,
     }
   },
   head() {
@@ -878,6 +882,30 @@ questionTotal, option, phoneNum, isMobile, favorite }
     this.getHouseType();
   },
   methods: {
+    touchend(event: any) {
+      const e = event || window.event;
+      this.xEnd = e.changedTouches[0].clientX;
+      // console.log('end::::::', this.xEnd)
+    },
+    touchstart(event: any) {
+      const e = event || window.event;
+      this.xStart = e.touches[0].clientX;
+      // console.log('start::::::::', this.xStart);
+    },
+    touchmove(event: any) {
+      const e = event || window.event;
+      if (this.house?.hLayoutsById && this.house?.hLayoutsById?.length > 0) {
+        if ((this.xStart - e.touches[0].clientX + this.layoutRight) < 0 || (this.xStart - e.touches[0].clientX + this.layoutRight) > this.house?.hLayoutsById.length * 200) {
+          return;
+        }
+        this.layoutRight = this.xStart - e.touches[0].clientX + this.layoutRight
+        
+        this.layoutRightString = 'right: ' + this.layoutRight + 'px';
+        // console.log('move::::', this.xStart - e.touches[0].clientX )
+        this.xStart = e.touches[0].clientX;
+      }
+      
+    },
     async agreeAnswer(id: string) {
       if (this.accessToken && this.tokenType) {
         if (this.agree.includes(id)) {
@@ -891,7 +919,7 @@ questionTotal, option, phoneNum, isMobile, favorite }
             }
           }
           const result = await this.$axios.$post(AnswerApi.Agree, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             this.agree.push(id)
           }
         } catch (error) {
@@ -972,7 +1000,7 @@ questionTotal, option, phoneNum, isMobile, favorite }
       this.$nuxt.$loading.start();
       try {
         const result = await this.$axios.$post(ResourceApi.GetResources, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.resourceList = getDataResult(result);
         }
       } catch(e) {}

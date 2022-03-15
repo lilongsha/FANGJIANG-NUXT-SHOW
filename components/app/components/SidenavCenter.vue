@@ -149,7 +149,7 @@ export default Vue.extend({
       (this.$refs.loading as any).start();
       try {
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.Search, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.list = getDataResult(result)
         }
       } catch (e) {}

@@ -275,7 +275,7 @@ export default Vue.extend({
       }
       const videoResult:any = await $axios.$post(VideoApi.ByPage, videoParam);
       
-      if (videoResult.code === 200) {
+      if (videoResult?.code === 200) {
         lastData = getDataResult(videoResult)
       }
     }
@@ -288,7 +288,7 @@ export default Vue.extend({
     
     const getVideo = async () => {
       const result:any = await $axios.$post(VideoApi.Detail, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         videoItem = result.data.detail.content;
         videoList = result.data.list.content;
         await Promise.all([
@@ -314,7 +314,7 @@ export default Vue.extend({
         },
       }
       const topResult = await $axios.$post(Api.GetNewsByCity, newsParam);
-      if (topResult.code === 200) {
+      if (topResult?.code === 200) {
         newsTop = getDataResult(topResult);
       }
     }

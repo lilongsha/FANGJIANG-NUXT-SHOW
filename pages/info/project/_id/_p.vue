@@ -179,7 +179,7 @@ export default Vue.extend({
           page: pageParam
         }
       );
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result);
         news = content;
         pageParam.total = page.totalElements;
@@ -212,7 +212,7 @@ export default Vue.extend({
           $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
         }
         result = await $axios.$post(HouseApi.GetProject, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           favorite = result.data?.favorite
           house = getDataResult(result);
 
@@ -246,7 +246,7 @@ export default Vue.extend({
       if (activityParam.data.projectId) {
         const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
         
-        if (activityResult.code === 200 && activityResult.data) {
+        if (activityResult?.code === 200 && activityResult.data) {
           activities = activityResult.data.content;
         }
       }

@@ -101,7 +101,7 @@ export const actions = {
     }
     const hotProjectResult:BasePageResult<any> = await context.app.$axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);
     let hotProjects: any[] = [];
-    if (hotProjectResult.code === 200) {
+    if (hotProjectResult?.code === 200) {
       hotProjects = getDataResult(hotProjectResult);
       hotProjects.forEach((item) => {
         const rooms = getRooms(item.hLayoutsById);
@@ -121,7 +121,7 @@ export const actions = {
     }
     const link:BaseListResult<any> = await context.app.$axios.$post(LinkApi.GetLinks, linkParam);
     let links: any[] = [];
-    if (link.code === 200) {
+    if (link?.code === 200) {
       links = getDataResult(link);
     }
     await store.commit('app/LINK_SET', links)

@@ -121,7 +121,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(QuestionApi.GetQuestion, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         question = getDataResult(result);
         await getProjectData(question.projectId);
         const breadcrumb: Breadcrumb[] = [];
@@ -149,7 +149,7 @@ export default Vue.extend({
           }
         }
         const result = await $axios.$post(AnswerApi.GetAnswers, answerParam)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           const { content, page } = getPageResult(result)
           answers = content;
           pageParams.total = page.totalElements
@@ -307,7 +307,7 @@ export default Vue.extend({
             }
           }
           const result = await this.$axios.$post(AnswerApi.Add, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({content: '评论成功', duration: 3})
             this.$router.go(0)
           }
@@ -334,7 +334,7 @@ export default Vue.extend({
             }
           }
           const result = await this.$axios.$post(AnswerApi.Agree, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             this.agree.push(id)
           }
         } catch (error) {

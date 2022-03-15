@@ -6,7 +6,7 @@
           <img class="" src="~/assets/img/clue/x.png" alt="" />
         </div>
         <div class="text-[28px] text-[#000000] font-bold">在线为你解答</div>
-        <div class="lg:mt-10 sm:mt-4 relative">
+        <div class="relative lg:mt-10 sm:mt-4">
           <textarea v-model="text" class="w-full lg:h-[210px] sm:h-[150px] placeholder-[#999999] text-[16px] text-[#999999] p-2" cols="30" rows="10" placeholder="详细描述你的问题，描述的越清晰，越容易获得的解答，
 最多100字。"></textarea>
           <div class="absolute lg:right-2 lg:bottom-2 sm:right-2 sm:bottom-2 lg:text-[18px] text-[#999999]">{{ number }}字</div>
@@ -61,7 +61,7 @@ export default Vue.extend({
             }
           }
           const result = await this.$axios.$post(QuestionApi.Add, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({ content: '成功发布问题', duration: 3})
           }
         } catch (error) {

@@ -31,7 +31,7 @@
         <span class="w-full px-4 text-lg font-bold text-black">搜索历史</span>
         <a v-for="(item, index) in getHotProject" v-show="index < 5" :key="item.id" class="inline-block p-1 m-2 text-black border" target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a>
       </div> -->
-      <div class="container flex flex-col items-center mt-9 absolute bottom-0">
+      <div class="container absolute bottom-0 flex flex-col items-center mt-9">
         <div class="w-full h-[80px] bg-cover rounded-md bg-bimg pl-[30px] pt-[4px]">
           <div>
             <div class="text-[20px] font-bold text-white italic">线上<span class="mx-4">“<span class="text-[#ECF000]">0</span>接触”</span>找房</div>
@@ -129,7 +129,7 @@ export default Vue.extend({
       (this.$refs.loading as any).start();
       try {
         const result: BasePageResult<any> = await this.$axios.$post(HouseApi.Search, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.list = getDataResult(result)
         }
       } catch (e) {}

@@ -192,7 +192,7 @@
         <div class="flex flex-row items-start h-full ">
           <div class="w-1/3 h-full text-right align-top">
             <div class="h-full align-top">
-              <p class="textSize ">2021.01.01</p>
+              <p class="textSize ">2022.01.01</p>
             </div>
           </div>
           <div class="w-4 ml-4">

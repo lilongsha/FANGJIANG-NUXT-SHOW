@@ -440,7 +440,7 @@
       </div>
     </div>
     <!-- 资讯 -->
-    <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
+    <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12 sm:mb-6">
       <!-- 标题 -->
       <div class="flex flex-col items-center justify-center">
         <div class="ml-2 font-bold sm:text-lg lg:text-xl">楼市资讯</div>
@@ -479,15 +479,15 @@
     <!-- 大数据 -->
     <div></div>
     <!-- 购房流程 -->
-    <div class="container mx-auto sm:mt-6 lg:mt-12">
-      <!-- 标题 -->
+    <!-- <div class="container mx-auto sm:mt-6 lg:mt-12">
+      标题
       <div class="flex flex-col items-center justify-center">
         <div class="ml-2 font-bold sm:text-lg lg:text-xl">在线服务流程</div>
         <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
-        <!-- 副标题 -->
+        副标题
         <div class="text-base text-gray-500 mt-7 sm:hidden">一站式看房服务</div>
       </div>
-      <!-- 内容0 -->
+      内容0
       <div v-show="processType === '0'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-1"></div>
@@ -511,7 +511,7 @@
           </div>
         </div>
       </div>
-      <!-- 内容1 -->
+      内容1
       <div v-show="processType === '1'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
@@ -535,7 +535,7 @@
           </div>
         </div>
       </div>
-      <!-- 内容2 -->
+      内容2
       <div v-show="processType === '2'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
@@ -559,7 +559,7 @@
           </div>
         </div>
       </div>
-      <!-- 内容3 -->
+      内容3
       <div v-show="processType === '3'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
         <div class="flex flex-row items-center justify-center">
           <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
@@ -604,7 +604,7 @@
           <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">04</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -637,7 +637,7 @@ export default Vue.extend({
     // 获取banner
     const getBannerResult = async () => {  
       const bannerResult:BaseListResult<BannerModel> = await $axios.$post(BannerApi.GetBanners, bannerParam)
-      if (bannerResult.code === 200) {
+      if (bannerResult?.code === 200) {
         banners = getDataResult(bannerResult);
       }
     }
@@ -654,7 +654,7 @@ export default Vue.extend({
     // 获取区域
     const getAreasResult = async () => {
       const areaResult:BaseListResult<AreaModel> = await $axios.$post(AreaApi.GetAllAreas, areaParam)
-      if (areaResult.code === 200) {
+      if (areaResult?.code === 200) {
         areas = getDataResult(areaResult);
       }
     }
@@ -670,7 +670,7 @@ export default Vue.extend({
     // 获取地铁线路
     const getMetroLinesResult = async () => {
       const metroLineResult:BaseListResult<MetroLineModel> = await $axios.$post(MetroLineApi.GetAllLines, metroLineParam)
-      if (metroLineResult.code === 200) {
+      if (metroLineResult?.code === 200) {
         metroLines = getDataResult(metroLineResult);
       }
     }
@@ -688,7 +688,7 @@ export default Vue.extend({
     // 获取推荐楼盘
     const getRecommendProjectResult = async () => {
       const recommendProjectResult:BaseListResult<any> = await $axios.$post(ProjectApi.GetRecommendByCityId, recommendProjectParam);
-      if (recommendProjectResult.code === 200) {
+      if (recommendProjectResult?.code === 200) {
         recommendProjects = getDataResult(recommendProjectResult);
         recommendProjects.forEach(item => {
           if (item.hLayoutsById.length > 0) {
@@ -769,7 +769,7 @@ export default Vue.extend({
     const getHotProject = async () => {
       const hotProjectResult:BasePageResult<any> = await $axios.$post(ProjectApi.GetByCityIdAndOrder, hotProjectParam);
     
-      if (hotProjectResult.code === 200) {
+      if (hotProjectResult?.code === 200) {
         hotProjects = getDataResult(hotProjectResult);
         hotProjects.forEach((item) => {
           const rooms = getRooms(item.hLayoutsById);
@@ -883,7 +883,7 @@ export default Vue.extend({
       // if (news3.code === 200) {
       //   newsObj[3] = getDataResult(news3);
       // }
-      if (top.code === 200) {
+      if (top?.code === 200) {
         const all: object[] = getListResult(top);
         all.forEach((entity: any) => {
           if (entity) {
@@ -897,7 +897,7 @@ export default Vue.extend({
           }
         })
       }
-      if (news0.code === 200) {
+      if (news0?.code === 200) {
         newsObj[4] = getDataResult(news0);
       }
     }
@@ -911,7 +911,7 @@ export default Vue.extend({
       }
     }
       const result:any = await $axios.$post(VideoApi.GetTop, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         topData = result.data.content;
       }
     }
@@ -1010,7 +1010,7 @@ export default Vue.extend({
           data
         };
         const result:BaseListResult<TradingAreaModel>  = await this.$axios.$post(TradingAreaApi.GetAllTradingAreas, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.tradings = getDataResult(result);
         }
       } catch(e) {}
@@ -1030,7 +1030,7 @@ export default Vue.extend({
           data
         };
         const result:BaseListResult<MetroStationModel>  = await this.$axios.$post(MetroLineApi.GetStations, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.metroStations = getDataResult(result);
         }
       } catch(e) {}

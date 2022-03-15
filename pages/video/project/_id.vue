@@ -114,7 +114,7 @@ export default Vue.extend({
 
     const getVideo = async () => {
       const result = await $axios.$post(VideoApi.ByProject, { data: { id:params }})
-      if (result.code === 200 && result.data.content) {
+      if (result?.code === 200 && result.data.content) {
         videos = getDataResult(result);
         let max;
         if (videos) {
@@ -155,7 +155,7 @@ export default Vue.extend({
           $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
         }
         result = await $axios.$post(HouseApi.GetProject, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           favorite = result.data.favorite
           house = getDataResult(result);
 
@@ -188,7 +188,7 @@ export default Vue.extend({
       
       if (activityParam.data.projectId) {
         const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
-        if (activityResult.code === 200 && activityResult.data) {
+        if (activityResult?.code === 200 && activityResult.data) {
           activities = activityResult.data.content;
         }
       }

@@ -5,7 +5,7 @@
     <div class="lg:h-20"></div>
     <div class="lg:flex lg:flex-row lg:mt-10 sm:m-2 ">
       <div class="lg:w-1/5">
-        <div class="sm:flex sm:flex-row sm:justify-between bg-white lg:pt-6">
+        <div class="bg-white sm:flex sm:flex-row sm:justify-between lg:pt-6">
           <div class="text-center lg:text-[24px] lg:py-4"><button class=" border-b border-b-[#DDDDDD] lg:pb-6 lg:px-6" :class="type === '1' ? 'text-fjBlue-100' : 'text-black'" @click="changeType('1')">个人信息</button></div>
           <div class="text-center lg:text-[24px] lg:py-4"><button class="border-b border-b-[#DDDDDD] lg:pb-6 lg:px-6" :class="type === '2' ? 'text-fjBlue-100' : 'text-black'" @click="changeType('2')">修改密码</button></div>
           <div class="text-center lg:text-[24px] lg:py-4"><button class="border-b border-b-[#DDDDDD] lg:pb-6 lg:px-6" :class="type === '3' ? 'text-fjBlue-100' : 'text-black'" @click="changeType('3')">我的收藏</button></div>
@@ -13,9 +13,9 @@
         </div>
       </div>
       
-      <div class="lg:w-4/5 lg:ml-5 lg:p-16 sm:mt-4 bg-white">
+      <div class="bg-white lg:w-4/5 lg:ml-5 lg:p-16 sm:mt-4">
         <div v-show="type === '1'" class="sm:p-2">
-          <div class=" w-full flex flex-row justify-around items-center">
+          <div class="flex flex-row items-center justify-around w-full ">
             <div class="rounded-full lg:w-[168px] lg:h-[168px] sm:w-[80px] sm:h-[80px] text-center bg-[#DDDDDD] flex flex-row justify-around items-center">
               <Upload
                 accept="image/*"
@@ -136,8 +136,8 @@
               <div class="w-1/3">
                 <img v-if="item.firstImg" :src="item.firstImg.address" alt="" class="w-full lg:h-[176px] sm:w-full sm:h-24">
               </div>
-              <div class="w-2/3 lg:ml-4 sm:ml-2 relative">
-                <div class="w-full flex flex-row items-center">
+              <div class="relative w-2/3 lg:ml-4 sm:ml-2">
+                <div class="flex flex-row items-center w-full">
                   <div class="text-[#000000] lg:text-[20px] font-bold">{{ item.name }}</div>
                   <div class="lg:ml-3 sm:ml-2">
                     <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
@@ -160,9 +160,9 @@
                   <span class="ml-2 text-gray-400" :title="getOpenTime(item.openTime)">{{ getOpenTime(item.openTime) }}</span>
                 </div>
                 <div class="lg:mt-6 text-[#999999] text-[12px] lg:flex lg:flex-row">
-                  <div class=" lg:w-3/5 h-full">
+                  <div class="h-full lg:w-3/5">
                     <div class="flex flex-row items-center">
-                      <svg version="1.1" class="mr-1 text-gray-400 w-4 h-4 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                      <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                       AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                       RQflCgoAJiq3NZKmAAAEB0lEQVRYw6XXW4hWVRQH8J/mjSQvE6b5ohRMOuKDouaAhWSoiRqZkkJK
@@ -193,10 +193,10 @@
                       bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                       eTPfkgAAAABJRU5ErkJggg==" ></image>
                       </svg>
-                      <span class="overflow-hidden whitespace-nowrap lg:mr-4 flex-shrink-0" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
+                      <span class="flex-shrink-0 overflow-hidden whitespace-nowrap lg:mr-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
                     </div>
                     <div class="flex flex-row items-center lg:mt-2">
-                      <svg version="1.1" class="mr-1 text-gray-400 w-4 h-4 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
+                      <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"
                           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                       AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
                       RQflCgoAJiRQjb+hAAACXUlEQVRYw+2YMWgTURjHf5cciUmhIhYFQwsdLFIUBKGDHURcpItQ3dT5
@@ -253,14 +253,14 @@
         </div>
         <div v-show="type === '4'" class="sm:p-2">
           <div v-if="questions && questions.length > 0">
-            <div v-for="item in questions" :key="item.id">
+            <div v-for="item in questions" :key="item.id" class="border-b border-b-[#DDDDDD] min-h-[150px] mt-2">
               <div class="flex flex-row items-center" @click="clickDiscuss(item.id)">
                 <div class="text-white bg-fjRed-100 p-1 rounded-[4px]">问</div>
                 <div class="lg:ml-4 sm:ml-2 lg:text-[18px] text-[#333333] font-medium">{{ item.content }}</div>
               </div>
               <div v-if="item.answerEntities && item.answerEntities.length > 0">
-                <div v-for="answer in item.answerEntities" :key="answer.id" class="lg:mt-8 lg:pb-10 border-b border-b-[#DDDDDD] w-full flex flex-row">
-                  <div class="overflow-hidden w-3/4">
+                <div v-for="answer in item.answerEntities" :key="answer.id" class="flex flex-row w-full lg:mt-8 lg:pb-10">
+                  <div class="w-3/4 overflow-hidden">
                     <div class="flex flex-row items-center lg:space-x-6 sm:space-x-2">
                       <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full flex-shrink-0">
                       <div class="lg:space-y-3 sm:space-y-1">
@@ -361,7 +361,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(CurrentApi.SelectFavorite, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result)
         projectList = content;
         pageParamProject.total = page.totalElements
@@ -376,7 +376,7 @@ export default Vue.extend({
     try {
       $axios.setHeader('Authorization', tokenType + ' ' +accessToken)
       const result = await $axios.$post(Api.GetCurInfo)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         userInfo = result.data.content;
       }
     } catch (error) {
@@ -389,7 +389,7 @@ export default Vue.extend({
       data: {}
     }
     const proResult = await $axios.$post(LocationApi.GetAllProvinces, param)
-    if (proResult.code === 200) {
+    if (proResult?.code === 200) {
       const result = getDataResult(proResult)
       if (result && result.length > 0) {
         result.forEach((item: any) => {
@@ -406,7 +406,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(LocationApi.GetAllCitiesByProvinceId, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const cities = getDataResult(result);
         if (cities && cities.length > 0) {
           cities.forEach((city: any) => {
@@ -424,7 +424,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(LocationApi.GetAllAreasByCityId, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const cities = getDataResult(result);
         if (cities && cities.length > 0) {
           cities.forEach((city: any) => {
@@ -448,7 +448,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(QuestionApi.MyQuestion, param)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const { content, page } = getPageResult(result)
         questions = content;
         pageParam.total = page.totalElements
@@ -574,7 +574,7 @@ export default Vue.extend({
       }
       try {
         const result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           message.success({ content: '关注成功', duration: 3})
           this.like.push(id)
         }
@@ -600,7 +600,7 @@ export default Vue.extend({
       }
       try {
         const result = await this.$axios.$post(CurrentApi.DeleteFavorite, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           message.success({ content: '取消关注', duration: 3})
           const index = this.like.indexOf(id)
           this.like.splice(index, 1)
@@ -721,7 +721,7 @@ export default Vue.extend({
         try {
           this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
           result = await this.$axios.$post(Api.Update, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             message.success({ content: '修改密码成功', duration: 3 })
           } 
         } catch (error) {
@@ -784,7 +784,7 @@ export default Vue.extend({
       try {
         this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
         const result = await this.$axios.$post(Api.UpdateInfo, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           message.success({ content: '保存成功', duration: 3 })
           await this.$store.commit('app/UserId', this.userInfo.id)
           await this.$store.commit('app/UserName', this.userInfo.username)
@@ -847,7 +847,7 @@ export default Vue.extend({
           }
         }
         const result = await this.$axios.$post(AnswerApi.Agree, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.agree.push(answerId)
         }
       } catch (error) {
@@ -864,7 +864,7 @@ export default Vue.extend({
         }
       }
       const result = await this.$axios.$post(LocationApi.GetAllAreasByCityId, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const cities = getDataResult(result);
         this.areaOptions.splice(0);
         this.area = '';
@@ -886,7 +886,7 @@ export default Vue.extend({
         }
       }
       const result = await this.$axios.$post(LocationApi.GetAllCitiesByProvinceId, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const cities = getDataResult(result);
         this.cityOptions.splice(0);
         this.city = '';

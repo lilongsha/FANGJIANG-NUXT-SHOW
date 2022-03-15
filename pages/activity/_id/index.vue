@@ -185,7 +185,7 @@ export default Vue.extend({
     let maxRoom;
     let maxArea;
     const result = await $axios.$post(ActivityApi.GetById, param);
-    if (result.code === 200 && result.data) {
+    if (result?.code === 200 && result.data) {
       activity = getDataResult(result);
       activity.projectEntities.forEach((item: ProjectModel) => {
         if (!item.address) {

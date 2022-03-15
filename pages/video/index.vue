@@ -108,7 +108,7 @@ export default Vue.extend({
     let roomData:any;
     let compareData:any;
     let policyData:any;
-    if (result.code === 200) {
+    if (result?.code === 200) {
       topData = result.data.TOP.content;
       projectData = result.data.SORT_PROJECT.content;
       roomData = result.data.SORT_ROOM.content;

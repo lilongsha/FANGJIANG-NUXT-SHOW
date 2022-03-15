@@ -191,7 +191,7 @@ export default Vue.extend({
         },
       }
       const result = await $axios.$post(NewsApi.GetNewsByCity, newsParam);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         newsTop = getDataResult(result);
       }
     }
@@ -210,7 +210,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(NewsApi.GetNews, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         news = getDataResult(result);
         const breadcrumb: Breadcrumb[] = [];
         breadcrumb.push({ title: '房匠', href: '/', icon: 'home' })

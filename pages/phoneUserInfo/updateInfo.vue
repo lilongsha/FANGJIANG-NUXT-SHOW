@@ -1,6 +1,6 @@
 <template>
   <div class="lg:hidden bg-[#F3F5FF] w-screen h-screen p-4 relative">
-    <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row items-center justify-between">
       <div class="w-[10px] h-[17px]" @click="clickBack"><img src="~/assets/img/userInfo/back.png" alt=""></div>
       <div v-if="type === 'update'" class="font-bold text-[20px] text-[#333333]">编辑资料</div>
       <div v-if="type === 'set'" class="font-bold text-[20px] text-[#333333]">设置</div>
@@ -103,7 +103,8 @@
         <div v-else class="text-fjBlue-100" @click="post">发送验证码</div>
       </div>
     </div> -->
-    <div class="w-full h-14 text-center text-white absolute left-0 bottom-10 px-4">
+    <!-- <div class="absolute left-0 w-full px-4 text-center text-white h-14 bottom-10"> -->
+    <div class="w-full px-4 mt-10 text-center text-white h-14">
       <button v-show="type === 'update'" class="w-full h-full bg-[#2E69F7] rounded-[10px] font-bold text-[22px]" @click="updateInfo">保存修改</button>
       <button v-show="type === 'set'" class="w-full h-full bg-[#2E69F7] rounded-[10px] font-bold text-[22px]" @click="loginOut">退出登录</button>
       <button v-show="type === 'updatePassword'" class="w-full h-full bg-[#2E69F7] rounded-[10px] font-bold text-[22px]" @click="updatePassword">确认修改</button>
@@ -134,6 +135,8 @@ export default Vue.extend({
     Select,
   },
   async asyncData({ $axios, store, route }) {
+    
+
     const fromPath =  route.query?.fromPath;
     const type = route.query?.redirect;
     const tokenType = store.state.app.tokenType;
@@ -143,7 +146,7 @@ export default Vue.extend({
     try {
       $axios.setHeader('Authorization', tokenType + ' ' +accessToken)
       const result = await $axios.$post(Api.GetCurInfo)
-      if (result.code === 200) {
+      if (result?.code === 200) {
         userInfo = result.data.content;
       }
     } catch (error) {
@@ -165,7 +168,7 @@ export default Vue.extend({
         data: {},
       };
       const result = await $axios.$post(LocationApi.GetAllProvinces, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const provinces = getDataResult(result);
         if (provinces && provinces.length > 0) {
           provinces.forEach((item: any) => {
@@ -186,7 +189,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(LocationApi.GetAllCitiesByProvinceId, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const cities = getDataResult(result);
         if (cities && cities.length > 0) {
           cities.forEach((city: any) => {
@@ -207,7 +210,7 @@ export default Vue.extend({
         }
       }
       const result = await $axios.$post(LocationApi.GetAllAreasByCityId, param);
-      if (result.code === 200) {
+      if (result?.code === 200) {
         const areas = getDataResult(result);
         if (areas && areas.length > 0) {
           areas.forEach((city: any) => {
@@ -289,7 +292,7 @@ export default Vue.extend({
           }
         }
         const result = await this.$axios.$post(Api.SmsCode, param);
-        if (result.code === 200){
+        if (result?.code === 200){
           message.success({ content: '验证码已发送', duration: 3 });
           this.isTime = true;
           this.setTime();
@@ -329,7 +332,7 @@ export default Vue.extend({
           try {
             this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
             result = await this.$axios.$post(Api.Update, param)
-            if (result.code === 200) {
+            if (result?.code === 200) {
               message.success({ content: '修改密码成功', duration: 3 })
             } 
           } catch (error) {
@@ -411,7 +414,7 @@ export default Vue.extend({
       try {
         this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
         const result = await this.$axios.$post(Api.UpdateInfo, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           message.success({ content: '保存成功', duration: 3 })
           await this.$store.commit('app/UserId', this.userInfo.id)
           await this.$store.commit('app/UserName', this.userInfo.username)
@@ -447,7 +450,7 @@ export default Vue.extend({
           }
         }
         const result = await this.$axios.$post(LocationApi.GetAllAreasByCityId, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           const areas = getDataResult(result);
           this.areaOptions.splice(0);
           this.userInfo.areaId = '';
@@ -469,7 +472,7 @@ export default Vue.extend({
           }
         }
         const result = await this.$axios.$post(LocationApi.GetAllCitiesByProvinceId, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           const cities = getDataResult(result);
           this.cityOptions.splice(0);
           this.userInfo.cityId = '';

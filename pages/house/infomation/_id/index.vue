@@ -212,7 +212,7 @@ export default Vue.extend({
     let activities;
     if (activityParam.data.projectId) {
       const activityResult = await $axios.$post(ActivityApi.GetByProjectId, activityParam)
-      if (activityResult.code === 200 && activityResult.data) {
+      if (activityResult?.code === 200 && activityResult.data) {
         const result:ActivityModel = getDataResult(activityResult);
         if (result) {
           activities = result;
@@ -332,7 +332,7 @@ export default Vue.extend({
           $axios.setHeader('Authorization', tokenType + ' ' + accessToken)
         }
         result = await $axios.$post(HouseApi.GetProject, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           favorite = result.data?.favorite
           house = getDataResult(result);
           lookTime = house.lookTime;

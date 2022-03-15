@@ -1,20 +1,20 @@
 <template>
   <div class="w-full h-full p-4">
-    <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row items-center justify-between">
       <div class="w-[10px] h-[17px]" @click="clickBack"><img src="~/assets/img/userInfo/back.png" alt=""></div>
       <div class="font-bold text-[20px] text-[#333333]">我的问答</div>
       <div class="flex flex-row space-x-3"><img src="~/assets/img/userInfo/message.png" alt="" class="w-[19px] h-[17px]"></div>
     </div>
     <div class="mt-6">
       <div v-if="questions && questions.length > 0">
-        <div v-for="item in questions" :key="item.id" class="mt-2">
+        <div v-for="item in questions" :key="item.id" class="mt-2 border-b border-b-[#DDDDDD] py-2 min-h-[80px]">
           <div class="flex flex-row items-center mb-2" @click="clickDiscuss(item.id)">
             <div class="text-white bg-fjRed-100 px-1 rounded-[4px]">问</div>
             <div class="lg:ml-4 sm:ml-2 lg:text-[18px] text-[#333333] font-medium">{{ item.content }}</div>
           </div>
           <div v-if="item.answerEntities && item.answerEntities.length > 0">
-            <div v-for="answer in item.answerEntities" :key="answer.id" class="lg:mt-8 pb-2 border-b border-b-[#DDDDDD] w-full flex flex-row">
-              <div class="overflow-hidden w-3/4">
+            <div v-for="answer in item.answerEntities" :key="answer.id" class="flex flex-row w-full pb-2 lg:mt-8">
+              <div class="w-3/4 overflow-hidden">
                 <div class="flex flex-row items-center lg:space-x-6 sm:space-x-2">
                   <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full flex-shrink-0">
                   <div class="lg:space-y-3 sm:space-y-1">
@@ -77,7 +77,7 @@ export default Vue.extend({
           }
         }
         const result = await $axios.$post(QuestionApi.MyQuestion, param)
-        if (result.code === 200) {
+        if (result?.code === 200) {
           const { content, page } = getPageResult(result)
           questions = content;
           pageParam.total = page.totalElements
@@ -117,7 +117,7 @@ export default Vue.extend({
             }
           }
           const result = await this.$axios.$post(AnswerApi.Agree, param)
-          if (result.code === 200) {
+          if (result?.code === 200) {
             this.agree.push(answerId)
           }
         } catch (error) {

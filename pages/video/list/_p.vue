@@ -94,7 +94,7 @@ export default Vue.extend({
     const result:any = await $axios.$post(VideoApi.ByPage, param);
     let list: any;
     let total: any;
-    if (result.code === 200) {
+    if (result?.code === 200) {
       list = result.data.content;
       total = result.data.page.totalElements;
     }
@@ -192,7 +192,7 @@ export default Vue.extend({
       try {
         this.$nuxt.$loading.start();
         const result:any = await this.$axios.$post(VideoApi.ByPage, param);
-        if (result.code === 200) {
+        if (result?.code === 200) {
           this.list = result.data.content;
           this.total = result.data.page.totalElements;
         }
