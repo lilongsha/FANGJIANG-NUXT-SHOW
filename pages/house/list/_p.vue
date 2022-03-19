@@ -29,24 +29,7 @@
                   </svg>
                 </a>
               </div>
-              <svg
-                :class="locationType === '1' ? 'rotate-180' : ''"
-                class="w-2 h-2 text-black transition-all opacity-60"
-                fill="currentColor"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="1821"
-                width="128"
-                height="128"
-              >
-                <path
-                  d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-                  p-id="1822"
-                  data-spm-anchor-id="a313x.7781069.0.i0"
-                  class="selected"
-                ></path>
-              </svg>
+              <div class="h-0 w-0 border-[4px] border-t-gray-600 border-r-gray-100 border-l-gray-100 border-b-gray-100 mt-[2px] transition-all" :class="locationType === '1' ? 'rotate-180 mt-[-4px]' : ''"></div>
             </div>
             <!-- 商圈 -->
             <div :class="select.tradingId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '2'">
@@ -68,24 +51,7 @@
                   </svg>
                 </a>
               </div>
-              <svg
-                :class="locationType === '2' ? 'rotate-180' : ''"
-                class="w-2 h-2 text-black transition-all opacity-60"
-                fill="currentColor"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="1821"
-                width="128"
-                height="128"
-              >
-                <path
-                  d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-                  p-id="1822"
-                  data-spm-anchor-id="a313x.7781069.0.i0"
-                  class="selected"
-                ></path>
-              </svg>
+              <div class="h-0 w-0 border-[4px] border-t-gray-600 border-r-gray-100 border-l-gray-100 border-b-gray-100 mt-[2px] transition-all" :class="locationType === '2' ? 'rotate-180 mt-[-4px]' : ''"></div>
             </div>
             <!-- 地铁 -->
             <div :class="select.stationId.length > 0 ? 'text-fjBlue-100' : ''" class="flex flex-row items-center" @click="locationType = '3'">
@@ -107,24 +73,7 @@
                   </svg>
                 </a>
               </div>
-              <svg
-                :class="locationType === '3' ? 'rotate-180' : ''"
-                class="w-2 h-2 text-black transition-all opacity-60"
-                fill="currentColor"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="1821"
-                width="128"
-                height="128"
-              >
-                <path
-                  d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-                  p-id="1822"
-                  data-spm-anchor-id="a313x.7781069.0.i0"
-                  class="selected"
-                ></path>
-              </svg>
+              <div class="h-0 w-0 border-[4px] border-t-gray-600 border-r-gray-100 border-l-gray-100 border-b-gray-100 mt-[2px] transition-all" :class="locationType === '3' ? 'rotate-180 mt-[-4px]' : ''"></div>
             </div>
           </div>
         </div>
@@ -159,10 +108,10 @@
           <div class="w-1/12 text-xs font-semibold">单价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in priceList" :key="index" class="flex flex-row mr-4">
-              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'price')">
-                <img v-if="select.price === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
-                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
-                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row items-center whitespace-nowrap radio" :href="getUrl(index + '', 'price')">
+                <input :id="'option' + index" type="radio" name="mode" :value="index" class="mr-1 checked:bg-[#1890ff]" :checked="index === 0 ? true : false || select.price === '' + index" @click="openNew(index + '', 'price')"/>
+		            <div :class="select.price === '' + index ? 'selected' : 'w-0 h-0 hidden'"></div>
+                <label :id="'label' + index" :for="'option' + index" class=""><span class="">{{ item.title }}</span></label>
               </a>
               <div v-if="false && item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowPrice" type="number" min="0" class="w-16" @change="inputPrice">
@@ -180,10 +129,10 @@
           <div class="w-1/12 text-xs font-semibold">总价</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in totalPriceList" :key="index" class="flex flex-row mr-4">
-              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'totalPrice')">
-                <img v-if="select.totalPrice === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
-                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
-                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap radio" :href="getUrl(index + '', 'totalPrice')">
+                <input :id="'totalPrice' + index" type="radio" name="total" :value="index" class="checked:bg-[#1890ff] mr-1" :checked="index === 0 ? true : false || select.totalPrice === '' + index" @click="openNew(index + '', 'totalPrice')"/>
+		            <div :class="select.totalPrice === '' + index ? 'selected' : 'w-0 h-0 hidden'"></div>
+                <label :id="'totalLabel' + index" :for="'totalPrice' + index"><span class="">{{ item.title }}</span></label>
               </a>
               <div v-if="false && item.title === null" class="flex flex-row whitespace-nowrap">
                 <input v-model="select.lowTotalPrice" type="number" min="0" class="w-16" @change="inputTotalPrice">
@@ -201,10 +150,10 @@
           <div class="w-1/12 text-xs font-semibold">面积</div>
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in acreageList" :key="index" class="flex flex-row mr-4">
-              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'acreage')">
-                <img v-if="select.acreage === '' + index" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
-                <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
-                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+              <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap radio" :href="getUrl(index + '', 'acreage')">
+                <input :id="'acreage' + index" type="radio" name="acreage" :value="index" class="checked:bg-[#1890ff] mr-1" :checked="index === 0 ? true : false || select.acreage === '' + index" @click="openNew(index + '', 'acreage')"/>
+		            <div :class="select.acreage === '' + index ? 'selected' : 'w-0 h-0 hidden'"></div>
+                <label :id="'acreageLabel' + index" :for="'acreage' + index"><span class="">{{ item.title }}</span></label>
               </a>
 
               <div v-if="false && item.title === null" class="flex flex-row whitespace-nowrap">
@@ -224,9 +173,11 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row mr-4">
               <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
-                <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <input :id="'houseType' + index" type="checkbox" name="houseType" :value="index" class="option-radio mr-1" :checked="index === 0 ? true : false || select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" @click="openNew(index + '', 'houseType')"/>
+		            <label :id="'houseTypeLabel' + index" :for="'houseType' + index"><span class="">{{ item.title }}</span></label>
+                <!-- <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
-                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label > -->
               </a>
             </div>
           </div>
@@ -239,9 +190,11 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in projectType" :key="index" class="flex flex-row mr-4">
               <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
-                <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <input :id="'projectType' + index" type="checkbox" name="projectType" :value="index" class="option-radio mr-1" :checked="index === 0 ? true : false || select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" @click="openNew(index + '', 'projectType')"/>
+		            <label :id="'projectTypeLabel' + index" :for="'projectType' + index"><span class="">{{ item.title }}</span></label>
+                <!-- <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
-                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label > -->
               </a>
             </div>
           </div>
@@ -255,9 +208,11 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in saleState" :key="index" class="flex flex-row mr-4">
               <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'saleState')">
-                <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
+                <!-- <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
-                <label class="inline-block whitespace-nowrap">{{ item.title }}</label >
+                <label class="inline-block whitespace-nowrap">{{ item.title }}</label > -->
+                <input :id="'saleState' + index" type="checkbox" name="saleState" :value="index" class="option-radio mr-1" :checked="index === 0 ? true : false || select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" @click="openNew(index + '', 'saleState')"/>
+		            <label :id="'saleStateLabel' + index" :for="'saleState' + index"><span class="">{{ item.title }}</span></label>
               </a>
             </div>
           </div>
@@ -284,82 +239,22 @@
         <!-- 位置 区域 商圈 地铁 -->
         <div class="m-menu-titile" @click="showMenuBodyM('0')">
           <span>位置</span>
-          <svg
-            fill="currentColor"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1821"
-            width="128"
-            height="128"
-          >
-            <path
-              d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-              p-id="1822"
-              data-spm-anchor-id="a313x.7781069.0.i0"
-              class="selected"
-            ></path>
-          </svg>
+          <div class="h-0 w-0 border-[6px] border-t-gray-600 border-r-white border-l-white border-b-white mt-[6px] transition-all"></div>
         </div>
         <!-- 价格 -->
         <div class="m-menu-titile" @click="showMenuBodyM('1')">
           <span>价格</span>
-          <svg
-            fill="currentColor"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1821"
-            width="128"
-            height="128"
-          >
-            <path
-              d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-              p-id="1822"
-              data-spm-anchor-id="a313x.7781069.0.i0"
-              class="selected"
-            ></path>
-          </svg>
+          <div class="h-0 w-0 border-[6px] border-t-gray-600 border-r-white border-l-white border-b-white mt-[6px] transition-all"></div>
         </div>
         <!-- 户型 -->
         <div class="m-menu-titile" @click="showMenuBodyM('2')">
           <span>户型</span>
-          <svg
-            fill="currentColor"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1821"
-            width="128"
-            height="128"
-          >
-            <path
-              d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-              p-id="1822"
-              data-spm-anchor-id="a313x.7781069.0.i0"
-              class="selected"
-            ></path>
-          </svg>
+          <div class="h-0 w-0 border-[6px] border-t-gray-600 border-r-white border-l-white border-b-white mt-[6px] transition-all"></div>
         </div>
         <!-- 筛选 -->
         <div class="m-menu-titile" @click="showMenuBodyM('3')">
           <span>筛选</span>
-          <svg
-            fill="currentColor"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="1821"
-            width="128"
-            height="128"
-          >
-            <path
-              d="M573.056 752l308.8-404.608A76.8 76.8 0 0 0 820.736 224H203.232a76.8 76.8 0 0 0-61.056 123.392l308.8 404.608a76.8 76.8 0 0 0 122.08 0z"
-              p-id="1822"
-              data-spm-anchor-id="a313x.7781069.0.i0"
-              class="selected"
-            ></path>
-          </svg>
+          <div class="h-0 w-0 border-[6px] border-t-gray-600 border-r-white border-l-white border-b-white mt-[6px] transition-all"></div>
         </div>
         <!-- 排序 -->
         <div class="m-menu-titile" @click="showMenuBodyM('4')">
@@ -993,7 +888,6 @@ export default Vue.extend({
     let isFavorite;
 
     const getList = async () => {
-      // this.activity()
       const condition: any = {};
       condition.city = { id: store.state.app.cityId }
       const areaIds: any[] = [];
@@ -1014,6 +908,14 @@ export default Vue.extend({
       if (select.price) {
         condition.lowPrice = priceList[select.price].lowPrice;
         condition.highPrice = priceList[select.price].highPrice;
+      }
+      if (select.totalPrice) {
+        condition.lowTotalPrice = totalPriceList[select.totalPrice].lowTotalPrice;
+        condition.highTotalPrice = totalPriceList[select.totalPrice].highTotalPrice;
+      }
+      if (select.acreage) {
+        condition.lowArea = acreageList[select.acreage].lowAcreage;
+        condition.highArea = acreageList[select.acreage].highAcreage;
       }
       const sort: any = {};
       if (select.sortType === '1') {
@@ -1220,6 +1122,10 @@ export default Vue.extend({
     }
   },
   methods: {
+    openNew (index: string, selType: fieldType) {
+      const path = this.getUrl(index, selType);
+      this.$router.push(path)
+    },
     async selectFav() {
       
     },
@@ -1751,5 +1657,21 @@ export default Vue.extend({
 
 .m-sub-menu-div {
   @apply grid grid-flow-row grid-cols-1 gap-2 overflow-hidden transition-all auto-rows-auto max-h-[33vh] overflow-y-auto;
+}
+
+.radio {
+  @apply inline-block relative;
+}
+
+.radio >>> input {
+  @apply w-[13px] h-[13px] border border-gray-500 flex-none appearance-none rounded-sm checked:border-0;
+}
+
+.radio >>> label {
+  @apply absolute mb-2;
+}
+
+.selected {
+  @apply absolute left-[4px] top-0 w-[6px] h-[10px] border-r-[2px] border-b-[2px] border-r-white border-b-white border-t-0 border-l-0 rotate-45 rounded-none;
 }
 </style>
