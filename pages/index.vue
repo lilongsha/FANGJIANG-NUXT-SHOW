@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!-- 轮播图功能区域定位 -->
-    <div class="container absolute z-10 flex flex-row w-full h-64 mx-auto top-28 sm:hidden left-[50%] ml-[-30%]">
+    <div class="container absolute z-10 flex flex-row w-full h-64 mx-auto top-28 sm:hidden left-[50%] ml-[-640px]">
       <!-- 轮播图功能区域 -->
       <div class="container h-full mx-auto">
         <!-- 菜单 -->
@@ -475,7 +475,43 @@
       </div>
     </div>
     <!-- 置业管家 -->
-    <div></div>
+    <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
+      <!-- 标题 -->
+      <div class="flex flex-col items-center justify-center">
+        <div class="ml-2 font-bold sm:text-lg lg:text-xl">置业管家</div>
+        <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
+      </div>
+      <!-- 内容 -->
+      <div class="mx-auto mt-8 sm:w-full sm:px-2 lg:container">
+        <div class="flex flex-row justify-center pb-4 text-gray-500 sm:space-x-2 lg:space-x-6">
+          一站式服务的购房置业管家
+        </div>
+        <div class="lg:grid lg:grid-cols-5 gap-x-2">
+          <div v-for="item in sale" :key="item.saleId" class="lg:grid lg:grid-rows-3 shadow-lg sm:mb-2 sm:grid sm:grid-cols-2 sm:h-[150px] overflow-hidden">
+            <div class="row-span-2"><img v-if="item.sysUserRelationEntity.avatar" :src="item.sysUserRelationEntity.avatar" alt="" class="w-full h-full"></div>
+            <div class="p-2">
+              <div class="text-[#333333] text-[20px]">{{ item.sysUserRelationEntity.nickName }}</div>
+              <div class="flex flex-row">
+                <div class="w-2/3">
+                  <a :href="'tel:' + item. sysUserRelationEntity.mobile" class="flex flex-row items-center my-1 rounded">
+                    <div class="bg-orange-600 rounded-l px-1 w-[22px] h-[22px] flex flex-row items-center"><a-icon type="phone" theme="outlined" style="color: white" class="" /></div>
+                    <div class="px-2 text-center text-white bg-fjBlue-100 rounded-r pt-[1px]">一键联系</div>
+                  </a>
+                  <div class="text-[#999999] text-[14px]">
+                    <div class="mt-1">服务人数：{{ item.serviceTimes }}</div>
+                    <div class="mt-1">带看人数：{{ item.lookTimes }}</div>
+                    <div class="mt-1">成交数：{{ item.dealTimes }}</div>
+                  </div>
+                </div>
+                <div class="w-1/3">
+                  <!-- <img src="" alt="" class="w-[66px] h-[66px]"> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- 大数据 -->
     <div></div>
     <!-- 购房流程 -->
@@ -620,12 +656,28 @@ import { Api as NewsApi } from '@/api/model/newsModel';
 import { BaseListResult, BasePageResult } from '@/api/model/baseModel';
 import { getDataResult, getListResult } from '@/utils/response/util';
 import { Api as VideoApi } from '@/api/model/videoModel'
+import { SaleApi } from '~/api/user/userApi';
 
 export default Vue.extend({
   name: 'Home',
   async asyncData({ $axios, store }) {
     
     const start = new Date().getTime();
+
+    // 销售
+    const sale: any[] = [];
+    const saleParam = {
+      data: {
+        cityId: store.state.app.cityId,
+        max: 5,
+      }
+    }
+    const getSales = async () => {
+      const result = await $axios.$post(SaleApi.TopCity, saleParam);
+      if (result.data.content && result.data.content.length > 0) {
+        sale.push(...result.data.content);
+      }
+    }
     // banner
     const bannerData: BannerByCondition = {
       cityId: store.state.app.cityId,
@@ -917,6 +969,7 @@ export default Vue.extend({
     }
 
     await Promise.all([
+      getSales(),
       getHotProject(),
       getRecommendProjectResult(),
       getMetroLinesResult(),
@@ -931,6 +984,7 @@ export default Vue.extend({
     console.log("首页调用接口使用时间：", end - start)
 
     return {
+      sale,
       banners,
       areas,
       metroLines,
