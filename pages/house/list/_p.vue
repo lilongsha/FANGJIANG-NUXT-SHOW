@@ -109,7 +109,7 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in priceList" :key="index" class="flex flex-row mr-4">
               <a v-if="item.title !== null" rel="nofollow" class="flex flex-row items-center whitespace-nowrap radio" :href="getUrl(index + '', 'price')">
-                <input :id="'option' + index" type="radio" name="mode" :value="index" class="mr-1 checked:bg-[#1890ff]" :checked="index === 0 ? true : false || select.price === '' + index" @click="openNew(index + '', 'price')"/>
+                <input :id="'option' + index" type="radio" name="mode" :value="index" class="mr-1 checked:bg-[#0075ff]" :checked="index === 0 ? true : false || select.price === '' + index" @click="openNew(index + '', 'price')"/>
 		            <div :class="select.price === '' + index ? 'selected' : 'w-0 h-0 hidden'"></div>
                 <label :id="'label' + index" :for="'option' + index" class=""><span class="">{{ item.title }}</span></label>
               </a>
@@ -130,7 +130,7 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in totalPriceList" :key="index" class="flex flex-row mr-4">
               <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap radio" :href="getUrl(index + '', 'totalPrice')">
-                <input :id="'totalPrice' + index" type="radio" name="total" :value="index" class="checked:bg-[#1890ff] mr-1" :checked="index === 0 ? true : false || select.totalPrice === '' + index" @click="openNew(index + '', 'totalPrice')"/>
+                <input :id="'totalPrice' + index" type="radio" name="total" :value="index" class="checked:bg-[#0075ff] mr-1" :checked="index === 0 ? true : false || select.totalPrice === '' + index" @click="openNew(index + '', 'totalPrice')"/>
 		            <div :class="select.totalPrice === '' + index ? 'selected' : 'w-0 h-0 hidden'"></div>
                 <label :id="'totalLabel' + index" :for="'totalPrice' + index"><span class="">{{ item.title }}</span></label>
               </a>
@@ -151,7 +151,7 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in acreageList" :key="index" class="flex flex-row mr-4">
               <a v-if="item.title !== null" rel="nofollow" class="flex flex-row whitespace-nowrap radio" :href="getUrl(index + '', 'acreage')">
-                <input :id="'acreage' + index" type="radio" name="acreage" :value="index" class="checked:bg-[#1890ff] mr-1" :checked="index === 0 ? true : false || select.acreage === '' + index" @click="openNew(index + '', 'acreage')"/>
+                <input :id="'acreage' + index" type="radio" name="acreage" :value="index" class="checked:bg-[#0075ff] mr-1" :checked="index === 0 ? true : false || select.acreage === '' + index" @click="openNew(index + '', 'acreage')"/>
 		            <div :class="select.acreage === '' + index ? 'selected' : 'w-0 h-0 hidden'"></div>
                 <label :id="'acreageLabel' + index" :for="'acreage' + index"><span class="">{{ item.title }}</span></label>
               </a>
@@ -173,7 +173,7 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in houseType" :key="index" class="flex flex-row mr-4">
               <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'houseType')">
-                <input :id="'houseType' + index" type="checkbox" name="houseType" :value="index" class="option-radio mr-1" :checked="index === 0 ? true : false || select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" @click="openNew(index + '', 'houseType')"/>
+                <input :id="'houseType' + index" type="checkbox" name="houseType" :value="index" class="mr-1 option-radio" :checked="index === 0 ? true : false || select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" @click="openNew(index + '', 'houseType')"/>
 		            <label :id="'houseTypeLabel' + index" :for="'houseType' + index"><span class="">{{ item.title }}</span></label>
                 <!-- <img v-if="select.houseType.indexOf(index + '') !== -1 || select.houseType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
@@ -190,7 +190,7 @@
           <div class="grid w-11/12 h-full grid-flow-row grid-cols-7 text-xs text-gray-500 auto-rows-auto gap-y-3">
             <div v-for="(item, index) in projectType" :key="index" class="flex flex-row mr-4">
               <a rel="nofollow" class="flex flex-row whitespace-nowrap" :href="getUrl(index + '', 'projectType')">
-                <input :id="'projectType' + index" type="checkbox" name="projectType" :value="index" class="option-radio mr-1" :checked="index === 0 ? true : false || select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" @click="openNew(index + '', 'projectType')"/>
+                <input :id="'projectType' + index" type="checkbox" name="projectType" :value="index" class="mr-1 option-radio" :checked="index === 0 ? true : false || select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" @click="openNew(index + '', 'projectType')"/>
 		            <label :id="'projectTypeLabel' + index" :for="'projectType' + index"><span class="">{{ item.title }}</span></label>
                 <!-- <img v-if="select.projectType.indexOf(index + '') !== -1 || select.projectType.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
@@ -211,7 +211,7 @@
                 <!-- <img v-if="select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" src="~/assets/img/list/xuanzhong.png" class="w-4 h-4 mr-1">
                 <img v-else src="~/assets/img/list/weixuanzhong.png" class="w-4 h-4 mr-1">
                 <label class="inline-block whitespace-nowrap">{{ item.title }}</label > -->
-                <input :id="'saleState' + index" type="checkbox" name="saleState" :value="index" class="option-radio mr-1" :checked="index === 0 ? true : false || select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" @click="openNew(index + '', 'saleState')"/>
+                <input :id="'saleState' + index" type="checkbox" name="saleState" :value="index" class="mr-1 option-radio" :checked="index === 0 ? true : false || select.saleState.indexOf(index + '') !== -1 || select.saleState.length < 1 && index === 0" @click="openNew(index + '', 'saleState')"/>
 		            <label :id="'saleStateLabel' + index" :for="'saleState' + index"><span class="">{{ item.title }}</span></label>
               </a>
             </div>
@@ -887,6 +887,18 @@ export default Vue.extend({
     let projectResult: any;
     let isFavorite;
 
+    let proSale;
+    // const getProSale = (id: string) => {
+    //   const param = {
+    //     data: {
+    //       projectId: id,
+    //       max: 1,
+    //     }
+    //   }
+    //   const result = $axios.$post(SaleApi.Top, param);
+    //   return result;
+    // }
+
     const getList = async () => {
       const condition: any = {};
       condition.city = { id: store.state.app.cityId }
@@ -953,6 +965,12 @@ export default Vue.extend({
           isFavorite = projectResult.data?.favorite;
           projectList = getDataResult(projectResult)
           total = projectResult.data.page.totalElements;
+          // if (projectList && projectList.length > 0) {
+          //   projectList.forEach(async (item: any) => {
+          //     const result = await getProSale(item.id);
+          //     console.log(result);
+          //   })
+          // }
         }
       } catch (error) {
         if (projectResult?.code === 401) {
@@ -989,6 +1007,7 @@ export default Vue.extend({
       isMobile,
       projectResult,
       isFavorite,
+      proSale,
     }
   },
   data () {
