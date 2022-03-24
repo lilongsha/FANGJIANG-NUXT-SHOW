@@ -98,7 +98,7 @@
                     <span class="mr-2 text-[#999999] text-[12px]">{{ item.lookTimes }}</span>
                   </div>
                   <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" class="overflow-hidden text-[#333333] sm:text-sm lg:text-[20px] font-bold hover:text-fjBlue-100"><h3>{{ item.title }}</h3></a>
-                  <div class="sm:h-0 lg:h-18" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 5;word-break: break-all;-webkit-box-orient: vertical;">
+                  <div class="sm:h-0 lg:h-18" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
                     <h5>{{ item.description }}</h5>
                   </div>
                   <!-- tiem -->

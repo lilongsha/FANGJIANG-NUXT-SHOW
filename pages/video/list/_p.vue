@@ -12,7 +12,7 @@
         <div v-for="item in list" :key="item.id" class="item group">
           <a :href="`/video/${item.id}.html`">
             <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
-              <p class="text-[18px]">{{ item.title }}</p>
+              <h3 class="text-[18px] text-white" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
               <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
             </div>
             <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>

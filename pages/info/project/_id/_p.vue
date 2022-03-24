@@ -18,7 +18,7 @@
           <span class="text-coolGray-400">|</span>
           <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼市政策</span>
         </div>
-        <div class="w-full">
+        <div class="w-full mt-4">
           <div v-if="type === '0'" class="lg:space-y-[28px] sm:space-y-2">
             <a v-for="(item, index) in news" v-show="index < 10" :key="item.id" :href="`/info/${item.id}.html`" class="sm:h-24 flex flex-row bg-[#F5F5F5]">
               <div class="w-2/5">
@@ -27,7 +27,7 @@
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
                 <div class="w-full overflow-hidden">
                   <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
-                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
                     {{ item.description }}
                   </p>
                 </div>
@@ -43,7 +43,7 @@
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
                 <div class="w-full overflow-hidden">
                   <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
-                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
                     {{ item.description }}
                   </p>
                 </div>
@@ -59,7 +59,7 @@
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
                 <div class="w-full overflow-hidden">
                   <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
-                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
                     {{ item.description }}
                   </p>
                 </div>
@@ -75,7 +75,7 @@
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
                 <div class="w-full overflow-hidden">
                   <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
-                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
                     {{ item.description }}
                   </p>
                 </div>
