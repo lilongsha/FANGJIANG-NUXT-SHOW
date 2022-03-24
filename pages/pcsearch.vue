@@ -160,7 +160,8 @@
           </div>
           <!-- 资讯 -->
           <div v-if="news && news.length > 0" class="border-b border-b-[#DDDDDD] pb-12 mb-12">
-            <div v-for="item in news" :key="item.id" class="lg:h-[234px] bg-[#f5f5f5] flex flex-row flex-shrink-0">
+            <div class="text-[#333333] text-[26px] font-medium mb-4">“{{ search }}”相关资讯</div>
+            <div v-for="item in news" :key="item.id" class="lg:h-[234px] bg-[#f5f5f5] flex flex-row flex-shrink-0 my-4">
               <div class="w-2/5 h-full">
                 <img :src="item.img" :title="item.title" :alt="item.title" class="object-cover w-full h-full" />
               </div>
@@ -182,7 +183,7 @@
           </div>
           <!-- 视频 -->
           <div v-if="videos && videos.length > 0" href="" class="">
-            <div class="text-[#333333] text-[26px] font-medium">{{ search }}相关视频</div>
+            <div class="text-[#333333] text-[26px] font-medium">“{{ search }}”相关视频</div>
             <div class="grid items-center justify-between grid-cols-3">
               <a v-for="(item, index) in videos" v-show="index != 1" :key="index" :href="`/video/${item.id}.html`" class="mt-5">
                 <div class="relative group">
@@ -201,14 +202,15 @@
         </div>
         <div class="w-1/3 bg-coolGray-100 pt-[24px] px-8 pb-10 ml-4">
           <!-- 品牌商 -->
-          <!-- <div v-if="brands && brands.length > 0" class="">
+          <div v-if="brands && brands.length > 0" class="">
             <div class="w-full border-b border-b-[#999999]">
               <div class="w-[100px] text-left py-2 text-[#333333] text-[24px] border-b-4 border-b-fjBlue-100">品牌馆</div>
             </div>
-            <div class="py-8">
-              <img v-for="item in brands" :key="item.id" src="" alt="" class="w-full h-[194px]" @click="clickBrand(item.id)">
+            <div class="pt-8 pb-4">
+              <img v-for="item in brands" :key="item.id" :src="item.photoAddress" alt="" class="w-full h-[194px] mb-4">
             </div>
-          </div> -->
+            <!--  @click="clickBrand(item.id)" -->
+          </div>
           <!-- 第一个视频 -->
           <div v-if="videos[0]" class="mb-8">
             <div class="w-full border-b border-b-[#999999]">
@@ -221,7 +223,7 @@
                 <img :src="videos[0].photoAddress" alt="" class="h-[178px] w-full">
               </div>
               <div>
-                <div class="text-[#333333] text-[16px] mt-2 font-medium">{{ search }}视频介绍</div>
+                <div class="text-[#333333] text-[16px] mt-2 font-medium">{{ videos[0].title }}</div>
                 <div class="text-[#999999] text-[14px] mt-2">{{ videos[0].description }}</div>
               </div>
             </a>
@@ -238,6 +240,7 @@
         </div>
       </div>
     </div>
+    <AppLoading ref="loading" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
   </div>
 </template>
 <script lang="ts">
@@ -379,6 +382,7 @@ export default Vue.extend({
         if (!this.search) {
           return;
         }
+        this.$nuxt.$loading.start()
         let result;
         const param = {
           data: {
@@ -428,7 +432,7 @@ export default Vue.extend({
             this.videos = result.data?.videos.content;
           }
         }
-        
+        this.$nuxt.$loading.finish();
       },
       clickBrand(id: string) {
         // '/brand?redirect=' + brandId
