@@ -36,6 +36,11 @@ export enum QuestionApi {
     MyQuestion = '/customer-server/close/question/myQuestion',
 }
 
+export enum SaleApi {
+    Top = '/customer-server/saleTop/top',
+    TopCity = '/customer-server/saleTop/topCity',
+}
+
 export async function refreshToken ($axios: any, refreshParam: any) {
     $axios.setHeader('Authorization', 'Basic Y3VzdG9tZXI6ZmFuZ2ppYW5nd2FuZw==')
     const param = {

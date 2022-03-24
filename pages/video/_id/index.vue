@@ -16,8 +16,8 @@
               <!-- <span>评论</span> -->
             </div>
             <div class="mx-1 w-full border-b border-dashed border-[#DDD]"></div>
-            <div class="mt-2 text-xl font-bold text-[#333]">{{ videoItem.title }}</div>
-            <div class="mt-2 text-[#999]">{{ videoItem.description }}</div>
+            <h3 class="mt-2 text-xl font-bold text-[#333]">{{ videoItem.title }}</h3>
+            <p class="mt-2 text-[#999]">{{ videoItem.description }}</p>
           </div>
         </div>
         <div class="box">

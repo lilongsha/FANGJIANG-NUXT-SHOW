@@ -10,8 +10,8 @@
           <div v-if="newsTop.length > 0" class="w-1/2 pr-1">
             <a v-if="newsTop[0]" :href="`/info/${newsTop[0].id}.html`" target="_blank" class="relative block w-full h-full">
               <img :src="newsTop[0].img" :title="newsTop[0].title" :alt="newsTop[0].title" class="object-cover w-full h-full">
-              <div class="absolute bottom-0 z-10 w-full h-10 bg-black bg-opacity-50">
-                <span class="text-white text-[18px] h-full flex flex-row items-center ml-6">{{ newsTop[0].title }}</span>
+              <div class="absolute bottom-0 z-10 w-full h-10 py-1 bg-black bg-opacity-50">
+                <span class="text-white text-[18px] h-full flex flex-row items-center ml-6" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical">{{ newsTop[0].title }}</span>
               </div>
             </a>
           </div>
@@ -20,16 +20,16 @@
             <div v-if="newsTop.length > 1" class="w-full h-1/2 pb-[2px]">
               <a v-if="newsTop[1]" :href="`/info/${newsTop[1].id}.html`" target="_blank" class="relative block w-full h-full">
                 <img :src="newsTop[1].img" :title="newsTop[1].title" :alt="newsTop[1].title" class="object-cover w-full h-full">
-                <div class="absolute bottom-0 z-10 w-full h-10 bg-black bg-opacity-50">
-                  <span class="text-white text-[18px] h-full flex flex-row items-center ml-6">{{ newsTop[1].title }}</span>
+                <div class="absolute bottom-0 z-10 w-full h-10 py-1 bg-black bg-opacity-50">
+                  <span class="text-white text-[18px] h-full flex flex-row items-center ml-6" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical">{{ newsTop[1].title }}</span>
                 </div>
               </a>
             </div>
             <div v-if="newsTop.length > 2" class="w-full h-1/2 pt-[2px]">
               <a v-if="newsTop[2]" :href="`/info/${newsTop[2].id}.html`" target="_blank" class="relative block w-full h-full">
                 <img :src="newsTop[2].img" :title="newsTop[2].title" :alt="newsTop[2].title" class="object-cover w-full h-full">
-                <div class="absolute bottom-0 z-10 w-full h-10 bg-black bg-opacity-50">
-                  <span class="text-white text-[18px] h-full flex flex-row items-center ml-6">{{ newsTop[2].title }}</span>
+                <div class="absolute bottom-0 z-10 w-full h-10 py-1 bg-black bg-opacity-50">
+                  <span class="text-white text-[18px] h-full flex flex-row items-center ml-6" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical">{{ newsTop[2].title }}</span>
                 </div>
               </a>
             </div>
@@ -54,8 +54,8 @@
           <div class="w-3/5 px-2">
             <a v-if="item" :href="`/info/${item.id}.html`" target="_blank" class="block w-full h-full">
               <div class="flex flex-col w-full h-full overflow-hidden">
-                <span class="inline-block mt-2 text-base font-bold text-black">{{ item.title }}</span>
-                <div class="h-14 overflow-hidden text-[#999999] text-[12px] mt-1">{{ item.description }}</div>
+                <span class="inline-block mt-2 text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical">{{ item.title }}</span>
+                <div class="h-14 overflow-hidden text-[#999999] text-[12px] mt-1" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical">{{ item.description }}</div>
               </div>
             </a>
           </div>
@@ -97,9 +97,9 @@
                     <div class="w-4 h-4 mr-2 bg-cover bg-looks-gray"></div>
                     <span class="mr-2 text-[#999999] text-[12px]">{{ item.lookTimes }}</span>
                   </div>
-                  <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 2;word-break: break-all;-webkit-box-orient: vertical;" class="overflow-hidden text-[#333333] sm:text-sm lg:text-[20px] font-bold hover:text-fjBlue-100">{{ item.title }}</a>
-                  <div class="sm:h-0 mr-[37px] lg:h-16" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
-                    {{ item.description }}
+                  <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" class="overflow-hidden text-[#333333] sm:text-sm lg:text-[20px] font-bold hover:text-fjBlue-100"><h3>{{ item.title }}</h3></a>
+                  <div class="sm:h-0 lg:h-18" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 5;word-break: break-all;-webkit-box-orient: vertical;">
+                    <h5>{{ item.description }}</h5>
                   </div>
                   <!-- tiem -->
                   <div v-if="item.createTime" class="absolute bottom-0 text-right right-2 text-[#999999]">{{ item.createTime.split('T')[0] }}</div>

@@ -5,7 +5,9 @@
     <AppBar :current="'price'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex-row shadow-lg sm:px-2 lg:mt-8 lg:flex">
       <div class="sm:w-full lg:w-3/4 sm:h-56 lg:pr-10 ">
-        <div class="lg:text-[22px] sm:text-[18px] my-4 border-l-fjBlue-100 border-l-8 px-4">{{ house.name }}历史价格走势</div>
+        <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100 mb-4">
+          <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100  flex justify-center items-center">{{ house.name }}历史价格走势</div>
+        </div>
         <EchartLineEchart :option="option" class="border-t border-t-[#DDDDDD] object-center lg:h-[340px]" />
       </div>
       <div class="lg:w-1/4 sm:w-full">

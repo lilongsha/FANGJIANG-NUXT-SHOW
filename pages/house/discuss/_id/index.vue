@@ -6,7 +6,7 @@
     <div class="lg:mt-12 sm:mt-2 bg-[#FBFBFC] lg:py-6 lg:px-6 text-[#333333]">
       <div class="flex flex-row items-center sm:text-xl lg:text-[24px] ">
         <span class="bg-[#DA1111] px-1 lg:py-1 text-[14px] rounded sm:mr-2 lg:mr-5 text-white h-6">问</span>
-        {{ question.content }}
+        <h3>{{ question.content }}</h3>
       </div>
       <div class="flex flex-row items-center justify-between lg:mt-6 sm:mt-4">
         <div v-if="question.updateTime">{{ question.updateTime.split('T')[0] }}</div>
@@ -28,7 +28,7 @@
               <img :src="answer.avatar" alt="" class="lg:w-[60px] lg:h-[60px] sm:w-[30px] sm:h-[30px] rounded-full flex-shrink-0">
               <div class="lg:space-y-3 sm:space-y-1">
                 <div class="sm:text-xs text-[#666666] text-[20px]">{{ answer.author }}</div>
-                <div class="sm:text-xs text-[#666666] text-[18px]">{{ answer.content }}</div>
+                <p class="sm:text-xs text-[#666666] text-[18px]">{{ answer.content }}</p>
                 <div class="sm:text-xs text-[#999999] text-[16px]">{{ answer.createTime.split('T')[0] }}</div>
               </div>
             </div>

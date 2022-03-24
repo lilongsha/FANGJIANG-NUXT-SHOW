@@ -140,15 +140,15 @@
           
           <!-- 内容 -->
           <div class="py-2 space-y-4">
-            <div class="w-full">交通配套：<span v-if="house.trafficInfo" class="text-gray-400">{{ house.trafficInfo }}</span><span v-else>暂无数据</span></div>
-            <div class="w-full">医疗配套：<span v-if="house.medicalInfo" class="text-gray-400">{{ house.medicalInfo }}</span><span v-else>暂无数据</span></div>
-            <div class="w-full">商业配套：<span v-if="house.matchingInfo" class="text-gray-400">{{ house.matchingInfo }}</span><span v-else>暂无数据</span></div>
-            <div class="w-full">教育配套：<span v-if="house.educationInfo" class="text-gray-400">{{ house.educationInfo }}</span><span v-else>暂无数据</span></div>
-            <div class="w-full">其它配套：<span v-if="house.otherInfo" class="text-gray-400">{{ house.otherInfo }}</span><span v-else>暂无数据</span></div>
-            <div class="w-full">楼盘优点：<span v-if="house.advantage" class="text-gray-400">{{ house.advantage }}</span><span v-else>暂无数据</span></div>
-            <div>
-              <span class="">项目缺点：<a :href="`tel:${phoneNum},${house.number}%23`">请咨询客服了解<span class="text-fjRed-100">[{{house.name}}]</span>缺点信息</a></span>
-            </div>
+            <p class="w-full">交通配套：<span v-if="house.trafficInfo" class="text-gray-400">{{ house.trafficInfo }}</span><span v-else>暂无数据</span></p>
+            <p class="w-full">医疗配套：<span v-if="house.medicalInfo" class="text-gray-400">{{ house.medicalInfo }}</span><span v-else>暂无数据</span></p>
+            <p class="w-full">商业配套：<span v-if="house.matchingInfo" class="text-gray-400">{{ house.matchingInfo }}</span><span v-else>暂无数据</span></p>
+            <p class="w-full">教育配套：<span v-if="house.educationInfo" class="text-gray-400">{{ house.educationInfo }}</span><span v-else>暂无数据</span></p>
+            <p class="w-full">其它配套：<span v-if="house.otherInfo" class="text-gray-400">{{ house.otherInfo }}</span><span v-else>暂无数据</span></p>
+            <p class="w-full">楼盘优点：<span v-if="house.advantage" class="text-gray-400">{{ house.advantage }}</span><span v-else>暂无数据</span></p>
+            <p>
+              <span class="flex flex-row flex-shrink-0">项目缺点：<a :href="`tel:${phoneNum},${house.number}%23`" class="flex flex-row flex-shrink-0">请咨询客服了解<h3 class="flex-shrink-0 text-fjRed-100">[{{house.name}}]</h3>缺点信息</a></span>
+            </p>
           </div>
           <ClueButtonClue :name="'了解周边配套及规划'" @clickButton="openClue('10')"/>
         </div>

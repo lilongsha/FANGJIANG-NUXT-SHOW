@@ -25,3 +25,18 @@ input {
 input:focus {
   outline: none;
 }
+/* stylelint-disable-next-line comment-empty-line-before */
+/* input[type="checkbox"], input[type="radio"] {
+  height: 14px; 
+  width: 14px; 
+  appearance: none;
+  border: 1px solid #d1d1d1;
+}
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  appearance: none;
+  background-color: #0075ff;
+}
+input[type="checkbox"]:checked::after, input[type="radio"]:checked::after {
+  content: '\2714'; 
+  color: white;
+} */

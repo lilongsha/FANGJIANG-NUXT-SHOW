@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto sm:w-screen sm:overflow-hidden sm:px-2 lg:container">
     <div class="w-full sm:h-16 lg:h-32"></div>
-    <div class="mb-4 sm:text-xl lg:text-4xl font-bold text-[#333]">{{ news.title }}</div>
+    <h1 class="mb-4 sm:text-xl lg:text-4xl font-bold text-[#333]">{{ news.title }}</h1>
     <!-- 副标题 -->
     <div class="sm:w-full lg:w-2/3 text-[#999999]">
       <span>来源：</span>

@@ -16,7 +16,7 @@
           <span class="text-3xl font-bold text-gray-200">ABOUTUS</span>
         </div>
         <div class="z-10 abCenter top-4">
-          <span class="text-xl font-bold text-black">关于我们</span>
+          <h3 class="text-xl font-bold text-black">关于我们</h3>
         </div>
       </div>
       <div class="grid w-full sm:grid-cols-1 lg:grid-cols-2 justify-items-center h-[510px]">
@@ -26,7 +26,7 @@
         </div>
         <div>
           <div style="text-indent:28px;">
-            <p>河北房匠网络科技有限公司成立于2017年9月5日，我们拥有自主房匠品牌线上APP、公司官网、房匠品牌新媒体账号，随着公司发展预计建设全城线下门店。</p>
+            <p><strong>河北房匠网络科技有限公司</strong>成立于2017年9月5日，我们拥有自主房匠品牌线上APP、公司官网、房匠品牌新媒体账号，随着公司发展预计建设全城线下门店。</p>
             <p>公司主营新建房屋买卖代理服务、新建房屋租赁代理服务、二手卖买卖经纪服务、二手房租赁经纪服务，合作开发商有润江地产、远洋地产、融创地产等各大开发商。</p>
           </div>
           <div class="grid grid-cols-2 mt-10 text-center justify-items-center">
@@ -59,7 +59,7 @@
             <span class="text-3xl font-bold text-gray-200">HONOR</span>
           </div>
           <div class="z-10 abCenter top-4">
-            <span class="text-xl font-bold text-black">公司荣誉</span>
+            <h3 class="text-xl font-bold text-black">公司荣誉</h3>
           </div>
         </div>
         <div class="relative w-full sm:px-8 lg:px-24 h-4/5">
@@ -90,7 +90,7 @@
           <span class="text-3xl font-bold text-gray-200">COURSE</span>
         </div>
         <div class="z-10 abCenter top-4">
-          <span class="text-xl font-bold text-black">发展历程</span>
+          <h3 class="text-xl font-bold text-black">发展历程</h3>
         </div>
       </div>
       <div class="container w-full h-full mx-auto bg-cover bg-about-1">

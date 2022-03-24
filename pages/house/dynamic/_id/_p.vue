@@ -23,11 +23,11 @@
           <div v-for="item in dynamics" :key="item.id" class="w-full mb-4 border-b border-gray-300 border-dashed">
             <!-- dynamic Title -->
             <div class="w-full mb-4">
-              <span class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</span>
+              <h3 class="text-lg text-black hover:border-b border-fjBlue-100">{{ item.title }}</h3>
               <span :class="DynamicSort[item.sort].color" class="px-1 py-0.5 ml-4 text-xs text-white">{{ DynamicSort[item.sort].title }}</span>
             </div>
             <!-- dynamic Content -->
-            <p class="w-full mb-8 truncate whitespace-pre-wrap first-letter:ml-4">{{ item.description }}</p>
+            <h5 class="w-full mb-8 truncate whitespace-pre-wrap first-letter:ml-4">{{ item.description }}</h5>
             <!-- question Time -->
             <div v-if="item.updateBy" class="text-sm text-gray-400">{{ item.updateTime.split('T')[0] }}</div>
             <div v-else class="text-sm text-gray-400">{{ item.createTime.split('T')[0] }}</div>
@@ -68,7 +68,7 @@
       </div>
     </div>
     </div>
-    <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
+    <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px] sm:mt-2 lg:mt-8">
         <!-- 广告位 -->
         <div>
           <img src="~/assets/img/clue/busAd.png" alt="看房专车免费接送" class="w-[302px] h-[354px]" @click="openActivityClue('4')">
