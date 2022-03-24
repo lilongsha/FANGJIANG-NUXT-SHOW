@@ -3,23 +3,26 @@
     <div class="lg:h-24 sm:h-10"></div>
     <AppTitle :house="house" :favorite="favorite" />
     <AppBar :current="'video'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
-    <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
-      <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部视频</span>
-      <span class="text-coolGray-400">|</span>
-      <span :class="type === '1' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('1')">楼盘实拍</span>
-      <span class="text-coolGray-400">|</span>
-      <span :class="type === '2' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('2')">样板间赏析</span>
-      <span class="text-coolGray-400">|</span>
-      <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼盘对比</span>
-    </div>
-    <div class="w-full lg:flex lg:flex-row">
+    <div class="w-full lg:flex lg:flex-row lg:mt-8 sm:mt-2">
       <div class="lg:w-3/4 sm:w-full min-h-[500px]">
+        <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100  flex justify-center items-center">{{ house.name }}相关视频</div>
+        </div>
+        <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
+          <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部视频</span>
+          <span class="text-coolGray-400">|</span>
+          <span :class="type === '1' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('1')">楼盘实拍</span>
+          <span class="text-coolGray-400">|</span>
+          <span :class="type === '2' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('2')">样板间赏析</span>
+          <span class="text-coolGray-400">|</span>
+          <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼盘对比</span>
+        </div>
         <div >
           <div v-if="type === '0'" class="content">
             <div v-for="(item, index) in videos" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
-                  <p class="text-[18px]">{{ item.title }}</p>
+                  <h3 class="text-[18px] text-white">{{ item.title }}</h3>
                   <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
                 </div>
                 <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
@@ -31,7 +34,7 @@
             <div v-for="(item, index) in video1" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
-                  <p class="text-[18px]">{{ item.title }}</p>
+                  <h3 class="text-[18px] text-white">{{ item.title }}</h3>
                   <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
                 </div>
                 <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
@@ -43,7 +46,7 @@
             <div v-for="(item, index) in video2" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
-                  <p class="text-[18px]">{{ item.title }}</p>
+                  <h3 class="text-[18px] text-white">{{ item.title }}</h3>
                   <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
                 </div>
                 <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
@@ -55,7 +58,7 @@
             <div v-for="(item, index) in video3" v-show="index < 50" :key="item.id" class="item group">
               <a :href="`/video/${item.id}.html`">
                 <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
-                  <p class="text-[18px]">{{ item.title }}</p>
+                  <h3 class="text-[18px] text-white">{{ item.title }}</h3>
                   <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
                 </div>
                 <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>

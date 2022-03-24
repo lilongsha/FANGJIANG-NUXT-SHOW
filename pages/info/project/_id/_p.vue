@@ -3,17 +3,21 @@
     <div class="lg:h-24 sm:h-10"></div>
     <AppTitle :house="house" :favorite="favorite" />
     <AppBar :current="'info'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
-    <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
-      <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部资讯</span>
-      <span class="text-coolGray-400">|</span>
-      <span :class="type === '2' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('2')">开盘资讯</span>
-      <span class="text-coolGray-400">|</span>
-      <span :class="type === '7' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('7')">实探楼盘</span>
-      <span class="text-coolGray-400">|</span>
-      <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼市政策</span>
-    </div>
+    
     <div class="w-full lg:flex lg:flex-row lg:mt-8 sm:mt-2">
       <div class="lg:w-3/4 sm:w-full min-h-[500px]">
+        <div class="flex flex-row items-center justify-between w-full h-[36px] border-b-[1px] border-fjBlue-100">
+          <div class="sm:text-base lg:text-xl font-bold border-b-[6px] border-fjBlue-100  flex justify-center items-center">{{ house.name }}相关资讯</div>
+        </div>
+        <div class="flex flex-row items-start justify-start lg:space-x-8 lg:mt-[30px] lg:text-[18px] sm:mt-4 sm:space-x-2">
+          <span :class="type === '0' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('0')">全部资讯</span>
+          <span class="text-coolGray-400">|</span>
+          <span :class="type === '2' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('2')">开盘资讯</span>
+          <span class="text-coolGray-400">|</span>
+          <span :class="type === '7' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('7')">实探楼盘</span>
+          <span class="text-coolGray-400">|</span>
+          <span :class="type === '3' ? 'text-fjBlue-100 border-b-2 border-fjBlue-100' : ''" @click="changeType('3')">楼市政策</span>
+        </div>
         <div class="w-full">
           <div v-if="type === '0'" class="lg:space-y-[28px] sm:space-y-2">
             <a v-for="(item, index) in news" v-show="index < 10" :key="item.id" :href="`/info/${item.id}.html`" class="sm:h-24 flex flex-row bg-[#F5F5F5]">
@@ -21,11 +25,11 @@
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
-                <div class="overflow-hidden lg:w-2/3 sm:w-full">
-                  <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
-                  <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                <div class="w-full overflow-hidden">
+                  <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
                     {{ item.description }}
-                  </div>
+                  </p>
                 </div>
                 <div class="absolute lg:bottom-4 sm:bottom-2 lg:right-4 lg:text-[18px] sm:text-[12px] sm:right-2 text-[#999999]">{{ item.createTime.split('T')[0] }}</div>
               </div>
@@ -37,11 +41,11 @@
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
-                <div class="overflow-hidden lg:w-2/3 sm:w-full">
-                  <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
-                  <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                <div class="w-full overflow-hidden">
+                  <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
                     {{ item.description }}
-                  </div>
+                  </p>
                 </div>
                 <div class="absolute lg:bottom-4 sm:bottom-2 lg:right-4 lg:text-[18px] sm:text-[12px] sm:right-2 text-[#999999]">{{ item.createTime.split('T')[0] }}</div>
               </div>
@@ -53,11 +57,11 @@
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
-                <div class="overflow-hidden lg:w-2/3 sm:w-full">
-                  <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
-                  <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                <div class="w-full overflow-hidden">
+                  <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
                     {{ item.description }}
-                  </div>
+                  </p>
                 </div>
                 <div class="absolute lg:bottom-4 sm:bottom-2 lg:right-4 lg:text-[18px] sm:text-[12px] sm:right-2 text-[#999999]">{{ item.createTime.split('T')[0] }}</div>
               </div>
@@ -69,11 +73,11 @@
                 <img :src="item.img" alt="" class="w-full lg:h-[244px] sm:h-full overflow-hidden">
               </div>
               <div class="relative w-3/5 lg:pl-8 lg:pt-8 sm:pl-2 sm:pt-2">
-                <div class="overflow-hidden lg:w-2/3 sm:w-full">
-                  <div class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black">{{ item.title }}</div>
-                  <div class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                <div class="w-full overflow-hidden">
+                  <h3 class="lg:text-[22px] sm:text-[16px] inline-block text-base font-bold text-black" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
+                  <p class="text-[#666666] lg:mt-4 lg:text-[16px] sm:text-[14px] text-ellipsis tracking-wider overflow-hidden" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;">
                     {{ item.description }}
-                  </div>
+                  </p>
                 </div>
                 <div class="absolute lg:bottom-4 sm:bottom-2 lg:right-4 lg:text-[18px] sm:text-[12px] sm:right-2 text-[#999999]">{{ item.createTime.split('T')[0] }}</div>
               </div>
