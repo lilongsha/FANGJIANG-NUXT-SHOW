@@ -160,7 +160,7 @@
           </div>
           <!-- 资讯 -->
           <div v-if="news && news.length > 0" class="border-b border-b-[#DDDDDD] pb-12 mb-12">
-            <div class="text-[#333333] text-[26px] font-medium mb-4">“{{ search }}”相关资讯</div>
+            <div class="text-[#333333] text-[26px] font-medium mb-4">“{{ searchText }}”相关资讯</div>
             <div v-for="item in news" :key="item.id" class="lg:h-[234px] bg-[#f5f5f5] flex flex-row flex-shrink-0 my-4">
               <div class="w-2/5 h-full">
                 <img :src="item.img" :title="item.title" :alt="item.title" class="object-cover w-full h-full" />
@@ -172,7 +172,7 @@
                   <div class="w-4 h-4 mr-2 bg-cover bg-looks-gray"></div>
                   <span class="mr-2 text-[#999999] text-[14px]">{{ item.lookTimes }}</span>
                 </div>
-                <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 2;word-break: break-all;-webkit-box-orient: vertical;" class="overflow-hidden text-[#333333] lg:text-[26px] font-bold hover:text-fjBlue-100">{{ item.title }}</a>
+                <a :href="`/info/${item.id}.html`" target="_blank" :title="item.title" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;" class="overflow-hidden text-[#333333] lg:text-[26px] font-bold hover:text-fjBlue-100">{{ item.title }}</a>
                 <div class="mt-7 mr-[37px] lg:h-[76px] text-[18px] text-[#999999]" style="overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 3;word-break: break-all;-webkit-box-orient: vertical;">
                   {{ item.description }}
                 </div>
@@ -183,12 +183,12 @@
           </div>
           <!-- 视频 -->
           <div v-if="videos && videos.length > 0" href="" class="">
-            <div class="text-[#333333] text-[26px] font-medium">“{{ search }}”相关视频</div>
+            <div class="text-[#333333] text-[26px] font-medium">“{{ searchText }}”相关视频</div>
             <div class="grid items-center justify-between grid-cols-3">
               <a v-for="(item, index) in videos" v-show="index != 1" :key="index" :href="`/video/${item.id}.html`" class="mt-5">
                 <div class="relative group">
                   <div class="absolute bottom-0 flex flex-col justify-center object-cover w-[270px] h-10 px-2 text-white transition-all bg-black lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 bg-opacity-40 lg:group-hover:h-full">
-                    <p class="text-[18px]">{{ item.title }}</p>
+                    <h3 class="text-[18px] text-white" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
                     <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
                   </div>
                   <img class="absolute w-10 h-10 -mt-5 -ml-5 top-1/2 left-1/2 group-hover:hidden" src="~/assets/img/video/play.png"/>
@@ -266,7 +266,8 @@ export default Vue.extend({
         houses: [],
         videos: [],
         news: [],
-        phoneNum
+        phoneNum,
+        searchText: '',
       }
     },
     computed:{
@@ -381,6 +382,7 @@ export default Vue.extend({
         if (!this.search) {
           return;
         }
+        this.searchText = this.search;
         this.$nuxt.$loading.start()
         let result;
         const param = {
