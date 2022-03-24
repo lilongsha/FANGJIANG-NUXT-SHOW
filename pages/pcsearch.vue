@@ -207,9 +207,8 @@
               <div class="w-[100px] text-left py-2 text-[#333333] text-[24px] border-b-4 border-b-fjBlue-100">品牌馆</div>
             </div>
             <div class="pt-8 pb-4">
-              <img v-for="item in brands" :key="item.id" :src="item.photoAddress" alt="" class="w-full h-[194px] mb-4">
+              <img v-for="item in brands" :key="item.id" :src="item.photoAddress" alt="" class="w-full h-[194px] mb-4" @click="clickBrand(item.id)">
             </div>
-            <!--  @click="clickBrand(item.id)" -->
           </div>
           <!-- 第一个视频 -->
           <div v-if="videos[0]" class="mb-8">
@@ -435,7 +434,6 @@ export default Vue.extend({
         this.$nuxt.$loading.finish();
       },
       clickBrand(id: string) {
-        // '/brand?redirect=' + brandId
         this.$router.push('/brand?redirect=' + id)
       }
     }

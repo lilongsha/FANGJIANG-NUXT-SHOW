@@ -4,3 +4,7 @@ export enum SearchApi {
     News = '/customer-server/search/news',
     Videos = '/customer-server/search/videos',
 }
+
+export enum BrandApi {
+    Get = '/customer-server/brand/get',
+}
