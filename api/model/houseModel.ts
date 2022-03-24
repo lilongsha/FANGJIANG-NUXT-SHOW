@@ -89,6 +89,8 @@ export enum Api {
   Search = '/customer-server/project/search',
   GetByCityIdAndOrder = '/customer-server/project/searchByCondition',
   GetProject = '/customer-server/project/getProject',
+  GetLicensesAll = '/customer-server/license/getLicensesAll',
+  GetLicense = '/customer-server/license/getLicense',
 }
 
 export const phoneNum: string = '400-750-8888'

@@ -86,8 +86,15 @@
                   </td>
                   <td class="w-1/12 border">{{ item.floors }}</td>
                   <td class="w-4/12 border">{{ item.description }}</td>
-                  <!-- {{ item.licenseId }} -->
-                  <td class="w-1/12 border"><a target="_blank">预售证</a></td>
+                  <td class="w-1/12 border">
+                    <Popover :title="licenseName" trigger="click">
+                      <template #content>
+                        <img :src="licenseAddress" alt="" class="w-[300px] h-[200px]">
+                      </template>
+                      <!-- <a target="_blank" class="block">预售证</a> -->
+                      <div @click="getLicense(item.licenseId)">预售证</div>
+                    </Popover>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -181,6 +188,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Popover } from 'ant-design-vue';
 import { Api as HouseApi, decorationType, buildType, saleState, phoneNum } from '~/api/model/houseModel'
 import { Breadcrumb } from '~/types/app';
 import { getDataResult } from '~/utils/response/util';
@@ -192,7 +200,8 @@ export default Vue.extend({
   name: 'HouseInfoMation',
   components: {
     LineEchart,
-    ReomendHouse
+    ReomendHouse,
+    Popover,
   },
   async asyncData ({ $axios, params, store, req, route, redirect }) {
     const start = new Date().getTime();
@@ -399,6 +408,8 @@ export default Vue.extend({
       option,
       house,
       favorite: '',
+      licenseName: '',
+      licenseAddress: '',
     }
   },
   head() {
@@ -477,6 +488,20 @@ export default Vue.extend({
      changeShowBuild(flag: boolean) {
       this.showBuild = flag;
     },
+    getLicense(id: string) {
+      debugger;
+      if (id) {
+        const result = this.$axios.$post(HouseApi.GetLicense, { data: { id }});
+        result.then(license => {
+          this.licenseAddress = license.data.content.resourceEntity.address;
+          this.licenseName = license.data.content.resourceEntity.title;
+        })
+      } else {
+        this.licenseName = '暂无预售证'
+        this.licenseAddress = ''
+      }
+
+    }
   }
 });
 </script>
