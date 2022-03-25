@@ -185,20 +185,54 @@
         </div>
         
         <!-- house layout -->
-        <div id="layout" ref="layout" class="w-full sm:px-2 lg:h-[532px] m2-8">
+        <div id="layout" ref="layout" class="w-full sm:px-2 m2-8">
           <!-- h-36px -->
           <div class="flex flex-row items-center w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
             <h2 class="sm:text-sm lg:text-xl font-bold sm:border-b-4 lg:border-b-[6px] border-fjBlue-100">{{ house.name }}户型</h2>
           </div>
           <!-- content -->
-          <div class="w-full lg:h-[496px] sm:mt-2 lg:mt-8">
+          <div class="w-full sm:mt-2 lg:mt-8">
             <div class="w-full h-12">
               <span :class="'' === showDefaultLayout ? 'bg-fjBlue-100 text-white sm:text-sm' : 'sm:text-xs'" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout('')">全部</span>
               <span v-for="(item,index) in layouts" :key="index" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white sm:text-sm' : 'sm:text-xs'" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
             </div>
-            <div class="relative w-full overflow-hidden sm:h-56 lg:h-112">
-              <div class="absolute sm:top-[60px] lg:top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
+            <div class="w-full overflow-hidden sm:h-55">
+              <div class="w-full h-full overflow-hidden">
+                <div  class="flex flex-row justify-between h-full p-2 text-white lg:flex-wrap sm:overflow-x-scroll " :class="isMore? 'lg:h-auto' : 'lg:h-[440px]'">
+                  <div v-for="(item,index) in house.hLayoutsById" v-show="(showDefaultLayout === '' || item.room == showDefaultLayout) && item.saleState === '1'" :key="index" class="h-full mb-4 overflow-hidden transition-all shadow sm:flex-shrink-0 sm:mr-4 sm:w-48 lg:w-72">
+                    <div class="overflow-hidden sm:h-32 lg:h-80">
+                      <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
+                    </div>
+                    <div class="flex flex-col w-full h-24 pt-2 sm:px-1 lg:px-4">
+                      <div class="flex items-center font-bold text-black lg:flex-row sm:text-sm lg:text-xl">
+                        <div class="-space-x-1">
+                          <span v-if="item.room">{{ item.room }}</span>
+                          <span v-if="item.room">室</span>
+                          <span v-if="item.hall">{{ item.hall }}</span>
+                          <span v-if="item.hall">厅</span>
+                          <span v-if="item.toilet">{{ item.toilet }}</span>
+                          <span v-if="item.toilet">卫</span>
+                        </div>
+                        <div class="text-xs">
+                          <HouseStateLabel :state="item.saleState" :class-name="'sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm'" />
+                        </div>
+                      </div>
+                      <div class="flex flex-shrink-0 w-full text-gray-700 sm:flex-col lg:flex-row">
+                        <span class="sm:w-full lg:w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
+                        <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap" style="overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{ item.description }}</span>
+                      </div>
+                      <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="flex flex-row w-full mt-2 sm:space-x-1 lg:space-x-2">
+                        <span v-for="(label, index1) in item.sysDictDetailBeans" v-show="index1 < 3" :key="index1" class="whitespace-nowrap sm:px-1 lg:px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
+                          {{ label.value }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button v-show="house.hLayoutsById.length > 0" class="text-[20px] w-full text-center sm:hidden bg-[#f6f9fe]" @click="clickMore">展开更多</button>
+              </div>
+              <!-- <div class="absolute sm:top-[60px] lg:top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div>
               <div class="absolute sm:top-[60px] lg:top-[120px] right-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutRight">
@@ -236,9 +270,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
-          
           </div>
           <div class="lg:hidden">
             <div class="text-[17px] font-bold text-[#333333]">余房查询</div>
@@ -705,7 +738,7 @@ export default Vue.extend({
     console.log("新房详情首页调用接口使用时间：", end - start)
 
     return { accessToken, tokenType, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
-questionTotal, option, phoneNum, isMobile, favorite }
+questionTotal, option, phoneNum, isMobile, favorite, isMore: false }
   },
   data () {
     const flag: string = 'layout';
@@ -735,6 +768,7 @@ questionTotal, option, phoneNum, isMobile, favorite }
     const option: any = {};
     let isMobile: any;
     return {
+      isMore: false,
       flag,
       activityId: '',
       openActivity: false,
@@ -882,6 +916,13 @@ questionTotal, option, phoneNum, isMobile, favorite }
     this.getHouseType();
   },
   methods: {
+    clickMore() {
+      if (this.isMore) {
+        this.isMore = false;
+      } else {
+        this.isMore = true;
+      }
+    },
     touchend(event: any) {
       const e = event || window.event;
       this.xEnd = e.changedTouches[0].clientX;
