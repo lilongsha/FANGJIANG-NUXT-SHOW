@@ -86,8 +86,8 @@
     <div class="lg:w-[821px] pb-[6px] border-b border-fjBlue-100">
       <span class="border-b-8 border-fjBlue-100">热门资讯</span>
     </div>
-    <div class="flex sm:flex-col lg:flex-row lg:w-[821px] mt-4">
-      <div v-for="item in newsTop" :key="item.id" class="mr-10 font-medium"><a target="_blank" :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
+    <div class="flex sm:flex-col lg:flex-row lg:w-[821px] mt-4 break-normal flex-wrap">
+      <div v-for="item in newsTop" :key="item.id" class="flex-shrink-0 float-left mr-10 font-medium"><a target="_blank" :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
     </div>
     <!-- 底部推荐楼盘 -->
     <div class="flex flex-col lg:hidden">
