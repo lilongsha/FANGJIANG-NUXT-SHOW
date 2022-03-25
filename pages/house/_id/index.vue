@@ -189,7 +189,7 @@
           <!-- h-36px -->
           <div class="flex flex-row items-center w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
             <!-- 标题内容 -->
-            <h1 class="sm:text-sm lg:text-xl font-bold sm:border-b-4 lg:border-b-[6px] border-fjBlue-100">{{ house.name }}户型</h1>
+            <h2 class="sm:text-sm lg:text-xl font-bold sm:border-b-4 lg:border-b-[6px] border-fjBlue-100">{{ house.name }}户型</h2>
           </div>
           <!-- content -->
           <div class="w-full lg:h-[496px] sm:mt-2 lg:mt-8">
@@ -260,7 +260,7 @@
               <!-- h-36px -->
               <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
-                <h1 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}项目分析</h1>
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}项目分析</h2>
               </div>
               <!-- content -->
               <div class="w-full m2-8">
@@ -281,7 +281,7 @@
               <!-- h-36px -->
               <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100 relative">
                 <!-- 标题内容 -->
-                <h1 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态 </h1>
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态 </h2>
                 <button class=" sm:hidden object-center ml-2 mb-1 space-x-2 p-1 border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
                   <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                   <span class="text-[13px] font-medium text-fjBlue-100">新动态通知我</span>
@@ -313,7 +313,7 @@
               <!-- h-36px -->
               <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
-                <h1 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</h1>
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}问答</h2>
                 <!-- 全部 -->
                 <a :href="`/house/discuss/${house.id}/p1`" target="_blank">
                   <div class="text-sm text-gray-500">更多({{ questionTotal }})></div>
@@ -379,7 +379,7 @@
               <!-- h-36px -->
               <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
-                <h1 class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边</h1>
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边</h2>
                 <button class=" sm:hidden ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
                     <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                     <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
@@ -393,7 +393,7 @@
               <!-- h-36px -->
               <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
-                <h1 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</h1>
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}价格走势</h2>
               </div>
               <div class="w-full sm:h-56 lg:h-80">
                 <line-echart :option="option" />
@@ -409,7 +409,7 @@
             <div id="news" class="bg-[#f6f9fe] lg:p-2 lg:sticky sm:px-2 lg:z-[19] lg:float-right sm:w-full lg:w-full m2-8 lg:transition-all lg:top-44">
                 <!-- title -->
               <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
-                <h1 class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</h1>
+                <h2 class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</h2>
               </div>
               <!-- content -->
               <div class="w-full pt-1 space-y-2 sm:px-2">

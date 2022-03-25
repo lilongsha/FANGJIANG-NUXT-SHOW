@@ -5,7 +5,7 @@
           <!-- name and saleState -->
           <div class="flex items-end w-full sm:flex-col lg:flex-row">
             <a :href="`/house/${house.id}.html`" style="color: inherit" class="font-bold sm:text-xl lg:text-3xl"><h1>{{ house.name }}</h1></a>
-            <h1 v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</h1>
+            <h2 v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</h2>
           </div>
           <div class="flex flex-row items-center sm:mt-2 lg:mt-4">
             <HouseStateLabel :state="house.saleState" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" class=" sm:mr-0.5 lg:mr-1" />
