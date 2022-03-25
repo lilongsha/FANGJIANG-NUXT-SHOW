@@ -15,6 +15,7 @@ export default {
     'render:route': (_url, result) => {
       result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
       result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
+      result.html = result.html.replace(/(<\/?\w*>)/gi, '$1\n');
     }
   },
 
@@ -160,6 +161,6 @@ export default {
     // 打包样式
     extractCSS: true,
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt202203051436'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt202203241436'
   }
 }
