@@ -422,11 +422,11 @@
               <div class="lg:absolute lg:top-[90px] lg:left-4 bg-white p-2 sm:w-full sm:mt-2 sm:-mb-2">
                 <div class="">周边信息：</div>
                 <div class="flex flex-row flex-wrap ">
-                  <div class="px-2 py-1" :class="aroundType === '1' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('1')">医疗</div>
-                  <div class="px-2 py-1" :class="aroundType === '2' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('2')">交通</div>
-                  <div class="px-2 py-1" :class="aroundType === '3' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('3')">商业</div>
-                  <div class="px-2 py-1" :class="aroundType === '4' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('4')">住宅</div>
-                  <div class="px-2 py-1" :class="aroundType === '5' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('5')">教育</div>
+                  <div class="px-2 py-1 rounded" :class="aroundType === '1' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('1')">医疗</div>
+                  <div class="px-2 py-1 rounded" :class="aroundType === '2' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('2')">交通</div>
+                  <div class="px-2 py-1 rounded" :class="aroundType === '3' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('3')">商业</div>
+                  <div class="px-2 py-1 rounded" :class="aroundType === '4' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('4')">住宅</div>
+                  <div class="px-2 py-1 rounded" :class="aroundType === '5' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('5')">教育</div>
                 </div>
                 <div>
                   <div v-show="aroundType === '1'">
@@ -860,6 +860,8 @@ export default Vue.extend({
 questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, trafficArray, eduArray, houseArray, matchArray, aroundType: '' }
   },
   data () {
+    const aMap: any = {};
+    const markers: any[] = [];
     const flag: string = 'layout';
     const clueType: string = '';
     const opening: boolean = false;
@@ -893,6 +895,8 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     let matchArray: any;
 
     return{
+      aMap,
+      markers,
       medicArray,
       trafficArray,
       eduArray,
@@ -1005,163 +1009,21 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     // flag() {this.topFlag = this.flag || 'layout'},
     topFlag() {},
     aroundType() {
-      MapLoader().then(AMap => {
-        if (this.aroundType) {
-            this.map = new AMap.Map("aroundMap", {
-            zoom: 11,
-            center: [this.house?.longitude, this.house?.latitude],
-            scrollWheel:false,
-          })
-          const that = this;
-          AMap.plugin(['AMap.Scale', 'AMap.HawkEye', 'AMap.ToolBar', 'AMap.ControlBar'], function () {// 异步同时加载多个插件
-            const scale = new AMap.Scale();
-            that.map.addControl(scale);
-            const toolbar = new AMap.ToolBar();
-            that.map.addControl(toolbar);
-            const controlBar = new AMap.ControlBar({
-              position: {
-                top: '10px',
-                right: '10px',
-              }
-            });
-            const marker = new AMap.Marker({
-                icon: "https://fangjiang-saas-dev.oss-cn-beijing.aliyuncs.com/app/around/blue-logo.png",
-                position: [that.house?.longitude, that.house?.latitude]
-            });
-            const content = '<span>' + that.house?.name + '</span>'
-            marker.setLabel({
-                offset: new AMap.Pixel(0, 0),
-                content,
-                direction: 'bottom'
-            });
-            that.map.add(marker);
-            that.map.addControl(controlBar);
-          });
-          let markers: any;
-          if (that.aroundType === '1') {
-            if (markers) {
-              that.map.remove(markers);
-              markers.splice(0);
-            }
-            that.medicArray.forEach((item: any) => {
-              const marker =  new AMap.Marker({
-                map: that.map,
-                position: [item.location.split(',')[0], item.location.split(',')[1]]
-              });
-              const content = '<span>' + item.name + '</span>'
-              marker.setLabel({
-                offset: new AMap.Pixel(0, 0),
-                content,
-                direction: 'bottom'
-              });
-              if (!markers) {
-                markers = [];
-                markers[0]= marker;
-              } else {
-                markers.push(marker);
-              }
-              // this.map.add(marker);
-            })
-          } else if (that.aroundType === '2') {
-            if (markers) {
-              that.map.remove(markers);
-              markers.splice(0);
-            }
-            that.trafficArray.forEach((item: any) => {
-              const marker =  new AMap.Marker({
-                map: that.map,
-                position: [item.location.split(',')[0], item.location.split(',')[1]]
-              });
-              const content = '<span>' + item.name + '</span>'
-              marker.setLabel({
-                offset: new AMap.Pixel(0, 0),
-                content,
-                direction: 'bottom'
-              });
-              if (!markers) {
-                markers = [];
-                markers[0]= marker;
-              } else {
-                markers.push(marker);
-              }
-              // this.map.add(marker);
-            })
-          } else if (that.aroundType === '3') {
-            if (markers) {
-                that.map.remove(markers);
-                markers.splice(0);
-              }
-            that.matchArray.forEach((item: any) => {
-              const marker =  new AMap.Marker({
-                map: that.map,
-                position: [item.location.split(',')[0], item.location.split(',')[1]]
-              });
-              const content = '<span>' + item.name + '</span>'
-              marker.setLabel({
-                offset: new AMap.Pixel(0, 0),
-                content,
-                direction: 'bottom'
-              });
-              if (!markers) {
-                markers = [];
-                markers[0]= marker;
-              } else {
-                markers.push(marker);
-              }
-              // this.map.add(marker);
-            })
-          } else if (that.aroundType === '4') {
-            if (markers) {
-                that.map.remove(markers);
-                markers.splice(0);
-              }
-            that.houseArray.forEach((item: any) => {
-              const marker =  new AMap.Marker({
-                map: that.map,
-                position: [item.location.split(',')[0], item.location.split(',')[1]]
-              });
-              const content = '<span>' + item.name + '</span>'
-              marker.setLabel({
-                offset: new AMap.Pixel(0, 0),
-                content,
-                direction: 'bottom'
-              });
-              if (!markers) {
-                markers = [];
-                markers[0]= marker;
-              } else {
-                markers.push(marker);
-              }
-              // this.map.add(marker);
-            })
-          } else if (that.aroundType === '5') {
-            if (markers) {
-                that.map.remove(markers);
-                markers.splice(0);
-              }
-            that.eduArray.forEach((item: any) => {
-              const marker =  new AMap.Marker({
-                map: that.map,
-                position: [item.location.split(',')[0], item.location.split(',')[1]]
-              });
-              const content = '<span>' + item.name + '</span>'
-              marker.setLabel({
-                offset: new AMap.Pixel(0, 0),
-                content,
-                direction: 'bottom'
-              });
-              if (!markers) {
-                markers = [];
-                markers[0]= marker;
-              } else {
-                markers.push(marker);
-              }
-              // this.map.add(marker);
-            })
-          }
-        }
-      })
-      
+      const that = this;
+      if (that.aroundType === '1') {
+        that.setMarkers(that.medicArray);
+      } else if (that.aroundType === '2') {
+        that.setMarkers(that.trafficArray);
+      } else if (this.aroundType === '3') {
+        that.setMarkers(that.matchArray);
+      } else if (that.aroundType === '4') {
+        that.setMarkers(that.houseArray);
+      } else if (that.aroundType === '5') {
+        that.setMarkers(that.eduArray);
+      }
+      //  else {
+      //   that.setMarkers([]);
+      // }
     },
   },
   mounted() {
@@ -1172,6 +1034,7 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     
     // window.addEventListener('scroll', this.handleScroll);
     MapLoader().then(AMap => {
+      this.aMap = AMap;
       this.map = new AMap.Map("aroundMap", {
         zoom: 11,
         center: [this.house?.longitude, this.house?.latitude],
@@ -1206,6 +1069,29 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     this.getHouseType();
   },
   methods: {
+    setMarkers(array: any[]) {
+      const that = this;
+      if (that.markers) {
+        that.map.remove(that.markers);
+        that.markers.splice(0);
+      }
+      if (array.length > 0) {
+        array.forEach((item: any) => {
+          const marker = new that.aMap.Marker({
+            map: that.map,
+            position: [item.location.split(',')[0], item.location.split(',')[1]]
+          });
+          const content = '<span>' + item.name + '</span>'
+          marker.setLabel({
+            offset: new that.aMap.Pixel(0, 0),
+            content,
+            direction: 'bottom'
+          });
+          that.markers.push(marker);
+        })
+      }
+      
+    },
     changeAroundType(type: string) {
       if (this.aroundType === type) {
         this.aroundType = '';
