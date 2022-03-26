@@ -8,3 +8,7 @@ export enum SearchApi {
 export enum BrandApi {
     Get = '/customer-server/brand/get',
 }
+
+export enum aroundApi {
+    Around = '/customer-server/place/around',
+}

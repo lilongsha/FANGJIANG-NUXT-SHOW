@@ -408,17 +408,79 @@
               </div>
             </div>
             <!-- house around -->
-            <div id="around" ref="around" class="flex flex-col items-center content-1 sm:px-2">
+            <div id="around" ref="around" class="relative flex flex-col items-center content-1 sm:px-2">
               <!-- h-36px -->
               <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
                 <h2 class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边</h2>
                 <button class=" sm:hidden ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
-                    <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
-                    <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
-                  </button>
+                  <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
+                  <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
+                </button>
               </div>
               <div id="aroundMap" class="w-full m2-8 sm:h-48 lg:h-112"></div>
+              <div class="lg:absolute lg:top-[90px] lg:left-4 bg-white p-2 sm:w-full sm:mt-2 sm:-mb-2">
+                <div class="">周边信息：</div>
+                <div class="flex flex-row flex-wrap ">
+                  <div class="px-2 py-1" :class="aroundType === '1' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('1')">医疗</div>
+                  <div class="px-2 py-1" :class="aroundType === '2' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('2')">交通</div>
+                  <div class="px-2 py-1" :class="aroundType === '3' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('3')">商业</div>
+                  <div class="px-2 py-1" :class="aroundType === '4' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('4')">住宅</div>
+                  <div class="px-2 py-1" :class="aroundType === '5' ? ' bg-fjBlue-100 text-white' : 'bg-white text-fjBlue-100'" @click="changeAroundType('5')">教育</div>
+                </div>
+                <div>
+                  <div v-show="aroundType === '1'">
+                    <div v-for="(item, index) in medicArray" :key="index" class="text-[12px] text-[#333333] flex flex-row justify-between">
+                      <span
+                        class="leading-5 text-left"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+                        >{{ item.name }}</span
+                      >
+                      <span class="text-right text-[#999999] flex-shrink-0">{{ item.distance }}m</span>                                   
+                    </div>
+                  </div>
+                  <div v-show="aroundType === '2'">
+                    <div v-for="(item, index) in trafficArray" :key="index" class="text-[12px] text-[#333333] flex flex-row justify-between">
+                      <span
+                        class="leading-5 text-left"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+                        >{{ item.name }}</span
+                      >
+                      <span class="text-right text-[#999999] flex-shrink-0">{{ item.distance }}m</span>                                   
+                    </div>
+                  </div>
+                  <div v-show="aroundType === '3'">
+                    <div v-for="(item, index) in matchArray" :key="index" class="text-[12px] text-[#333333] flex flex-row justify-between">
+                      <span
+                        class="leading-5 text-left"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+                        >{{ item.name }}</span
+                      >
+                      <span class="text-right text-[#999999] flex-shrink-0">{{ item.distance }}m</span>                                   
+                    </div>
+                  </div>
+                  <div v-show="aroundType === '4'">
+                    <div v-for="(item, index) in houseArray" :key="index" class="text-[12px] text-[#333333] flex flex-row justify-between">
+                      <span
+                        class="leading-5 text-left"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+                        >{{ item.name }}</span
+                      >
+                      <span class="text-right text-[#999999] flex-shrink-0">{{ item.distance }}m</span>                                   
+                    </div>
+                  </div>
+                  <div v-show="aroundType === '5'">
+                    <div v-for="(item, index) in eduArray" :key="index" class="text-[12px] text-[#333333] flex flex-row justify-between">
+                      <span
+                        class="leading-5 text-left"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+                        >{{ item.name }}</span
+                      >
+                      <span class="text-right text-[#999999] flex-shrink-0">{{ item.distance }}m</span>                                   
+                    </div>
+                  </div>
+                </div>
+              </div>
               <ClueButtonClue :name="'了解配套'" @clickButton="openClue('10')"/>
             </div>
             <!-- house price -->
@@ -485,6 +547,7 @@ import RecomendHouse from '~/components/house/RecomendHouse.vue'
 import { Breadcrumb } from '~/types/app';
 import { ActivityApi, ActivityModel } from '~/api/clue/activity';
 import { AnswerApi } from '~/api/user/userApi';
+import { aroundApi } from '~/api/search/searchApi';
 const colors: string[] = ['bg-fjBlue-100 bg-opacity-20 text-fjBlue-100', 'bg-purple-200 text-purple-400', 'bg-red-200 text-red-400', 'bg-fuchsia-200 text-fuchsia-400', 'bg-gray-200 text-gray-400', 'bg-indigo-200 text-indigo-400'];
 export default Vue.extend({
   name: 'HouseInfo',
@@ -520,12 +583,68 @@ export default Vue.extend({
       }
     }
 
+    // 医疗
+    let medicArray: any; // 1
+    const getMedic = async () => {
+      const location = house?.longitude + ',' + house?.latitude;
+      const type = '090000';
+      const result = await $axios.$get(aroundApi.Around + '?location=' + location + '&types=' + type + '&offset=10')
+      if (result?.data?.info === 'OK') {
+        medicArray = result.data.pois;
+      }
+    }
+    // 交通配套
+      let trafficArray;
+      const getTrafficInfo = async () => {
+        const location = house?.longitude + ',' + house?.latitude;
+        const type = '150000';
+        const trafficResult = await $axios.$get(aroundApi.Around + '?location=' + location + '&types=' + type + '&offset=10')
+        if (trafficResult?.data?.info === 'OK') {
+          trafficArray = trafficResult.data.pois;
+        }
+      };
+      // 教育配套
+      let eduArray;
+      const getEduInfo = async () => {
+        const location = house?.longitude + ',' + house?.latitude;
+        const type = 'school';
+        const eduResult = await $axios.$get(aroundApi.Around + '?location=' + location + '&types=' + type + '&offset=10')
+        if (eduResult?.data?.info === 'OK' &&eduResult?.data?.pois) {
+          eduArray = eduResult.data.pois;
+        }
+      };
+      // 周边住宅
+      let houseArray;
+      const getHouse = async () => {
+        const location = house?.longitude + ',' + house?.latitude;
+        const type = '120300|120301|120302'
+        const houseResult = await $axios.$get(aroundApi.Around + '?location=' + location + '&types=' + type + '&offset=10')
+        if (houseResult?.data?.info === 'OK' && houseResult.data.pois) {
+          houseArray = houseResult.data.pois;
+        }
+      };
+      // 商业配套
+      let matchArray;
+      const getMatch = async () => {
+        const location = house?.longitude + ',' + house?.latitude;
+        const type = '060000';
+        const houseResult = await $axios.$get(aroundApi.Around + '?location=' + location + '&types=' + type + '&offset=10')
+        if (houseResult?.data?.info === 'OK' && houseResult.data.pois) {
+          matchArray = houseResult.data.pois;
+        }
+      };
+
     const getHouseInfo = async () => {
       await Promise.all([
         getResourcesList(),
         getDynamicList(),
         getNewsList(),
-        getQuestList()
+        getQuestList(),
+        getMedic(),
+        getTrafficInfo(),
+        getEduInfo(),
+        getHouse(),
+        getMatch(),
       ])
     }
 
@@ -738,7 +857,7 @@ export default Vue.extend({
     console.log("新房详情首页调用接口使用时间：", end - start)
 
     return { accessToken, tokenType, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
-questionTotal, option, phoneNum, isMobile, favorite, isMore: false }
+questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, trafficArray, eduArray, houseArray, matchArray, aroundType: '' }
   },
   data () {
     const flag: string = 'layout';
@@ -767,7 +886,19 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false }
     const showNews: boolean = true;
     const option: any = {};
     let isMobile: any;
-    return {
+    let medicArray: any;
+    let trafficArray: any;
+    let eduArray: any;
+    let houseArray: any;
+    let matchArray: any;
+
+    return{
+      medicArray,
+      trafficArray,
+      eduArray,
+      houseArray,
+      matchArray,
+      aroundType: '',
       isMore: false,
       flag,
       activityId: '',
@@ -873,6 +1004,165 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false }
   watch: {
     // flag() {this.topFlag = this.flag || 'layout'},
     topFlag() {},
+    aroundType() {
+      MapLoader().then(AMap => {
+        if (this.aroundType) {
+            this.map = new AMap.Map("aroundMap", {
+            zoom: 11,
+            center: [this.house?.longitude, this.house?.latitude],
+            scrollWheel:false,
+          })
+          const that = this;
+          AMap.plugin(['AMap.Scale', 'AMap.HawkEye', 'AMap.ToolBar', 'AMap.ControlBar'], function () {// 异步同时加载多个插件
+            const scale = new AMap.Scale();
+            that.map.addControl(scale);
+            const toolbar = new AMap.ToolBar();
+            that.map.addControl(toolbar);
+            const controlBar = new AMap.ControlBar({
+              position: {
+                top: '10px',
+                right: '10px',
+              }
+            });
+            const marker = new AMap.Marker({
+                icon: "https://fangjiang-saas-dev.oss-cn-beijing.aliyuncs.com/app/around/blue-logo.png",
+                position: [that.house?.longitude, that.house?.latitude]
+            });
+            const content = '<span>' + that.house?.name + '</span>'
+            marker.setLabel({
+                offset: new AMap.Pixel(0, 0),
+                content,
+                direction: 'bottom'
+            });
+            that.map.add(marker);
+            that.map.addControl(controlBar);
+          });
+          let markers: any;
+          if (that.aroundType === '1') {
+            if (markers) {
+              that.map.remove(markers);
+              markers.splice(0);
+            }
+            that.medicArray.forEach((item: any) => {
+              const marker =  new AMap.Marker({
+                map: that.map,
+                position: [item.location.split(',')[0], item.location.split(',')[1]]
+              });
+              const content = '<span>' + item.name + '</span>'
+              marker.setLabel({
+                offset: new AMap.Pixel(0, 0),
+                content,
+                direction: 'bottom'
+              });
+              if (!markers) {
+                markers = [];
+                markers[0]= marker;
+              } else {
+                markers.push(marker);
+              }
+              // this.map.add(marker);
+            })
+          } else if (that.aroundType === '2') {
+            if (markers) {
+              that.map.remove(markers);
+              markers.splice(0);
+            }
+            that.trafficArray.forEach((item: any) => {
+              const marker =  new AMap.Marker({
+                map: that.map,
+                position: [item.location.split(',')[0], item.location.split(',')[1]]
+              });
+              const content = '<span>' + item.name + '</span>'
+              marker.setLabel({
+                offset: new AMap.Pixel(0, 0),
+                content,
+                direction: 'bottom'
+              });
+              if (!markers) {
+                markers = [];
+                markers[0]= marker;
+              } else {
+                markers.push(marker);
+              }
+              // this.map.add(marker);
+            })
+          } else if (that.aroundType === '3') {
+            if (markers) {
+                that.map.remove(markers);
+                markers.splice(0);
+              }
+            that.matchArray.forEach((item: any) => {
+              const marker =  new AMap.Marker({
+                map: that.map,
+                position: [item.location.split(',')[0], item.location.split(',')[1]]
+              });
+              const content = '<span>' + item.name + '</span>'
+              marker.setLabel({
+                offset: new AMap.Pixel(0, 0),
+                content,
+                direction: 'bottom'
+              });
+              if (!markers) {
+                markers = [];
+                markers[0]= marker;
+              } else {
+                markers.push(marker);
+              }
+              // this.map.add(marker);
+            })
+          } else if (that.aroundType === '4') {
+            if (markers) {
+                that.map.remove(markers);
+                markers.splice(0);
+              }
+            that.houseArray.forEach((item: any) => {
+              const marker =  new AMap.Marker({
+                map: that.map,
+                position: [item.location.split(',')[0], item.location.split(',')[1]]
+              });
+              const content = '<span>' + item.name + '</span>'
+              marker.setLabel({
+                offset: new AMap.Pixel(0, 0),
+                content,
+                direction: 'bottom'
+              });
+              if (!markers) {
+                markers = [];
+                markers[0]= marker;
+              } else {
+                markers.push(marker);
+              }
+              // this.map.add(marker);
+            })
+          } else if (that.aroundType === '5') {
+            if (markers) {
+                that.map.remove(markers);
+                markers.splice(0);
+              }
+            that.eduArray.forEach((item: any) => {
+              const marker =  new AMap.Marker({
+                map: that.map,
+                position: [item.location.split(',')[0], item.location.split(',')[1]]
+              });
+              const content = '<span>' + item.name + '</span>'
+              marker.setLabel({
+                offset: new AMap.Pixel(0, 0),
+                content,
+                direction: 'bottom'
+              });
+              if (!markers) {
+                markers = [];
+                markers[0]= marker;
+              } else {
+                markers.push(marker);
+              }
+              // this.map.add(marker);
+            })
+          }
+        }
+      })
+      
+    },
   },
   mounted() {
     // if (this.topFlag) {
@@ -916,6 +1206,13 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false }
     this.getHouseType();
   },
   methods: {
+    changeAroundType(type: string) {
+      if (this.aroundType === type) {
+        this.aroundType = '';
+      } else {
+        this.aroundType = type;
+      }
+    },
     clickMore() {
       if (this.isMore) {
         this.isMore = false;

@@ -38,6 +38,7 @@
     <div v-show="notice" class=" fixed w-full h-full top-0 left-0 z-[70] flex flex-col items-center justify-center" style="background: rgba(0,0,0,0.7); overflow: hidden; position: fixed;" >
         <NoticeReminder :title="'温馨提示'" :notice-info="noticeInfo"  @closeNotice="closeNotice"/>
     </div>
+    <AppLoading ref="loading" :box-class="'w-full h-full rounded-xl'" :height="'32px'" :width="'6px'"  />
   </div>
 </template>
 
@@ -263,18 +264,18 @@ export default Vue.extend({
         if (result?.code === 200) {
           // this.notice = true;
           // this.noticeInfo = '验证码已发送';
-          message.success({ content: '验证码已发送', duration: 3, icon: <a-icon type="check-circle" style="top: -4px;" /> });
+          message.success({ content: '验证码已发送', duration: 5, icon: <a-icon type="check-circle" style="top: -4px;" /> });
           this.isTime = true;
           this.setTime();
         } else {
           // this.notice = true;
           // this.noticeInfo = '验证码发送失败';
-          message.error({ content: '验证码发送失败', duration: 3, icon: <a-icon type="close-circle" style="top: -4px;" /> });
+          message.error({ content: '验证码发送失败', duration: 5, icon: <a-icon type="close-circle" style="top: -4px;" /> });
         }
       } else {
         // this.notice = true;
         // this.noticeInfo = '请正确填写信息'
-        message.warning({ content: '请正确填写信息', duration: 3, icon: <a-icon type="bulb" style="top: -4px;" /> });
+        message.warning({ content: '请正确填写信息', duration: 5, icon: <a-icon type="bulb" style="top: -4px;" /> });
       }
       const e = window.event;
       if (e) {
@@ -290,6 +291,7 @@ export default Vue.extend({
       }
     },
     async addClue() {
+      this.$nuxt.$loading.start()
       this.isDisable();
       if(!this.isValidate) {
         if (this.phone && this.code && this.checked) {
@@ -310,13 +312,13 @@ export default Vue.extend({
             if (result?.code === 200) {
               // this.notice = true;
               if (this.clueType === '2') {
-                message.success({ content: '您已成功订阅' + this.intentionProject + '房价变化提醒，稍后我们会有专业的房产顾问联系您！', duration: 3, icon: <a-icon type="fund" style="top: -4px;" /> });
+                message.success({ content: '您已成功订阅' + this.intentionProject + '房价变化提醒，稍后我们会有专业的房产顾问联系您！', duration: 5, icon: <a-icon type="fund" style="top: -4px;" /> });
               } else if(this.clueType === '3') {
-                message.success({ content: '您已成功成功参与房匠帮您找房活动，稍后我们会有专业的房产顾问联系您！', duration: 3, icon: <a-icon type="alert" style="top: -4px;" /> });
+                message.success({ content: '您已成功成功参与房匠帮您找房活动，稍后我们会有专业的房产顾问联系您！', duration: 5, icon: <a-icon type="alert" style="top: -4px;" /> });
               } else if (this.clueType === '15' || this.clueType === '4' || this.clueType === '5') {
-                message.success({ content: '您已成功参与房匠推广活动，稍后我们会有专业的房产顾问联系您！', duration: 3, icon: <a-icon type="notification" style="top: -4px;" /> });
+                message.success({ content: '您已成功参与房匠推广活动，稍后我们会有专业的房产顾问联系您！', duration: 5, icon: <a-icon type="notification" style="top: -4px;" /> });
               } else {
-                message.success({ content: '您已成功订阅' + this.intentionProject + '楼盘相关信息，稍后我们会有专业的房产顾问联系您！', duration: 3, icon: <a-icon type="message" style="top: -4px;" /> });
+                message.success({ content: '您已成功订阅' + this.intentionProject + '楼盘相关信息，稍后我们会有专业的房产顾问联系您！', duration: 5, icon: <a-icon type="message" style="top: -4px;" /> });
               }
             }
           } catch(e) {
@@ -327,7 +329,7 @@ export default Vue.extend({
             // } else {
             //   message.warning({ content: '订阅失败', duration: 3, icon: <a-icon type="close-circle" style="top: -4px;" /> });
             // }
-            message.warning({ content: '订阅失败', duration: 3, icon: <a-icon type="close-circle" style="top: -4px;" /> });
+            message.warning({ content: '订阅失败', duration: 5, icon: <a-icon type="close-circle" style="top: -4px;" /> });
           }
         } else if (!this.phone) {
           this.phoneNull = true;
@@ -336,15 +338,16 @@ export default Vue.extend({
         }else if (!this.checked) {
           // this.notice = true;
           // this.noticeInfo = '请确认已阅读《房匠用户协议》'
-          message.warning({ content: '请确认已阅读《房匠用户协议》', duration: 3, icon: <a-icon type="snippets" style="top: -4px;" /> });
+          message.warning({ content: '请确认已阅读《房匠用户协议》', duration: 5, icon: <a-icon type="snippets" style="top: -4px;" /> });
         } else {
           // this.notice = true;
           // this.noticeInfo = '请正确填写信息'
-          message.warning({ content: '请正确填写信息', duration: 3, icon: <a-icon type="edit" style="top: -4px;" /> });
+          message.warning({ content: '请正确填写信息', duration: 5, icon: <a-icon type="edit" style="top: -4px;" /> });
         }
       } else {
         this.phoneNull = true;
       }
+      this.$nuxt.$loading.finish();
     },
     closeNotice() {
       this.notice = false;
