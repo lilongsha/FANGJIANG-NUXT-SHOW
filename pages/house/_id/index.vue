@@ -1021,6 +1021,7 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
       } else if (that.aroundType === '5') {
         that.setMarkers(that.eduArray);
       }
+      that.map.setFitView();
       //  else {
       //   that.setMarkers([]);
       // }
