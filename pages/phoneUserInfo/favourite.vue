@@ -15,9 +15,9 @@
             <div class="flex flex-row items-center w-full">
               <div class="text-[#000000] lg:text-[20px] font-bold">{{ item.name }}</div>
               <div class="lg:ml-3 sm:ml-2">
-                <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
-                <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
-                <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
+                <div v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</div>
+                <div v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</div>
+                <div v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</div>
               </div>
             </div>
             <div class="flex flex-row items-center text-[#999999] text-[12px]">
@@ -64,7 +64,7 @@
                   bGU6Ly8vYXBwL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzlfMTYzMTc1NzUyNjc1MjE3NjJfODRfWzBd
                   eTPfkgAAAABJRU5ErkJggg==" ></image>
                   </svg>
-                  <span class="flex-shrink-0 overflow-hidden whitespace-nowrap lg:mr-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
+                  <span class="overflow-hidden whitespace-nowrap lg:mr-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
                 </div>
                 <div class="flex flex-row items-center lg:mt-2">
                   <svg version="1.1" class="w-4 h-4 mr-1 text-gray-400 icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">  <image id="image0" width="48" height="48" x="0" y="0"

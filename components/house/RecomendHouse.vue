@@ -16,7 +16,7 @@
         </div>
         <div class="w-full px-4 mt-2 bg-white h-3/10">
           <div class="flex flex-row items-center font-bold ">
-            <span class="text-2xl text-black py-0.5">{{ item.name }}</span>
+            <h3 class="text-2xl text-black py-0.5">{{ item.name }}</h3>
             <HouseStateLabel :state="item.saleState" class="ml-2" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm'" />
             <type-label :sort="item.type" class="ml-2" :class-name="'px-1 py-0.5 font-normal text-white rounded-sm bg-fjBlue-100'"></type-label>
           </div>
@@ -120,14 +120,14 @@
         <div class="w-3/5 h-full p-2 lg:hidden">
           <!-- 标题 -->
           <div class="flex flex-row items-center w-full h-6">
-            <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
+            <h3 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h3>
             <HouseStateDiv :state="item.saleState" :class-name="' mx-1 text-[12px] align-middle rounded-sm text-center px-0.5 text-white'" />
             <type-label :sort="item.type" :class-name="'py-0.5 text-[12px] align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'"></type-label>
           </div>
           <!-- 信息 -->
           <div class="flex flex-row w-full h-6 text-sm">
-            <h1 v-if="item.sysAreaByAreaId" class="flex-shrink-0">[{{ item.sysAreaByAreaId.name }}]</h1>
-            <h1 class="w-full" style="overflow: hidden;text-overflow: ellipsis;white-space:nowrap;">{{ item.address }}</h1>
+            <span v-if="item.sysAreaByAreaId" class="flex-shrink-0">[{{ item.sysAreaByAreaId.name }}]</span>
+            <span class="w-full" style="overflow: hidden;text-overflow: ellipsis;white-space:nowrap;">{{ item.address }}</span>
           </div>
           <div class="flex flex-row justify-between w-full h-4 mb-1">
             <!-- 价格 -->
@@ -138,7 +138,7 @@
           </div>
           <!-- 标签 -->
           <div class="flex flex-row w-full h-6 space-x-2 flex-nowrap">
-            <h1 v-for="(label, index) in item.sysDictDetailBeans" v-show="index < 3" :key="index" class="px-1 pt-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap">{{ label.value }}</h1>
+            <span v-for="(label, index) in item.sysDictDetailBeans" v-show="index < 3" :key="index" class="px-1 pt-0.5 overflow-hidden text-xs text-blue-600 align-text-bottom bg-blue-300 rounded-sm whitespace-nowrap">{{ label.value }}</span>
           </div>
         </div>
       </a>

@@ -43,11 +43,11 @@
                   <div class="flex flex-row items-center justify-between lg:h-11">
                     <div class="flex flex-row items-center">
                     <!-- title -->
-                    <h1 class="h-full mb-0 lg:text-[20px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h1>
+                    <h3 class="h-full mb-0 lg:text-[20px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h3>
                     <div class="h-full lg:text-[12px] lg:ml-4">
-                      <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
-                      <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
-                      <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
+                      <div v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</div>
+                      <div v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</div>
+                      <div v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</div>
                     </div>
                     </div>
                     <div class="text-right">

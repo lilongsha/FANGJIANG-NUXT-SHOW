@@ -290,14 +290,14 @@
           <div class="w-3/5 h-full px-2 lg:hidden">
             <!-- 标题 -->
             <div class="flex flex-row items-center w-full h-6">
-              <h1 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h1>
+              <h3 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h3>
               <HouseStateDiv :state="item.saleState" :class-name="'mx-1 text-[12px] align-middle rounded-sm text-center px-0.5 text-white'" />
               <HouseTypeLabel :sort="item.type" :class-name="' py-0.5 text-[12px] align-middle rounded-sm text-center px-0.5 text-white bg-fjBlue-100'" />
             </div>
             <!-- 信息 -->
             <div class="flex flex-row w-full h-6 text-sm">
-              <h1 v-if="item.sysAreaByAreaId" class="flex-shrink-0">[{{ item.sysAreaByAreaId.name }}]</h1>
-              <h1 class="w-full" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ item.address }}</h1>
+              <span v-if="item.sysAreaByAreaId" class="flex-shrink-0">[{{ item.sysAreaByAreaId.name }}]</span>
+              <span class="w-full" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ item.address }}</span>
               <!-- overflow: hidden;display: -webkit-box;text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all; -->
             </div>
             <div class="flex flex-row justify-between w-full h-4 mb-1">

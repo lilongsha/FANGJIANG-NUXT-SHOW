@@ -140,9 +140,9 @@
                 <div class="flex flex-row items-center w-full">
                   <div class="text-[#000000] lg:text-[20px] font-bold">{{ item.name }}</div>
                   <div class="lg:ml-3 sm:ml-2">
-                    <h1 v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</h1>
-                    <h3 v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</h3>
-                    <h3 v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</h3>
+                    <span v-if="item.saleState === '1'" class="text-white rounded-sm bg-fjYellow-100">在售</span>
+                    <span v-if="item.saleState === '2'" class="text-white rounded-sm bg-fjBlue-100">待售</span>
+                    <span v-if="item.saleState === '3'" class="text-white rounded-sm bg-fjRed-100">售罄</span>
                   </div>
                   <div class="absolute top-0 right-0">
                     <img v-if="like.includes(item.id) && isLike" src="~/assets/img/list/red.png" alt="" @click.stop="deleteLike(item.id)">

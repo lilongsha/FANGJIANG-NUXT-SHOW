@@ -11,11 +11,19 @@ if (!dev) {
 }
 // baseURL = 'https://api.fangjiang.com/';
 export default {
+  generate: {
+    minify: false
+  },
   hooks: {
     'render:route': (_url, result) => {
       result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
       result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
-      result.html = result.html.replace(/(<\/?\w*>)/gi, '$1\n');
+      // result.html = result.html.replace(/(<\/?\w*>)/gi, '$1\n');
+      // result.html = result.html.replace(/(<meta[^>]*>)/gi, '$1\n');
+      // result.html = result.html.replace(/(<link[^>]*>)/gi, '$1\n');
+      // result.html = result.html.replace(/(<script[^>]*>)/gi, '$1\n');
+      // result.html = result.html.replace(/(<\/[^>]*>)/g, '$1\n');
+      // result.html = result.html.replace(/(<[div][^>]*>)/g, '\n$1');
     }
   },
 
@@ -161,6 +169,6 @@ export default {
     // 打包样式
     extractCSS: true,
     // 设置CDN
-    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt202203241436'
+    // publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20220329'
   }
 }

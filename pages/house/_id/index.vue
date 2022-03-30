@@ -27,19 +27,19 @@
               </a-carousel>
             </div>
             <!-- carousel sort -->
-            <div class="relative flex flex-row w-full mt-4 overflow-hidden bg-white sm:h-1/4 lg:h-20">
-              <div class="absolute left-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollLeft">
+            <div class="flex flex-row w-full mt-4 overflow-hidden bg-white sm:h-1/4">
+              <!-- <div class="absolute left-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
-              </div>
-              <div ref="sortScroll" class="relative grid h-full grid-flow-col space-x-2 text-white transition-all" :style="sortRightString">
+              </div> -->
+              <div ref="sortScroll" class=" relative grid h-full grid-flow-col space-x-2 text-white overflow-x-auto overflow-y-hidden">
                 <div v-for="(item, index) in resourceSortList" :key="index" class="static w-24 h-full" @click="getResourceList(item.sort)">
                   <img :src="item.address" :alt="resourceSort[item.sort].title" width="100%" height="100%" class="object-cover w-full h-full">
                   <span class="absolute bottom-0 w-24 text-center bg-black bg-opacity-60">{{ resourceSort[item.sort].title }}</span>
                 </div>
               </div>
-              <div class="absolute right-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollRight">
+              <!-- <div class="absolute right-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollRight">
                 <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
-              </div>
+              </div> -->
             </div>
           </div>
           <!-- BaseInfo w-567px -->
