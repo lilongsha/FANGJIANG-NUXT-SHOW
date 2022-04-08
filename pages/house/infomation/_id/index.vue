@@ -419,14 +419,14 @@ export default Vue.extend({
     const houseProvinceName: string = this.house.sysProvinceByProvinceId.name;
     const latLng: string = this.house.latitude + '' + this.house.longitude;
     const title: string = `${houseCityName}${houseAreaName}${this.house.name}楼盘详情信息 - 房匠`;
-    const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${houseName}楼盘信息,${houseName}价格,${houseName}售楼处电话,${houseName}周边配套,${houseName}开盘时间等信息,了解更多${houseCityName}${houseAreaName}${this.house.name}详细信息,请关注房匠网.`;
+    const description: string = `房匠网为您提供${houseCityName}${houseName}楼盘详情、售楼处电话、开盘时间、简介、项目介绍、交房时间、地址、绿化率、物业费等小区信息。`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.house.firstImg?.address;
     const sandImgAddress: string = this.house.sandImg?.address;
     const pubTime: string = this.house.createTime.split('.')[0];
     let upTime: string = this.house.updateTime || this.house.createTime;
     upTime = upTime.split('.')[0];
-    const keyword: string = `${houseCityName}${houseAreaName}${houseName},${houseName}信息,${houseName}价格,${houseName}售楼处电话,${houseName}周边配套`;
+    const keyword: string = `${houseName}详细信息，${houseName}售楼处电话，${houseName}售楼处地址，${houseName}开发商`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
     if (this.house.latitude && this.house.longitude) {

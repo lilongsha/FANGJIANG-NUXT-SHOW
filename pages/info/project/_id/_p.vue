@@ -300,7 +300,7 @@ export default Vue.extend({
     const houseCityName: string = this.house.sysCityByCityId.name || '';
     const title:string = `【${houseName}资讯】最新资讯-房匠网`;
     const description: string = `${houseCityName}房匠为您提供${houseName}实时资讯，包括实探楼盘、开盘咨询、楼市政策等，了解更多关于${houseName}楼盘资讯，关注房匠网`;
-    const keyword: string = `${houseName}资讯,${houseName}最新资讯`;
+    const keyword: string = `${houseName}资讯,${houseName}最新资讯，${houseName}动态`;
     return {
       title,
       meta: [

@@ -239,14 +239,14 @@ export default Vue.extend({
     const houseProvinceName: string = this.project.sysProvinceByProvinceId.name;
     const latLng: string = this.project.latitude + '' + this.project.longitude;
     const title: string = `【${houseCityName}${houseAreaName}${houseName}最新动态】动态信息 - 房匠网`;
-    const description: string = `房匠网为您提供${houseAreaName}${houseCityName}${houseName}楼盘动态，包括${houseName}最新活动、开盘加推、施工进度、销控信息等。了解更多关于${houseName}最新动态，关注房匠网`;
+    const description: string = `房匠网为您提供${houseAreaName}${houseCityName}${houseName}楼盘动态，包括${houseName}最新活动、开盘加推、施工进度、销控信息等。了解更多关于${houseName}优惠信息，楼盘资讯等关注房匠网`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.project.firstImg?.address;
     const sandImgAddress: string = this.project.sandImg?.address;
     const pubTime: string = this.project.createTime.split('.')[0];
     let upTime: string = this.project.updateTime || this.project.createTime;
     upTime = upTime.split('.')[0];
-    const keyword: string = `${houseName}动态,${houseName}最新动态,${houseName}施工进度`;
+    const keyword: string = `${houseName}最新消息,${houseName}施工进度,${houseName}优惠信息,${houseName}楼盘动态`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
     if (this.project.latitude && this.project.longitude) {
