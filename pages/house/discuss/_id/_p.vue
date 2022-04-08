@@ -1,8 +1,8 @@
 <template>
   <div class="sm:w-screen sm:px-2">
-    <div id="list" class="w-full sm:h-10 lg:h-24"></div>
+    <div id="list" class="w-full lg:h-24"></div>
     <div class="mx-auto sm:w-full lg:container">
-      <AppTitle :house="project"  :favorite="favorite"/>
+      <AppTitle :house="project"  :favorite="favorite" class="sm:mb-4"/>
       <!-- house menu -->
       <AppBar :current="'discuss'" :house="project" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
       <div class="sm:w-full lg:w-3/4 lg:pr-4 sm:mt-2 lg:mt-8  min-h-[500px]">

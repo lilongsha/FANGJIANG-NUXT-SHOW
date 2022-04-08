@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto sm:w-full sm:px-2 lg:container">
-    <div class="w-full sm:h-12 lg:h-20"></div>
+    <div class="w-full lg:h-20"></div>
     <AppTitle :house="house"  :favorite="favorite" class="mb-4" />
     <AppBar :current="'infomation'" :house="house" :class-name="'mb-2 menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex flex-row w-full">

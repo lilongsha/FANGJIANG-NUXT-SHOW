@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:w-screen sm:pb-2 lg:container">
-    <div class="lg:h-24 sm:h-10"></div>
-    <AppTitle :house="house" :favorite="favorite" />
+    <div class="lg:h-24"></div>
+    <AppTitle :house="house" :favorite="favorite" class="sm:mb-4" />
     <AppBar :current="'price'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
     <div class="flex-row shadow-lg sm:px-2 lg:mt-8 lg:flex">
       <div class="sm:w-full lg:w-3/4 sm:h-56 lg:pr-10 ">
