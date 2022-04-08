@@ -127,11 +127,11 @@
         </div>
         <!-- m base info -->
         <div class="w-full p-4 mt-4 bg-white lg:hidden">
-          <div class="w-full h-6 leading-6 font-bold text-[18px] flex flex-row items-center">
+          <!-- <div class="w-full h-6 leading-6 font-bold text-[18px] flex flex-row items-center">
             <span class="">{{ house.name }}</span>
             <HouseStateLabel :state="house.saleState" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm'" />
             <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100 h-[15px]'" />
-          </div>
+          </div> -->
           <div v-if="house.sysDictDetailBeans && house.sysDictDetailBeans.length > 0" class="w-full space-x-1">
             <span v-for="(item, index) in house.sysDictDetailBeans" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item.value }}</span>
           </div>
@@ -198,9 +198,9 @@
               <span v-for="(item,index) in layouts" :key="index" :class="item.rooms === showDefaultLayout ? 'bg-fjBlue-100 text-white sm:text-sm' : 'sm:text-xs'" class="w-20 px-2 py-1 mx-2 text-center transition-all rounded-sm" @click="changeLayout(item.rooms)">{{ item.rooms }}室({{ item.value }})</span>
             </div>
             <div class="w-full overflow-hidden sm:h-55">
-              <div class="w-full h-full overflow-hidden">
-                <div  class="flex flex-row justify-between h-full p-2 text-white lg:flex-wrap sm:overflow-x-scroll " :class="isMore? 'lg:h-auto' : 'lg:h-[440px]'">
-                  <div v-for="(item,index) in house.hLayoutsById" v-show="(showDefaultLayout === '' || item.room == showDefaultLayout) && item.saleState === '1'" :key="index" class="h-full mb-4 overflow-hidden transition-all shadow sm:flex-shrink-0 sm:mr-4 sm:w-48 lg:w-72">
+              <div v-if="house.hLayoutsById.length > 0" class="w-full h-full overflow-hidden">
+                <div  class="flex flex-row justify-start h-full p-2 text-white lg:flex-wrap sm:overflow-x-scroll " :class="isMore? 'lg:h-auto' : 'lg:h-[440px]'">
+                  <div v-for="(item,index) in house.hLayoutsById" v-show="(showDefaultLayout === '' || item.room == showDefaultLayout) && item.saleState === '1'" :key="index" class="h-full mb-4 lg:mr-6 overflow-hidden transition-all shadow sm:flex-shrink-0 sm:mr-4 sm:w-48 lg:w-72">
                     <div class="overflow-hidden sm:h-32 lg:h-80">
                       <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
                     </div>
@@ -230,7 +230,8 @@
                     </div>
                   </div>
                 </div>
-                <button v-show="house.hLayoutsById.length > 0" class="text-[20px] w-full text-center sm:hidden bg-[#f6f9fe]" @click="clickMore">展开更多</button>
+                <button v-show="house.hLayoutsById.length > 4 && !isMore" class="text-[20px] w-full text-center sm:hidden bg-[#f6f9fe]" @click="clickMore">展开更多</button>
+                <button v-show="house.hLayoutsById.length > 4 && isMore" class="text-[20px] w-full text-center sm:hidden bg-[#f6f9fe]" @click="clickMore">合并更多</button>
               </div>
               <!-- <div class="absolute sm:top-[60px] lg:top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
@@ -948,19 +949,19 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
   },
   head() {
     const houseName: string = this.house?.name;
-    const houseAreaName: string = this.house?.sysAreaByAreaId.name || '';
+    // const houseAreaName: string = this.house?.sysAreaByAreaId.name || '';
     const houseCityName: string = this.house?.sysCityByCityId.name || '';
     const houseProvinceName: string = this.house?.sysProvinceByProvinceId.name;
     const latLng: string = this.house?.latitude + '' + this.house?.longitude;
     const title: string = `【${houseName}_${houseCityName}${houseName}楼盘详情】售楼处电话_开发商详情-房匠网`;
-    const description: string = `房匠网为您提供${houseCityName}${houseAreaName}${houseName}详情、售楼处电话、开盘时间、项目介绍、交房时间、地址、绿化率、物业费等楼盘信息，关注房匠网。`;
+    const description: string = `房匠网为您提供${houseName}售楼处电话、楼盘房价、相册图片、户型图、地理位置、周边配套等信息，以及${houseName}最新动态、优惠信息、用户评价等。了解更丰富全面${houseCityName}${houseName}详细信息，就上房匠网`;
     const curUrl: string = 'https://www.fangjiang.com' + this.$route.path;
     const firstImgAddress: string = this.house?.firstImg?.address;
     const sandImgAddress: string = this.house?.sandImg?.address;
     const pubTime: string = this.house?.createTime.split('.')[0];
     let upTime: string = this.house?.updateTime || this.house?.createTime || '';
     upTime = upTime.split('.')[0];
-    const keyword: string = `${houseName}详情,${houseName}售楼处电话,${houseName}售楼处地址,${houseName}开发商`;
+    const keyword: string = `${houseName},${houseCityName}${houseName},${houseName}房价,${houseName}楼盘详情`;
     const ldJson: string = `{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"${curUrl}","appid":"1713124212115293","title":"${title}","images":["${firstImgAddress}","${sandImgAddress}", "${sandImgAddress}"],"description": "${description}","pubDate":"${pubTime}","upDate":"${upTime}"}`;
     let location: string;
     if (this.house?.latitude && this.house?.longitude) {

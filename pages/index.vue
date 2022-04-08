@@ -156,7 +156,7 @@
             </div>
             <!-- 商圈 -->
             <div v-show="menuShow.flag === 2" class="flex flex-row w-full h-full py-4 ml-4 text-lg text-white">
-              <div class="flex flex-col w-1/5 h-full space-y-2 overflow-auto">
+              <div class="flex flex-col w-1/5 h-full space-y-2 overflow-auto divBoxl">
                 <div v-for="area in areas" :key="area.id" class="flex flex-row justify-between w-full text-sm opacity-60 hover:opacity-100" @click="getTradings(area.id)">
                   <span>{{ area.name }}</span>
                   <svg
@@ -273,7 +273,7 @@
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="ml-2 font-bold text-black sm:text-lg lg:text-xl">推荐楼盘</div>
+        <div class="ml-2 font-bold text-black sm:text-lg lg:text-xl"><h2>推荐楼盘</h2></div>
       </div>
       <!-- 图片盒子 -->
       <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden lg:relative">
@@ -323,7 +323,7 @@
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">热销楼盘</a></div>
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100"><h2>热销楼盘</h2></a></div>
         <div class="text-right sm:w-full lg:w-[1128px]"><a href="/house/list" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
@@ -422,7 +422,7 @@
         <!-- 竖线 -->
         <div class="h-full bg-black sm:w-2 lg:w-4"></div>
         <!-- 标题内容 -->
-        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/video" target="_blank" class="text-black hover:text-fjBlue-100">视频看房</a></div>
+        <div class="w-24 font-bold lg:ml-2 sm:text-lg lg:text-xl"><a href="/video" target="_blank" class="text-black hover:text-fjBlue-100"><h2>视频看房</h2></a></div>
         <div class="text-right sm:w-full lg:w-[1128px]"><a href="/video" target="_blank" class="text-black hover:text-fjBlue-100">查看更多</a></div>
       </div>
       <!-- 图片盒子 -->
@@ -443,7 +443,7 @@
     <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12 sm:mb-6">
       <!-- 标题 -->
       <div class="flex flex-col items-center justify-center">
-        <div class="ml-2 font-bold sm:text-lg lg:text-xl">楼市资讯</div>
+        <div class="ml-2 font-bold sm:text-lg lg:text-xl"><h2>楼市资讯</h2></div>
         <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
       </div>
       <!-- 内容 -->
@@ -478,7 +478,7 @@
     <div class="mx-auto sm:w-full sm:px-2 lg:container sm:mt-6 lg:mt-12">
       <!-- 标题 -->
       <div class="flex flex-col items-center justify-center">
-        <div class="ml-2 font-bold sm:text-lg lg:text-xl">置业管家</div>
+        <div class="ml-2 font-bold sm:text-lg lg:text-xl"><h2>置业管家</h2></div>
         <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
       </div>
       <!-- 内容 -->
@@ -1105,6 +1105,25 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.divBoxl::-webkit-scrollbar {
+        width: 10px;
+        height: 1px;
+
+    }
+
+.divBoxl::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+         box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        background: #535353;
+    }
+
+.divBoxl::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        background: #EDEDED;
+
+}
+
 /* For demo */
 .ant-carousel >>> .slick-slide {
   text-align: center;

@@ -6,7 +6,7 @@ const scriptUrl = [
 ];
 let baseURL = 'http://127.0.0.1:9000/';
 if (!dev) {
-  scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
+  // scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
   baseURL = 'https://api.fangjiang.com/';
 }
 // baseURL = 'https://api.fangjiang.com/';
@@ -18,12 +18,6 @@ export default {
     'render:route': (_url, result) => {
       result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
       result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
-      // result.html = result.html.replace(/(<\/?\w*>)/gi, '$1\n');
-      // result.html = result.html.replace(/(<meta[^>]*>)/gi, '$1\n');
-      // result.html = result.html.replace(/(<link[^>]*>)/gi, '$1\n');
-      // result.html = result.html.replace(/(<script[^>]*>)/gi, '$1\n');
-      // result.html = result.html.replace(/(<\/[^>]*>)/g, '$1\n');
-      // result.html = result.html.replace(/(<[div][^>]*>)/g, '\n$1');
     }
   },
 

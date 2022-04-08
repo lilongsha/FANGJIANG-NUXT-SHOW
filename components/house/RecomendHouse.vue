@@ -6,7 +6,7 @@
       <!-- 竖线 -->
       <div class="w-4 h-full bg-black"></div>
       <!-- 标题内容 -->
-      <div class="ml-2 text-xl font-bold">推荐楼盘</div>
+      <div class="ml-2 text-xl font-bold"><h2>推荐楼盘</h2></div>
     </div>
     <!-- 图片盒子 -->
     <div class="grid grid-cols-4 grid-rows-1 gap-2 w-[full-8] p-2 mx-4 mt-8 h-112 overflow-hidden">
