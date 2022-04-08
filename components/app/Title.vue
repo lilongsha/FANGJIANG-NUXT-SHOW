@@ -1,9 +1,9 @@
 <template>
-    <div class="w-full lg:pt-10 sm:hidden">
+    <div class="w-full pt-10 sm:px-2">
       <div class="flex flex-row items-center justify-between w-full">
         <div>
           <!-- name and saleState -->
-          <div class="flex items-end w-full sm:flex-col lg:flex-row">
+          <div class="flex lg:items-end w-full sm:flex-col lg:flex-row">
             <a :href="`/house/${house.id}.html`" style="color: inherit" class="font-bold sm:text-xl lg:text-3xl"><h1>{{ house.name }}</h1></a>
             <h2 v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</h2>
           </div>
@@ -16,8 +16,8 @@
           </div>
         </div>
         <div class="text-right">
-          <img v-if="isFavorite === '1'" class="h-8 w-9" src="~/assets/svg/favorite.svg" @click="deleteFav">
-          <img v-else class="h-8 w-9" src="~/assets/svg/fav.svg" @click="addFav">
+          <img v-if="isFavorite === '1'" class="lg:h-8 lg:w-9 sm:h-4 sm:w-5" src="~/assets/svg/favorite.svg" @click="deleteFav">
+          <img v-else class="lg:h-8 lg:w-9 sm:h-4 sm:w-5" src="~/assets/svg/fav.svg" @click="addFav">
         </div>
       </div>
     </div>
