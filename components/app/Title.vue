@@ -4,7 +4,7 @@
         <div>
           <!-- name and saleState -->
           <div class="flex lg:items-end w-full sm:flex-col lg:flex-row">
-            <a :href="`/house/${house.id}.html`" style="color: inherit" class="font-bold sm:text-xl lg:text-3xl"><h1>{{ house.name }}</h1></a>
+            <a :href="`/house/${house.id}.html`" style="color: inherit" class="sm:text-xl lg:text-3xl"><h1><strong>{{ house.name }}</strong></h1></a>
             <h2 v-if="house.aliasName" class="lg:ml-4">别名：{{ house.aliasName }}</h2>
           </div>
           <div class="flex flex-row items-center sm:mt-2 lg:mt-4">
