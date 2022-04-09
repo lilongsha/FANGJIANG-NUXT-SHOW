@@ -1,10 +1,8 @@
 <template>
-  <div v-if="loading" :class="boxClass" class="z-[100] flex flex-row items-center justify-center space-x-4 bg-gray-400 spinner bg-opacity-20">
-    <div :style="{background: color, width, height}" class="rounded-full rect1"></div>
-    <div :style="{background: color, width, height}" class="rounded-full rect2"></div>
-    <div :style="{background: color, width, height}" class="rounded-full rect3"></div>
-    <div :style="{background: color, width, height}" class="rounded-full rect4"></div>
-    <div :style="{background: color, width, height}" class="rounded-full rect5"></div>
+  <div v-if="loading" class="z-[100] fixed top-0 left-0 w-[100%] h-[100%] flex flex-row items-center justify-center">
+    <div class="acir">
+      <img src="~/assets/img/blue-logo.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -45,44 +43,43 @@ export default Vue.extend({
 })
 </script>
 <style scoped>
-.spinner > div {
-  display: inline-block;
-  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
-  animation: stretchdelay 1.2s infinite ease-in-out;
-}
- 
-.spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
-}
- 
-.spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
- 
-.spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
-}
- 
-.spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
-}
- 
-@-webkit-keyframes stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
-  20% { -webkit-transform: scaleY(1.0) }
-}
- 
-@keyframes stretchdelay {
-  0%, 40%, 100% {
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
-  }  20% {
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
+  .acir {
+    height: 120px;
+    width: 120px;
+    border: 3px solid transparent;
+    border-top-color: rgba(1, 94, 234);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: spin 1.7s linear infinite;
   }
-}
+
+  .acir::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 50px;
+    border: 3px solid transparent;
+    border-top-color: rgba(1, 94, 234);
+    animation: spin 0.6s linear infinite reverse;
+  }
+
+  .acir img {
+    width: 60%;
+    height: 60%;
+    animation: spin 1.7s linear infinite reverse;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 </style>
