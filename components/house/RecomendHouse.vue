@@ -1,6 +1,7 @@
 <template>
 <div>
-  <div class="mx-auto sm:w-full sm:px-2 lg:container lg:mt-12 sm:hidden">
+  <!--  sm:hidden -->
+  <div v-if="!getIsMobile" class="mx-auto sm:w-full sm:px-2 lg:container lg:mt-12">
     <!-- 标题 -->
     <div class="flex flex-row items-center w-full ml-4 h-9">
       <!-- 竖线 -->
@@ -97,7 +98,8 @@
       </a>
     </div>
   </div>
-  <div class="w-full px-2 mx-auto mt-2 lg:hidden">
+  <!--  lg:hidden -->
+  <div v-if="getIsMobile" class="w-full px-2 mx-auto mt-2">
     <!-- 标题 -->
     <div class="flex flex-row items-center w-full sm:h-6 lg:ml-4 lg:h-9">
       <!-- 竖线 -->
@@ -109,7 +111,8 @@
     <div class="sm:mt-4 flex lg:flex-row sm:flex-col lg:w-[full-8] lg:mx-4 lg:mt-8 lg:h-96 lg:overflow-hidden">
       <a v-for="item in getHotProject" :key="item.id" :href="`/house/${item.id}.html`" target="_blank" class="flex flex-row overflow-hidden sm:w-full lg:w-1/10 lg:h-full sm:mb-4 sm:h-24 lg:ease-in-out lg:transition-all lg:duration-500 lg:relative">
         <img v-if="item.firstImg" :src="item.firstImg.address" :alt="item.name" class="object-cover h-full sm:w-2/5 lg:w-full">
-        <div class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute sm:hidden whitespace-nowrap bg-opacity-30">
+        <!-- sm:hidden  -->
+        <div v-if="!getIsMobile" class="bottom-0 flex flex-row justify-between w-full px-4 py-4 text-2xl font-bold text-white bg-black lg:absolute whitespace-nowrap bg-opacity-30">
           <span>{{ item.name }}</span>
           <div v-if="item.price">
             <span class="text-fjRed-100 ">{{ item.price }}</span>
@@ -117,7 +120,8 @@
           </div>
           <div v-else class="text-sm">暂无数据</div>
         </div>
-        <div class="w-3/5 h-full p-2 lg:hidden">
+        <!--  lg:hidden -->
+        <div v-if="getIsMobile" class="w-3/5 h-full p-2">
           <!-- 标题 -->
           <div class="flex flex-row items-center w-full h-6">
             <h3 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h3>
@@ -160,6 +164,10 @@ export default Vue.extend({
       const store = that.$store;
       const hotProject = store.state.app.hotProject;
       return hotProject.slice(0, 4);
+    },
+    getIsMobile() {
+      const isMobile = this.$store.state.app.isMobile;
+      return isMobile;
     }
   },
 })

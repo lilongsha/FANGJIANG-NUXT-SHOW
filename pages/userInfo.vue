@@ -1,5 +1,6 @@
 <template>
-<div class="w-full h-full sm:hidden"> 
+<!-- sm:hidden -->
+<div v-if="!isMobile" class="w-full h-full"> 
   <div class="w-full h-screen fixed z-[-1] bg-[#F5F5F5]"></div>
   <div class="sm:w-full lg:mx-auto lg:container ">
     <div class="lg:h-20"></div>
@@ -222,7 +223,8 @@
                       <span class="whitespace-nowrap">户型：</span>
                       <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" >{{getRoomList(item)}}</span>
                     </div>
-                    <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="lg:mt-4 sm:hidden">
+                    <!-- sm:hidden -->
+                    <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0 && !isMobile" class="lg:mt-4">
                       <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="text-[12px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
                     </div>
                   </div>
@@ -237,14 +239,16 @@
                       <span v-if="item.updatePriceTime">{{ item.updatePriceTime.split('T')[0] }}</span>
                       <span v-else>暂无数据</span>
                     </div>
-                    <div class="w-full sm:hidden">
+                    <!-- sm:hidden -->
+                    <div v-if="!isMobile" class="w-full">
                       <span v-if="item.priceDays">价格有效期：{{ item.priceDays }}天</span>
                       <span v-else>暂无数据</span>
                     </div>
                   </div>
                   
                 </div>
-                <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="lg:hidden">
+                <!-- lg:hidden -->
+                <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0 && isMobile" class="">
                   <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="text-[12px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
                 </div>
               </div>
@@ -317,15 +321,8 @@ export default Vue.extend({
   props: {
 
   },
-  async asyncData({ route, store, $axios, req }){
-    const userAgent = req?.headers['user-agent'] || '';
-    let isMobile:any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 跳转移动端页面
-        isMobile = true;
-    } else {
-      isMobile = false;
-    }
+  async asyncData({ route, store, $axios }){
+    const isMobile = store.state.app.isMobile;
     const breadcrumb: Breadcrumb[] = [];
     breadcrumb.splice(0)
     store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)

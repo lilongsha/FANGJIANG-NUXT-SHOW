@@ -80,9 +80,9 @@ export default {
     '@nuxt/content',
   ],
 
-  // router: {
-  //   middleware: ['auth']
-  // },
+  router: {
+    middleware: ['state']
+  },
 
   // auth: {
   //   strategies: {

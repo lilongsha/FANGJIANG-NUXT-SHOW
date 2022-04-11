@@ -88,7 +88,8 @@
                 <span v-if="item.price" class="text-[14px]">元/㎡</span>
                 <span v-if="!item.price">暂无数据</span>
               </div>
-              <div class="sm:hidden">
+              <!-- sm:hidden -->
+              <div v-if="!getIsMobile" class="">
                 <span class="text-[14px]">更新日期：</span>
                 <span v-if="item.updatePriceTime" class="text-[14px]">{{ item.updatePriceTime.split('T')[0] }}</span>
                 <span v-else class="text-[14px]">暂无数据</span>
@@ -179,6 +180,12 @@ export default Vue.extend({
   },
   data () {
     return {phoneNum};
+  },
+  computed: {
+    getIsMobile() {
+      const isMobile = this.$store.state.app.isMobile;
+      return isMobile;
+    }
   },
   mounted () {
     

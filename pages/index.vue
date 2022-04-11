@@ -1,7 +1,8 @@
 <template>
   <div class="w-full">
     <!-- 轮播图功能区域定位 -->
-    <div class="container absolute z-10 flex flex-row w-full h-64 mx-auto top-28 sm:hidden left-[50%] ml-[-640px]">
+    <!--  sm:hidden -->
+    <div v-if="!isMobile" class="container absolute z-10 flex flex-row w-full h-64 mx-auto top-28 left-[50%] ml-[-640px]">
       <!-- 轮播图功能区域 -->
       <div class="container h-full mx-auto">
         <!-- 菜单 -->
@@ -223,7 +224,8 @@
       </div>
     </div>
     <!-- banner 轮播图 -->
-    <div class="w-full h-[450px] overflow-hidden sm:hidden">
+    <!-- sm:hidden -->
+    <div v-if="!isMobile" class="w-full h-[450px] overflow-hidden">
     <a-carousel class="w-full h-[450px]" dot-position="right" effect="fade" autoplay>
       <div v-for="item in banners" :key="item.id" >
         <img
@@ -238,7 +240,8 @@
     </a-carousel>
     </div>
     <!-- 移动端功能栏 -->
-    <div class="w-full h-24 p-4 mt-4 lg:hidden">
+    <!-- lg:hidden -->
+    <div v-if="isMobile" class="w-full h-24 p-4 mt-4">
       <div class="flex flex-row justify-around w-full h-full shadow">
         <a href="/house/list">
           <div class="flex flex-col items-center justify-center h-full text-center">
@@ -287,7 +290,8 @@
             </div>
             <div v-else>暂无数据</div>
           </div>
-          <div class="w-3/5 h-full px-2 lg:hidden">
+          <!-- lg:hidden -->
+          <div v-if="isMobile" class="w-3/5 h-full px-2">
             <!-- 标题 -->
             <div class="flex flex-row items-center w-full h-6">
               <h3 class="mb-0 overflow-hidden text-base font-bold">{{ item.name }}</h3>
@@ -430,7 +434,7 @@
         <a v-for="item in topData" :key="item.id" :href="`/video/${item.id}.html`" target="_blank" class="block w-[96%] h-[96%] mx-[2%] my-[2%] shadow-lg">
           <div class="relative w-full sm:h-60 lg:h-full group">
             <div class="absolute bottom-0 flex flex-col justify-center object-cover w-full h-10 px-2 text-white transition-all bg-black lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 bg-opacity-40 lg:group-hover:h-full">
-              <p class="text-[18px]">{{ item.title }}</p>
+              <p class="text-[18px]" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</p>
               <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
             </div>
             <img class="absolute w-10 h-10 -mt-5 -ml-5 transition-all top-1/2 left-1/2 lg:group-hover:hidden" src="~/assets/img/video/play.png"/>
@@ -514,134 +518,6 @@
     </div>
     <!-- 大数据 -->
     <div></div>
-    <!-- 购房流程 -->
-    <!-- <div class="container mx-auto sm:mt-6 lg:mt-12">
-      标题
-      <div class="flex flex-col items-center justify-center">
-        <div class="ml-2 font-bold sm:text-lg lg:text-xl">在线服务流程</div>
-        <div class="bg-black sm:h-2 lg:h-3 sm:w-6 lg:w-9"></div>
-        副标题
-        <div class="text-base text-gray-500 mt-7 sm:hidden">一站式看房服务</div>
-      </div>
-      内容0
-      <div v-show="processType === '0'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
-        <div class="flex flex-row items-center justify-center">
-          <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-1"></div>
-          <div class="flex flex-col">
-            <span class="font-bold text-black sm:text-sm lg:text-xl">搜房源</span>
-            <span class="sm:text-xs">超多楼盘，任您选择</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-2"></div>
-          <div class="flex flex-col">
-            <span class="font-bold text-black sm:text-sm lg:text-xl">帮我找房</span>
-            <span class="sm:text-xs">满足您的个性化需求</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="mr-4 sm:bg-cover lg:bg-contain sm:w-8 sm:h-4 lg:w-10 lg:h-10 bg-index-3"></div>
-          <div class="flex flex-col">
-            <span class="font-bold text-black sm:text-sm lg:text-xl">在线咨询</span>
-            <span class="sm:text-xs">联系我们，为您解惑</span>
-          </div>
-        </div>
-      </div>
-      内容1
-      <div v-show="processType === '1'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源</span>
-            <span>超多楼盘，任您选择</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">帮我找房</span>
-            <span>平时太忙，房匠满足您的个性化需求</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">在线咨询</span>
-            <span>看的太多不好选择，联系我们</span>
-          </div>
-        </div>
-      </div>
-      内容2
-      <div v-show="processType === '2'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源</span>
-            <span>超多楼盘，任您选择</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">帮我找房</span>
-            <span>平时太忙，房匠满足您的个性化需求</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">在线咨询</span>
-            <span>看的太多不好选择，联系我们</span>
-          </div>
-        </div>
-      </div>
-      内容3
-      <div v-show="processType === '3'" class="grid w-full grid-cols-3 grid-rows-1 shadow-lg lg:gap-4 sm:gap-1 sm:h-24 lg:h-36">
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-1"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">搜房源</span>
-            <span>超多楼盘，任您选择</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-2"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">帮我找房</span>
-            <span>平时太忙，房匠满足您的个性化需求</span>
-          </div>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <div class="w-10 h-10 mr-4 bg-contain bg-index-3"></div>
-          <div class="flex flex-col">
-            <span class="text-xl font-bold text-black">在线咨询</span>
-            <span>看的太多不好选择，联系我们</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-row items-center justify-between w-full h-20 mt-12 lg:pl-20 lg:pr-28">
-        <div :class="processType === '0' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '0'">
-          <div class="z-10 sm:text-sm lg:text-xl sm:w-10">选房</div>
-          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">01</div>
-        </div>
-        <img class="sm:w-4" src="~/assets/img/index-right.png" />
-        <div :class="processType === '1' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '1'">
-          <div class="z-10 sm:text-sm lg:text-xl sm:w-20">预约看房</div>
-          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">02</div>
-        </div>
-        <img class="sm:w-4" src="~/assets/img/index-right.png" />
-        <div :class="processType === '2' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '2'">
-          <div class="z-10 sm:text-sm lg:text-xl sm:w-20">实地看房</div>
-          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">03</div>
-        </div>
-        <img class="sm:w-4" src="~/assets/img/index-right.png" />
-        <div :class="processType === '3' ? ' process-select' : 'process-unselect'" class="border-b-[3px] relative" @mouseover="processType = '3'">
-          <div class="z-10 sm:text-sm lg:text-xl sm:w-20">认筹认购</div>
-          <div class="absolute bottom-0 z-0 italic font-bold sm:text-2xl lg:text-5xl sm:-right-0 lg:-right-10 opacity-30 process-child">04</div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 </template>
 
@@ -663,6 +539,14 @@ export default Vue.extend({
   async asyncData({ $axios, store }) {
     
     const start = new Date().getTime();
+    // const userAgent = req?.headers['user-agent'] || '';
+    const isMobile = store.state.app.isMobile;
+    // if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
+    //     // 跳转移动端页面
+    //     isMobile = true;
+    // } else {
+    //   isMobile = false;
+    // }
 
     // 销售
     const sale: any[] = [];
@@ -994,9 +878,11 @@ export default Vue.extend({
       newsObj,
       newsType: '4',
       topData,
+      isMobile,
     }
   },
   data() {
+    let isMobile: any;
     return {
       menuShow: {
         isShow: false,
@@ -1009,6 +895,7 @@ export default Vue.extend({
       newsType: '4', // 资讯分类 7 4 3
       labels: [],
       processType: '0',
+      isMobile,
     }
   },
   head() {

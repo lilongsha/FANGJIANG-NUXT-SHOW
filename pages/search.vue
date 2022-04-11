@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full lg:hidden">
+  <!-- lg:hidden -->
+  <div class="w-full">
     <div class="flex flex-row items-center w-full pt-4">
       <input v-model="searchText" type="text" class="mx-auto w-3/4 px-4 h-7 text-sm rounded-2xl bg-[#ededed] outline-none " placeholder="请输入搜索项目">
     </div>
@@ -22,7 +23,7 @@
       </div>
       <AppLoading ref="loading" :box-class="'w-full h-20 rounded-xl'" :height="'32px'" :width="'6px'" />
       <!-- 热门楼盘 -->
-      <div class="flex flex-row flex-wrap w-full p-4">
+      <div class="flex flex-row flex-wrap w-full p-4 pb-[200px]">
         <span class="w-full px-4 text-lg font-bold text-black">热门楼盘</span>
         <a v-for="(item, index) in getHotProject" v-show="index < 5" :key="item.id" class="inline-block p-1 m-2 text-black border" target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a>
       </div>
@@ -31,7 +32,7 @@
         <span class="w-full px-4 text-lg font-bold text-black">搜索历史</span>
         <a v-for="(item, index) in getHotProject" v-show="index < 5" :key="item.id" class="inline-block p-1 m-2 text-black border" target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a>
       </div> -->
-      <div class="container absolute bottom-0 flex flex-col items-center mt-9">
+      <div class="container absolute bottom-0 flex flex-col items-center">
         <div class="w-full h-[80px] bg-cover rounded-md bg-bimg pl-[30px] pt-[4px]">
           <div>
             <div class="text-[20px] font-bold text-white italic">线上<span class="mx-4">“<span class="text-[#ECF000]">0</span>接触”</span>找房</div>
@@ -60,9 +61,17 @@ import { Api as HouseApi } from '~/api/model/houseModel';
 
 export default Vue.extend({
   name: 'Search',
+  asyncData({ store }) {
+    const isMobile = store.state.app.isMobile;
+    return {
+      isMobile,
+    }
+  },
   data() {
+    let isMobile: any;
     const timeout: any = undefined;
     return {
+      isMobile,
       showSearch: '0',
       searchText: '',
       list: [],

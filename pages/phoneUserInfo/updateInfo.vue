@@ -1,5 +1,6 @@
 <template>
-  <div class="lg:hidden bg-[#F3F5FF] w-screen h-screen p-4 relative">
+  <!-- lg:hidden -->
+  <div class=" bg-[#F3F5FF] w-screen h-screen p-4 relative">
     <div class="flex flex-row items-center justify-between">
       <div class="w-[10px] h-[17px]" @click="clickBack"><img src="~/assets/img/userInfo/back.png" alt=""></div>
       <div v-if="type === 'update'" class="font-bold text-[20px] text-[#333333]">编辑资料</div>
@@ -135,7 +136,7 @@ export default Vue.extend({
     Select,
   },
   async asyncData({ $axios, store, route }) {
-    
+    const isMobile = store.state.app.isMobile;
 
     const fromPath =  route.query?.fromPath;
     const type = route.query?.redirect;
@@ -237,13 +238,16 @@ export default Vue.extend({
       code: '',
       msg: '',
       isTime: false,
+      isMobile,
     }
   },
   data() {
+    let isMobile: any;
     let areaOptions: any;
     let provinceOptions: any;
     let cityOptions: any;
     return {
+      isMobile,
       areaOptions,
       provinceOptions,
       cityOptions,

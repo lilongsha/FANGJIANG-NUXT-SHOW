@@ -20,7 +20,8 @@
         </div>
       </div>
       <div class="grid w-full sm:grid-cols-1 lg:grid-cols-2 justify-items-center h-[510px]">
-        <div class="relative w-full sm:hidden">
+        <!-- sm:hidden -->
+        <div v-if="!isMobile" class="relative w-full">
           <div class="w-[483px] h-[500px] absolute bg-fjBlue-100 opacity-10 -left-4 top-4 z-10"></div>
           <img src="~/assets/img/about/1.jpg" class="w-[483px] h-[500px] z-20 absolute">
         </div>
@@ -219,8 +220,16 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'InfoList',
-  data () {
+  asyncData({ store }) {
+    const isMobile = store.state.app.isMobile;
     return {
+      isMobile,
+    }
+  },
+  data () {
+    let isMobile: any;
+    return {
+      isMobile,
     }
   },
   head() {

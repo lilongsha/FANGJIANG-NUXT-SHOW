@@ -4,7 +4,7 @@
     <div class="">
       <AppHeader />
       <nuxt />
-      <div v-if="!isHidden" class="lg:hidden px-[14px] py-2 bg-white grid grid-cols-1 justify-items-center items-center shadow-lg rounded-full fixed bottom-[100px] right-[20px] text-fjRed-100 z-[50] w-[58px] h-[56px]" @click="clickUser"><img src="~/assets/img/info.png" alt="" class="w-[24px] h-[32px]"></div>
+      <div v-if="!isHidden && getIsMobile" class="px-[14px] py-2 bg-white grid grid-cols-1 justify-items-center items-center shadow-lg rounded-full fixed bottom-[100px] right-[20px] text-fjRed-100 z-[50] w-[58px] h-[56px]" @click="clickUser"><img src="~/assets/img/info.png" alt="" class="w-[24px] h-[32px]"></div>
       <AppFooter class="sticky"/>
       
     </div>
@@ -32,6 +32,10 @@ export default Vue.extend({
     isHidden() {
       return this.$route.path.includes('/PhoneUserInfo') || this.$route.path.includes('/login');
     },
+    getIsMobile() {
+      const isMobile = this.$store.state.app.isMobile;
+      return isMobile;
+    }
   },
   methods: {
     

@@ -41,7 +41,8 @@
                 </div>
                 <ClueLeaveClue v-show="step === 4" class="absolute z-[60] w-full h-full" :city="cityId"  :activity-id="activityId"  :look="look" :project-id="projectId" :clue-type="'3'" :demand="value.toString()" @isOpen="$emit('isOpen')" />
                 <div class=" mt-6 text-fjBlue-100 text-[14px]">
-                    <span class="w-full lg:hidden">
+                    <!--  lg:hidden -->
+                    <span v-if="!getIsMobile" class="w-full">
                         <Select v-model="value"
                             style="width: 100%"
                             size="default"
@@ -53,7 +54,8 @@
                             class="selectClass"
                         />
                     </span>
-                    <span class="sm:hidden">
+                    <!-- sm:hidden -->
+                    <span v-if="!getIsMobile" class="">
                         <Select v-model="value"
                             style="width: 100%"
                             size="large"
@@ -117,6 +119,12 @@ export default {
         notice: false,
         noticeInfo: '请正确填写信息',
     };
+  },
+  computed: {
+      getIsMobile() {
+      const isMobile = this.$store.state.app.isMobile;
+      return isMobile;
+    }
   },
   watch: {
       step() {

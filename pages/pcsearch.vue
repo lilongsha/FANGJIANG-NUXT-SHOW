@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full h-full pb-20 sm:hidden">
+<!-- sm:hidden -->
+  <div class="w-full h-full pb-20">
     <div class="h-10"></div>
     <div class="flex flex-row items-center justify-center w-full py-16 bg-fjBlue-100 bg-opacity-10">
       <div class="w-[900px]">
@@ -249,15 +250,19 @@ import { phoneNum } from '~/api/model/houseModel'
 export default Vue.extend({
     name: 'PcSearch',
     asyncData({ store }) {
+      const isMobile = store.state.app.isMobile;
       const cityId = store.state.app.cityId;
       return {
         type: '1',
         cityId,
         search: '',
+        isMobile,
       }
     },
     data() {
+      let isMobile: any;
       return {
+        isMobile,
         type: '1',
         length: 0,
         search: '',

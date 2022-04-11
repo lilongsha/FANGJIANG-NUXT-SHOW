@@ -1,26 +1,27 @@
 .<template>
 <div class="flex flex-row items-end justify-end w-screen h-screen bg-fixed bg-no-repeat bg-auto lg:bg-login-bg sm:bg-login-phone" style="background-size: 100%">
-  <!-- <img src="~/assets/img/login/bj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover sm:hidden"> -->
-  <!-- <img src="~/assets/img/login/phonebj.png" class="absolute top-0 left-0 z-0 w-screen h-screen bg-cover lg:hidden"> -->
   <div class="relative w-full h-full mx-auto lg:container">
-  
-  <div class="lg:hidden sm:mt-[60px]">
+  <!-- lg:hidden -->
+  <div v-if="isMobile" class="sm:mt-[60px]">
     <span class="ml-6 font-bold text-[30px]">Hi!</span>
     <br>
     <span class="mt-4 ml-6 font-medium text-[30px]">欢迎登录房匠</span>
   </div>
   <div class="absolute lg:top-[120px] sm:mt-[80px] sm:bottom-0 sm:w-full right-0 flex flex-row items-center">
     <div class="lg:w-[460px] lg:px-8 sm:w-full bg-[#FFFFFF] lg:rounded-l-[20px] lg:pb-12 sm:rounded-tr-[80px] sm:rounded-tl-[20px] sm:px-4 sm:py-8">
-      <div class=" mt-[40px] sm:hidden">
+      <!-- sm:hidden -->
+      <div v-if="!isMobile" class=" mt-[40px]">
         <span class="font-bold text-[#015EEA] text-[30px]">欢迎登录</span>
       </div>
-      <div class=" lg:hidden">
+      <!-- lg:hidden -->
+      <div v-if="isMobile" class="">
         <span class="font-bold" :class="loginType === '1' ? 'text-[#015EEA] sm:text-[24px] lg:text-[30px]' : 'text-[#666666] sm:text-[20px] lg:text-[26px]'" @click="changeLogin('1')">验证码登录</span>
         <span  class="font-bold sm:ml-6 lg:ml-12" :class="loginType === '2' ? 'text-[#015EEA] sm:text-[24px] lg:text-[30px]' : 'text-[#666666] sm:text-[20px] lg:text-[26px]'" @click="changeLogin('2')">账号密码登录</span>
       </div>
       
       <div v-show="loginType === '1'">
-        <div class="sm:hidden lg:text-[26px] font-normal text-[#333333]">房匠网站</div>
+        <!-- sm:hidden -->
+        <div v-if="!isMobile" class="lg:text-[26px] font-normal text-[#333333]">房匠网站</div>
         <div class="lg:mt-[40px] sm:mt-8 sm:pb-4 lg:pb-4 flex flex-row items-center sm:space-x-2 lg:space-x-6 border-b border-b-[#DDDDDD]">
           <div><img src="~/assets/img/login/phone.png" alt="" class="w-5 h-7"></div>
           <div><input v-model="mobile" type="text"  class="text-[20px] text-[#666666]" @change="mobileChange"></div>
@@ -35,7 +36,6 @@
         </div>
       </div>
       <div v-show="loginType === '2'">
-        <!-- <div class="sm:hidden lg:text-[26px] font-normal text-[#333333]">房匠网站</div> -->
         <div class="lg:mt-[40px] sm:mt-8 sm:pb-4 lg:pb-4 flex flex-row items-center sm:space-x-2 lg:space-x-6 border-b border-b-[#DDDDDD]">
           <div><img src="~/assets/img/login/phone.png" alt="" class="w-5 h-7"></div>
           <div><input v-model="LoginParams.username" type="text"  class="text-[20px] text-[#666666]"></div>
@@ -49,12 +49,14 @@
           <div><img :src="img" alt="" @click="clickImg"></div>
         </div>
       </div>
-      <div class="flex flex-row items-center w-full mt-3 mb-2 lg:hidden">
-        <img class="mr-2 lg:hidden" src="~/assets/img/login/check.png" alt="">
+      <!-- lg:hidden  -->
+      <div v-if="isMobile" class="flex flex-row items-center w-full mt-3 mb-2">
+        <img class="mr-2" src="~/assets/img/login/check.png" alt="">
         <span class="text-[#999999] text-[16px]">登录表示同意</span>
         <a href="" class="text-[#015EEA] text-[16px]">《房匠用户协议》</a>
       </div>
-      <div class="sm:hidden mt-4 flex flex-row items-center justify-between text-[#999999] text-[16px]">
+      <!-- sm:hidden -->
+      <div v-if="!isMobile" class="mt-4 flex flex-row items-center justify-between text-[#999999] text-[16px]">
         <div class="flex flex-row items-center space-x-2">
           <!-- <img src="~/assets/img/login/check.png" alt=""> -->
           <input v-model="checked" type="checkbox" name="selected" :checked="checked" />
@@ -66,20 +68,23 @@
         </div>
       </div>
       <div class="lg:mt-[80px] sm:mt-[60px] w-full">
-        <div class="flex flex-row items-center w-full mb-2 sm:hidden">
+        <!--  sm:hidden -->
+        <div v-if="!isMobile" class="flex flex-row items-center w-full mb-2">
           <span class="text-[#999999] text-[16px]">登录表示同意</span>
           <a href="" class="text-[#015EEA] text-[16px]">《房匠用户协议》</a>
         </div>
         <button v-show="loginType === '1'" class="w-full bg-fjBlue-100  text-center rounded-lg lg:py-2 sm:py-2 lg:text-[25px] sm:text-[20px] text-white shadow" @click="mobileLogin">登录</button>
         <button v-show="loginType === '2'" class="w-full bg-fjBlue-100  text-center rounded-lg lg:py-2 sm:py-2 lg:text-[25px] sm:text-[20px] text-white shadow" @click="clickLogin">登录</button>
       </div>
-      <div class="sm:hidden w-full space-x-2 lg:mt-[30px] sm:mt-5 flex flex-row items-center">
+      <!-- sm:hidden -->
+      <div v-if="!isMobile" class=" w-full space-x-2 lg:mt-[30px] sm:mt-5 flex flex-row items-center">
         <span class="h-[1px] w-2/5 bg-[#DDDDDD]"></span>
         <img src="~/assets/img/login/wechat.png" alt="">
         <span class="h-[1px] w-2/5 bg-[#DDDDDD]"></span>
       </div>
     </div>
-    <div class="relative w-3/5 sm:hidden ">
+    <!--  sm:hidden -->
+    <div v-if="!isMobile" class="relative w-3/5 ">
       <div class="w-full">
         <img src="~/assets/img/login/right.png" class="bg-cover " :class="loginType === '1' ? 'h-[628px]' : 'h-[662px]'">
       </div>
@@ -103,6 +108,14 @@ import { Breadcrumb } from '~/types/app';
 export default Vue.extend({
   name:'Login',
   async asyncData({ $axios, route, store }) {
+    // const userAgent = req?.headers['user-agent'] || '';
+    // let isMobile: any;
+    // if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
+    //     // 跳转移动端页面
+    //     isMobile = true;
+    // } else {
+    //   isMobile = false;
+    // }
     const breadcrumb: Breadcrumb[] = [];
     breadcrumb.splice(0)
     store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
@@ -114,12 +127,14 @@ export default Vue.extend({
       keyCode = codeResult.data.key;
       img = codeResult.data.codeUrl;
     }
+    const isMobile = store.state.app.isMobile;
     return {
       codeResult,
       keyCode,
       img,
       loginType: '1',
       path,
+      isMobile
     }
   },
   data() {
@@ -130,7 +145,8 @@ export default Vue.extend({
       password: '',
       key: '',
       code: '',
-    }
+    };
+    let isMobile: any;
     return {
       loginType: '1',
       LoginParams,
@@ -144,7 +160,8 @@ export default Vue.extend({
       msg: '',
       password: '',
       checked: true,
-      path: ''
+      path: '',
+      isMobile,
     }
   },
   watch: {
@@ -152,6 +169,7 @@ export default Vue.extend({
       this.mobileChange()
     }
   },
+  mounted() {},
   methods: {
     changeLogin(type: string) {
       this.loginType = type;
@@ -236,13 +254,14 @@ export default Vue.extend({
             }
             this.$axios.setHeader('Authorization', '')
             this.$router.push(this.path)
+          } else {
+            message.error({ content: '登录失败， 请重试', duration: 3});
           }
           this.$axios.setHeader('Authorization', '')
         } else {
           message.error({ content: '请正确填写信息', duration: 3});
         }
       } catch (error) {
-        debugger;
         message.error({ content: '登录失败， 请重试', duration: 3});
       } finally {
         this.$axios.setHeader('Authorization', '')

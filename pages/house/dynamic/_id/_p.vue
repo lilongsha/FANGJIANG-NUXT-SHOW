@@ -68,7 +68,8 @@
       </div>
     </div>
     </div>
-    <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px] sm:mt-2 lg:mt-8">
+    <!-- sm:hidden -->
+    <div v-if="!isMobile" class="sm:w-0 lg:w-1/4 space-y-[15px] sm:mt-2 lg:mt-8">
         <!-- 广告位 -->
         <div>
           <img src="~/assets/img/clue/busAd.png" alt="看房专车免费接送" class="w-[302px] h-[354px]" @click="openActivityClue('4')">
@@ -100,12 +101,11 @@ export default Vue.extend({
   name: 'DiscussList',
   components: {
   },
-  async asyncData({ $axios, store, req, route, redirect }) {
+  async asyncData({ $axios, store, route, redirect }) {
     const start = new Date().getTime();
 
     const topFlag: string = 'dynamic';
     
-    const userAgent = req?.headers['user-agent'] || '';
     let pageNum = 1;
     let p = route.params?.p;
     const id = route.params?.id;
@@ -177,13 +177,7 @@ export default Vue.extend({
     breadcrumb.push({ title: '动态', href: '', icon: 'list' })
     store.commit('app/BREADCRUMB_ADD_ALL', breadcrumb)
 
-    let isMobile: any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 跳转移动端页面
-        isMobile = true;
-    } else {
-      isMobile = false;
-    }
+    const isMobile = store.state.app.isMobile;
 
     const end = new Date().getTime();
     // eslint-disable-next-line no-console

@@ -93,7 +93,8 @@
                   <span class="whitespace-nowrap">户型：</span>
                   <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" >{{getRoomList(item)}}</span>
                 </div>
-                <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="lg:mt-4 sm:hidden">
+                <!-- sm:hidden -->
+                <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0 && !isMobile" class="lg:mt-4 ">
                   <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="text-[12px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
                 </div>
               </div>
@@ -108,14 +109,16 @@
                   <span v-if="item.updatePriceTime">{{ item.updatePriceTime.split('T')[0] }}</span>
                   <span v-else>暂无数据</span>
                 </div>
-                <div class="w-full sm:hidden">
+                <!--  sm:hidden -->
+                <div v-if="!isMobile" class="w-full">
                   <span v-if="item.priceDays">价格有效期：{{ item.priceDays }}天</span>
                   <span v-else>暂无数据</span>
                 </div>
               </div>
               
             </div>
-            <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="lg:hidden">
+            <!-- lg:hidden -->
+            <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0 && isMobile" class="">
               <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="text-[12px] rounded mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
             </div>
           </div>
@@ -133,6 +136,7 @@ export default Vue.extend({
     name: 'Favourite',
     components: {},
     async asyncData({ $axios, store }) {
+      const isMobile = store.state.app.isMobile;
 
       const breadcrumb: Breadcrumb[] = [];
       breadcrumb.splice(0)
@@ -170,6 +174,13 @@ export default Vue.extend({
       return {
         projectList,
         pageParamProject,
+        isMobile,
+      }
+    },
+    data() {
+      let isMobile: any;
+      return {
+        isMobile,
       }
     },
     methods: {

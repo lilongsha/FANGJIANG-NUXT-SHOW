@@ -8,9 +8,10 @@
       <a v-else-if="index === 6" :href="`/house/${item.value}/${house.id}`" class="hover:text-white">{{ item.title }}</a>
       <a v-else :href="`/house/${item.value}/${house.id}/p1`" class="hover:text-white">{{ item.title }}</a>
     </div>
-    <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
-      <div class="sm:hidden absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
-        <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
+    <!-- sm:hidden -->
+    <a v-if="!getIsMobile" :href="`tel:${phoneNum},${house.number}%23`">
+      <div class="absolute right-0 h-full text-lg text-white font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
+        <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2">
         {{ phoneNum }} 转 {{ house.number }}
       </div>
     </a>
@@ -39,8 +40,13 @@ export default Vue.extend({
   },
   data() {
     return { houseMenu, phoneNum }
+  },
+  computed: {
+    getIsMobile() {
+      const isMobile = this.$store.state.app.isMobile;
+      return isMobile;
+    }
   }
-
 })
 </script>
 <style scoped>

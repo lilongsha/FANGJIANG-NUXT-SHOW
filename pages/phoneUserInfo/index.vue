@@ -1,5 +1,6 @@
 <template>
-  <div class="lg:hidden bg-[#F3F5FF] w-full h-screen p-4">
+  <!-- lg:hidden -->
+  <div class=" bg-[#F3F5FF] w-full h-screen p-4">
       <div class="flex flex-row justify-between">
         <div class="w-[10px] h-[17px]" @click="clickBack"><img src="~/assets/img/userInfo/back.png" alt=""></div>
         <div class="flex flex-row space-x-3"><img src="~/assets/img/userInfo/message.png" alt="" class="w-[19px] h-[17px]"><img src="~/assets/img/userInfo/set.png" alt="" class="w-[20px] h-[17px]" @click="clickSet"></div>
@@ -60,6 +61,8 @@ export default Vue.extend({
   name: 'PhoneUserInfo',
   components: {},
   async asyncData({ $axios, store, route }) {
+
+    const isMobile = store.state.app.isMobile;
 
     const breadcrumb: Breadcrumb[] = [];
     breadcrumb.splice(0)
@@ -147,9 +150,11 @@ export default Vue.extend({
       projectList,
       pageParamProject,
       questions,
+      isMobile,
     }
   },
   data(){
+    let isMobile: any;
     const projectList: any[] = [];
     const pageNumProject = 0;
     const pageParamProject = {
@@ -158,6 +163,7 @@ export default Vue.extend({
       pageNumProject,
     }
     return {
+      isMobile,
       fromPath: '',
       tokenType: '',
       accessToken: '',

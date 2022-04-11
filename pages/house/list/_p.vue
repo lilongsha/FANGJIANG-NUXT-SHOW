@@ -2,7 +2,8 @@
   <div class="mx-auto lg:container">
     <div class="w-full lg:h-24"></div>
     <!-- condition -->
-    <div class="w-full px-8 py-10 mt-16 bg-gray-100 sm:hidden">
+    <!-- sm:hidden  -->
+    <div v-if="!isMobile" class="w-full px-8 py-10 mt-16 bg-gray-100">
       <!-- 位置 -->
       <div class="w-full">
         <div class="w-full flex flex-row pb-4 border-gray-300 border-b-[1px]">
@@ -219,7 +220,8 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-row justify-between w-full mt-7 sm:hidden">
+    <!--  sm:hidden -->
+    <div v-if="!isMobile" class="flex flex-row justify-between w-full mt-7">
       <div class="w-[625px] h-[154px] bg-cover rounded-md bg-bimg pl-[80px] pt-[24px]">
         <div>
           <div class="text-[34px] font-bold text-white italic">线上<span class="mx-4">“<span class="text-[#ECF000]">0</span>接触”</span>找房</div>
@@ -233,7 +235,8 @@
       </div>
     </div>
     <!-- 移动端codition -->
-    <div class="fixed top-14 z-[51] bg-white w-full flex flex-col lg:hidden">
+    <!--  lg:hidden -->
+    <div v-if="isMobile" class="fixed top-14 z-[51] bg-white w-full flex flex-col">
       <!-- title -->
       <div class="flex flex-row justify-around w-full h-12 px-2">
         <!-- 位置 区域 商圈 地铁 -->
@@ -430,11 +433,13 @@
       </div>
     </div>
     <div :class="selectMenuM !== '' ? '' : 'hidden'" class="fixed bottom-0 left-0 right-0 z-50 block top-14" style="background: rgba(0,0,0,.5);" @click="selectMenuM = ''"></div>
-    <div id="list" class="h-14 lg:hidden"></div>
+    <!--  lg:hidden -->
+    <div v-if="isMobile" id="list" class="h-14"></div>
     <!-- list -->
     <div class="w-full overflow-hidden sm:mt-1 lg:mt-8">
       <!-- 标题 -->
-      <div class="flex flex-row w-full border-b-2 sm:hidden border-fjBlue-100">
+      <!--  sm:hidden -->
+      <div v-if="!isMobile" class="flex flex-row w-full border-b-2 border-fjBlue-100">
         <div :class="select.sortType === '0' ? 'bg-fjBlue-100 text-white' : 'text-black'" class="w-[97px] h-[52px] flex flex-row justify-center items-center">
           <a :href="getSortUrl('0')" >默认排序</a>
         </div>
@@ -626,7 +631,8 @@
                       <span class="whitespace-nowrap">户型：</span>
                       <span>{{getRoomList(item)}}</span>
                     </div>
-                    <div class="flex flex-row items-center justify-between py-1 pl-2 bg-[#F5F5F5] lg:mt-4 lg:space-x-2 lg:h-[35px] lg:w-[370px] sm:hidden">
+                    <!--  sm:hidden -->
+                    <div v-if="!isMobile" class="flex flex-row items-center justify-between py-1 pl-2 bg-[#F5F5F5] lg:mt-4 lg:space-x-2 lg:h-[35px] lg:w-[370px]">
                       <div class="flex flex-row items-center space-x-2">
                         <img src="~/assets/img/clue/smallDing.png" alt="" />
                         <span class="text-[#333333] lg:text-[15px] sm:text-[9px] font-normal">设置订阅楼盘，楼盘信息早知道</span>
@@ -635,8 +641,8 @@
                         <button class="font-medium text-white bg-fjRed-100 lg:py-1 lg:px-2 lg:text-[15px] sm:text-[9px]" @click.stop="openClue('6', item.id, item.sysCityByCityId.id, item.lookTime)">订阅楼盘信息</button>
                       </div>
                     </div>
-                    
-                    <div class="flex flex-row items-center lg:hidden">
+                    <!--  lg:hidden -->
+                    <div v-if="isMobile" class="flex flex-row items-center">
                       <div v-if="item.price" class="w-2/5">
                         <span v-if="item.price" class="text-[#DA1111] text-[16px] font-bold">{{ item.price }}</span>
                         <span v-if="item.price" class="text-[12px]">元/㎡</span>
@@ -656,7 +662,8 @@
                       <span v-for="(item1, index) in item.sysDictDetailBeans" :key="index" class="sm:text-[12px] lg:text-[14px] rounded sm:px-1 lg:px-2 lg:py-1 sm:mr-1 lg:mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
                     </div>
                   </div>
-                  <div class="sm:w-0 sm:overflow-hidden sm:hidden lg:w-2/5 text-[14px] text-right">
+                  <!-- sm:hidden  -->
+                  <div v-if="!isMobile" class="sm:w-0 sm:overflow-hidden lg:w-2/5 text-[14px] text-right">
                     <div class="w-full">
                       <span v-if="item.price" class="text-[#DA1111] text-[36px] font-bold">{{ item.price }}</span>
                       <span v-if="item.price">元/㎡起</span>
@@ -762,7 +769,7 @@ export default Vue.extend({
   name: 'Home',
   components: {
   },
-  async asyncData({ $axios, store, route, req, redirect }) {
+  async asyncData({ $axios, store, route, redirect }) {
     const start = new Date().getTime();
     const activityParam = {
       data: {
@@ -780,14 +787,7 @@ export default Vue.extend({
 
     const curPath = route.path;
 
-    const userAgent = req?.headers['user-agent'] || '';
-    let isMobile:any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-      // 跳转移动端页面
-      isMobile = true;
-    } else {
-      isMobile = false;
-    }
+    const isMobile = store.state.app.isMobile;
     // 获取区域
     const areaData: AreaByCondition = {
       id: store.state.app.cityId,

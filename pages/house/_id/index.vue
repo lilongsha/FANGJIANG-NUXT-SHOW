@@ -126,12 +126,8 @@
           </div>
         </div>
         <!-- m base info -->
-        <div class="w-full p-4 mt-4 bg-white lg:hidden">
-          <!-- <div class="w-full h-6 leading-6 font-bold text-[18px] flex flex-row items-center">
-            <span class="">{{ house.name }}</span>
-            <HouseStateLabel :state="house.saleState" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm'" />
-            <HouseTypeLabel :sort="house.type" :class-name="'px-1 ml-2 text-[12px] font-normal text-white rounded-sm bg-fjBlue-100 h-[15px]'" />
-          </div> -->
+        <!-- lg:hidden -->
+        <div v-if="isMobile" class="w-full p-4 mt-4 bg-white ">
           <div v-if="house.sysDictDetailBeans && house.sysDictDetailBeans.length > 0" class="w-full space-x-1">
             <span v-for="(item, index) in house.sysDictDetailBeans" :key="index" :class="colors[index % 5]" class="px-1 py-0.5 text-xs ">{{ item.value }}</span>
           </div>
@@ -233,48 +229,10 @@
                 <button v-show="house.hLayoutsById.length > 4 && !isMore" class="text-[20px] w-full text-center sm:hidden bg-[#f6f9fe]" @click="clickMore">展开更多</button>
                 <button v-show="house.hLayoutsById.length > 4 && isMore" class="text-[20px] w-full text-center sm:hidden bg-[#f6f9fe]" @click="clickMore">合并更多</button>
               </div>
-              <!-- <div class="absolute sm:top-[60px] lg:top-[120px] left-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutLeft">
-                <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
-              </div>
-              <div class="absolute sm:top-[60px] lg:top-[120px] right-0 z-10 flex flex-row items-center justify-center w-6 h-20 bg-black bg-opacity-40" @click="scrollLayoutRight">
-                <svg class="w-5 h-5 rotate-180" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
-              </div>
-              <div class="w-full h-full overflow-hidden relactive">
-                <div ref="layoutScroll" name="layoutScroll" class="relative flex flex-row h-full p-2 text-white transition-all" :style="layoutRightString" @touchstart="touchstart" @touchend="touchend" @touchmove="touchmove">
-                  <div v-for="(item,index) in house.hLayoutsById" v-show="showDefaultLayout === '' || item.room == showDefaultLayout" :key="index" class="flex-shrink-0 h-full overflow-hidden transition-all shadow sm:mr-4 lg:mr-8 sm:w-48 lg:w-72">
-                    <div class="overflow-hidden sm:h-32 lg:h-80">
-                      <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
-                    </div>
-                    <div class="flex flex-col w-full h-24 pt-2 sm:px-1 lg:px-4">
-                      <div class="flex items-center font-bold text-black lg:flex-row sm:text-sm lg:text-xl">
-                        <div class="-space-x-1">
-                          <span v-if="item.room">{{ item.room }}</span>
-                          <span v-if="item.room">室</span>
-                          <span v-if="item.hall">{{ item.hall }}</span>
-                          <span v-if="item.hall">厅</span>
-                          <span v-if="item.toilet">{{ item.toilet }}</span>
-                          <span v-if="item.toilet">卫</span>
-                        </div>
-                        <div class="text-xs">
-                          <HouseStateLabel :state="item.saleState" :class-name="'sm:px-0.5 lg:px-1 pb-0.5 sm:ml-2 lg:ml-4 font-normal text-white rounded-sm'" />
-                        </div>
-                      </div>
-                      <div class="flex flex-shrink-0 w-full text-gray-700 sm:flex-col lg:flex-row">
-                        <span class="sm:w-full lg:w-[98px] whitespace-nowrap">建面约{{ item.area }}㎡</span>
-                        <span class="sm:w-full lg:w-[174px] lg:ml-2 overflow-hidden whitespace-nowrap" style="overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{ item.description }}</span>
-                      </div>
-                      <div v-if="item.sysDictDetailBeans && item.sysDictDetailBeans.length > 0" class="flex flex-row w-full mt-2 sm:space-x-1 lg:space-x-2">
-                        <span v-for="(label, index1) in item.sysDictDetailBeans" v-show="index1 < 3" :key="index1" class="whitespace-nowrap sm:px-1 lg:px-2 py-0.5 rounded text-xs text-center text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">
-                          {{ label.value }}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
-          <div class="lg:hidden">
+          <!-- lg:hidden -->
+          <div v-if="isMobile" class="">
             <div class="text-[17px] font-bold text-[#333333]">余房查询</div>
             <div>
               <div class="relative flex flex-col items-center">
@@ -316,7 +274,8 @@
               <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100 relative">
                 <!-- 标题内容 -->
                 <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}动态 </h2>
-                <button class=" sm:hidden object-center ml-2 mb-1 space-x-2 p-1 border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
+                <!--  sm:hidden -->
+                <button v-if="!isMobile" class=" object-center ml-2 mb-1 space-x-2 p-1 border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('7')">
                   <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                   <span class="text-[13px] font-medium text-fjBlue-100">新动态通知我</span>
                 </button>
@@ -414,7 +373,8 @@
               <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
                 <h2 class="font font-bold border-b-[6px] border-fjBlue-100 flex justify-center items-center">{{ house.name }}周边</h2>
-                <button class=" sm:hidden ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
+                <!-- sm:hidden -->
+                <button v-if="!isMobile" class="ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
                   <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                   <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
                 </button>
@@ -494,10 +454,6 @@
               <div class="w-full sm:h-56 lg:h-80">
                 <line-echart :option="option" />
               </div>
-               <!-- <div class="lg:hidden mt-4 bg-[#D6E6FF] w-[180px] h-[45px] flex flex-row object-center items-center justify-center rounded-full border border-fjBlue-100"  @click="openClue('2')">
-                <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
-                <span class="text-[#015EEA] text-[16px] font-medium ml-2">价格波动通知我</span>
-              </div> -->
               <ClueButtonClue :name="'价格波动通知我'" @clickButton="openClue('2')"/>
             </div>      
           </div>
@@ -514,7 +470,8 @@
                 </div>
               </div>
               <!-- ad -->
-              <div class="lg:mt-9 sm:hidden">
+              <!-- sm:hidden -->
+              <div v-if="!isMobile" class="lg:mt-9">
                 <div v-if="activities " class="relative" @click="openActivityClue('15', activities.id)">
                   <img :src="activities.headImg" alt="广告" class="w-[306px] h-[358px]">
                   <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
@@ -556,9 +513,8 @@ export default Vue.extend({
     LineEchart,
     RecomendHouse,
   },
-  async asyncData ({ $axios, params, store, req, redirect, route }) {
+  async asyncData ({ $axios, params, store, redirect, route }) {
     const start = new Date().getTime();
-    const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
     if (id.endsWith('.html')) {
@@ -842,14 +798,7 @@ export default Vue.extend({
     
     
     
-    let isMobile: any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 跳转移动端页面
-        isMobile = true;
-        option.yAxis.show = false;
-    } else {
-      isMobile = false;
-    }
+    const isMobile = store.state.app.isMobile;
     const clueType: string = '';
     const opening: boolean = false;
 

@@ -1,6 +1,7 @@
 <template>
 <div v-if="!isHidden" class="">
-  <div :class="(getIsHome? 'bg-index-menu ': 'bg-white ') + (getIsUserInfo? 'bg-[#F5F5F5] ' : ' ')" class="fixed flex flex-row w-full h-20 z-[60] sm:hidden">
+  <!-- sm:hidden -->
+  <div v-if="!getIsMobile" :class="(getIsHome? 'bg-index-menu ': 'bg-white ') + (getIsUserInfo? 'bg-[#F5F5F5] ' : ' ')" class="fixed flex flex-row w-full h-20 z-[60]">
     <!-- <div class="">
       <sidenav-left />
     </div> -->
@@ -11,8 +12,10 @@
       <sidenav-right />
     </div> -->
   </div>
-  <div class="w-full h-14 lg:hidden"></div>
-  <div class="fixed top-0 z-50 flex flex-row flex-shrink-0 w-screen px-4 bg-white shadow-sm h-14 lg:hidden">
+  <!--  lg:hidden -->
+  <div v-if="getIsMobile" class="w-full h-14"></div>
+  <!--  lg:hidden -->
+  <div v-if="getIsMobile" class="fixed top-0 z-50 flex flex-row flex-shrink-0 w-screen px-4 bg-white shadow-sm h-14">
     <div class="flex flex-row w-1/4 h-full">
       <a href="/" rel="nofollow">
         <img class="object-cover w-14 h-14" src="~/assets/img/blue-logo.png" />
@@ -98,6 +101,10 @@ export default Vue.extend({
       const brand = this.$route.path.includes('/brand') 
       return login || brand || phoneInfo;
     },
+    getIsMobile() {
+      const isMobile = this.$store.state.app.isMobile;
+      return isMobile;
+    }
   },
   methods: {
     goSearch() {

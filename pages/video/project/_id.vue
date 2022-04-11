@@ -69,14 +69,17 @@
         </div>
       </div>
       <div class="space-y-3 lg:w-1/4 sm:w-full">
-        <div class="sm:hidden">
+        <!-- sm:hidden -->
+        <div v-if="!isMobile" class="">
           <img src="~/assets/img/clue/freeCar.png" alt="" class="w-[278px] h-[324px] mt-4 ml-11" @click="clickOpen('', '4')">
         </div>
-        <div class=" lg:hidden mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
+        <!-- lg:hidden  -->
+        <div v-if="isMobile" class=" mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
           <div class="text-[20px] font-bold text-white">看房专车免费接送</div>
           <button class="bg-white rounded-3xl font-bold h-[32px] w-[130px] text-fjBlue-100 text-[14px] mt-[8px]" @click="clickOpen('', '4')">立即预约</button>
         </div>
-        <div v-if="activities" class="space-y-3 ml-11 sm:hidden">
+        <!--  sm:hidden -->
+        <div v-if="activities && !isMobile" class="space-y-3 ml-11">
           <!-- <div v-for="item in activities" :key="item.id" class=""> -->
           <div class="relative" @click="clickOpen(activities.id, '15')">
             <img :src="activities.headImg" alt="" class="rounded w-[278px] h-[270px]">
@@ -101,6 +104,8 @@ export default Vue.extend({
   name: 'VideoList',
   components: {},
   async asyncData({ $axios, store, route, redirect }){
+    const isMobile = store.state.app.isMobile;
+
     const start = new Date().getTime();
 
     // 视频
@@ -208,15 +213,16 @@ export default Vue.extend({
     console.log("新房视频详情调用接口使用时间：", end - start)
 
     const cityId = store.state.app.cityId;
-    return { params, videos, house, type: '0', video1, video2, video3, cityId, activities, favorite }
+    return { params, videos, house, type: '0', video1, video2, video3, cityId, activities, favorite, isMobile }
   },
   data () {
+    let isMobile: any;
     let house: any;
     const clueType: string = '';
     const type: String = '0';
     const activityId: string = '';
     const opening: boolean = false;
-    return { type, video1:[], video2: [], video3: [], opening, activityId, clueType, house, favorite: '' }
+    return { type, video1:[], video2: [], video3: [], opening, activityId, clueType, house, favorite: '', isMobile }
   },
   head() {
     const houseName = this.house.name;

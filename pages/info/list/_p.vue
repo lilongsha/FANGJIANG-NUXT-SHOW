@@ -3,7 +3,8 @@
     <div class="w-full sm:h-2 lg:h-24"></div>
     <div class="flex-row lg:flex">
       <div class="lg:w-2/3">
-        <div class="sm:hidden flex flex-row w-full h-[300px]">
+      <!-- sm:hidden  -->
+        <div v-if="!isMobile" class="flex flex-row w-full h-[300px]">
         <!-- top photo -->
         <div class="flex flex-row w-full">
           <!-- big photo -->
@@ -37,7 +38,8 @@
         </div>
       </div>
       <!-- top -->
-      <div class="w-full pl-4 mt-2 lg:hidden">
+      <!--  lg:hidden -->
+      <div v-if="isMobile" class="w-full pl-4 mt-2">
         <div class="flex flex-row items-center">
           <div class="w-1 h-4 bg-black"></div>
           <!-- 标题 -->
@@ -69,7 +71,8 @@
           <!-- sort menu -->
           <div class="sticky flex flex-col w-1/4 h-112 top-20">
             <div class="sm:w-[120px] flex flex-row items-center">
-              <div class="w-1 h-4 ml-4 bg-black lg:hidden"></div>
+              <!-- lg:hidden  -->
+              <div v-if="isMobile" class="w-1 h-4 ml-4 bg-black"></div>
               <span class="text-[#666666] sm:text-lg sm:font-bold lg:text-[20px] sm:ml-2 lg:mb-4">资讯类别</span>
             </div>
             <div v-for="item in NEWS_SORT" :key="item.key" :class="item.key === sort ? 'h-[62px] bg-info-sort-bg pt-[14px]' : 'h-[40px] hover:pt-[14px] hover:-mt-4'" class="group -ml-3 w-[140px] text-center hover:h-[62px] hover:bg-info-sort-bg">
@@ -110,7 +113,8 @@
         </div>
       </div>
       </div>
-      <div class="w-1/3 h-full pl-5 sm:hidden lg:sticky lg:top-24">
+      <!--  sm:hidden -->
+      <div v-if="!isMobile" class="w-1/3 h-full pl-5 lg:sticky lg:top-24">
         <!-- title -->
         <div class="w-full border-b-2 border-fjBlue-100">
           <span class="inline-block p-1 text-white bg-fjBlue-100">热门资讯</span>
@@ -185,7 +189,7 @@ const fields: string[] = [
 
 export default Vue.extend({
   name: 'InfoList',
-  async asyncData({ $axios, route, store, req }) {
+  async asyncData({ $axios, route, store }) {
     const start = new Date().getTime();
     // 活动信息
     let activities;
@@ -207,7 +211,6 @@ export default Vue.extend({
     
     
     let pageNum = 1;
-    const userAgent = req?.headers['user-agent'] || '';
     let query:any;
     let params = route.params?.p;
     if (params) {
@@ -300,13 +303,7 @@ export default Vue.extend({
       getNews(),
     ])
 
-    let isMobile: any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 跳转移动端页面
-        isMobile = true;
-    } else {
-      isMobile = false;
-    }
+    const isMobile = store.state.app.isMobile;
 
     const end = new Date().getTime();
     // eslint-disable-next-line no-console

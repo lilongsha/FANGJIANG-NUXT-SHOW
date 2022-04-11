@@ -132,7 +132,8 @@
           <!-- 标题 -->
           <div class="w-full pb-[1px] border-b border-fjBlue-100 flex flex-row items-end">
             <span class="text-lg font-bold border-b-[6px] border-fjBlue-100">楼盘解析</span>
-            <button class=" sm:hidden align-baseline ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
+            <!-- sm:hidden -->
+            <button v-if="!isMobile" class="align-baseline ml-2 mb-1 space-x-2 p-1 object-center border border-fjBlue-100 rounded flex flex-row w-[115px] h-[25px] items-center" @click="openClue('10')">
                 <img src="~/assets/img/clue/horn.png" alt="" class="w-[15px] h-[13px]">
                 <span class="text-[13px] font-medium text-fjBlue-100">了解周边规划</span>
             </button>
@@ -164,7 +165,8 @@
           <ClueButtonClue :name="'价格波动通知我'" @clickButton="openClue('2')"/>
         </div>
       </div>
-      <div class="sm:w-0 sm:hidden lg:w-1/4 space-y-[15px]">
+      <!--  sm:hidden -->
+      <div v-if="!isMobile" class="sm:w-0 lg:w-1/4 space-y-[15px]">
         <!-- 广告位 -->
         <div>
           <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-[306px] h-[358px]" @click="openActivityClue('4')">
@@ -203,9 +205,8 @@ export default Vue.extend({
     ReomendHouse,
     Popover,
   },
-  async asyncData ({ $axios, params, store, req, route, redirect }) {
+  async asyncData ({ $axios, params, store, route, redirect }) {
     const start = new Date().getTime();
-    const userAgent = req?.headers['user-agent'] || '';
 
     let id = params.id;
     if (id.endsWith('.html')) {
@@ -374,27 +375,25 @@ export default Vue.extend({
     }
 
     await getHouse();
-
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 跳转移动端页面
-        option.yAxis.show = false;
-    }
+    const isMobile = store.state.app.isMobile;
 
     const end = new Date().getTime();
     // eslint-disable-next-line no-console
     console.log("新房详情信息调用接口使用时间：", end - start)
 
     return {
-       cityId, lookTime, house, option, scoreOption, activities, favorite,
+       cityId, lookTime, house, option, scoreOption, activities, favorite,isMobile,
     }
   },
   data() {
+    let isMobile: any;
     const clueType: string = '';
     const opening: boolean = false;
     const showBuild: boolean = false;
     const option: any = {};
     let house: any;
     return {
+      isMobile,
       activityId: '',
       openActivity: false,
       clueType,

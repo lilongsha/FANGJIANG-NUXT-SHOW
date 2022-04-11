@@ -86,14 +86,17 @@
         </div>
       </div>
       <div class="lg:w-1/4 sm:w-full lg:space-y-4">
-        <div class="sm:hidden">
+      <!-- sm:hidden -->
+        <div v-if="!isMobile" class="">
           <img src="~/assets/img/clue/freeCar.png" alt="" class="w-[278px] h-[324px] ml-11" @click="clickOpen('', '4')">
         </div>
-        <div class=" lg:hidden mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
+        <!-- lg:hidden  -->
+        <div v-if="isMobile" class=" mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
           <div class="text-[20px] font-bold text-white">看房专车免费接送</div>
           <button class="bg-white rounded-3xl font-bold h-[32px] w-[130px] text-fjBlue-100 text-[14px] mt-[8px]" @click="clickOpen('', '4')">立即预约</button>
         </div>
-        <div v-if="activities" class="space-y-3 ml-11 sm:hidden">
+        <!--  sm:hidden -->
+        <div v-if="activities && !isMobile" class="space-y-3 ml-11">
           <div class="relative rounded" @click="clickOpen(activities.id, '15')">
             <img :src="activities.headImg" alt="" class="rounded w-[278px] h-[270px]">
             <span class="absolute lg:top-4 lg:w-full text-center text-white text-[26px] ">{{ activities.title }}</span>
@@ -137,17 +140,10 @@ import { ActivityApi } from '~/api/clue/activity';
 export default Vue.extend({
   name: 'InfoList',
   components: {},
-  async asyncData({  $axios, store, route, req, redirect }){
+  async asyncData({  $axios, store, route, redirect }){
     const start = new Date().getTime();
     
-    const userAgent = req?.headers['user-agent'] || '';
-    let isMobile: any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 移动端
-        isMobile = true;
-    } else {
-      isMobile = false;
-    }
+    const isMobile = store.state.app.isMobile;
     let params = route.params?.id;
     if (params) {
       if (params.endsWith('.html')) {
@@ -270,6 +266,7 @@ export default Vue.extend({
     return { params, news, isMobile, house, new2, new3, new7, activities, cityId, pageParam, favorite }
   },
   data () {
+    let isMobile: any;
     let house: any;
     const pageParam = {
       pageSize: 10,
@@ -281,6 +278,7 @@ export default Vue.extend({
     let new3: any;
     let new7: any;
     return {
+      isMobile,
       house,
       type: '0',
       clueType: '',

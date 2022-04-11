@@ -1,6 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:pb-4 lg:container">
-    <div class="sm:hidden lg:h-24"></div>
+    <!-- sm:hidden  -->
+    <div v-if="!isMobile" class="lg:h-24"></div>
     <AppTitle v-if="house" :house="house" class="-mt-10"/>
     <!-- house menu -->
     <AppBar v-if="house" :current="'video'" :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
@@ -174,10 +175,12 @@
             </div>
           </div>
         </div>
-        <div class="sm:hidden mt-3 shadow bg-[#F5F5F5] rounded-md">
+        <!-- sm:hidden  -->
+        <div v-if="!isMobile" class="mt-3 shadow bg-[#F5F5F5] rounded-md">
           <img src="~/assets/img/clue/busAd.png" alt="广告" class="w-full h-full" @click="openClue('4')">
         </div>
-        <div class="lg:hidden">
+        <!-- lg:hidden -->
+        <div v-if="isMobile" class="">
           <div class="mt-2 w-full h-[80px] bg-cover rounded-md bg-rightbg pl-[20px] pt-[6px]">
             <div class="text-[20px] font-bold text-white">看房专车免费接送</div>
             <button class="bg-white rounded-3xl font-bold h-[32px] w-[130px] text-fjBlue-100 text-[14px] mt-[8px]" @click="openClue('4')">立即预约</button>
@@ -199,6 +202,7 @@ import { Api } from '~/api/model/newsModel';
 export default Vue.extend({
   name: "VideoDetail",
   async asyncData({ $axios, params, store }) {
+    const isMobile = store.state.app.isMobile;
     const start = new Date().getTime();
 
     let id = params.id;
@@ -328,9 +332,10 @@ export default Vue.extend({
     // eslint-disable-next-line no-console
     console.log("视频详情调用接口使用时间：", end - start)
 
-    return { videoItem, videoList, house, houseMenu, phoneNum, topFlag, newsTop, lastData, cityId }
+    return { videoItem, videoList, house, houseMenu, phoneNum, topFlag, newsTop, lastData, cityId, isMobile }
   },
   data() {
+    let isMobile: any;
     const topFlag: string = 'video';
     let videoItem:any;
     let videoList:any;
@@ -341,6 +346,7 @@ export default Vue.extend({
     let compareData:any;
     let policyData:any;
     return {
+      isMobile,
       showMore: false,
       videoItem,
       videoList,

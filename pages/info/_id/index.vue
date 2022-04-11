@@ -10,7 +10,8 @@
       <span v-if="news.createTime">{{ news.createTime.split('T')[0] }}</span>
     </div>
     <!-- 右侧推荐楼盘 -->
-    <div class="sticky flex flex-col float-right w-1/3 sm:hidden top-32">
+    <!--  sm:hidden -->
+    <div v-if="!isMobile" class="sticky flex flex-col float-right w-1/3 top-32">
       <div class="w-full mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -90,7 +91,8 @@
       <div v-for="item in newsTop" :key="item.id" class="flex-shrink-0 float-left mr-10 font-medium"><a target="_blank" :href="`/info/${item.id}.html`">{{ item.title }}</a></div>
     </div>
     <!-- 底部推荐楼盘 -->
-    <div class="flex flex-col lg:hidden">
+    <!--  lg:hidden -->
+    <div v-if="isMobile" class="flex flex-col">
       <div class="w-full mt-6 mb-2 text-lg font-bold border-b border-fjBlue-100">推荐楼盘</div>
       <div v-for="item in getHotProject" :key="item.id" class="flex flex-row w-full mb-4">
         <!-- 图片 -->
@@ -174,6 +176,8 @@ export default Vue.extend({
     HouseContent,
   },
   async asyncData({ $axios, route, store }) {
+    const isMobile = store.state.app.isMobile;
+
     const start = new Date().getTime();
 
     let newsTop: any[] = [];
@@ -238,14 +242,17 @@ export default Vue.extend({
       id,
       news,
       projects,
-      newsTop
+      newsTop,
+      isMobile,
     }
   },
   data() {
     const id: string = '';
     const news: any = {};
     const projects: any[] = [];
+    let isMobile: any;
     return {
+      isMobile,
       id,
       news,
       projects
