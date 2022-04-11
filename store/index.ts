@@ -40,16 +40,6 @@ const getRoomArea = (rooms: any[]) => {
 
 export const actions = {
   async nuxtServerInit (store: any, context: any) {
-    const userAgent = context.req.headers['user-agent'] || '';
-    let isMobile: any;
-    if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
-        // 跳转移动端页面
-        isMobile = true;
-    } else {
-      isMobile = false;
-    }
-    await store.commit('app/IS_MOBILE', isMobile)
-
     let accessToken;
     let tokenType;
     let nickName;
@@ -135,77 +125,5 @@ export const actions = {
       links = getDataResult(link);
     }
     await store.commit('app/LINK_SET', links)
-    // 当前页面路径
-    const curPath = context.app.router.history.current.name;
-    switch(curPath) {
-      case 'index':
-        await store.commit('app/TITLE_SET', '搜房源')
-        await store.commit('app/URL_SET', '/search')
-        await store.commit('app/BREADCRUMB_RE_SET', '新房')
-        break;
-      case 'house-list-p':
-        await store.commit('app/TITLE_SET', '新房')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'info-list-p':
-        await store.commit('app/TITLE_SET', '资讯')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'info-id':
-        await store.commit('app/TITLE_SET', '资讯')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'calculator-home':
-        await store.commit('app/TITLE_SET', '房贷计算器')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'calculator-result':
-        await store.commit('app/TITLE_SET', '房贷计算器')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'house-id':
-          await store.commit('app/TITLE_SET', '房匠新房')
-          await store.commit('app/URL_SET', '')
-          break;
-      case 'house-infomation-id':
-        await store.commit('app/TITLE_SET', '新房详情信息')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'discuss-list': 
-        await store.commit('app/TITLE_SET', '新房问答')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'discuss-id': 
-        await store.commit('app/TITLE_SET', '新房问答详情')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'dynamic-list': 
-        await store.commit('app/TITLE_SET', '新房动态')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'about': 
-        await store.commit('app/TITLE_SET', '关于我们')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'about-joinUs': 
-        await store.commit('app/TITLE_SET', '加入我们')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'video': 
-        await store.commit('app/TITLE_SET', '视频')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'video-list': 
-        await store.commit('app/TITLE_SET', '视频列表')
-        await store.commit('app/URL_SET', '')
-        break;
-      case 'video-id': 
-        await store.commit('app/TITLE_SET', '视频')
-        await store.commit('app/URL_SET', '')
-        break;
-      default:
-        await store.commit('app/BREADCRUMB_RE_SET')
-        await store.commit('app/URL_SET', '')
-    }
   }
 }
