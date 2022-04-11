@@ -18,6 +18,7 @@ export default {
     'render:route': (_url, result) => {
       result.html = result.html.replace(/data-n-head="[^"]*"/gi, '');
       result.html = result.html.replace(/data-hid="[^"]*"/gi, '');
+      result.html = result.html.replace(/<!--[\w-]*-->/gi, '');
     }
   },
 
