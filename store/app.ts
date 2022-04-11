@@ -23,6 +23,7 @@ const state = ():AppState =>({
   tokenType: '',
   nickName: '',
   avatar: '',
+  isMobile: false,
 })
 
 const back = ():LoginBack => ({
@@ -135,6 +136,9 @@ const mutations = {
   },
   URL_SET(state: AppState, url: string):void {
     state.url = url;
+  },
+  IS_MOBILE(state: AppState, isMobile: boolean):void {
+    state.isMobile = isMobile;
   }
 }
 

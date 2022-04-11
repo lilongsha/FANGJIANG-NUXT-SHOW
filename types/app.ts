@@ -33,6 +33,7 @@ export interface AppState {
   tokenType?: string,
   nickName?: string,
   avatar?: string,
+  isMobile?: boolean,
 }
 
 export interface LoginBack {
