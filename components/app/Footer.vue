@@ -31,6 +31,8 @@
             <a href="/about/joinUs?type=2" class="text-white" target="_blank">招商加盟</a>
             <span>|</span>
             <a href="/about/joinUs?type=1" class="text-white" target="_blank">诚聘英才</a>
+            <span>|</span>
+            <a href="https://www.fangjiang.com/sitemap.xml" class="text-white" target="_blank">网站地图</a>
           </div>
           <div class="flex flex-row items-center justify-center pt-4 space-x-4 text-white">
             <a href="https://beian.miit.gov.cn/" class="text-white" target="_blank" rel="nofollow">冀ICP备19024434号</a>

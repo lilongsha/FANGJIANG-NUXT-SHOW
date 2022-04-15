@@ -6,7 +6,7 @@ const scriptUrl = [
 ];
 let baseURL = 'http://127.0.0.1:9000/';
 if (!dev) {
-  // scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
+  scriptUrl.push({ src: 'https://hm.baidu.com/hm.js?222391924b53f4fafbb13154c93c2adc' });
   baseURL = 'https://api.fangjiang.com/';
 }
 // baseURL = 'https://api.fangjiang.com/';
@@ -85,36 +85,6 @@ export default {
     middleware: ['state']
   },
 
-  // auth: {
-  //   strategies: {
-  //     social: {
-  //       scheme: 'oauth2',
-  //       endpoints: {
-  //         // authorization: Cookies.get('Access_Token') + ' ' + Cookies.get('Token_Type'),
-  //         authorization: '',
-  //         token: Api.Token,
-  //         userInfo: Api.GetCurInfo,
-  //         logout: Api.SignOut
-  //       },
-  //       token: {
-  //         property: 'access_token',
-  //         type: 'Bearer',
-  //         maxAge: 1800
-  //       },
-  //       refreshToken: {
-  //         property: 'refresh_token',
-  //         maxAge: 60 * 60 * 24 * 30
-  //       },
-  //       responseType: 'code',
-  //       grantType: 'password',
-  //       redirectUri: 'http://localhost:3000',
-  //       scope: ['all'],
-  //       clientId: 'wxca0366e35f20f36a',
-  //       logoutRedirectUri: 'http://localhost:3000',
-  //     }
-  //   }
-  // },
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL, // Used as fallback if no runtime config is provided
@@ -127,7 +97,7 @@ export default {
       lang: 'zh-CN',
       name: '房匠网',
       short_name: '房匠',
-      theme_color: '#015eea',
+      theme_color: '#fff',
       description: '房匠网房源多,信息全,价透明,做您买房路上的自己人',
     },
     icon: {
@@ -164,6 +134,6 @@ export default {
     // 打包样式
     extractCSS: true,
     // 设置CDN
-    // publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20220329'
+    publicPath: 'https://fangjiang-saas-prod.oss-cn-beijing.aliyuncs.com/_nuxt20220411'
   }
 }
