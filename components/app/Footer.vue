@@ -23,7 +23,7 @@
       </div>
       <div class="w-full pb-8 bg-black">
         <div class="container w-full h-full mx-auto">
-          <div class="flex flex-row items-center justify-center pt-8 text-white sm:space-x-1 lg:space-x-4">
+          <div class="flex flex-row flex-wrap items-center justify-center pt-8 text-white sm:space-x-1 lg:space-x-4">
             <a href="/about" class="text-white" target="_blank">关于房匠</a>
             <span>|</span>
             <a href="/about/joinUs?type=0" class="text-white" target="_blank">联系我们</a>

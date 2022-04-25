@@ -4,7 +4,7 @@
     <div v-if="!isMobile" class="lg:h-24"></div>
     <AppTitle v-if="house" :house="house" class="-mt-10"/>
     <!-- house menu -->
-    <AppBar v-if="house" :current="'video'" :house="house" :class-name="'menu sticky z-[20] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-0 lg:mt-6 sm:top-0 lg:top-20 text-white'" />
+    <AppBar v-if="house" :current="'video'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[54px] lg:top-20 text-white'" />
     <div class="mx-auto lg:flex lg:flex-row lg:container lg:mt-2 sm:px-4">
       <div class="lg:w-[70%]">
         <div id="top" class="sm:h-60 lg:h-[580px]">
