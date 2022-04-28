@@ -75,6 +75,7 @@
         </div>
         <button v-show="loginType === '1'" class="w-full bg-fjBlue-100  text-center rounded-lg lg:py-2 sm:py-2 lg:text-[25px] sm:text-[20px] text-white shadow" @click="mobileLogin">登录</button>
         <button v-show="loginType === '2'" class="w-full bg-fjBlue-100  text-center rounded-lg lg:py-2 sm:py-2 lg:text-[25px] sm:text-[20px] text-white shadow" @click="clickLogin">登录</button>
+        <button class="w-full text-center text-[#999999] text-[18px] mt-2" @click="rollBack">返回</button>
       </div>
       <!-- sm:hidden -->
       <div v-if="!isMobile" class=" w-full space-x-2 lg:mt-[30px] sm:mt-5 flex flex-row items-center">
@@ -108,6 +109,33 @@ import { Breadcrumb } from '~/types/app';
 export default Vue.extend({
   name:'Login',
   async asyncData({ $axios, route, store }) {
+    Cookies.remove('CityId')
+    Cookies.remove('MessageOk')
+    Cookies.remove('Password')
+    Cookies.remove('AreaId')
+    Cookies.remove('PhoneOk')
+    Cookies.remove('ExpiresIn')
+    Cookies.remove('RealName')
+    Cookies.remove('Avatar')
+    Cookies.remove('UserId')
+    Cookies.remove('Gender')
+    Cookies.remove('State')
+    Cookies.remove('NickName')
+    Cookies.remove('UserName')
+    Cookies.remove('Access_Token')
+    Cookies.remove('Scope')
+    Cookies.remove('RefreshToken')
+    Cookies.remove('ProvinceId')
+    Cookies.remove('Token_Type')
+    await store.commit('app/AccessToken', '')
+    await store.commit('app/ExpiresIn', '')
+    await store.commit('app/RefreshToken', '')
+    await store.commit('app/Scope', [])
+    await store.commit('app/TokenType', '')
+    await store.commit('app/UserId', '')
+    await store.commit('app/Avatar', '')
+    await store.commit('app/NickName', '')
+    await store.commit('app/Gender', '')
     // const userAgent = req?.headers['user-agent'] || '';
     // let isMobile: any;
     // if (/(Android|webOS|iPhone|iPod|tablet|BlackBerry|Mobile)/i.test(userAgent.toLowerCase())) {
@@ -171,6 +199,9 @@ export default Vue.extend({
   },
   mounted() {},
   methods: {
+    rollBack() {
+      this.$router.push(this.path)
+    },
     changeLogin(type: string) {
       this.loginType = type;
     },
