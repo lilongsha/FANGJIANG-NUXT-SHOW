@@ -3,6 +3,12 @@ export enum SearchApi {
     Nhouse = '/customer-server/search/nhouse',
     News = '/customer-server/search/news',
     Videos = '/customer-server/search/videos',
+    Ohouse = '/customer-server/search/ohouse',
+    GetOHouse = 'customer-server/ohouse/p',
+    oNumber = '/customer-server/ohouse/h',
+    AddFavorite = '/customer-server/ohouse/addFavoriteProject',
+    DeleteFavorite = '/customer-server/ohouse/deleteFavorite',
+    SelectFavorite = '/customer-server/ohouse/selectFavorite',
 }
 
 export enum BrandApi {

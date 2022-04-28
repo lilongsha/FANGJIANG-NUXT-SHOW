@@ -7,7 +7,7 @@
         <div class="flex flex-row items-center justify-between px-6">
           <span class="text-[22px]" :class="type === '1' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('1')">全网搜索</span>
           <span class="text-[22px]" :class="type === '2' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('2')">新房</span>
-          <!-- <span class="text-[22px]" :class="type === '3' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('3')">二手房</span> -->
+          <span class="text-[22px]" :class="type === '3' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('3')">二手房</span>
           <span class="text-[22px]" :class="type === '4' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('4')">资讯</span>
           <span class="text-[22px]" :class="type === '5' ? 'text-[#015EEA]' : 'text-[#333333]'" @click="changeType('5')">视频</span>
           <span class="text-[14px] text-[#333333]">大家都在搜:
@@ -18,10 +18,10 @@
           <input v-model="search" class="rounded-l-[4px] w-4/5 h-full border shadow border-fjBlue-100 text-[24px] px-4" type="text">
           <button class="rounded ml-[-6px] w-1/5 h-full text-white border border-fjBlue-100 bg-fjBlue-100 text-[20px]" @click="clickSearch">搜索</button>
           <div v-show="type === '1'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[56px]"></div>
-          <div v-show="type === '2'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[220px]"></div>
-          <div v-show="type === '3'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[300px]"></div>
-          <div v-show="type === '4'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[356px]"></div>
-          <div v-show="type === '5'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[500px]"></div>
+          <div v-show="type === '2'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[198px]"></div>
+          <div v-show="type === '3'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[308px]"></div>
+          <div v-show="type === '4'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[436px]"></div>
+          <div v-show="type === '5'" class="bg-fjBlue-100 w-4 h-4 rotate-45 absolute top-[-8px] z-[-1] left-[542px]"></div>
         </div>
       </div>
     </div>
@@ -159,6 +159,131 @@
             </div>
           </div>
           </div>
+          <!-- 二手小区 -->
+          <div v-if="ohouse && ohouse.length > 0" class="pb-[30px]">
+            <div class="text-[#333333] text-[26px] font-medium mb-4">“{{ searchText }}”相关二手小区</div>
+            <div v-for="item in ohouse" :key="item.id" class="lg:p-4 lg:mb-6 hover:bg-gray-100 border-b border-b-[#DDDDDD]">
+              <a :href="`/ohouse/${item.id}/p1.html`" target="_blank" class="w-full lg:h-[160px] flex flex-row  pb-[30px]">
+                <!-- 左边图片 -->
+                <div class="static w-2/5 lg:h-full">
+                  <img v-if="item.firstImg" :src="item.firstImg" class="object-cover w-full h-full" :alt="item.name" />
+                </div>
+                <!-- 右边内容 -->
+                <div class="w-3/5 h-full lg:pl-6">
+                  <div class="flex flex-row items-center justify-between lg:h-11">
+                    <div class="flex flex-row items-center">
+                    <!-- title -->
+                    <h3 class="h-full mb-0 lg:text-[20px] font-bold text-black hover:text-fjBlue-100">{{ item.name }}</h3>
+                    </div>
+                    <div class="text-right">
+                      <!-- <img src="~/assets/img/list/white.png" alt=""> -->
+                    </div>
+                  </div>
+                  <div class="lg:text-[14px] flex flex-row text-[#999999]">
+                    <span v-if="item.payTime" class="text-gray-400 ">{{ item.payTime.split('T')[0] }}交房</span>
+                    <!-- 开盘时间 -->
+                    <span v-if="item.property" class="mx-2 text-gray-400">|</span>
+                    <span v-if="item.property" class="text-gray-400">{{ item.property }}年</span>
+                  </div>
+                  <!-- 右中内容 -->
+                  <div class="flex flex-row w-full lg:mt-4 text-[#999999]">
+                    <div class=" lg:w-3/5 h-full text-[14px]">
+                      <div class="flex flex-row items-center text-[#999999]">
+                        <span class="flex-shrink-0 overflow-hidden whitespace-nowrap lg:mr-4" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="getAreaAndTrading(item)">[{{ getAreaAndTrading(item) }}]<span class="overflow-hidden whitespace-nowrap" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" :title="item.address">{{ item.address }}</span></span>
+                      </div>
+                      <div v-if="item.beansByLabels && item.beansByLabels.length > 0" class="lg:mt-4">
+                        <span v-for="(item1, index) in item.beansByLabels" :key="index" class="text-[12px] rounded px-2 py-1 mr-4 text-[#015EEA] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
+                      </div>
+                    </div>
+                    <div class="lg:w-2/5 text-[14px] text-right">
+                      <div class=" float-right text-center text-white rounded-full bg-fjBlue-100 py-1 w-[120px]">查看所有房源</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="flex flex-row justify-center w-full text-fjBlue-100" @click="clickBottom(item.id)"><span  v-if="isMore" class="mr-2">展开</span><span  v-else class="mr-2">合并</span><img src="~/assets/img/down.png" :class="isMore? '' :'rotate-180'" width="20" alt=""></div>
+               <!-- 二手房源 -->
+              <div v-if="onumber && onumber.length > 0 && onumber[0].projectId === item.id" class="">
+                <div v-for="item in onumber" :key="item.id" class="lg:py-4 lg:mb-6 hover:bg-gray-100 border-t border-t-[#DDDDDD] mt-4">
+                  <a :href="`/ohouse/onumber/${item.id}.html`" target="_blank" class="w-full lg:h-[200px] flex flex-row">
+                    <!-- 左边图片 -->
+                    <div class="static w-2/5 lg:h-full">
+                      <div v-if="item.resources">
+                        <div v-for="item1 in item.resources" :key="item1">
+                          <img v-if="item1.sort === '1'" :src="item1.address" class="object-cover w-full h-[200px]" :alt="item1.title" />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 右边内容 -->
+                    <div class="w-3/5 h-full lg:pl-6">
+                      <div class="flex flex-row items-center justify-between lg:h-11">
+                        <div class="flex flex-row items-center">
+                        <!-- title -->
+                        <h3 class="h-full mb-0 lg:text-[20px] font-bold text-black hover:text-fjBlue-100">{{ item.title }}</h3>
+                        </div>
+                        <div class="text-right" @click.stop="stopA">
+                          <img src="~/assets/img/list/white.png" alt="" @click="addFav(item.id)">
+                        </div>
+                      </div>
+                      <div class="lg:text-[14px] flex flex-row text-[#999999] lg:mt-3 items-center">
+                        <a-icon type="home" theme="twoTone" class="mr-2" />
+                        <!-- 小区名 -->
+                        <span>{{ item.name }}</span>
+                        <!-- 类型 -->
+                        <HouseTypeLabel :sort="item.type" :class-name="''" />
+                        <!-- 面积 -->
+                        <span v-if="item.area" class="mx-2 ">|</span>
+                        <span class="">{{ item.area }}</span><span v-if="item.area">㎡</span>
+                        <!-- 朝向 -->
+                        <span v-if="item.orientation" class="mx-2 ">|</span>
+                        <span v-if="item.orientation === '1'">南</span>
+                        <span v-if="item.orientation === '2'">北</span>
+                        <span v-if="item.orientation === '3'">东</span>
+                        <span v-if="item.orientation === '4'">西</span>
+                        <!-- 装修 -->
+                        <span v-if="item.renovation" class="mx-2 ">|</span>
+                        <span v-if="item.renovation === '1'">毛坯</span>
+                        <span v-if="item.renovation === '2'">普通装修</span>
+                        <span v-if="item.renovation === '3'">精装</span>
+                        <span v-if="item.renovation === '4'">豪装</span>
+                      </div>
+                      <div v-if="item.floorType" class=" lg:mt-4 flex flex-row items-center text-[#999999]">
+                        <svg t="1650695164653" class="mr-2 icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2407" width="16" height="16"><path d="M23.489939 979.006061v-149.969455h236.140606V678.94303h236.264728v-149.752242h236.978424V379.810909h236.606061v599.257212z" p-id="2408" fill="#3485FF"></path><path d="M40.773818 979.006061v-131.537455-18.525091l-17.283879 17.283879h236.140606c9.340121 0 17.283879-7.974788 17.283879-17.283879V697.250909v-18.556121l-17.252848 17.283879h236.233697c9.340121 0 17.283879-7.943758 17.283879-17.283879v-131.10303-18.649213l-17.283879 17.283879h236.854303c9.309091 0 17.283879-7.943758 17.283879-17.283879v-130.761697-18.52509l-17.283879 17.283878H969.355636l-17.283878-17.283878V954.492121c0 7.726545-0.465455 15.670303 0 23.396849v1.024l17.283878-17.283879H61.967515c-12.194909 0-24.513939-0.217212-36.739879 0H23.614061c-8.998788 0-17.749333 7.943758-17.283879 17.283879 0.465455 9.309091 7.602424 17.283879 17.283879 17.283878H931.002182c12.194909 0 24.513939 0.217212 36.739879 0h1.613575c9.309091 0 17.283879-7.943758 17.283879-17.283878v-60.012606-142.832485-173.149091-149.628121c0-24.203636 0.682667-48.407273 0-72.579879v-1.024c0-9.340121-7.943758-17.283879-17.283879-17.283879H732.749576c-9.309091 0-17.283879 7.943758-17.283879 17.283879v149.286788l17.283879-17.283879H495.864242c-9.309091 0-17.252848 7.943758-17.252848 17.283879V678.725818l17.252848-17.283879H259.661576c-9.340121 0-17.283879 7.943758-17.283879 17.283879v150.217697c5.740606-5.771636 11.481212-11.543273 17.283879-17.283879H23.52097c-9.340121 0-17.314909 7.943758-17.314909 17.283879v150.093576c0 8.998788 7.974788 17.749333 17.283878 17.283879 9.464242-0.465455 17.283879-7.602424 17.283879-17.283879zM832.387879 3.227152c-8.285091 5.182061-16.446061 10.488242-24.762182 15.670303-22.341818 14.056727-44.590545 28.237576-66.932364 42.263272l-97.900606 61.967515-117.977212 74.65891-126.913939 80.275393c-41.580606 26.375758-83.192242 52.658424-124.89697 79.034182-37.205333 23.614061-74.410667 47.104-111.616 70.749091l-87.443394 55.26497c-17.37697 11.077818-34.753939 22.031515-52.161939 33.078303-3.10303 1.954909-6.361212 3.909818-9.340121 5.988848-1.024 0.682667-1.396364 1.024-2.792728 2.079031-7.447273 5.740606-9.060848 13.808485-9.060848 22.55903v55.544242c0 12.101818 10.581333 23.58303 23.024485 23.024485 12.412121-0.589576 23.024485-10.146909 23.024484-23.024485v-59.888484l-11.388121 19.890424 21.876364-13.808485c19.952485-12.567273 39.749818-25.227636 59.671273-37.794909 29.385697-18.649212 58.864485-37.205333 88.250181-55.854546 35.933091-22.683152 71.773091-45.490424 107.675152-68.204606l117.977212-74.627878 119.125333-75.341576 111.026425-70.283637 93.897697-59.42303c22.465939-14.273939 45.02497-28.454788 67.490909-42.759757 10.612364-6.671515 21.410909-13.34303 31.930182-20.262788a8.595394 8.595394 0 0 1 1.365333-0.806788c10.146909-6.454303 15.204848-20.852364 8.316121-31.557818-6.454303-10.24-20.51103-15.204848-31.464727-8.409212z" p-id="2409" fill="#3485FF"></path><path d="M111.709091 472.653576v356.38303c0 12.101818 10.612364 23.614061 23.055515 23.055515 12.443152-0.589576 23.055515-10.146909 23.055515-23.055515v-121.049212-191.45697-43.876848c0-12.101818-10.612364-23.614061-23.055515-23.055515-12.536242 0.589576-23.024485 10.146909-23.024485 23.055515zM347.756606 322.52897V678.94303c0 12.101818 10.612364 23.614061 23.055515 23.055515 12.412121-0.589576 23.024485-10.146909 23.024485-23.055515V557.924848v-191.456969-43.907879c0-12.101818-10.581333-23.58303-23.024485-23.024485-12.443152 0.465455-23.055515 10.022788-23.055515 23.024485zM584.021333 172.776727V529.190788c0 12.101818 10.612364 23.614061 23.055515 23.055515 12.412121-0.589576 23.024485-10.146909 23.024485-23.055515v-121.049212-191.45697-43.907879c0-12.101818-10.581333-23.58303-23.024485-23.024485-12.443152 0.465455-23.055515 10.022788-23.055515 23.024485zM867.048727 379.810909V258.699636v-191.456969V23.396848l-23.024485 23.024485h125.331394c12.101818 0 23.614061-10.581333 23.024485-23.024485-0.558545-12.443152-10.115879-23.055515-23.024485-23.055515H844.024242c-12.412121 0-23.024485 10.612364-23.024484 23.055515v356.383031c0 12.101818 10.581333 23.614061 23.024484 23.055515 12.412121-0.589576 23.024485-10.146909 23.024485-23.055515z" p-id="2410" fill="#3485FF"></path></svg>
+                        <span v-if="item.floorType === '1'">低层</span>
+                        <span v-if="item.floorType === '2'">中层</span>
+                        <span v-if="item.floorType === '3'">高层</span>
+                        <span v-if="item.floor">({{ item.floor }})</span>
+                      </div>
+                      <!-- 右中内容 -->
+                      <div class="flex flex-row w-full text-[#999999]">
+                        <div class=" lg:w-3/5 h-full text-[14px]">
+                          <div class="text-[14px] lg:mt-3 flex flex-row items-center">
+                            <a-icon type="clock-circle" theme="twoTone" class="mr-2" />
+                            <span>{{ item.createTime.split('.000+08:00')[0].split('T').toString() }}</span>
+                          </div>
+                          <div v-if="item.beansByLabels && item.beansByLabels.length > 0" class="lg:mt-4">
+                            <span v-for="(item1, index) in item.beansByLabels" :key="index" class="text-[14px] rounded px-2 py-1 mr-4 text-[#3485ff] opacity-50 bg-opacity-50 bg-[#98C1FF]">{{ item1.value }}</span>
+                          </div>
+                        </div>
+                        <div class="lg:w-2/5 text-[14px] text-right">
+                          <div class="w-full">
+                            <span class="text-[24px] text-fjRed-100 font-semibold">{{ item.price }}</span>
+                            <span v-if="item.price">万元</span>
+                          </div>
+                          <div v-if="item.downPayments" class="w-full text-[14px]">
+                            <span>首付：</span>
+                            <span>{{ item.downPayments }}万元</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="flex flex-row items-center justify-center text-center text-fjBlue-100" @click="canMore"><div class="rotate-90">&lt;&lt;</div><span>收起</span></div>
+              </div>
+            </div>
+          </div>
+          
           <!-- 资讯 -->
           <div v-if="news && news.length > 0" class="border-b border-b-[#DDDDDD] pb-12 mb-12">
             <div class="text-[#333333] text-[26px] font-medium mb-4">“{{ searchText }}”相关资讯</div>
@@ -245,11 +370,14 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { message } from 'ant-design-vue';
 import { SearchApi } from '~/api/search/searchApi'
 import { phoneNum } from '~/api/model/houseModel'
 export default Vue.extend({
     name: 'PcSearch',
     asyncData({ store }) {
+      const accessToken = store.state.app.accessToken;
+      const tokenType = store.state.app.tokenType
       const isMobile = store.state.app.isMobile;
       const cityId = store.state.app.cityId;
       return {
@@ -257,11 +385,15 @@ export default Vue.extend({
         cityId,
         search: '',
         isMobile,
+        accessToken,
+        tokenType,
       }
     },
     data() {
       let isMobile: any;
       return {
+        tokenType: '',
+        accessToken: '',
         isMobile,
         type: '1',
         length: 0,
@@ -269,10 +401,13 @@ export default Vue.extend({
         cityId: '',
         brands: [],
         houses: [],
+        ohouse: [],
         videos: [],
         news: [],
         phoneNum,
         searchText: '',
+        onumber: [],
+        isMore: true,
       }
     },
     computed:{
@@ -282,6 +417,80 @@ export default Vue.extend({
       }
     },
     methods: {
+      async addFav(id: string) {
+        if (this.tokenType && this.accessToken) {
+            this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
+          }
+        const param = {
+          data: {
+            houseId: id,
+          }
+        }
+        const result = await this.$axios.$post(SearchApi.AddFavorite, param);
+        if (result.code === 200) {
+          message.success('关注成功', 3);
+        } else {
+          message.error('关注失败', 3);
+        }
+        this.$axios.setHeader('Authorization', '')
+      },
+      async delFav(id: string) {
+        if (this.tokenType && this.accessToken) {
+            this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
+          }
+        const param = {
+          data: {
+            houseId: id,
+          }
+        }
+        const result = await this.$axios.$post(SearchApi.DeleteFavorite, param);
+        if (result.code === 200) {
+          message.success('已成功取消关注', 3);
+        } else {
+          message.error('取消失败', 3);
+        }
+        this.$axios.setHeader('Authorization', '')
+      },
+      canMore() {
+        this.onumber.splice(0);
+        this.isMore = true;
+      },
+      async clickBottom (id: string) {
+        this.$nuxt.$loading.start()
+        if (this.isMore) {
+          this.isMore = false;
+          const oparam = {
+            data: {
+              projectId: id
+            },
+            page: {
+              pageNum: 0,
+              pageSize: 5
+            }
+          }
+          if (this.tokenType && this.accessToken) {
+            this.$axios.setHeader('Authorization', this.tokenType + ' ' + this.accessToken)
+          }
+          const numberResult = await this.$axios.$post(SearchApi.oNumber, oparam)
+          if (numberResult?.code === 200) {
+            this.onumber = numberResult.data?.content;
+          }
+          this.$axios.setHeader('Authorization', '');
+        } else {
+          this.onumber.splice(0);
+          this.isMore = true;
+        }
+        
+        this.$nuxt.$loading.finish();
+      },
+      stopA() {
+        // 阻止冒泡
+        const evt =  window.event;
+        if (evt && evt.preventDefault) {
+          evt.preventDefault();
+          evt.stopPropagation ? evt.stopPropagation() : (evt.cancelBubble = true);
+        }
+      },
       getAreaAndTrading(item: any) {
         let result: string = '';
         if (item?.sysAreaByAreaId?.name) {
@@ -408,7 +617,19 @@ export default Vue.extend({
             this.brands.splice(0);
             this.videos.splice(0);
             this.news.splice(0);
+            this.ohouse.splice(0);
+            this.onumber.splice(0);
           }
+        } else if (this.type === '3') {
+          result = await this.$axios.$post(SearchApi.Ohouse, param)
+          if (result?.code === 200) {
+            this.ohouse = result.data?.content;
+            this.brands.splice(0);
+            this.houses.splice(0);
+            this.videos.splice(0);
+            this.news.splice(0);
+          }
+          this.length = result?.data?.page.totalElements;
         } else if (this.type === '4') {
           result = await this.$axios.$post(SearchApi.News, param)
           if (result?.code === 200) {
@@ -417,6 +638,7 @@ export default Vue.extend({
             this.brands.splice(0);
             this.houses.splice(0);
             this.videos.splice(0);
+            this.ohouse.splice(0);
           }
         } else if (this.type === '5') {
           result = await this.$axios.$post(SearchApi.Videos, param)
@@ -426,16 +648,19 @@ export default Vue.extend({
             this.brands.splice(0);
             this.houses.splice(0);
             this.news.splice(0);
+            this.ohouse.splice(0);
           }
         } else {
           result = await this.$axios.$post(SearchApi.All, param)
           if (result?.code === 200) {
             const b = result.data?.brands?.content?.length || 0
-            this.length = b + result.data?.houses1.page.totalElements + result.data?.news.page.totalElements + result.data?.videos.page.totalElements; 
+            this.length = b + result.data?.houses1.page.totalElements + result.data?.news.page.totalElements + result.data?.videos.page.totalElements + result.data?.house2.page.totalElements; 
             this.brands = result.data?.brands.content;
             this.houses = result.data?.houses1.content;
             this.news = result.data?.news.content;
             this.videos = result.data?.videos.content;
+            this.ohouse = result.data?.house2.content;
+            console.log('ohouse:', this.ohouse)
           }
         }
         this.$nuxt.$loading.finish();

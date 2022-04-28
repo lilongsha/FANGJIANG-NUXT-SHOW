@@ -558,8 +558,8 @@ export default Vue.extend({
     }
     const getSales = async () => {
       const result = await $axios.$post(SaleApi.TopCity, saleParam);
-      if (result.data.content && result.data.content.length > 0) {
-        sale.push(...result.data.content);
+      if (result?.data?.content && result?.data?.content.length > 0) {
+        sale.push(...result?.data.content);
       }
     }
     // banner
