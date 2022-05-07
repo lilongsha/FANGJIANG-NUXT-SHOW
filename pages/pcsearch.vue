@@ -270,10 +270,10 @@
                             <span class="text-[24px] text-fjRed-100 font-semibold">{{ item.price }}</span>
                             <span v-if="item.price">万元</span>
                           </div>
-                          <div v-if="item.downPayments" class="w-full text-[14px]">
+                          <!-- <div v-if="item.downPayments" class="w-full text-[14px]">
                             <span>首付：</span>
                             <span>{{ item.downPayments }}万元</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>

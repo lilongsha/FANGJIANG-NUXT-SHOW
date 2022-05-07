@@ -95,6 +95,32 @@ export enum Api {
 
 export const phoneNum: string = '400-750-8888'
 
+// 楼层类型
+export const floorTypeList: any[] = [
+  { title: '不限' },
+  { title: '低层' },
+  { title: '中层' },
+  { title: '高层' },
+]
+// 
+export const hallType: any[] = [
+  { title: '不限' },
+  { title: '1厅' },
+  { title: '2厅' },
+  { title: '3厅' },
+  { title: '4厅' },
+  { title: '5厅' },
+  { title: '5+厅' },
+]
+export const toiletType: any[] = [
+  { title: '不限' },
+  { title: '1卫' },
+  { title: '2卫' },
+  { title: '3卫' },
+  { title: '4卫' },
+  { title: '5卫' },
+  { title: '5+卫' },
+]
 // 单价
 export const priceList: any[] = [
   {title: '不限', lowPrice: null, highPrice: null},
