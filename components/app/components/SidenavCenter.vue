@@ -33,6 +33,7 @@
     <div class="flex flex-row items-center pl-4 space-x-6 text-xl" :class="getIsHome? 'text-white': 'text-black'">
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/" target="_blank">首页</a>
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/house/list" target="_blank">新房</a>
+      <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/ohouse/list" target="_blank">二手房</a>
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/video" target="_blank">视频</a>
       <a :class="getIsHome? 'fj-href': 'fj-href-'" href="/info/list" target="_blank">资讯</a>
       <a ref="nofollow"  :class="getIsHome? 'fj-href': 'fj-href-'" href="/pcsearch"  target="_blank">搜索</a>

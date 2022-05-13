@@ -267,8 +267,8 @@
                         </div>
                         <div class="lg:w-2/5 text-[14px] text-right">
                           <div class="w-full">
-                            <span class="text-[24px] text-fjRed-100 font-semibold">{{ item.price }}</span>
-                            <span v-if="item.price">万元</span>
+                            <span class="text-[24px] text-fjRed-100 font-semibold">{{ item.totalPrice }}</span>
+                            <span v-if="item.totalPrice">万元</span>
                           </div>
                           <!-- <div v-if="item.downPayments" class="w-full text-[14px]">
                             <span>首付：</span>
