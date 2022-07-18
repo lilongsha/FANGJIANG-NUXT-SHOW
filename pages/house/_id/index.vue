@@ -7,7 +7,16 @@
         <!-- name and title -->
         <AppTitle :house="house" :favorite="favorite" />
         <!-- house menu -->
-        <AppBar :current="'house'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" />
+        <div ref="menu" class="menu sticky z-[45] flex flex-row overflow-x-auto overflow-y-hidden w-full sm:h-10 lg:h-16 bg-coolGray-200 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-black">
+          <div v-for="(item, index) in houseMenu" :key="index" :class="{ 'menu-ing' : topFlag == item.value }" class="flex-shrink-0 sm:w-1/5 lg:w-32 h-full sm:leading-10 lg:leading-[64px] text-center align-middle sm:text-sm lg:text-xl transition-all" @click="go(item.value)">{{ item.title }}</div>
+          <a class="sm:hidden" :href="`tel:${phoneNum},${house.number}%23`">
+            <div class="sm:hidden absolute right-0 h-full text-lg text-fjBlue-100 font-bold leading-[64px] align-middle pr-4 flex flex-row items-center">
+              <img src="~/assets/img/index/phone.png" alt="" class="w-[24px] h-[28px] mr-2 sm:hidden">
+              {{ phoneNum }} 转 {{ house.number }}
+            </div>
+          </a>
+        </div>
+        <!-- <AppBar :current="'house'" :house="house" :class-name="'menu sticky z-[45] flex flex-row flex-shrink-0 w-full sm:h-10 lg:h-16 bg-fjBlue-100 sm:mt-4 lg:mt-6 sm:top-[95px] lg:top-[118px] text-white'" /> -->
         <!-- carousel -->
         <div class="flex flex-row sm:w-screen sm:overflow-hidden lg:w-full mt-8 sm:h-80 lg:h-[547px]">
           <!-- Carousel w-1280-567 -->
@@ -31,7 +40,7 @@
               <!-- <div class="absolute left-0 z-10 flex flex-row items-center justify-center w-6 h-full bg-black bg-opacity-40" @click="scrollLeft">
                 <svg class="w-5 h-5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1389" width="128" height="128"><path d="M727.272727 978.385455a34.629818 34.629818 0 0 1-24.669091-10.24l-430.545454-430.545455a34.909091 34.909091 0 0 1 0-49.338182l430.545454-430.545454a34.909091 34.909091 0 1 1 49.384728 49.384727l-405.876364 405.829818 405.876364 405.829818a34.909091 34.909091 0 0 1-24.715637 59.624728z" p-id="1390" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff"></path></svg>
               </div> -->
-              <div ref="sortScroll" class=" relative grid h-full grid-flow-col space-x-2 text-white overflow-x-auto overflow-y-hidden">
+              <div ref="sortScroll" class="relative grid h-full grid-flow-col space-x-2 overflow-x-auto overflow-y-hidden text-white ">
                 <div v-for="(item, index) in resourceSortList" :key="index" class="static w-24 h-full" @click="getResourceList(item.sort)">
                   <img :src="item.address" :alt="resourceSort[item.sort].title" width="100%" height="100%" class="object-cover w-full h-full">
                   <span class="absolute bottom-0 w-24 text-center bg-black bg-opacity-60">{{ resourceSort[item.sort].title }}</span>
@@ -196,7 +205,7 @@
             <div class="w-full overflow-hidden sm:h-55">
               <div v-if="house.hLayoutsById.length > 0" class="w-full h-full overflow-hidden">
                 <div  class="flex flex-row justify-start h-full p-2 text-white lg:flex-wrap sm:overflow-x-scroll " :class="isMore? 'lg:h-auto' : 'lg:h-[440px]'">
-                  <div v-for="(item,index) in house.hLayoutsById" v-show="(showDefaultLayout === '' || item.room == showDefaultLayout) && item.saleState === '1'" :key="index" class="h-full mb-4 lg:mr-6 overflow-hidden transition-all shadow sm:flex-shrink-0 sm:mr-4 sm:w-48 lg:w-72">
+                  <div v-for="(item,index) in house.hLayoutsById" v-show="(showDefaultLayout === '' || item.room == showDefaultLayout) && item.saleState === '1'" :key="index" class="h-full mb-4 overflow-hidden transition-all shadow lg:mr-6 sm:flex-shrink-0 sm:mr-4 sm:w-48 lg:w-72">
                     <div class="overflow-hidden sm:h-32 lg:h-80">
                       <img v-if="item.hResourceByResourceId" :src="item.hResourceByResourceId.address" :alt="item.hResourceByResourceId.description" class="object-cover w-full h-full overflow-hidden transition-all duration-700 hover:scale-125">
                     </div>
@@ -247,7 +256,46 @@
         <!-- 测试右侧sticky -->
         <div class="lg:flex lg:flex-row">
           <div class="lg:w-3/4">
-                <!-- house advantage -->
+            <!-- information -->
+            <div id="mation" ref="mation" class="content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100 relative">
+                <!-- 标题内容 -->
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}详情信息 </h2>
+                <!-- 全部 -->
+                <a :href="`/house/infomation/${house.id}`" target="_blank" class="absolute right-0">
+                  <div class="text-sm text-gray-500">更多></div>
+                </a>
+              </div>
+              <!-- content -->
+              <div>
+                <div class="flex sm:flex-col lg:flex-row lg:justify-between">
+                  <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
+                    <div>占地面积：<span v-if="house.landArea">{{ house.landArea }}㎡</span><span v-else>暂无数据</span></div>
+                    <div>拿地时间：<span v-if="house.getLandTime" class="">{{ house.getLandTime.split('T')[0] }}</span><span v-else>暂无数据</span></div>
+                    <div>容&nbsp;&nbsp;积&nbsp;&nbsp;率：<span v-if="house.volumeRate" class="">{{house. volumeRate }}</span><span v-else>暂无数据</span></div>
+                    <div>停&nbsp;&nbsp;车&nbsp;&nbsp;位：<span v-if="house.parking" class="">{{ house.parking }}</span><span v-else>暂无数据</span></div>
+                    <div>总&nbsp;&nbsp;户&nbsp;&nbsp;数：<span v-if="house.houseTotal" class="">{{ house.houseTotal }}户</span><span v-else>暂无数据</span></div>
+                    <div>物&nbsp;&nbsp;业&nbsp;&nbsp;费：<span v-if="house.estatePrice" class="">{{ house.estatePrice }}元/㎡</span><span v-else>暂无数据</span></div>
+                  </div>
+                  <div class="pt-2 space-y-2 sm:w-full lg:w-1/2">
+                    <div>建筑面积：<span v-if="house.buildArea" class="">{{ house.buildArea }}㎡</span><span v-else>暂无数据</span></div>
+                    <div>绿&nbsp;&nbsp;化&nbsp;&nbsp;率：<span v-if="house.greenRate" class="">{{ house.greenRate }}%</span><span v-else>暂无数据</span></div>
+                    <div>楼栋总数：<span v-if="house.buildingTotal" class="">{{ house.buildingTotal }}栋</span><span v-else>暂无数据</span></div>
+                    <div>物业公司：<span v-if="house.estateCompanyById" class=""><a target="_blank" :href="house.estateCompanyById.link">{{ house.estateCompanyById.name }}</a></span><span v-else>暂无数据</span></div>
+                    <div>物业费说明：<span v-if="house.estateDescription" class="">{{ house.estateDescription }}</span><span v-else>暂无数据</span></div>
+                  </div>
+                </div>
+                <div class="py-2 space-y-4">
+                  <p class="w-full">交通配套：<span v-if="house.trafficInfo" class="text-gray-400">{{ house.trafficInfo }}</span><span v-else>暂无数据</span></p>
+                  <p class="w-full">医疗配套：<span v-if="house.medicalInfo" class="text-gray-400">{{ house.medicalInfo }}</span><span v-else>暂无数据</span></p>
+                  <p class="w-full">商业配套：<span v-if="house.matchingInfo" class="text-gray-400">{{ house.matchingInfo }}</span><span v-else>暂无数据</span></p>
+                  <p class="w-full">教育配套：<span v-if="house.educationInfo" class="text-gray-400">{{ house.educationInfo }}</span><span v-else>暂无数据</span></p>
+                  <p class="w-full">其它配套：<span v-if="house.otherInfo" class="text-gray-400">{{ house.otherInfo }}</span><span v-else>暂无数据</span></p>
+                </div>
+              </div>
+            </div>
+            <!-- house advantage -->
             <div class="content-1 sm:px-2">
               <!-- h-36px -->
               <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
@@ -302,7 +350,7 @@
               <ClueButtonClue :name="'新动态通知我'" @clickButton="openClue('7')"/>
             </div>
             <!-- house question -->
-            <div id="question" ref="question" class="content-1 sm:px-2">
+            <div id="discuss" ref="discuss" class="content-1 sm:px-2">
               <!-- h-36px -->
               <div class="flex flex-row items-center justify-between w-full h-m border-b-[1px] border-fjBlue-100">
                 <!-- 标题内容 -->
@@ -455,10 +503,37 @@
                 <line-echart :option="option" />
               </div>
               <ClueButtonClue :name="'价格波动通知我'" @clickButton="openClue('2')"/>
-            </div>      
+            </div>
+            <!-- video -->
+            <div id="video" ref="video" class="content-1 sm:px-2">
+              <!-- h-36px -->
+              <div class="flex flex-row items-end justify-start w-full h-m border-b-[1px] border-fjBlue-100 relative">
+                <!-- 标题内容 -->
+                <h2 class="font font-bold border-b-[6px] border-fjBlue-100">{{ house.name }}相关视频 </h2>
+                <!-- 全部 -->
+                <a :href="`/video/project/${house.id}`" target="_blank" class="absolute right-0">
+                  <div class="text-sm text-gray-500">更多></div>
+                </a>
+              </div>
+              <!-- content -->
+              <div>
+                <div v-if="videoList.length > 0" class="video">
+                  <div v-for="(item, index) in videoList" v-show="index < 3" :key="item.id" class="item group">
+                    <a :href="`/video/${item.id}.html`">
+                      <div class="justify-center h-10 transition-all lg:group-hover:justify-start lg:group-hover:pt-4 lg:group-hover:space-y-2 lg:group-hover:h-full">
+                        <h3 class="text-[18px] text-white" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
+                        <p class="hidden transition-all text-[12px] lg:group-hover:block">{{ item.description }}</p>
+                      </div>
+                      <img src="~/assets/img/video/play.png" class="play lg:group-hover:hidden"/>
+                      <img :src="item.photoAddress">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>   
           </div>
           <div class="lg:w-1/4">
-            <div id="news" class="bg-[#f6f9fe] lg:p-2 lg:sticky sm:px-2 lg:z-[19] lg:float-right sm:w-full lg:w-full m2-8 lg:transition-all lg:top-44">
+            <div id="info" ref="info" class="bg-[#f6f9fe] lg:p-2 lg:sticky sm:px-2 lg:z-[19] lg:float-right sm:w-full lg:w-full m2-8 lg:transition-all lg:top-44">
                 <!-- title -->
               <div class="flex flex-row items-center justify-between w-full sm:h-6 lg:h-[36px] border-b-[1px] border-fjBlue-100">
                 <h2 class="sm:text-sm lg:text-xl font-bold border-b-[6px] border-fjBlue-100">资讯</h2>
@@ -466,7 +541,7 @@
               <!-- content -->
               <div class="w-full pt-1 space-y-2 sm:px-2">
                 <div v-for="(item,index) in newsList" :key="index">
-                  <a :href="`/info/${item.id}.html`" target="_blank" class="text-black sm:text-sm hover:text-fjBlue-100">{{ item.title }}</a>
+                  <a :href="`/info/${item.id}.html`" target="_blank" class="text-black sm:text-sm hover:text-fjBlue-100"  style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</a>
                 </div>
               </div>
               <!-- ad -->
@@ -493,10 +568,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Api as HouseApi, houseMenu, phoneNum, buildType } from '~/api/model/houseModel';
+import { Api as HouseApi, houseMenuMain as houseMenu, phoneNum, buildType } from '~/api/model/houseModel';
 import { Api as ResourceApi, resourceSort } from '~/api/model/resourceModel';
 import { Api as DynamicApi, sort as DynamicSort } from '~/api/model/dynamicModel';
 import { Api as NewsApi } from '~/api/model/newsModel';
+import { Api as VideoApi } from '@/api/model/videoModel';
 import { getQuestions } from '~/api/model/questionModel';
 import { getDataResult, getPageResult } from '~/utils/response/util';
 import MapLoader from '~/plugins/loadMap';
@@ -513,13 +589,43 @@ export default Vue.extend({
     LineEchart,
     RecomendHouse,
   },
-  async asyncData ({ $axios, params, store, redirect, route }) {
+  async asyncData ({ $axios, params, store, redirect, route, query }) {
     const start = new Date().getTime();
+
+    const flag = 'layout';
+    let topFlag = '';
+    if (query && query.topFlag && String(query.topFlag)) {
+      topFlag = String(query.topFlag) || flag || 'layout';
+      const el = document.getElementById(topFlag);
+      if (el){
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      
+    }
 
     let id = params.id;
     if (id.endsWith('.html')) {
       id = id.split('.')[0];
     }
+
+    let videoList;
+    const getVideo = async () => {
+      const result = await $axios.$post(VideoApi.ByProject, { data: { id }})
+      if (result?.code === 200 && result.data.content) {
+        videoList = getDataResult(result);
+        let max;
+        if (videoList) {
+          for (let i = 0; i< videoList.length; i++) {
+            if ((videoList[i + 1]?.createTime || '') > (videoList[i]?.createTime || '')) {
+              max = videoList[i + 1];
+              videoList[i+1] = videoList[i]
+              videoList[i] = max
+            }
+          }
+        }
+      }
+    }
+
     let activities;
     const getActivity = async () => {
       // 获取楼盘相关活动
@@ -602,6 +708,7 @@ export default Vue.extend({
         getEduInfo(),
         getHouse(),
         getMatch(),
+        getVideo(),
       ])
     }
 
@@ -806,10 +913,11 @@ export default Vue.extend({
     // eslint-disable-next-line no-console
     console.log("新房详情首页调用接口使用时间：", end - start)
 
-    return { accessToken, tokenType, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
+    return { videoList,topFlag, flag, accessToken, tokenType, activities, lookTime, cityId, clueType, opening, id, house, resourceSortList, dynamicList, totalDynamic, newsList, totalNews, resourceList, showSort, questionList, 
 questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, trafficArray, eduArray, houseArray, matchArray, aroundType: '' }
   },
   data () {
+    const videoList: any[] = [];
     const aMap: any = {};
     const markers: any[] = [];
     const flag: string = 'layout';
@@ -845,6 +953,7 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     let matchArray: any;
 
     return{
+      videoList,
       aMap,
       markers,
       medicArray,
@@ -956,7 +1065,7 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     }
   },
   watch: {
-    // flag() {this.topFlag = this.flag || 'layout'},
+    flag() {this.topFlag = this.flag || 'layout'},
     topFlag() {},
     aroundType() {
       const that = this;
@@ -978,12 +1087,12 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
     },
   },
   mounted() {
-    // if (this.topFlag) {
-    //   this.go(this.topFlag);
-    // }
+    if (this.topFlag) {
+      this.go(this.topFlag);
+    }
     
     
-    // window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
     MapLoader().then(AMap => {
       this.aMap = AMap;
       this.map = new AMap.Map("aroundMap", {
@@ -1229,33 +1338,41 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
       const anchor:any = this.$el.querySelector('#' + el)
       anchor.scrollIntoView({ behavior: 'smooth' })
     },
-    // handleScroll() {
-    //   const layoutTop = (this as any).$refs.layout.getBoundingClientRect().top
-    //   const dynamicTop = (this as any).$refs.dynamic.getBoundingClientRect().top
-    //   const questionTop = (this as any).$refs.question.getBoundingClientRect().top;
-    //   const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
-    //   const priceTop = (this as any).$refs.price.getBoundingClientRect().top;
-    //   // 150 距离顶部的距离
-    //   let top = 200;
-    //   if(this.isMobile) {
-    //     top = 150;
-    //   }
-    //   if (layoutTop < top ) {
-    //     this.topFlag = 'layout'
-    //   }
-    //   if (dynamicTop < top ) {
-    //     this.topFlag = 'dynamic'
-    //   }
-    //   if (questionTop < top ) {
-    //     this.topFlag = 'question'
-    //   }
-    //   if (aoroundTop < top ) {
-    //     this.topFlag = 'around';
-    //   }
-    //   if (priceTop < top ) {
-    //     this.topFlag = 'price'
-    //   }
-    // },
+    handleScroll() {
+      const layoutTop = (this as any).$refs.layout.getBoundingClientRect().top
+      const dynamicTop = (this as any).$refs.dynamic.getBoundingClientRect().top
+      const questionTop = (this as any).$refs.discuss.getBoundingClientRect().top;
+      const aoroundTop = (this as any).$refs.around.getBoundingClientRect().top;
+      const priceTop = (this as any).$refs.price.getBoundingClientRect().top;
+      const mationTop = (this as any).$refs.mation.getBoundingClientRect().top;
+      const videoTop = (this as any).$refs.video.getBoundingClientRect().top;
+      // 150 距离顶部的距离
+      let top = 200;
+      if(this.isMobile) {
+        top = 150;
+      }
+      if (layoutTop < top ) {
+        this.topFlag = 'layout'
+      }
+      if (mationTop < top ) {
+        this.topFlag = 'mation'
+      }
+      if (dynamicTop < top ) {
+        this.topFlag = 'dynamic'
+      }
+      if (questionTop < top ) {
+        this.topFlag = 'discuss'
+      }
+      if (aoroundTop < top ) {
+        this.topFlag = 'around';
+      }
+      if (priceTop < top ) {
+        this.topFlag = 'price'
+      }
+      if (videoTop < top ) {
+        this.topFlag = 'video'
+      }
+    },
     scrollLayoutRight() {
       let times = 288;
       if (this.isMobile) {
@@ -1283,6 +1400,9 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
 </script>
 
 <style scoped>
+.menu-ing {
+  @apply bg-fjBlue-100 text-white;
+}
 .amap-container >>> .amap-logo {
   z-index: 10 !important;
 }
@@ -1314,6 +1434,30 @@ questionTotal, option, phoneNum, isMobile, favorite, isMore: false, medicArray, 
 
 .m2-8 {
   @apply sm:mt-2 lg:mt-8;
+}
+
+.video {
+  @apply flex sm:flex-col sm:px-0 sm:space-y-4 mt-4 lg:grid lg:grid-cols-3 lg:justify-items-center;
+}
+
+.video .item {
+  @apply sm:w-full sm:h-48 lg:w-[298px] lg:h-[215px] lg:mb-4;
+}
+
+.video .item a {
+  @apply w-full h-full block relative;
+}
+
+.video .item a img {
+  @apply w-full h-full object-cover;
+}
+
+.video .item a div {
+  @apply bg-black absolute bottom-0 w-full object-cover flex flex-col px-2 bg-opacity-40 text-white;
+}
+
+.video .item a .play {
+  @apply absolute top-1/2 left-1/2 w-10 h-10 -ml-5 -mt-5;
 }
 
 </style>

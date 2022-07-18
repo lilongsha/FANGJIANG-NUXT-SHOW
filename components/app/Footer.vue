@@ -13,7 +13,7 @@
           <!-- 菜单主体 -->
           <div class="flex flex-row w-full sm:mt-2 mt-11">
             <div v-show="type === '0'" class="">
-              <a v-for="item in getHotProject" :key="item.id" class="inline-block text-white sm:mb-1 sm:mr-2 lg:mb-8 lg:mr-20" rel="nofollow" target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a>
+              <a v-for="item in getHotProject" :key="item.id" class="inline-block text-white sm:mb-1 sm:mr-2 lg:mb-8 lg:mr-20" target="_blank" :href="`/house/${item.id}.html`">{{ item.name }}</a>
             </div>
             <div v-show="type === '1'">
               <a v-for="item in getLink" :key="item.id" target="_blank" class="inline-block text-white sm:mb-1 sm:mr-2 lg:mb-8 lg:mr-20" :href="item.address">{{ item.title }}</a>

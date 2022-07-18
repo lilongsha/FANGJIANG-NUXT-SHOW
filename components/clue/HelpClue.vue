@@ -42,7 +42,7 @@
                 <ClueLeaveClue v-show="step === 4" class="absolute z-[60] w-full h-full" :city="cityId"  :activity-id="activityId"  :look="look" :project-id="projectId" :clue-type="'3'" :demand="value.toString()" @isOpen="$emit('isOpen')" />
                 <div class=" mt-6 text-fjBlue-100 text-[14px]">
                     <!--  lg:hidden -->
-                    <span v-if="!getIsMobile" class="w-full">
+                    <span v-if="getIsMobile" class="w-full">
                         <Select v-model="value"
                             style="width: 100%"
                             size="default"

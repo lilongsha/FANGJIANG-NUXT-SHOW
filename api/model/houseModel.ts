@@ -203,6 +203,17 @@ export const houseMenu: any[] = [
   {title: '历史价格', value: 'price'},
 ]
 
+export const houseMenuMain: any[] = [
+  // {title: '楼盘首页', value: 'house'},
+  // {title: '楼盘户型', value: 'layout'},
+  // {title: '楼盘详情', value: 'mation'},
+  {title: '楼盘动态', value: 'dynamic'},
+  {title: '楼盘问答', value: 'discuss'},
+  {title: '楼盘周边', value: 'around'},
+  {title: '历史价格', value: 'price'},
+  {title: '楼盘视频', value: 'video'},
+]
+
 // 1毛坯；2简装；3精装；4毛坯与简装；5毛坯与精装
 export const decorationType: any = {
   1: {title: '毛坯', value: '1'},

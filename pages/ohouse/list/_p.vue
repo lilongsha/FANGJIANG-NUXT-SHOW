@@ -402,7 +402,9 @@
                   <h3 class="h-full mb-0 lg:text-[20px] font-bold text-black hover:text-fjBlue-100" style="overflow: hidden;display: -webkit-box; text-overflow: ellipsis;-webkit-line-clamp: 1;word-break: break-all;-webkit-box-orient: vertical;">{{ item.title }}</h3>
                   </div>
                   <div class="text-right" @click.stop="stopA">
-                      <img src="~/assets/img/list/white.png" alt="" @click="addFav(item.id)">
+                      
+                      <img v-if="isFavorite && isFavorite.includes(item.id)" src="~/assets/img/list/red.png" alt="" @click="delFav(item)">
+                      <img v-else src="~/assets/img/list/white.png" alt="" @click="addFav(item)">
                   </div>
                   </div>
                   <div class="lg:text-[14px] sm:text-[12px] flex flex-row text-[#999999] lg:mt-3 items-center">
@@ -860,6 +862,9 @@ export default Vue.extend({
           result = await this.$axios.$post(CurrentApi.AddFavoriteProject, param)
           if (result?.code === 200) {
             message.success({ content: '关注成功', duration: 3})
+            if (!this.isFavorite) {
+              this.isFavorite = []
+            }
             this.isFavorite.push(house.id)
           }
         } catch (error) {
@@ -1042,6 +1047,7 @@ export default Vue.extend({
           this.projectList = getDataResult(result)
           this.pageNum = result.data.page.number + 1;
           this.total = result.data.page.totalElements;
+          this.isFavorite = result.data?.favorite || [];
         }
       } catch (e) {}
       finally {
